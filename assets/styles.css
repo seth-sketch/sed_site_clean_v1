@@ -1,142 +1,88 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Seth Easter — Selected Work</title>
-  <!-- bump the query string when you deploy to bust cache -->
-  <link rel="stylesheet" href="assets/styles.css?v=hero-full-169">
-</head>
-<body>
-  <header class="header">
-    <div class="container nav">
-      <a class="brand" href="index.html" aria-label="Seth Easter Design">
-        <img class="brand-logo" src="assets/sed-logo-tight.svg" alt="Seth Easter Design">
-      </a>
-      <ul class="nav-links">
-        <li><a href="work/index.html">Work</a></li>
-        <li><a href="#press">Press</a></li>
-        <li><a href="#awards">Awards</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
-  </header>
+:root{
+  --bg:#f4f6fb;
+  --ink:#1f2937;
+  --muted:#6b7280;
+  --line:#e8edf5;
+  --brand:#3a51a3;
+  --container:1160px;
+  --radius:0px;
+  --shadow:0 1px 0 rgba(17,24,39,.02);
+  --header-h:112px;
+}
+*{box-sizing:border-box}
+html,body{
+  margin:0; padding:0; background:var(--bg); color:var(--ink);
+  font:16px/1.55 Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+}
+html{ scroll-padding-top: var(--header-h); }
+.container{max-width:var(--container);margin:0 auto;padding:22px}
+.header{position:sticky;top:0;z-index:10;background:#ffffffee;
+  -webkit-backdrop-filter:saturate(180%) blur(8px); backdrop-filter:saturate(180%) blur(8px);
+  border-bottom:1px solid var(--line)}
+.nav{ display:flex; align-items:flex-end; gap:16px; padding-top:12px; padding-bottom:18px; }
+.brand-logo{height:56px;width:auto;display:block}
+.nav-links{margin-left:auto; margin-right:8%; list-style:none; display:flex; gap:20px; padding:0}
+.nav-links a{ color:var(--brand); text-decoration:none; font-weight:700 }
 
-  <main class="container">
+.hero-grid{
+  display:grid; gap:18px; margin-top:16px;
+  grid-template-columns:1fr 1fr;
+  grid-template-areas:
+    "media media"
+    ".     copy";
+}
+.hero-media{ grid-area:media; }
+.hero-copy{ grid-area:copy; }
+@media (max-width:900px){
+  .hero-grid{ grid-template-columns:1fr; grid-template-areas:"media" "copy"; }
+}
 
-    <!-- HERO -->
-    <div class="hero-grid">
-      <!-- full-width slideshow (16:9) -->
-      <section class="hero-card hero ratio-169">
-        <div id="heroStage" class="se-slide-stage"></div>
-      </section>
+.hero-card{
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:#fff;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  display:flex; flex-direction:column;
+}
 
-      <!-- full-width copy directly under the slideshow -->
-      <section class="hero-card hero-text">
-        <h1>Broadcast &amp; Live Event Production Design</h1>
-        <p>Studios and stages for ABC News and beyond — Good Morning America,
-           World News Tonight, This Week, The View, Presidential Debates, and
-           Election coverage in studio and across the Nation.</p>
-        <p><strong>Seth Easter</strong> designs broadcast studios and live event
-           Productions across the world and is based in NYC. Multiple Emmys &amp;
-           an ADG award for work at ABC News and beyond.</p>
-      </section>
-    </div>
+.ratio-169{ aspect-ratio:16/9; width:100%; position:relative; overflow:hidden; }
+.ratio-169 > .se-slide-stage,
+.ratio-169 img, .ratio-169 video, .ratio-169 picture>img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
+}
+@supports not (aspect-ratio: 1/1){
+  .ratio-169{ padding-top:56.25%; }
+  .ratio-169>.se-slide-stage{ position:absolute; inset:0; }
+}
 
-    <!-- WORK -->
-    <section class="section" id="work">
-      <h2>Selected Work</h2>
-      <div class="band">
-        <div class="scroller" id="workScroller">
-          <div class="grid" id="grid"></div>
+.se-slide-stage{ padding:0; }
+.hero-text{padding:22px}
+.hero-text h1{font-size:44px;line-height:1.05;margin:0 0 6px;color:var(--brand)}
+.hero-text p{margin:8px 0;color:var(--muted);font-size:18px}
 
-          <!-- (optional) static examples after the dynamic grid -->
-          <article class="card">
-            <a class="cover" href="work/gma-2025.html">
-              <span class="ratio-169"><img src="assets/work/gma.jpg" alt=""></span>
-            </a>
-            <div class="footer">
-              <a href="work/gma-2025.html">Good Morning America — 2025 Studio Revamp</a>
-              <div class="meta">ABC News · 2025 · Production Designer</div>
-            </div>
-          </article>
+.section{padding:24px 0;border-top:1px solid var(--line)}
+.section h2{margin:0 0 10px;font-size:22px;color:var(--brand)}
 
-          <article class="card">
-            <a class="cover" href="work/this-week-4e.html">
-              <span class="ratio-169"><img src="assets/work/this-week.jpg" alt=""></span>
-            </a>
-            <div class="footer">
-              <a href="work/this-week-4e.html">This Week — NYC Studio (4E)</a>
-              <div class="meta">ABC News · 2025 · Production Designer</div>
-            </div>
-          </article>
-        </div>
-      </div>
-      <div style="margin-top:14px">
-        <a class="btn" href="work/index.html">Open full Work page</a>
-      </div>
-    </section>
+.band{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-block:10px;margin-top:8px}
+.scroller{height:clamp(520px,70vh,880px);overflow:auto;overscroll-behavior:contain;padding-right:4px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;min-height:200px}
+@media (max-width: 900px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr));} }
+@media (max-width: 620px){ .grid{grid-template-columns:1fr;} }
 
-    <!-- PRESS -->
-    <section class="section" id="press">
-      <h2>Press &amp; Features</h2>
-      <ul class="list">
-        <li><a href="https://www.newscaststudio.com/2025/06/14/gma-studio-2025/" target="_blank" rel="noopener">NewscastStudio: Inside the new ‘GMA’ studio</a></li>
-        <li><a href="https://www.newscaststudio.com/2025/03/10/abc-world-news-tonight-studio-hudson-square/" target="_blank" rel="noopener">NewscastStudio: WNT at Hudson Square</a></li>
-        <li><a href="https://www.newscaststudio.com/2025/02/04/abc-this-week-studio-4e/" target="_blank" rel="noopener">NewscastStudio: ‘This Week’ in Studio 4E</a></li>
-        <li><a href="https://www.adweek.com/tvnewser/good-morning-america-begins-broadcasts-from-new-7-hudson-square-home/" target="_blank" rel="noopener">TVNewser: ABC set tour / Hudson Square move</a></li>
-        <li><a href="https://www.newscaststudio.com/2024/09/16/abc-sept-10-debate-set-design/" target="_blank" rel="noopener">NewscastStudio: Debate stage design</a></li>
-      </ul>
-    </section>
+.card{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:var(--radius);
+  background:#fff;overflow:hidden;box-shadow:var(--shadow)}
+.card .cover{border-bottom:1px solid var(--line);padding:0}
+.card .cover .ratio-169{ width:100%; }
+.footer{padding:12px 14px}
+.footer a{display:block;font-weight:700;color:#1f6feb;text-decoration:none}
+.footer a:hover{text-decoration:underline}
+.meta{margin-top:4px;font-size:13px;color:var(--muted)}
 
-    <!-- AWARDS -->
-    <section class="section" id="awards">
-      <h2>Awards</h2>
-      <ul class="list">
-        <li><strong>News &amp; Documentary Emmy — Outstanding News Special (ABC News: “The President and the People”)</strong> · <em>Senior Producer (2017)</em> — <b>Winner</b></li>
-        <li><strong>Art Directors Guild — Excellence in Production Design (Awards/Music/Game Show): The 67th Annual Tony Awards</strong> · <em>Art Director (2014)</em> — <b>Winner</b></li>
-        <li><strong>Primetime Emmy — Outstanding Art Direction for Variety or Nonfiction Programming (65th Annual Tony Awards)</strong> · <em>Art Director (2012)</em> — <b>Winner</b></li>
-        <li><strong>Primetime Emmy — Outstanding Art Direction for Variety, Music or Nonfiction Programming (63rd Annual Tony Awards)</strong> · <em>Art Director (2010)</em> — <b>Nomination</b></li>
-      </ul>
-    </section>
+.btn{display:inline-block;background:#1f6feb;color:#fff;padding:10px 14px;border-radius:0;
+  font-weight:700;text-decoration:none;border:1px solid #1554c0}
+.btn:hover{filter:brightness(.98)}
 
-    <!-- CONTACT -->
-    <section class="section" id="contact">
-      <h2>Contact</h2>
-      <p>Email: <a href="mailto:info@your-domain.com">info@your-domain.com</a></p>
-    </section>
-  </main>
-
-  <footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
-
-  <!-- Slideshow images (data) -->
-  <script id="seSlidesJSON" type="application/json">[
-    "assets/hero/slide1.jpg",
-    "assets/hero/slide2.jpg",
-    "assets/hero/slide3.jpg"
-  ]</script>
-
-  <!-- JS -->
-  <script src="js/se-hero.js"></script>
-  <script src="js/home-grid.js"></script>
-
-  <!-- tiny inline helper for the hero if you’re using it -->
-  <script>
-    (function(){
-      var jsonEl = document.getElementById('seSlidesJSON');
-      if (!jsonEl) return;
-      var slides = [];
-      try { slides = JSON.parse(jsonEl.textContent || jsonEl.innerText || '[]'); } catch(e){}
-      var i = 0, stage = document.getElementById('heroStage');
-      if (!stage || !slides.length) return;
-
-      function show() {
-        stage.innerHTML = '<img src="'+ slides[i] +'" alt="">';
-        i = (i + 1) % slides.length;
-      }
-      show();
-      setInterval(show, 4000);
-    })();
-  </script>
-</body>
-</html>
+.list{list-style:disc;padding-left:20px;margin:0}
+.list li{margin:6px 0}
+.footer-site{padding:28px 0 40px;color:var(--muted);text-align:center;font-size:13px}
