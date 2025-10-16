@@ -1,0 +1,54 @@
+[
+  {
+    "slug": "gma-studio",
+    "title": "GMA \u2014 Studio",
+    "org": "ABC News",
+    "year": 2025,
+    "role": "Production Designer",
+    "images": [
+      "assets/thumbs/thumb1.jpg",
+      "assets/thumbs/thumb2.jpg",
+      "assets/thumbs/thumb3.jpg"
+    ],
+    "description": "Design and execution of the latest Good Morning America studio."
+  },
+  {
+    "slug": "world-news-tonight",
+    "title": "World News Tonight",
+    "org": "ABC News",
+    "year": 2025,
+    "role": "Production Designer",
+    "images": [
+      "assets/thumbs/thumb4.jpg",
+      "assets/thumbs/thumb5.jpg",
+      "assets/thumbs/thumb6.jpg"
+    ],
+    "description": "Set design updates and on-location special broadcasts."
+  },
+  {
+    "slug": "this-week-4e",
+    "title": "This Week \u2014 Studio 4E",
+    "org": "ABC News",
+    "year": 2025,
+    "role": "Production Designer",
+    "images": [
+      "assets/thumbs/thumb7.jpg",
+      "assets/thumbs/thumb8.jpg",
+      "assets/thumbs/thumb9.jpg"
+    ],
+    "description": "Studio transformation for dynamic panel conversations."
+  },
+  {
+    "slug": "the-view-hudson",
+    "title": "The View \u2014 Hudson Square",
+    "org": "ABC News",
+    "year": 2025,
+    "role": "Production Designer",
+    "images": [
+      "assets/thumbs/thumb10.jpg",
+      "assets/thumbs/thumb11.jpg",
+      "assets/thumbs/thumb12.jpg"
+    ],
+    "description": "Revamp to support audience and musical performances."
+  }
+]
