@@ -122,3 +122,34 @@ html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
 .ratio-169{ position: relative; }
 .se-slide-stage img{ pointer-events: none; }   /* images won't intercept mouse/scroll outside their box */
 .hero-text{ padding-top: 10px; }   /* nudge the Broadcast text down a hair */
+/* --- force sharp corners everywhere --- */
+:root{ --radius: 0px; }
+
+.hero-card,
+.card,
+.cover,
+.header,
+.btn{
+  border-radius: 0 !important;
+}
+
+/* make sure the scroller + grid render */
+.band{ border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding-block:10px; margin-top:8px; }
+.scroller{ height:clamp(520px,70vh,880px); overflow:auto; overscroll-behavior:contain; padding-right:4px; }
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px;
+  min-height: 200px;        /* ensures something shows even before JS */
+}
+@media (max-width: 900px){ .grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width: 620px){ .grid{ grid-template-columns:1fr; } }
+
+/* card media stays true 16:9 */
+.card .cover{ border-bottom:1px solid var(--line); padding:0; }
+.ratio-169{ aspect-ratio:16/9; width:100%; position:relative; overflow:hidden; }
+.ratio-169>img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+@supports not (aspect-ratio: 1 / 1){
+  .ratio-169{ padding-top:56.25%; }
+  .ratio-169>img{ position:absolute; }
+}
