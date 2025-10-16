@@ -4,7 +4,24 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Seth Easter — Selected Work</title>
-  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/styles.css?v=fix-hero-169">
+  <style>
+    /* --- minimal layout fixes to avoid editing your main CSS --- */
+    .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:16px}
+    /* slideshow spans both cols on row 1 */
+    .hero-media{grid-column:1 / -1;}
+    /* copy sits on right half beneath hero (no spacer element needed) */
+    .hero-copy{grid-column:2;}
+    @media (max-width:900px){ .hero-copy{grid-column:1 / -1;} }
+
+    /* make the slideshow a strict 16:9 and ensure image/video covers */
+    .ratio-169{aspect-ratio:16 / 9; width:100%; position:relative; overflow:hidden}
+    .ratio-169 > .se-slide-stage,
+    .ratio-169 img,
+    .ratio-169 video,
+    .ratio-169 picture > img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block}
+    @supports not (aspect-ratio:1/1){ .ratio-169{padding-top:56.25%} .ratio-169 > .se-slide-stage{position:absolute; inset:0} }
+  </style>
 </head>
 <body>
   <header class="header">
@@ -22,56 +39,57 @@
   </header>
 
   <main class="container">
-<!-- HERO (media spans full width on row 1, copy sits under on the right) -->
-<div class="hero-grid hero-layout-top">
-  <!-- full-width slideshow -->
-  <div class="hero-card hero-media">
-    <div class="ratio-169">
-      <div id="heroStage" class="se-slide-stage"></div>
+
+    <!-- HERO -->
+    <div class="hero-grid">
+      <!-- full-width slideshow (row 1) -->
+      <section class="hero-card hero-media">
+        <div class="ratio-169">
+          <div id="heroStage" class="se-slide-stage"></div>
+        </div>
+      </section>
+
+      <!-- copy on right half under the slideshow (row 2) -->
+      <section class="hero-card hero-copy">
+        <div class="hero-text">
+          <h1>Broadcast &amp; Live Event Production Design</h1>
+          <p>Studios and stages for ABC News and beyond — Good Morning America,
+            World News Tonight, This Week, The View, Presidential Debates, and
+            Election coverage in studio and across the Nation.</p>
+          <p><strong>Seth Easter</strong> designs broadcast studios and live event
+            Productions across the world and is based in NYC. Multiple Emmys &amp;
+            an ADG award for work at ABC News and beyond.</p>
+        </div>
+      </section>
     </div>
-  </div>
 
-  <!-- empty spacer column under the slideshow (left) -->
-  <div class="hero-spacer" aria-hidden="true"></div>
-
-  <!-- copy box under the slideshow (right) -->
-  <div class="hero-card hero-copy">
-    <div class="hero-text">
-      <h1>Broadcast &amp; Live Event Production Design</h1>
-      <p>Studios and stages for ABC News and beyond — Good Morning America,
-         World News Tonight, This Week, The View, Presidential Debates, and
-         Election coverage in studio and across the Nation.</p>
-      <p><strong>Seth Easter</strong> designs broadcast studios and live event
-         Productions across the world and is based in NYC. Multiple Emmys &amp;
-         an ADG award for work at ABC News and beyond.</p>
-    </div>
-  </div>
-</div>
-
+    <!-- WORK -->
     <section class="section" id="work">
       <h2>Selected Work</h2>
       <div class="band">
         <div class="scroller" id="workScroller">
           <div class="grid" id="grid"></div>
-			<article class="card">
-  <a class="cover" href="work/gma-2025.html">
-    <span class="ratio-169"><img src="assets/work/gma.jpg" alt=""></span>
-  </a>
-  <div class="footer">
-    <a href="work/gma-2025.html">Good Morning America — 2025 Studio Revamp</a>
-    <div class="meta">ABC News · 2025 · Production Designer</div>
-  </div>
-</article>
 
-<article class="card">
-  <a class="cover" href="work/this-week-4e.html">
-    <span class="ratio-169"><img src="assets/work/this-week.jpg" alt=""></span>
-  </a>
-  <div class="footer">
-    <a href="work/this-week-4e.html">This Week — NYC Studio (4E)</a>
-    <div class="meta">ABC News · 2025 · Production Designer</div>
-  </div>
-</article>
+          <!-- optional static examples after the dynamic grid -->
+          <article class="card">
+            <a class="cover" href="work/gma-2025.html">
+              <span class="ratio-169"><img src="assets/work/gma.jpg" alt=""></span>
+            </a>
+            <div class="footer">
+              <a href="work/gma-2025.html">Good Morning America — 2025 Studio Revamp</a>
+              <div class="meta">ABC News · 2025 · Production Designer</div>
+            </div>
+          </article>
+
+          <article class="card">
+            <a class="cover" href="work/this-week-4e.html">
+              <span class="ratio-169"><img src="assets/work/this-week.jpg" alt=""></span>
+            </a>
+            <div class="footer">
+              <a href="work/this-week-4e.html">This Week — NYC Studio (4E)</a>
+              <div class="meta">ABC News · 2025 · Production Designer</div>
+            </div>
+          </article>
         </div>
       </div>
       <div style="margin-top:14px">
@@ -79,6 +97,7 @@
       </div>
     </section>
 
+    <!-- PRESS -->
     <section class="section" id="press">
       <h2>Press &amp; Features</h2>
       <ul class="list">
@@ -90,6 +109,7 @@
       </ul>
     </section>
 
+    <!-- AWARDS -->
     <section class="section" id="awards">
       <h2>Awards</h2>
       <ul class="list">
@@ -100,6 +120,7 @@
       </ul>
     </section>
 
+    <!-- CONTACT -->
     <section class="section" id="contact">
       <h2>Contact</h2>
       <p>Email: <a href="mailto:info@your-domain.com">info@your-domain.com</a></p>
@@ -108,30 +129,29 @@
 
   <footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
 
+  <!-- Slideshow images -->
   <script id="seSlidesJSON" type="application/json">[
     "assets/hero/slide1.jpg",
     "assets/hero/slide2.jpg",
     "assets/hero/slide3.jpg"
   ]</script>
 
+  <!-- JS -->
   <script src="js/se-hero.js"></script>
   <script src="js/home-grid.js"></script>
-	<script>
-  (function(){
-    var jsonEl = document.getElementById('seSlidesJSON');
-    if (!jsonEl) return;
-    var slides = [];
-    try { slides = JSON.parse(jsonEl.textContent || jsonEl.innerText || '[]'); } catch(e){}
-    var i = 0, stage = document.getElementById('heroStage');
-    if (!stage || !slides.length) return;
 
-    function show() {
-      stage.innerHTML = '<img src="'+ slides[i] +'" alt="" />';
-      i = (i + 1) % slides.length;
-    }
-    show();
-    setInterval(show, 4000);
-  })();
-</script>
+  <!-- tiny inline fallback for the hero (safe if se-hero.js already runs) -->
+  <script>
+    (function(){
+      var jsonEl = document.getElementById('seSlidesJSON');
+      if (!jsonEl) return;
+      var slides = [];
+      try { slides = JSON.parse(jsonEl.textContent || jsonEl.innerText || '[]'); } catch(e){}
+      var i = 0, stage = document.getElementById('heroStage');
+      if (!stage || !slides.length) return;
+      function show(){ stage.innerHTML = '<img src="'+slides[i]+'" alt="">'; i = (i+1)%slides.length; }
+      show(); setInterval(show, 4000);
+    })();
+  </script>
 </body>
 </html>
