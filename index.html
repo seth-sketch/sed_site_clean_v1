@@ -2,46 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Seth Easter — Selected Work</title>
-  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/styles.css" />
 
-  <!-- Layout override: copy spans full width under the hero -->
+  <!-- Small overrides to guarantee the hero + copy layout and visible grid -->
   <style>
-    /* hero: slideshow full width, copy full width below */
-    .hero-grid.hero-layout-wide{
+    /* Long skinny copy band under the full-width hero */
+    .hero-grid.hero-layout-band{
       display:grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
       gap:18px;
-      grid-template-columns:1fr 1fr;
-      grid-template-areas:
-        "media media"
-        "copy  copy";
       margin-top:16px;
     }
-    .hero-media{ grid-area: media; }
-    .hero-copy{  grid-area: copy; }
+    .hero-grid.hero-layout-band .hero-media{ grid-column: 1 / -1; }
+    .hero-grid.hero-layout-band .hero-copy { grid-column: 1 / -1; }
 
-    /* make the copy feel like a long, slim info bar */
-    .hero-copy .hero-text{ padding:20px 22px; }
-    .hero-copy .hero-text h1{ font-size:42px; line-height:1.08; margin:0 0 8px; }
-    .hero-copy .hero-text p{ margin:8px 0; }
-
-    /* stack on small screens */
-    @media (max-width: 900px){
-      .hero-grid.hero-layout-wide{
-        grid-template-columns:1fr;
-        grid-template-areas:
-          "media"
-          "copy";
-      }
+    /* 16:9 helper (in case your CSS doesn’t already have it) */
+    .ratio-169{ aspect-ratio:16/9; width:100%; position:relative; overflow:hidden; }
+    .ratio-169 > img, .ratio-169 > video, .ratio-169 > picture > img{
+      position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
     }
+    @supports not (aspect-ratio: 1 / 1){ .ratio-169{ padding-top:56.25%; } .ratio-169 > img{ position:absolute; } }
+
+    /* Make sure the grid renders even before you style more */
+    .grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+    @media (max-width: 900px){ .grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    @media (max-width: 620px){ .grid{ grid-template-columns:1fr; } }
+    .card{ display:flex; flex-direction:column; border:1px solid var(--line,#e8edf5); background:#fff; overflow:hidden; }
+    .card .cover{ border-bottom:1px solid var(--line,#e8edf5); }
+    .footer{ padding:12px 14px; }
+    .footer a{ display:block; font-weight:700; color:#1f6feb; text-decoration:none; }
+    .footer .meta{ margin-top:4px; color:#6b7280; font-size:13px; }
+
+    /* Slight site gray so cards pop (you asked for that) */
+    html,body{ background:#f7f8fb; }
   </style>
 </head>
 <body>
   <header class="header">
     <div class="container nav">
       <a class="brand" href="index.html" aria-label="Seth Easter Design">
-        <img class="brand-logo" src="assets/sed-logo-tight.svg" alt="Seth Easter Design">
+        <!-- your correct logo path -->
+        <img class="brand-logo" src="assets/sed-logo-tight.svg" alt="Seth Easter Design" />
       </a>
       <ul class="nav-links">
         <li><a href="work/index.html">Work</a></li>
@@ -54,23 +58,25 @@
 
   <main class="container">
 
-    <!-- HERO: slideshow full width, copy full width beneath -->
-    <div class="hero-grid hero-layout-wide">
+    <!-- HERO (full width) + long skinny copy band underneath -->
+    <div class="hero-grid hero-layout-band">
+      <!-- full width slideshow -->
       <div class="hero-card hero-media">
         <div class="ratio-169">
           <div id="heroStage" class="se-slide-stage"></div>
         </div>
       </div>
 
+      <!-- copy band (full width) -->
       <div class="hero-card hero-copy">
         <div class="hero-text">
           <h1>Broadcast &amp; Live Event Production Design</h1>
           <p>Studios and stages for ABC News and beyond — Good Morning America,
-            World News Tonight, This Week, The View, Presidential Debates, and
-            Election coverage in studio and across the Nation.</p>
+             World News Tonight, This Week, The View, Presidential Debates, and
+             Election coverage in studio and across the Nation.</p>
           <p><strong>Seth Easter</strong> designs broadcast studios and live event
-            Productions across the world and is based in NYC. Multiple Emmys &amp;
-            an ADG award for work at ABC News and beyond.</p>
+             Productions across the world and is based in NYC. Multiple Emmys &amp;
+             an ADG award for work at ABC News and beyond.</p>
         </div>
       </div>
     </div>
@@ -93,6 +99,7 @@
         <li><a href="https://www.newscaststudio.com/2025/06/14/gma-studio-2025/" target="_blank" rel="noopener">NewscastStudio: Inside the new ‘GMA’ studio</a></li>
         <li><a href="https://www.newscaststudio.com/2025/03/10/abc-world-news-tonight-studio-hudson-square/" target="_blank" rel="noopener">NewscastStudio: WNT at Hudson Square</a></li>
         <li><a href="https://www.newscaststudio.com/2025/02/04/abc-this-week-studio-4e/" target="_blank" rel="noopener">NewscastStudio: ‘This Week’ in Studio 4E</a></li>
+        <li><a href="https://www.adweek.com/tvnewser/good-morning-america-begins-broadcasts-from-new-7-hudson-square-home/" target="_blank" rel="noopener">TVNewser: ABC set tour / Hudson Square move</a></li>
         <li><a href="https://www.newscaststudio.com/2024/09/16/abc-sept-10-debate-set-design/" target="_blank" rel="noopener">NewscastStudio: Debate stage design</a></li>
       </ul>
     </section>
@@ -122,29 +129,77 @@
     "assets/hero/slide3.jpg"
   ]</script>
 
-  <!-- Work tiles (edit or replace with your real items) -->
+  <!-- Fallback project data (used if assets/work.json isn't reachable yet) -->
   <script id="workData" type="application/json">[
     {
-      "title":"Good Morning America — 2025 Studio Revamp",
-      "thumb":"assets/work/gma.jpg",
-      "href":"work/gma-2025.html",
-      "meta":"ABC News · 2025 · Production Designer"
+      "slug": "gma-2025",
+      "title": "Good Morning America — 2025 Studio Revamp",
+      "meta": "ABC News · 2025 · Production Designer",
+      "thumb": "assets/work/gma.jpg"
     },
     {
-      "title":"This Week — NYC Studio (4E)",
-      "thumb":"assets/work/this-week.jpg",
-      "href":"work/this-week-4e.html",
-      "meta":"ABC News · 2025 · Production Designer"
+      "slug": "this-week-4e",
+      "title": "This Week — NYC Studio (4E)",
+      "meta": "ABC News · 2025 · Production Designer",
+      "thumb": "assets/work/this-week.jpg"
     },
     {
-      "title":"World News Tonight",
-      "thumb":"assets/work/wnt.jpg",
-      "href":"work/world-news-tonight.html",
-      "meta":"ABC News · 2025 · Production Designer"
+      "slug": "world-news-tonight",
+      "title": "World News Tonight",
+      "meta": "ABC News · 2025 · Production Designer",
+      "thumb": "assets/work/wnt.jpg"
     }
   ]</script>
 
-  <script src="js/se-hero.js"></script>
-  <script src="js/home-grid.js"></script>
+  <script>
+    /* Simple hero slideshow */
+    (function(){
+      var jsonEl = document.getElementById('seSlidesJSON');
+      if (!jsonEl) return;
+      var slides = [];
+      try { slides = JSON.parse(jsonEl.textContent || jsonEl.innerText || '[]'); } catch(e){}
+      var i = 0, stage = document.getElementById('heroStage');
+      if (!stage || !slides.length) return;
+
+      function show() {
+        stage.innerHTML = '<img src="'+ slides[i] +'" alt="" />';
+        i = (i + 1) % slides.length;
+      }
+      show();
+      setInterval(show, 4000);
+    })();
+
+    /* Build Selected Work grid (fetch work.json, fallback to embedded) */
+    (async function(){
+      const grid = document.getElementById('grid');
+      if (!grid) return;
+
+      async function loadJson() {
+        try {
+          const r = await fetch('assets/work.json', {cache:'no-store'});
+          if (!r.ok) throw 0;
+          return await r.json();
+        } catch(e) {
+          const el = document.getElementById('workData');
+          try { return JSON.parse(el.textContent || el.innerText || '[]'); }
+          catch(e2){ return []; }
+        }
+      }
+
+      const items = await loadJson();
+
+      grid.innerHTML = items.map(item => `
+<article class="card">
+  <a class="cover" href="work/project.html?p=${encodeURIComponent(item.slug)}">
+    <span class="ratio-169"><img src="${item.thumb}" alt=""></span>
+  </a>
+  <div class="footer">
+    <a href="work/project.html?p=${encodeURIComponent(item.slug)}">${item.title}</a>
+    <div class="meta">${item.meta || ''}</div>
+  </div>
+</article>
+      `).join('');
+    })();
+  </script>
 </body>
 </html>
