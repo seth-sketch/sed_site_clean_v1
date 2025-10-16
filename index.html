@@ -2,32 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Seth Easter — Selected Work</title>
-  <link rel="stylesheet" href="assets/styles.css?v=fix-hero-169">
-  <style>
-    /* --- minimal layout fixes to avoid editing your main CSS --- */
-    .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:16px}
-    /* slideshow spans both cols on row 1 */
-    .hero-media{grid-column:1 / -1;}
-    /* copy sits on right half beneath hero (no spacer element needed) */
-    .hero-copy{grid-column:2;}
-    @media (max-width:900px){ .hero-copy{grid-column:1 / -1;} }
 
-    /* make the slideshow a strict 16:9 and ensure image/video covers */
-    .ratio-169{aspect-ratio:16 / 9; width:100%; position:relative; overflow:hidden}
+  <!-- Your main stylesheet (keep) -->
+  <link rel="stylesheet" href="assets/styles.css">
+
+  <!-- Small, safe overrides (colors, 16:9, layout nudges) -->
+  <style>
+    :root{
+      /* slightly gray background so cards pop */
+      --bg:#f4f6fb;
+      /* force square corners sitewide */
+      --radius:0px;
+      /* brand blue to match the vertical bar in your logo */
+      --brand:#3a51a3;
+    }
+    html,body{ background:var(--bg); }
+    /* top nav link color + slight nudge */
+    .nav-links{ margin-left:auto; margin-right:8%; }
+    .nav-links a{ color:var(--brand); font-weight:700; text-decoration:none; }
+
+    /* HERO grid: 2 columns desktop; slideshow full-width row 1; copy sits right on row 2 */
+    .hero-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:16px; }
+    .hero-media{ grid-column:1 / -1; }     /* slideshow spans both columns */
+    .hero-copy { grid-column:2; }           /* copy sits under on the right */
+    @media (max-width:900px){
+      .hero-grid{ grid-template-columns:1fr; }
+      .hero-copy{ grid-column:1 / -1; }
+    }
+
+    /* Strict 16:9 frame and cover fill */
+    .ratio-169{ aspect-ratio:16/9; width:100%; position:relative; overflow:hidden; }
     .ratio-169 > .se-slide-stage,
-    .ratio-169 img,
-    .ratio-169 video,
-    .ratio-169 picture > img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block}
-    @supports not (aspect-ratio:1/1){ .ratio-169{padding-top:56.25%} .ratio-169 > .se-slide-stage{position:absolute; inset:0} }
+    .ratio-169 img, .ratio-169 video, .ratio-169 picture > img{
+      position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
+    }
+    @supports not (aspect-ratio:1/1){
+      .ratio-169{ padding-top:56.25%; }
+      .ratio-169 > .se-slide-stage{ position:absolute; inset:0; }
+    }
+
+    /* Make sure the work band scrolls when filled */
+    .scroller{ overflow:auto; overscroll-behavior:contain; }
+
+    /* Optional: headings colored like brand bar */
+    .section h2, .hero-text h1{ color:var(--brand); }
   </style>
 </head>
 <body>
+  <!-- Header / brand + nav -->
   <header class="header">
     <div class="container nav">
       <a class="brand" href="index.html" aria-label="Seth Easter Design">
-        <img class="brand-logo" src="assets/sed-logo-tight.svg" alt="Seth Easter Design">
+        <!-- Prefer the tight-cropped SVG; fallback JPEG included -->
+        <picture>
+          <source srcset="assets/sed-logo-tight.svg" type="image/svg+xml">
+          <img class="brand-logo" src="assets/sed-logo-tight.jpeg" alt="Seth Easter Design" />
+        </picture>
       </a>
       <ul class="nav-links">
         <li><a href="work/index.html">Work</a></li>
@@ -39,26 +71,25 @@
   </header>
 
   <main class="container">
-
     <!-- HERO -->
     <div class="hero-grid">
-      <!-- full-width slideshow (row 1) -->
+      <!-- row 1: full-width 16:9 slideshow -->
       <section class="hero-card hero-media">
         <div class="ratio-169">
           <div id="heroStage" class="se-slide-stage"></div>
         </div>
       </section>
 
-      <!-- copy on right half under the slideshow (row 2) -->
+      <!-- row 2: copy on the right -->
       <section class="hero-card hero-copy">
         <div class="hero-text">
           <h1>Broadcast &amp; Live Event Production Design</h1>
           <p>Studios and stages for ABC News and beyond — Good Morning America,
-            World News Tonight, This Week, The View, Presidential Debates, and
-            Election coverage in studio and across the Nation.</p>
+             World News Tonight, This Week, The View, Presidential Debates, and
+             Election coverage in studio and across the Nation.</p>
           <p><strong>Seth Easter</strong> designs broadcast studios and live event
-            Productions across the world and is based in NYC. Multiple Emmys &amp;
-            an ADG award for work at ABC News and beyond.</p>
+             Productions across the world and is based in NYC. Multiple Emmys &amp;
+             an ADG award for work at ABC News and beyond.</p>
         </div>
       </section>
     </div>
@@ -69,27 +100,6 @@
       <div class="band">
         <div class="scroller" id="workScroller">
           <div class="grid" id="grid"></div>
-
-          <!-- optional static examples after the dynamic grid -->
-          <article class="card">
-            <a class="cover" href="work/gma-2025.html">
-              <span class="ratio-169"><img src="assets/work/gma.jpg" alt=""></span>
-            </a>
-            <div class="footer">
-              <a href="work/gma-2025.html">Good Morning America — 2025 Studio Revamp</a>
-              <div class="meta">ABC News · 2025 · Production Designer</div>
-            </div>
-          </article>
-
-          <article class="card">
-            <a class="cover" href="work/this-week-4e.html">
-              <span class="ratio-169"><img src="assets/work/this-week.jpg" alt=""></span>
-            </a>
-            <div class="footer">
-              <a href="work/this-week-4e.html">This Week — NYC Studio (4E)</a>
-              <div class="meta">ABC News · 2025 · Production Designer</div>
-            </div>
-          </article>
         </div>
       </div>
       <div style="margin-top:14px">
@@ -129,28 +139,36 @@
 
   <footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
 
-  <!-- Slideshow images -->
+  <!-- Slideshow images (point at your 3 hero JPGs) -->
   <script id="seSlidesJSON" type="application/json">[
     "assets/hero/slide1.jpg",
     "assets/hero/slide2.jpg",
     "assets/hero/slide3.jpg"
   ]</script>
 
-  <!-- JS -->
+  <!-- Your existing scripts (keep) -->
   <script src="js/se-hero.js"></script>
   <script src="js/home-grid.js"></script>
 
-  <!-- tiny inline fallback for the hero (safe if se-hero.js already runs) -->
+  <!-- Safe fallback: rotates slides if se-hero.js is absent/early-errors -->
   <script>
     (function(){
       var jsonEl = document.getElementById('seSlidesJSON');
-      if (!jsonEl) return;
+      var stage  = document.getElementById('heroStage');
+      if (!jsonEl || !stage) return;
+      if (stage.querySelector('img, video, picture')) return; // don't double-run
+
       var slides = [];
       try { slides = JSON.parse(jsonEl.textContent || jsonEl.innerText || '[]'); } catch(e){}
-      var i = 0, stage = document.getElementById('heroStage');
-      if (!stage || !slides.length) return;
-      function show(){ stage.innerHTML = '<img src="'+slides[i]+'" alt="">'; i = (i+1)%slides.length; }
-      show(); setInterval(show, 4000);
+      if (!slides.length) return;
+
+      var i = 0;
+      function show(){
+        stage.innerHTML = '<img src="'+slides[i]+'" alt="">';
+        i = (i+1) % slides.length;
+      }
+      show();
+      setInterval(show, 4000);
     })();
   </script>
 </body>
