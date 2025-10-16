@@ -22,26 +22,56 @@
   </header>
 
   <main class="container">
-    <div class="hero-grid">
-      <div class="hero-card" id="heroSlideshow">
-        <div class="se-slide-stage">
-          <div class="ratio-169"></div>
-        </div>
-      </div>
-      <div class="hero-card">
-        <div class="hero-text">
-          <h1>Broadcast &amp; Live Event Production Design</h1>
-          <p>Studios and stages for ABC News and beyond — Good Morning America, World News Tonight, This Week, The View, Presidential Debates, and Election coverage in studio and across the Nation.</p>
-          <p><strong>Seth Easter</strong> designs broadcast studios and live event productions across the world and is based in NYC. Multiple Emmys &amp; an ADG award for work at ABC News and beyond.</p>
-        </div>
-      </div>
+<!-- HERO (media spans full width on row 1, copy sits under on the right) -->
+<div class="hero-grid hero-layout-top">
+  <!-- full-width slideshow -->
+  <div class="hero-card hero-media">
+    <div class="ratio-169">
+      <div id="heroStage" class="se-slide-stage"></div>
     </div>
+  </div>
+
+  <!-- empty spacer column under the slideshow (left) -->
+  <div class="hero-spacer" aria-hidden="true"></div>
+
+  <!-- copy box under the slideshow (right) -->
+  <div class="hero-card hero-copy">
+    <div class="hero-text">
+      <h1>Broadcast &amp; Live Event Production Design</h1>
+      <p>Studios and stages for ABC News and beyond — Good Morning America,
+         World News Tonight, This Week, The View, Presidential Debates, and
+         Election coverage in studio and across the Nation.</p>
+      <p><strong>Seth Easter</strong> designs broadcast studios and live event
+         Productions across the world and is based in NYC. Multiple Emmys &amp;
+         an ADG award for work at ABC News and beyond.</p>
+    </div>
+  </div>
+</div>
 
     <section class="section" id="work">
       <h2>Selected Work</h2>
       <div class="band">
         <div class="scroller" id="workScroller">
           <div class="grid" id="grid"></div>
+			<article class="card">
+  <a class="cover" href="work/gma-2025.html">
+    <span class="ratio-169"><img src="assets/work/gma.jpg" alt=""></span>
+  </a>
+  <div class="footer">
+    <a href="work/gma-2025.html">Good Morning America — 2025 Studio Revamp</a>
+    <div class="meta">ABC News · 2025 · Production Designer</div>
+  </div>
+</article>
+
+<article class="card">
+  <a class="cover" href="work/this-week-4e.html">
+    <span class="ratio-169"><img src="assets/work/this-week.jpg" alt=""></span>
+  </a>
+  <div class="footer">
+    <a href="work/this-week-4e.html">This Week — NYC Studio (4E)</a>
+    <div class="meta">ABC News · 2025 · Production Designer</div>
+  </div>
+</article>
         </div>
       </div>
       <div style="margin-top:14px">
@@ -86,5 +116,22 @@
 
   <script src="js/se-hero.js"></script>
   <script src="js/home-grid.js"></script>
+	<script>
+  (function(){
+    var jsonEl = document.getElementById('seSlidesJSON');
+    if (!jsonEl) return;
+    var slides = [];
+    try { slides = JSON.parse(jsonEl.textContent || jsonEl.innerText || '[]'); } catch(e){}
+    var i = 0, stage = document.getElementById('heroStage');
+    if (!stage || !slides.length) return;
+
+    function show() {
+      stage.innerHTML = '<img src="'+ slides[i] +'" alt="" />';
+      i = (i + 1) % slides.length;
+    }
+    show();
+    setInterval(show, 4000);
+  })();
+</script>
 </body>
 </html>
