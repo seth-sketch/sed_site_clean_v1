@@ -1,51 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Seth Easter — Selected Work</title>
-  <link rel="stylesheet" href="assets/styles.css" />
-
-  <!-- Small overrides to guarantee the hero + copy layout and visible grid -->
-  <style>
-    /* Long skinny copy band under the full-width hero */
-    .hero-grid.hero-layout-band{
-      display:grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: auto auto;
-      gap:18px;
-      margin-top:16px;
-    }
-    .hero-grid.hero-layout-band .hero-media{ grid-column: 1 / -1; }
-    .hero-grid.hero-layout-band .hero-copy { grid-column: 1 / -1; }
-
-    /* 16:9 helper (in case your CSS doesn’t already have it) */
-    .ratio-169{ aspect-ratio:16/9; width:100%; position:relative; overflow:hidden; }
-    .ratio-169 > img, .ratio-169 > video, .ratio-169 > picture > img{
-      position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
-    }
-    @supports not (aspect-ratio: 1 / 1){ .ratio-169{ padding-top:56.25%; } .ratio-169 > img{ position:absolute; } }
-
-    /* Make sure the grid renders even before you style more */
-    .grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
-    @media (max-width: 900px){ .grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
-    @media (max-width: 620px){ .grid{ grid-template-columns:1fr; } }
-    .card{ display:flex; flex-direction:column; border:1px solid var(--line,#e8edf5); background:#fff; overflow:hidden; }
-    .card .cover{ border-bottom:1px solid var(--line,#e8edf5); }
-    .footer{ padding:12px 14px; }
-    .footer a{ display:block; font-weight:700; color:#1f6feb; text-decoration:none; }
-    .footer .meta{ margin-top:4px; color:#6b7280; font-size:13px; }
-
-    /* Slight site gray so cards pop (you asked for that) */
-    html,body{ background:#f7f8fb; }
-  </style>
+  <link rel="preload" as="image" href="assets/hero/slide1.jpg">
+  <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
   <header class="header">
     <div class="container nav">
       <a class="brand" href="index.html" aria-label="Seth Easter Design">
-        <!-- your correct logo path -->
-        <img class="brand-logo" src="assets/sed-logo-tight.svg" alt="Seth Easter Design" />
+        <img class="brand-logo" src="assets/sed-logo-tight.svg" alt="Seth Easter Design">
       </a>
       <ul class="nav-links">
         <li><a href="work/index.html">Work</a></li>
@@ -58,34 +24,34 @@
 
   <main class="container">
 
-    <!-- HERO (full width) + long skinny copy band underneath -->
-    <div class="hero-grid hero-layout-band">
-      <!-- full width slideshow -->
-      <div class="hero-card hero-media">
-        <div class="ratio-169">
-          <div id="heroStage" class="se-slide-stage"></div>
-        </div>
+    <!-- Full-width 16:9 hero slideshow -->
+    <section aria-label="Featured">
+      <div class="ratio-169 hero-stage">
+        <div id="heroStage" class="se-slide-stage"></div>
       </div>
 
-      <!-- copy band (full width) -->
-      <div class="hero-card hero-copy">
-        <div class="hero-text">
-          <h1>Broadcast &amp; Live Event Production Design</h1>
-          <p>Studios and stages for ABC News and beyond — Good Morning America,
-             World News Tonight, This Week, The View, Presidential Debates, and
-             Election coverage in studio and across the Nation.</p>
-          <p><strong>Seth Easter</strong> designs broadcast studios and live event
-             Productions across the world and is based in NYC. Multiple Emmys &amp;
-             an ADG award for work at ABC News and beyond.</p>
-        </div>
+      <!-- Long, skinny copy card underneath -->
+      <div class="hero-copy-card">
+        <h1>Broadcast &amp; Live Event Production Design</h1>
+        <p>
+          Studios and stages for ABC News and beyond — Good Morning America,
+          World News Tonight, This Week, The View, Presidential Debates, and
+          Election coverage in studio and across the Nation.
+        </p>
+        <p>
+          <strong>Seth Easter</strong> designs broadcast studios and live event
+          productions across the world and is based in NYC. Multiple Emmys &amp; an
+          ADG award for work at ABC News and beyond.
+        </p>
       </div>
-    </div>
+    </section>
 
+    <!-- Selected Work (scrolling grid) -->
     <section class="section" id="work">
       <h2>Selected Work</h2>
       <div class="band">
-        <div class="scroller" id="workScroller">
-          <div class="grid" id="grid"></div>
+        <div class="scroller">
+          <div id="homeGrid" class="grid"></div>
         </div>
       </div>
       <div style="margin-top:14px">
@@ -122,84 +88,14 @@
 
   <footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
 
-  <!-- Slides for the hero -->
+  <!-- Hero slides -->
   <script id="seSlidesJSON" type="application/json">[
     "assets/hero/slide1.jpg",
     "assets/hero/slide2.jpg",
     "assets/hero/slide3.jpg"
   ]</script>
 
-  <!-- Fallback project data (used if assets/work.json isn't reachable yet) -->
-  <script id="workData" type="application/json">[
-    {
-      "slug": "gma-2025",
-      "title": "Good Morning America — 2025 Studio Revamp",
-      "meta": "ABC News · 2025 · Production Designer",
-      "thumb": "assets/work/gma.jpg"
-    },
-    {
-      "slug": "this-week-4e",
-      "title": "This Week — NYC Studio (4E)",
-      "meta": "ABC News · 2025 · Production Designer",
-      "thumb": "assets/work/this-week.jpg"
-    },
-    {
-      "slug": "world-news-tonight",
-      "title": "World News Tonight",
-      "meta": "ABC News · 2025 · Production Designer",
-      "thumb": "assets/work/wnt.jpg"
-    }
-  ]</script>
-
-  <script>
-    /* Simple hero slideshow */
-    (function(){
-      var jsonEl = document.getElementById('seSlidesJSON');
-      if (!jsonEl) return;
-      var slides = [];
-      try { slides = JSON.parse(jsonEl.textContent || jsonEl.innerText || '[]'); } catch(e){}
-      var i = 0, stage = document.getElementById('heroStage');
-      if (!stage || !slides.length) return;
-
-      function show() {
-        stage.innerHTML = '<img src="'+ slides[i] +'" alt="" />';
-        i = (i + 1) % slides.length;
-      }
-      show();
-      setInterval(show, 4000);
-    })();
-
-    /* Build Selected Work grid (fetch work.json, fallback to embedded) */
-    (async function(){
-      const grid = document.getElementById('grid');
-      if (!grid) return;
-
-      async function loadJson() {
-        try {
-          const r = await fetch('assets/work.json', {cache:'no-store'});
-          if (!r.ok) throw 0;
-          return await r.json();
-        } catch(e) {
-          const el = document.getElementById('workData');
-          try { return JSON.parse(el.textContent || el.innerText || '[]'); }
-          catch(e2){ return []; }
-        }
-      }
-
-      const items = await loadJson();
-
-      grid.innerHTML = items.map(item => `
-<article class="card">
-  <a class="cover" href="work/project.html?p=${encodeURIComponent(item.slug)}">
-    <span class="ratio-169"><img src="${item.thumb}" alt=""></span>
-  </a>
-  <div class="footer">
-    <a href="work/project.html?p=${encodeURIComponent(item.slug)}">${item.title}</a>
-    <div class="meta">${item.meta || ''}</div>
-  </div>
-</article>
-      `).join('');
-    })();
-  </script>
+  <script src="js/se-hero.js"></script>
+  <script src="js/home-grid.js"></script>
 </body>
 </html>

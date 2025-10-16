@@ -1,26 +1,21 @@
-(function(){
-  var grid = document.getElementById('grid');
-  if (!grid) return;
-
-  var inline = document.getElementById('workData');
-  var items = [];
-  if (inline) {
-    try { items = JSON.parse(inline.textContent || inline.innerText || '[]'); } catch(e){}
+(async function(){
+  const res = await fetch('assets/work.json');
+  if (!res.ok) return;
+  const data = await res.json();
+  function card(p){
+    return `
+<article class="card">
+  <a class="cover" href="project.html?slug=${encodeURIComponent(p.slug)}">
+    <span class="ratio-169"><img src="${p.cover}" alt=""></span>
+  </a>
+  <div class="footer">
+    <a href="project.html?slug=${encodeURIComponent(p.slug)}">${p.title}</a>
+    <div class="meta">${[p.client, p.year, p.role].filter(Boolean).join(' · ')}</div>
+  </div>
+</article>`;
   }
-
-  function cardHTML(i){
-    return (
-      '<article class="card">'+
-        '<a class="cover" href="'+ i.href +'">'+
-          '<span class="ratio-169"><img src="'+ i.img +'" alt=""></span>'+
-        '</a>'+
-        '<div class="footer">'+
-          '<a href="'+ i.href +'">'+ i.title +'</a>'+
-          '<div class="meta">'+ (i.meta||'') +'</div>'+
-        '</div>'+
-      '</article>'
-    );
-  }
-
-  grid.innerHTML = items.map(cardHTML).join('');
+  const homeGrid = document.getElementById('homeGrid');
+  if (homeGrid) homeGrid.innerHTML = data.slice(0, 9).map(card).join('');
+  const workGrid = document.getElementById('workGrid');
+  if (workGrid) workGrid.innerHTML = data.map(card).join('');
 })();
