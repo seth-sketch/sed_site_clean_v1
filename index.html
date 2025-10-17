@@ -46,18 +46,19 @@
       </div>
     </section>
 
-    <!-- Selected Work (scrolling grid) -->
-    <section class="section" id="work">
-      <h2>Selected Work</h2>
-      <div class="band">
-        <div class="scroller">
-          <div id="homeGrid" class="grid"></div>
-        </div>
-      </div>
-      <div style="margin-top:14px">
-        <a class="btn" href="work/index.html">Open full Work page</a>
-      </div>
-    </section>
+  <!-- Selected Work -->
+<section class="section" id="work">
+  <h2>Selected Work</h2>
+  <div class="band">
+    <div class="scroller">
+      <div id="homeGrid" class="grid"></div>
+      <div id="gridSentinel" aria-hidden="true"></div>
+    </div>
+  </div>
+  <div style="margin-top:14px">
+    <a class="btn" href="work/index.html">Open full Work page</a>
+  </div>
+</section>
 
     <section class="section" id="press">
       <h2>Press &amp; Features</h2>
@@ -97,5 +98,102 @@
 
   <script src="js/se-hero.js"></script>
   <script src="js/home-grid.js"></script>
+	<script src="js/infinite-grid.js" defer></script>
+	<script>
+(function(){
+  // Find the scroller and grid (works with either IDs you might use)
+  const scroller =
+    document.querySelector('#workScroller') ||
+    document.querySelector('#scroller');
+
+  const grid =
+    document.querySelector('#homeGrid') ||
+    document.querySelector('#grid') ||
+    document.querySelector('#workGrid');
+
+  if (!scroller || !grid) return;
+
+  // Where to load data from (can be overridden with data-src on scroller)
+  const SRC = scroller.getAttribute('data-src') || 'assets/work.json';
+
+  let items = [];
+  let index = 0;
+  const CHUNK = 12;
+  let loading = false;
+
+  function card(p){
+    const href  = p.href  || `work/${p.slug}.html`;
+    const cover = p.cover || `assets/work/${p.slug}/cover.jpg`;
+    const title = p.title || p.name || 'Untitled Project';
+    const meta  = [p.client, p.year, p.role].filter(Boolean).join(' · ');
+
+    return `
+      <article class="card">
+        <a class="cover" href="${href}">
+          <span class="ratio-169"><img src="${cover}" alt=""></span>
+        </a>
+        <div class="footer">
+          <a href="${href}">${title}</a>
+          <div class="meta">${meta}</div>
+        </div>
+      </article>
+    `;
+  }
+
+  function renderNext(){
+    if (loading) return;
+    loading = true;
+
+    const slice = items.slice(index, index + CHUNK);
+    if (slice.length) {
+      grid.insertAdjacentHTML('beforeend', slice.map(card).join(''));
+      index += slice.length;
+    }
+
+    loading = false;
+
+    // Stop if we've rendered them all
+    if (index >= items.length) observer.disconnect();
+  }
+
+  // Ensure there is a sentinel inside the scroller (if not, add one)
+  let sentinel = scroller.querySelector('#gridSentinel');
+  if (!sentinel) {
+    sentinel = document.createElement('div');
+    sentinel.id = 'gridSentinel';
+    sentinel.style.height = '1px';
+    scroller.appendChild(sentinel);
+  }
+
+  const observer = new IntersectionObserver((entries)=>{
+    if (entries.some(e => e.isIntersecting)) renderNext();
+  }, { root: scroller, threshold: 0.1 });
+
+  // Load data (cache-busted to beat Pages caching while you iterate)
+  fetch(SRC + '?v=' + Date.now())
+    .then(r => r.ok ? r.json() : [])
+    .catch(() => [])
+    .then(data => {
+      items = Array.isArray(data) ? data : (data.projects || []);
+
+      // Fallback placeholders if work.json is missing/empty
+      if (!items.length) {
+        const ph = 'assets/work/placeholder-16x9.jpg';
+        items = Array.from({length: 24}, (_, n) => ({
+          slug: `placeholder-${n+1}`,
+          title: `Project ${n+1}`,
+          client: 'ABC News',
+          year: '—',
+          role: 'Production Designer',
+          cover: ph,
+          href: '#'
+        }));
+      }
+
+      renderNext();
+      observer.observe(sentinel);
+    });
+})();
+</script>
 </body>
 </html>

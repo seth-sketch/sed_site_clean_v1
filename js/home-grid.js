@@ -67,5 +67,6 @@
   loadFirstJSON(paths).then((data)=>{
     // Render to any containers present
     ["homeGrid","grid","workGrid"].forEach(id => renderInto(id, data));
+	  <script src="js/infinite-grid.js" defer></script>
   });
 })();
