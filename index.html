@@ -4,14 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Seth Easter — Selected Work</title>
-  <link rel="preload" as="image" href="assets/hero/slide1.jpg">
-  <link rel="stylesheet" href="assets/styles.css">
+
+  <!-- preload first hero image -->
+  <link rel="preload" as="image" href="assets/hero/slide1.jpg" />
+  <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
   <header class="header">
     <div class="container nav">
       <a class="brand" href="index.html" aria-label="Seth Easter Design">
-        <img class="brand-logo" src="assets/sed-logo-tight.svg" alt="Seth Easter Design">
+        <img class="brand-logo" src="assets/sed-logo-tight.svg" alt="Seth Easter Design" />
       </a>
       <ul class="nav-links">
         <li><a href="work/index.html">Work</a></li>
@@ -23,14 +25,13 @@
   </header>
 
   <main class="container">
-
     <!-- Full-width 16:9 hero slideshow -->
     <section aria-label="Featured">
       <div class="ratio-169 hero-stage">
         <div id="heroStage" class="se-slide-stage"></div>
       </div>
 
-      <!-- Long, skinny copy card underneath -->
+      <!-- long skinny copy card -->
       <div class="hero-copy-card">
         <h1>Broadcast &amp; Live Event Production Design</h1>
         <p>
@@ -46,24 +47,20 @@
       </div>
     </section>
 
-<!-- Selected Work (scrolling grid) -->
-<section class="section" id="work">
-  <h2>Selected Work</h2>
-  <div class="band">
-    <div class="scroller" id="workScroller">
-      <div id="homeGrid" class="grid"></div>
-      <div id="gridSentinel" style="height:1px;"></div>
-    </div>
-  </div>
+    <!-- Selected Work (scrolling grid) -->
+    <section class="section" id="work">
+      <h2>Selected Work</h2>
+      <div class="band">
+        <div class="scroller" id="workScroller">
+          <div id="homeGrid" class="grid"></div>
+          <div id="gridSentinel" style="height:1px"></div>
+        </div>
+      </div>
+      <div style="margin-top:14px">
+        <a class="btn" href="work/index.html">Open full Work page</a>
+      </div>
+    </section>
 
-  <div style="margin-top:14px">
-    <a class="btn" href="work/index.html">Open full Work page</a>
-  </div>
-</section>
-
-<!-- scripts -->
-<script src="js/se-hero.js"></script>
-<script src="js/home-grid.js"></script>
     <section class="section" id="press">
       <h2>Press &amp; Features</h2>
       <ul class="list">
@@ -84,7 +81,7 @@
         <li><strong>Primetime Emmy — Outstanding Art Direction for Variety, Music or Nonfiction Programming (63rd Annual Tony Awards)</strong> · <em>Art Director (2010)</em> — <b>Nomination</b></li>
       </ul>
     </section>
-<div id="workGrid" class="grid"></div>
+
     <section class="section" id="contact">
       <h2>Contact</h2>
       <p>Email: <a href="mailto:info@your-domain.com">info@your-domain.com</a></p>
@@ -93,111 +90,15 @@
 
   <footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
 
-  <!-- Hero slides -->
+  <!-- slides JSON -->
   <script id="seSlidesJSON" type="application/json">[
     "assets/hero/slide1.jpg",
     "assets/hero/slide2.jpg",
     "assets/hero/slide3.jpg"
   ]</script>
 
-  <script src="js/se-hero.js"></script>
-  <script src="js/home-grid.js"></script>
-	<script src="js/infinite-grid.js" defer></script>
-	<script>
-(function(){
-  // Find the scroller and grid (works with either IDs you might use)
-  const scroller =
-    document.querySelector('#workScroller') ||
-    document.querySelector('#scroller');
-
-  const grid =
-    document.querySelector('#homeGrid') ||
-    document.querySelector('#grid') ||
-    document.querySelector('#workGrid');
-
-  if (!scroller || !grid) return;
-
-  // Where to load data from (can be overridden with data-src on scroller)
-  const SRC = scroller.getAttribute('data-src') || 'assets/work.json';
-
-  let items = [];
-  let index = 0;
-  const CHUNK = 12;
-  let loading = false;
-
-  function card(p){
-    const href  = p.href  || `work/${p.slug}.html`;
-    const cover = p.cover || `assets/work/${p.slug}/cover.jpg`;
-    const title = p.title || p.name || 'Untitled Project';
-    const meta  = [p.client, p.year, p.role].filter(Boolean).join(' · ');
-
-    return `
-      <article class="card">
-        <a class="cover" href="${href}">
-          <span class="ratio-169"><img src="${cover}" alt=""></span>
-        </a>
-        <div class="footer">
-          <a href="${href}">${title}</a>
-          <div class="meta">${meta}</div>
-        </div>
-      </article>
-    `;
-  }
-
-  function renderNext(){
-    if (loading) return;
-    loading = true;
-
-    const slice = items.slice(index, index + CHUNK);
-    if (slice.length) {
-      grid.insertAdjacentHTML('beforeend', slice.map(card).join(''));
-      index += slice.length;
-    }
-
-    loading = false;
-
-    // Stop if we've rendered them all
-    if (index >= items.length) observer.disconnect();
-  }
-
-  // Ensure there is a sentinel inside the scroller (if not, add one)
-  let sentinel = scroller.querySelector('#gridSentinel');
-  if (!sentinel) {
-    sentinel = document.createElement('div');
-    sentinel.id = 'gridSentinel';
-    sentinel.style.height = '1px';
-    scroller.appendChild(sentinel);
-  }
-
-  const observer = new IntersectionObserver((entries)=>{
-    if (entries.some(e => e.isIntersecting)) renderNext();
-  }, { root: scroller, threshold: 0.1 });
-
-  // Load data (cache-busted to beat Pages caching while you iterate)
-  fetch(SRC + '?v=' + Date.now())
-    .then(r => r.ok ? r.json() : [])
-    .catch(() => [])
-    .then(data => {
-      items = Array.isArray(data) ? data : (data.projects || []);
-
-      // Fallback placeholders if work.json is missing/empty
-      if (!items.length) {
-        const ph = 'assets/work/placeholder-16x9.jpg';
-        items = Array.from({length: 24}, (_, n) => ({
-          slug: `placeholder-${n+1}`,
-          title: `Project ${n+1}`,
-          client: 'ABC News',
-          year: '—',
-          role: 'Production Designer',
-          cover: ph,
-          href: '#'
-        }));
-      }
-
-      renderNext();
-      observer.observe(sentinel);
-    });
-})();
-</script>
+  <!-- only these two scripts -->
+  <script src="js/se-hero.js?v=2"></script>
+  <script src="js/home-grid.js?v=3"></script>
 </body>
 </html>
