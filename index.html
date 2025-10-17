@@ -4,8 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Seth Easter — Selected Work</title>
-
-  <!-- preload first hero image -->
   <link rel="preload" as="image" href="assets/hero/slide1.jpg" />
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
@@ -13,10 +11,10 @@
   <header class="header">
     <div class="container nav">
       <a class="brand" href="index.html" aria-label="Seth Easter Design">
-        <img class="brand-logo" src="assets/sed-logo-tight.svg" alt="Seth Easter Design" />
+        <img class="brand-logo" src="assets/sed-logo-tight.svg" alt="Seth Easter Design">
       </a>
       <ul class="nav-links">
-        <li><a href="work/index.html">Work</a></li>
+        <li><a class="active" href="index.html">Work</a></li>
         <li><a href="#press">Press</a></li>
         <li><a href="#awards">Awards</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -25,13 +23,13 @@
   </header>
 
   <main class="container">
-    <!-- Full-width 16:9 hero slideshow -->
+    <!-- Full-width 16:9 hero -->
     <section aria-label="Featured">
       <div class="ratio-169 hero-stage">
         <div id="heroStage" class="se-slide-stage"></div>
       </div>
 
-      <!-- long skinny copy card -->
+      <!-- Long skinny copy bar -->
       <div class="hero-copy-card">
         <h1>Broadcast &amp; Live Event Production Design</h1>
         <p>
@@ -40,20 +38,20 @@
           Election coverage in studio and across the Nation.
         </p>
         <p>
-          <strong>Seth Easter</strong> designs broadcast studios and live event
-          productions across the world and is based in NYC. Multiple Emmys &amp; an
-          ADG award for work at ABC News and beyond.
+          <strong>Seth Easter</strong> designs broadcast studios and live event productions
+          across the world and is based in NYC. Multiple Emmys &amp; an ADG award
+          for work at ABC News and beyond.
         </p>
       </div>
     </section>
 
-    <!-- Selected Work (scrolling grid) -->
+    <!-- Selected Work -->
     <section class="section" id="work">
       <h2>Selected Work</h2>
       <div class="band">
         <div class="scroller" id="workScroller">
           <div id="homeGrid" class="grid"></div>
-          <div id="gridSentinel" style="height:1px"></div>
+          <!-- sentinel will be injected if missing -->
         </div>
       </div>
       <div style="margin-top:14px">
@@ -66,9 +64,9 @@
       <ul class="list">
         <li><a href="https://www.newscaststudio.com/2025/06/14/gma-studio-2025/" target="_blank" rel="noopener">NewscastStudio: Inside the new ‘GMA’ studio</a></li>
         <li><a href="https://www.newscaststudio.com/2025/03/10/abc-world-news-tonight-studio-hudson-square/" target="_blank" rel="noopener">NewscastStudio: WNT at Hudson Square</a></li>
-        <li><a href="https://www.newscaststudio.com/2025/02/04/abc-this-week-studio-4e/" target="_blank" rel="noopener">NewscastStudio: ‘This Week’ in Studio 4E</a></li>
+        <li><a href="https://www.newscaststudio.com/2025/02/04/abc-this-week-studio-4e/" target="_blank" rel="noopener">‘This Week’ in Studio 4E</a></li>
         <li><a href="https://www.adweek.com/tvnewser/good-morning-america-begins-broadcasts-from-new-7-hudson-square-home/" target="_blank" rel="noopener">TVNewser: ABC set tour / Hudson Square move</a></li>
-        <li><a href="https://www.newscaststudio.com/2024/09/16/abc-sept-10-debate-set-design/" target="_blank" rel="noopener">NewscastStudio: Debate stage design</a></li>
+        <li><a href="https://www.newscaststudio.com/2024/09/16/abc-sept-10-debate-set-design/" target="_blank" rel="noopener">Debate stage design</a></li>
       </ul>
     </section>
 
@@ -90,15 +88,14 @@
 
   <footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
 
-  <!-- slides JSON -->
+  <!-- Hero slides -->
   <script id="seSlidesJSON" type="application/json">[
     "assets/hero/slide1.jpg",
     "assets/hero/slide2.jpg",
     "assets/hero/slide3.jpg"
   ]</script>
 
-  <!-- only these two scripts -->
-  <script src="js/se-hero.js?v=2"></script>
-  <script src="js/home-grid.js?v=3"></script>
+  <script src="js/se-hero.js" defer></script>
+  <script src="js/home-grid.js" defer></script>
 </body>
 </html>
