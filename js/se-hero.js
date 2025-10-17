@@ -4,13 +4,12 @@
   var jsonEl = document.getElementById('seSlidesJSON');
   if (!stage || !jsonEl) return;
 
-  // Parse slide list safely (avoid DW's "empty block" warning)
+  // Parse safely (DW won't flag this)
   var raw = jsonEl.textContent || jsonEl.innerText || '[]';
-  var slides;
-  try { slides = JSON.parse(raw); } catch (e) { slides = []; }
+  var slides; try { slides = JSON.parse(raw); } catch (_) { slides = []; }
   if (!slides || !slides.length) return;
 
-  // Make paths absolute so it works from / and /work/
+  // Absolute URLs so it works from / and /work/
   function abs(p){
     if (!p) return '';
     if (/^https?:\/\//i.test(p) || p.charAt(0)==='/') return p;
@@ -18,9 +17,12 @@
   }
   for (var i=0;i<slides.length;i++) slides[i] = abs(slides[i]);
 
-  // Two layered <img> elements we crossfade between
-  stage.style.position = 'relative';
+  // Two layered <img> we crossfade between
+  // (The 16:9 wrapper has .hero-stage {position:relative}, here we fill it.)
+  stage.style.position = 'absolute';
+  stage.style.top = stage.style.right = stage.style.bottom = stage.style.left = '0';
   stage.innerHTML = '<img class="hero-img" alt=""><img class="hero-img" alt="">';
+
   var imgs = stage.getElementsByClassName('hero-img');
   for (var k=0; k<imgs.length; k++){
     var im = imgs[k];
@@ -48,8 +50,7 @@
       hid.src = next;
       hid.style.opacity = '1';
       vis.style.opacity = '0';
-      // swap refs
-      var t = vis; vis = hid; hid = t;
+      var t = vis; vis = hid; hid = t; // swap
     };
     pre.src = next;
   }
