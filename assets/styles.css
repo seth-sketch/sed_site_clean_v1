@@ -64,3 +64,8 @@ html{scroll-padding-top:var(--header-h)}
 .detail-actions{margin-top:16px;display:flex;gap:10px}
 .btn-secondary{background:#fff;color:#1f2937;border:1px solid var(--line)}
 .meta-big{color:var(--muted);margin-top:6px}
+/* keep the media area visible inside flex cards */
+.card .cover{ display:block; flex:0 0 auto; }
+
+/* hero stage needs positioning so the crossfade imgs can stack */
+#heroStage{ position:relative; }

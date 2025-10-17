@@ -1,8 +1,7 @@
-/* global Promise, IntersectionObserver */
+/* Home grid (ES5) — infinite scroll + absolute paths */
 (function () {
   var PAGE = 12;
 
-  // grid + its scroller
   var grid = document.getElementById('homeGrid') ||
              document.getElementById('grid') ||
              document.getElementById('workGrid');
@@ -17,11 +16,11 @@
   }
   var scroller = findScroller(grid);
 
-  // make path absolute so it works from / and /work/
+  // absolute path helper so /work/ also loads correctly
   function abs(p){
     if (!p) return '';
     if (/^https?:\/\//i.test(p)) return p;
-    p = p.replace(/^\.?\//,''); // strip leading ./ or /
+    p = p.replace(/^\.?\//,'');   // strip leading ./ or /
     return '/' + p;
   }
 
@@ -29,7 +28,8 @@
     var title = it.title || 'Project';
     var meta  = [it.client, it.year, it.role].filter(Boolean).join(' · ');
     var img   = abs(it.cover || (it.gallery && it.gallery[0]) || 'assets/work/placeholder-16x9.jpg');
-    var href  = it.slug ? ('/project.html?slug=' + encodeURIComponent(it.slug)) : (it.href || '#');
+    var href  = it.slug ? ('/project.html?slug=' + encodeURIComponent(it.slug))
+                        : (it.href || '#');
 
     return '' +
       '<article class="card">' +
@@ -43,7 +43,6 @@
       '</article>';
   }
 
-  // JSON loader: try several bases
   function loadJSON(){
     var bases = ['', './', '../', '/'];
     var i = 0;
@@ -57,7 +56,6 @@
     return tryNext();
   }
 
-  // state
   var items=[], cursor=0, loading=false, done=false, added={};
 
   function renderMore(){
@@ -77,12 +75,10 @@
     if (cursor >= items.length) done = true;
     loading = false;
 
-    // if nothing scrolls yet, keep adding
     var root = scroller || document.documentElement;
     if (root.scrollHeight <= root.clientHeight + 8 && !done) renderMore();
   }
 
-  // sentinel(s)
   function makeSentinel(where){
     var s = document.createElement('div');
     s.className = 'grid-sentinel';
