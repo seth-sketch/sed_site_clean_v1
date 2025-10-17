@@ -86,3 +86,9 @@ html{scroll-padding-top:var(--header-h)}
 .detail-actions{margin-top:16px;display:flex;gap:10px}
 .btn-secondary{background:#fff;color:#1f2937;border:1px solid var(--line)}
 .meta-big{color:var(--muted);margin-top:6px}
+/* Ensure the hero slideshow fills the 16:9 wrapper */
+.hero-stage{ position:relative; }
+#heroStage{ position:absolute; inset:0; }
+
+/* Belt-and-suspenders: media area inside cards never collapses */
+.card .cover{ display:block; flex:0 0 auto; }
