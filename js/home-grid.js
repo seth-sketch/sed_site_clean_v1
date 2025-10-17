@@ -3,7 +3,6 @@
 (function () {
   var PAGE = 12;
 
-  // Find grid + scroller
   var grid = document.getElementById('homeGrid') ||
              document.getElementById('grid') ||
              document.getElementById('workGrid');
@@ -18,45 +17,46 @@
   }
   var scroller = findScroller(grid);
 
-  // Build one card (uses cover, falls back to placeholder on error)
+  /* one card */
   function card(it){
     var title = it.title || 'Project';
     var meta  = [it.client, it.year, it.role].filter(Boolean).join(' · ');
-    var img   = (it.cover || (it.gallery && it.gallery[0]) || 'assets/work/placeholder-16x9.jpg');
-    var href  = it.slug ? ('project.html?slug=' + encodeURIComponent(it.slug))
-                        : (it.href || '#');
+    // Prefer JSON cover; otherwise try /assets/work/<slug>/cover.jpg
+    var fallback = it.slug ? ('assets/work/' + it.slug + '/cover.jpg') : 'assets/work/placeholder-16x9.jpg';
+    var img = it.cover || fallback;
+    var href = it.slug ? ('project.html?slug=' + encodeURIComponent(it.slug)) : (it.href || '#');
 
-    return ""
-      + "<article class='card'>"
-      +   "<a class='cover' href='" + href + "'>"
-      +     "<span class='ratio-169'>"
-      +       "<img loading='lazy' src='" + img + "' alt='' "
-      +           "onerror=\"this.onerror=null;this.src='assets/work/placeholder-16x9.jpg'\">"
-      +     "</span>"
-      +   "</a>"
-      +   "<div class='footer'>"
-      +     "<a href='" + href + "'>" + title + "</a>"
-      +     "<div class='meta'>" + meta + "</div>"
-      +   "</div>"
-      + "</article>";
+    // onerror uses single quotes; we escape them so the outer JS string stays valid
+    return '' +
+      '<article class="card">' +
+        '<a class="cover" href="' + href + '">' +
+          '<span class="ratio-169">' +
+            '<img loading="lazy" decoding="async" src="' + img + '" alt="" ' +
+            'onerror="this.onerror=null;this.src=\\\'/assets/work/placeholder-16x9.jpg\\\';">' +
+          '</span>' +
+        '</a>' +
+        '<div class="footer">' +
+          '<a href="' + href + '">' + title + '</a>' +
+          '<div class="meta">' + meta + '</div>' +
+        '</div>' +
+      '</article>';
   }
 
-  // Load JSON from several bases so it works on / and /work/
+  /* load JSON from robust set of bases */
   function loadJSON(){
     var bases = ['', './', '../', '/'];
     var i = 0;
     function tryNext(){
-      if (i >= bases.length) return Promise.resolve([]); // no crash
+      if (i >= bases.length) return Promise.resolve([]);
       var url = bases[i++] + 'assets/work.json?v=' + Date.now();
       return fetch(url, { cache: 'no-store' })
         .then(function (r){ if (!r.ok) throw 0; return r.json(); })
-        .then(function (d){ if (Array.isArray(d)) return d; throw 0; })
-        .catch(function () { return tryNext(); });
+        .catch(function (){ return tryNext(); });
     }
     return tryNext();
   }
 
-  // State + render
+  /* state + render */
   var items = [], cursor = 0, loading = false, done = false, added = {};
 
   function renderMore(){
@@ -74,15 +74,15 @@
     if (html) grid.insertAdjacentHTML('beforeend', html);
     cursor = end;
     if (cursor >= items.length) done = true;
-
     loading = false;
 
     // If nothing scrolls yet, keep adding until it does
     var root = scroller || document.documentElement;
-    if (root.scrollHeight <= root.clientHeight + 8 && !done) renderMore();
+    var filled = root.scrollHeight > (root.clientHeight + 8);
+    if (!filled && !done) renderMore();
   }
 
-  function makeSentinel(where){
+  function sentinel(where){
     var s = document.createElement('div');
     s.className = 'grid-sentinel';
     s.style.cssText = 'height:1px;width:100%';
@@ -90,10 +90,10 @@
     return s;
   }
 
-  var s1 = scroller ? makeSentinel(scroller) : null;
+  var sInside = scroller ? sentinel(scroller) : null;
   var section = grid.closest ? grid.closest('.section') : null;
   var after = (section && section.parentNode) ? section.parentNode : document.body;
-  var s2 = makeSentinel(after);
+  var sPage = sentinel(after);
 
   function observe(root, target){
     var io = new IntersectionObserver(function(entries){
@@ -107,23 +107,9 @@
 
   loadJSON().then(function(list){
     items = Array.isArray(list) ? list : [];
-
-    // Pad so there’s enough content to actually scroll if your list is short
-    if (items.length < 21){
-      var need = 21 - items.length, base = items.length;
-      for (var i=0;i<need;i++){
-        items.push({
-          slug:'ph-'+(base+i+1),
-          title:'Project '+(base+i+1),
-          client:'ABC News', year:'—', role:'Production Designer',
-          cover:'assets/work/placeholder-16x9.jpg', href:'#'
-        });
-      }
-    }
-
     cursor = 0; loading = false; done = false; added = {};
     renderMore();
-    if (s1) observe(scroller, s1);
-    if (s2) observe(null, s2);
+    if (sInside) observe(scroller, sInside);
+    observe(null, sPage);
   });
 })();
