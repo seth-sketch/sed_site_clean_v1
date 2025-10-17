@@ -1,25 +1,20 @@
 /* global Promise, IntersectionObserver */
-/* Home grid (ES5) — infinite scroll that works from / and /work/
-   + robust image fallbacks so each card reliably shows a 16:9 cover
-*/
 (function () {
   var PAGE = 12;
 
-  // expose a single fallback helper (used by <img onerror>)
+  // Fallback rotator used by <img onerror>
   if (!window.sedNextSrc) {
     window.sedNextSrc = function (img) {
-      try {
-        var raw = img.getAttribute('data-srcs') || '';
-        var list = raw ? raw.split('|') : [];
-        if (!list.length) return; // final attempt already placeholder
-        var next = list.shift();
-        img.setAttribute('data-srcs', list.join('|'));
-        img.src = next;
-      } catch (e) { /* no-op */ }
+      var raw = img.getAttribute('data-srcs') || '';
+      var list = raw ? raw.split('|') : [];
+      if (!list.length) return;
+      var next = list.shift();
+      img.setAttribute('data-srcs', list.join('|'));
+      img.src = next;
     };
   }
 
-  // find grid + its scroller
+  // Find grid + its scrolling container
   var grid = document.getElementById('homeGrid') ||
              document.getElementById('grid') ||
              document.getElementById('workGrid');
@@ -34,52 +29,43 @@
   }
   var scroller = findScroller(grid);
 
-  // normalize a path to absolute “/assets/…” unless it’s already http(s)
+  // Make absolute /assets/... (so it works from / and /work/)
   function abs(p){
     if (!p) return '';
     if (/^https?:\/\//i.test(p)) return p;
-    // remove leading "./"
     p = String(p).replace(/^(\.\/)+/, '');
-    // ensure single leading slash (for Cloudflare Pages root)
     return '/' + p.replace(/^\/+/, '');
   }
 
-  // build the list of candidate URLs for an item’s cover
   function coverCandidates(it){
-    var list = [];
-    if (it.cover) list.push(abs(it.cover));
-    if (it.slug) {
-      // conventional locations in both absolute and relative forms
-      list.push(abs('assets/work/' + it.slug + '/cover.jpg'));
-      list.push('assets/work/' + it.slug + '/cover.jpg');  // relative (works from /)
-      list.push('../assets/work/' + it.slug + '/cover.jpg'); // relative (works from /work/)
-    }
-    // final guaranteed placeholder (absolute)
-    list.push(abs('assets/work/placeholder-16x9.jpg'));
-    // de-dupe while keeping order
-    var seen = {};
     var out = [];
-    for (var i=0;i<list.length;i++){
-      var u = list[i];
+    if (it.cover) out.push(abs(it.cover));
+    if (it.slug) {
+      out.push(abs('assets/work/' + it.slug + '/cover.jpg'));     // absolute
+      out.push('assets/work/' + it.slug + '/cover.jpg');          // relative
+      out.push('../assets/work/' + it.slug + '/cover.jpg');       // relative (from /work/)
+    }
+    out.push(abs('assets/work/placeholder-16x9.jpg'));            // guaranteed final fallback
+
+    // de-dupe
+    var seen = {}, list = [];
+    for (var i=0;i<out.length;i++){
+      var u = out[i];
       if (!u || seen[u]) continue;
       seen[u] = 1;
-      out.push(u);
+      list.push(u);
     }
-    return out;
+    return list;
   }
 
-  // one card
   function card(it){
     var title = it.title || 'Project';
     var meta  = [it.client, it.year, it.role].filter(Boolean).join(' · ');
     var srcs  = coverCandidates(it);
     var first = srcs.shift();
-
-    // your project route uses /project?slug=...
     var href  = it.slug ? ('/project?slug=' + encodeURIComponent(it.slug))
                         : (it.href || '#');
 
-    // NOTE: we store remaining fallbacks on data-srcs and let onerror rotate
     return '' +
       '<article class="card">' +
         '<a class="cover" href="' + href + '">' +
@@ -96,41 +82,19 @@
       '</article>';
   }
 
-  // placeholders (only used if work.json can’t be loaded)
-  function placeholders(n){
-    var out = [];
-    for (var i = 0; i < n; i++){
-      out.push({
-        slug: 'ph-' + (i + 1),
-        title: 'Project ' + (i + 1),
-        client: 'ABC News',
-        year: '—',
-        role: 'Production Designer',
-        cover: 'assets/work/placeholder-16x9.jpg',
-        href: '#'
-      });
-    }
-    return out;
-  }
-
-  // load assets/work.json from several bases so it works on / and /work/
   function loadJSON(){
     var bases = ['', './', '../', '/'];
     var i = 0;
     function tryNext(){
-      if (i >= bases.length) {
-        return Promise.resolve(placeholders(24));
-      }
-      var url = bases[i++] + 'assets/work.json?v=' + Date.now(); // cache-bust
+      if (i >= bases.length) return Promise.resolve([]);
+      var url = bases[i++] + 'assets/work.json?v=' + Date.now();
       return fetch(url, { cache: 'no-store' })
-        .then(function (r){ if (!r.ok) throw 0; return r.json(); })
-        .then(function (d){ if (Array.isArray(d) && d.length) return d; throw 0; })
-        .catch(function (){ return tryNext(); });
+        .then(function(r){ if (!r.ok) throw 0; return r.json(); })
+        .catch(function(){ return tryNext(); });
     }
     return tryNext();
   }
 
-  // state + render
   var items=[], cursor=0, loading=false, done=false, added={};
 
   function renderMore(){
@@ -149,18 +113,14 @@
     if (cursor >= items.length) done = true;
     loading = false;
 
-    // If nothing scrolls yet, keep adding until it does
-    var roots = [scroller, document.documentElement];
-    var scrollable = roots.some(function(root){
-      if(!root) return false;
-      return root.scrollHeight > root.clientHeight + 8;
-    });
-    if (!scrollable && !done) renderMore();
+    // If nothing scrolls yet, keep adding
+    var root = scroller || document.documentElement;
+    if (root.scrollHeight <= root.clientHeight + 8 && !done) renderMore();
   }
 
   function makeSentinel(where){
     var s = document.createElement('div');
-    s.className = 'grid-sentinel';
+    s.id = 'gridSentinel';
     s.style.cssText = 'height:1px;width:100%';
     where.appendChild(s);
     return s;
@@ -184,10 +144,9 @@
   loadJSON().then(function(list){
     items = Array.isArray(list) ? list : [];
 
-    // pad if your real list is short so there’s something to scroll
+    // pad with placeholders so there’s always scroll room
     if (items.length < 30){
-      var need = 30 - items.length;
-      var base = items.length;
+      var need = 30 - items.length, base = items.length;
       for (var i=0;i<need;i++){
         items.push({
           slug:'ph-'+(base+i+1),
@@ -198,7 +157,7 @@
       }
     }
 
-    cursor = 0; loading = false; done = false; added = {};
+    cursor=0; loading=false; done=false; added={};
     renderMore();
     if (s1) observe(scroller, s1);
     if (s2) observe(null, s2);
