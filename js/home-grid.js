@@ -1,41 +1,35 @@
-/* home-grid.js – single source of truth for the home work grid */
+/* home-grid.js — simple “render all” version */
 (function () {
   var GRID = document.getElementById('homeGrid');
   var SCROLLER = document.getElementById('workScroller');
   if (!GRID || !SCROLLER) return;
 
-  GRID.innerHTML = '';
-
-  // make sure we have a sentinel inside the scroller
-  var SENTINEL = document.getElementById('gridSentinel');
-  if (!SENTINEL) {
-    SENTINEL = document.createElement('div');
-    SENTINEL.id = 'gridSentinel';
-    SENTINEL.style.height = '1px';
-    SCROLLER.appendChild(SENTINEL);
-  }
-
-  var state = {
-    data: [],
-    added: Object.create(null), // de-dupe without Set()
-    index: 0,
-    pageSize: 9
-  };
-
-  function seen(slug) {
-    if (state.added[slug]) return true;
-    state.added[slug] = 1;
-    return false;
+  function placeholders(n) {
+    var arr = [];
+    for (var i = 1; i <= n; i++) {
+      arr.push({
+        slug: 'placeholder-' + i,
+        title: 'Project ' + i,
+        client: 'ABC News',
+        year: '—',
+        role: 'Production Designer',
+        cover: 'assets/work/placeholder-16x9.jpg'
+      });
+    }
+    return arr;
   }
 
   function cardHTML(item) {
-    var href  = 'work/' + item.slug + '.html';
-    var cover = item.cover || ('assets/work/' + item.slug + '/cover.jpg');
+    var href  = item.slug.indexOf('placeholder-') === 0 ? '#' : ('work/' + item.slug + '.html');
     var meta  = [item.client, item.year, item.role].filter(Boolean).join(' · ');
+    var cover = item.cover || ('assets/work/' + item.slug + '/cover.jpg');
     return ''
       + '<article class="card">'
       +   '<a class="cover" href="' + href + '">'
-      +     '<span class="ratio-169"><img loading="lazy" src="' + cover + '" alt=""></span>'
+      +     '<span class="ratio-169">'
+      +       '<img loading="lazy" src="' + cover + '" alt="" '
+      +             'onerror="this.onerror=null;this.src=\'assets/work/placeholder-16x9.jpg\'">'
+      +     '</span>'
       +   '</a>'
       +   '<div class="footer">'
       +     '<a href="' + href + '">' + item.title + '</a>'
@@ -44,66 +38,28 @@
       + '</article>';
   }
 
-  function renderNextPage() {
-    if (!state.data.length) return;
-    var end  = Math.min(state.index + state.pageSize, state.data.length);
-    var html = '';
-    for (var i = state.index; i < end; i++) {
-      var it = state.data[i];
-      if (!it || !it.slug || seen(it.slug)) continue;
-      html += cardHTML(it);
-    }
-    if (html) GRID.insertAdjacentHTML('beforeend', html);
-    state.index = end;
-    if (state.index >= state.data.length && io) io.disconnect();
+  function render(list) {
+    GRID.innerHTML = list.map(cardHTML).join('');
   }
 
-  // Try several paths for work.json to avoid path/caching issues
-  function loadWorkJSON(cb) {
-    var paths = ['assets/work.json','/assets/work.json','./assets/work.json','work.json'];
+  function loadJSON(paths, done) {
     var i = 0;
-    function next() {
-      if (i >= paths.length) return cb(null);
+    (function next() {
+      if (i >= paths.length) return done(null);
       var url = paths[i++] + '?v=' + Date.now();
       fetch(url, { cache: 'no-cache' })
         .then(function (r) { if (!r.ok) throw 0; return r.json(); })
-        .then(function (d) {
-          if (Object.prototype.toString.call(d) === '[object Array]' && d.length) cb(d);
-          else next();
-        })
-        .catch(function () { next(); });
-    }
-    next();
+        .then(function (d) { done(Array.isArray(d) ? d : (d && d.projects) || null); })
+        .catch(next);
+    })();
   }
 
-  function placeholders() {
-    var arr = [];
-    for (var n = 1; n <= 24; n++) {
-      arr.push({
-        slug: 'placeholder-' + n,
-        title: 'Project ' + n,
-        client: 'ABC News',
-        year: '—',
-        role: 'Production Designer',
-        cover: 'assets/work/placeholder-16x9.jpg',
-        href: '#'
-      });
-    }
-    return arr;
-  }
-
-  var io = new IntersectionObserver(function (entries) {
-    for (var j = 0; j < entries.length; j++) {
-      if (entries[j].isIntersecting) { renderNextPage(); break; }
-    }
-  }, { root: SCROLLER, threshold: 0.01, rootMargin: '400px 0px 400px 0px' });
-
-  io.observe(SENTINEL);
-
-  loadWorkJSON(function (data) {
-    state.data  = (data && data.length) ? data : placeholders();
-    state.index = 0;
-    state.added = Object.create(null);
-    renderNextPage();
+  loadJSON([
+    'assets/work.json',
+    '/assets/work.json',
+    './assets/work.json',
+    'work.json'
+  ], function (data) {
+    render(data && data.length ? data : placeholders(24));
   });
 })();
