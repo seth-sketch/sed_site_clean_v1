@@ -1,66 +1,189 @@
-/* project.js – fills a project page from work.json and
-   wires up gallery thumbs. */
+/* Project page loader (ES5) — reads assets/work.json and fills the page */
+(function () {
+  function getSlug() {
+    // Preferred: project.html?slug=...
+    var q = location.search.replace(/^\?/, '');
+    var params = {};
+    if (q) {
+      var parts = q.split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var kv = parts[i].split('=');
+        if (kv[0]) params[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1] || '');
+      }
+    }
+    if (params.slug) return params.slug;
 
-(async () => {
-  function slugFromURL() {
-    const m = location.pathname.match(/\/work\/([^\/]+)\.html$/);
+    // Fallback: /work/<slug>.html
+    var m = location.pathname.match(/\/work\/([^\/]+)\.html$/);
     return m ? m[1] : null;
   }
 
-  async function loadJSON() {
-    const paths = ['../assets/work.json', '/assets/work.json', '../../assets/work.json'];
-    for (const p of paths) {
-      try {
-        const r = await fetch(p, { cache: 'no-store' });
-        if (r.ok) return r.json();
-      } catch (_) {}
+  function loadWorkJSON() {
+    var bases = ['', './', '../', '/'];
+    var i = 0;
+    function tryNext() {
+      if (i >= bases.length) return Promise.reject(new Error('work.json not found'));
+      var url = bases[i++] + 'assets/work.json?v=' + Date.now();
+      return fetch(url, { cache: 'no-store' })
+        .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+        .catch(function () { return tryNext(); });
     }
-    throw new Error('work.json not found');
+    return tryNext();
   }
 
-  try {
-    const slug = slugFromURL();
-    if (!slug) return;
+  function $(sel){ return document.querySelector(sel); }
+  function setText(sel, txt){ var el = $(sel); if (el) el.textContent = txt; return el; }
+  function setHTML(sel, html){ var el = $(sel); if (el) el.innerHTML = html; return el; }
 
-    const list = await loadJSON();
-    const item = list.find(x => x.slug === slug);
+  var slug = getSlug();
+  if (!slug) return;
+
+  loadWorkJSON().then(function (list) {
+    if (!list || !list.length) return;
+
+    // find item
+    var idx = -1, item = null;
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].slug === slug) { idx = i; item = list[i]; break; }
+    }
     if (!item) return;
 
-    const titleEl = document.querySelector('[data-project="title"]') || document.querySelector('h1');
-    const metaEl  = document.querySelector('[data-project="meta"]');
-    const heroEl  = document.querySelector('[data-project="hero"]');
-    const thumbsEl= document.querySelector('[data-project="thumbs"]');
-    const nextEl  = document.querySelector('[data-project="next"]');
-    const backEl  = document.querySelector('[data-project="back"]');
+    // Title + meta
+    setText('[data-project="title"], h1', item.title || 'Project');
+    setText('[data-project="meta"]',
+      [item.client, item.year, item.role].filter(Boolean).join(' · '));
 
-    if (titleEl) titleEl.textContent = item.title;
-    if (metaEl)  metaEl.textContent  = `${item.client} · ${item.year} · ${item.role}`;
+    // Hero
+    var heroSrc = item.cover || (item.gallery && item.gallery[0]) || 'assets/work/placeholder-16x9.jpg';
+    var heroEl = setHTML('[data-project="hero"]',
+      '<span class="ratio-169"><img src="' + heroSrc + '" alt=""></span>');
 
-    if (heroEl) heroEl.innerHTML = `<span class="ratio-169"><img src="${item.cover}" alt=""></span>`;
-
-    if (thumbsEl && Array.isArray(item.gallery) && item.gallery.length) {
-      thumbsEl.innerHTML = item.gallery.map(src =>
-        `<button class="thumb" data-src="${src}"><img loading="lazy" src="${src}" alt=""></button>`
-      ).join('');
-      thumbsEl.addEventListener('click', e => {
-        const btn = e.target.closest('button.thumb');
+    // Thumbs (only if gallery exists)
+    var thumbsEl = $('[data-project="thumbs"]');
+    if (thumbsEl && item.gallery && item.gallery.length) {
+      var t = '';
+      for (var g = 0; g < item.gallery.length; g++) {
+        var src = item.gallery[g];
+        t += '<button class="thumb" data-src="' + src + '"><img loading="lazy" src="' + src + '" alt=""></button>';
+      }
+      thumbsEl.innerHTML = t;
+      thumbsEl.addEventListener('click', function (e) {
+        var btn = e.target.closest ? e.target.closest('.thumb') :
+                  (e.target.className === 'thumb' ? e.target : null);
         if (btn && heroEl) {
-          heroEl.innerHTML = `<span class="ratio-169"><img src="${btn.dataset.src}" alt=""></span>`;
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          heroEl.innerHTML = '<span class="ratio-169"><img src="' + btn.getAttribute('data-src') + '" alt=""></span>';
+          window.scrollTo(0, 0);
         }
       });
+    } else if (thumbsEl) {
+      thumbsEl.innerHTML = '';
     }
 
-    if (backEl) backEl.href = '../index.html#work';
+    // Back link
+    var backEl = $('[data-project="back"]');
+    if (backEl) backEl.setAttribute('href', 'index.html#work');
 
+    // Next project
+    var nextEl = $('[data-project="next"]');
     if (nextEl) {
-      const i = list.findIndex(x => x.slug === slug);
-      const nxt = list[(i + 1) % list.length];
-      nextEl.href = `${nxt.slug}.html`;
-      const label = nextEl.querySelector('span');
-      if (label) label.textContent = nxt.title;
+      var nxt = list[(idx + 1) % list.length];
+      nextEl.setAttribute('href', 'project.html?slug=' + encodeURIComponent(nxt.slug));
+      var label = nextEl.querySelector('span');
+      if (label) label.textContent = nxt.title || 'Next project';
     }
-  } catch (e) {
-    console.error('Project page init failed:', e);
+  });
+})();/* Project page loader (ES5) — reads assets/work.json and fills the page */
+(function () {
+  function getSlug() {
+    // Preferred: project.html?slug=...
+    var q = location.search.replace(/^\?/, '');
+    var params = {};
+    if (q) {
+      var parts = q.split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var kv = parts[i].split('=');
+        if (kv[0]) params[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1] || '');
+      }
+    }
+    if (params.slug) return params.slug;
+
+    // Fallback: /work/<slug>.html
+    var m = location.pathname.match(/\/work\/([^\/]+)\.html$/);
+    return m ? m[1] : null;
   }
-})();<strong></strong>
+
+  function loadWorkJSON() {
+    var bases = ['', './', '../', '/'];
+    var i = 0;
+    function tryNext() {
+      if (i >= bases.length) return Promise.reject(new Error('work.json not found'));
+      var url = bases[i++] + 'assets/work.json?v=' + Date.now();
+      return fetch(url, { cache: 'no-store' })
+        .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+        .catch(function () { return tryNext(); });
+    }
+    return tryNext();
+  }
+
+  function $(sel){ return document.querySelector(sel); }
+  function setText(sel, txt){ var el = $(sel); if (el) el.textContent = txt; return el; }
+  function setHTML(sel, html){ var el = $(sel); if (el) el.innerHTML = html; return el; }
+
+  var slug = getSlug();
+  if (!slug) return;
+
+  loadWorkJSON().then(function (list) {
+    if (!list || !list.length) return;
+
+    // find item
+    var idx = -1, item = null;
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].slug === slug) { idx = i; item = list[i]; break; }
+    }
+    if (!item) return;
+
+    // Title + meta
+    setText('[data-project="title"], h1', item.title || 'Project');
+    setText('[data-project="meta"]',
+      [item.client, item.year, item.role].filter(Boolean).join(' · '));
+
+    // Hero
+    var heroSrc = item.cover || (item.gallery && item.gallery[0]) || 'assets/work/placeholder-16x9.jpg';
+    var heroEl = setHTML('[data-project="hero"]',
+      '<span class="ratio-169"><img src="' + heroSrc + '" alt=""></span>');
+
+    // Thumbs (only if gallery exists)
+    var thumbsEl = $('[data-project="thumbs"]');
+    if (thumbsEl && item.gallery && item.gallery.length) {
+      var t = '';
+      for (var g = 0; g < item.gallery.length; g++) {
+        var src = item.gallery[g];
+        t += '<button class="thumb" data-src="' + src + '"><img loading="lazy" src="' + src + '" alt=""></button>';
+      }
+      thumbsEl.innerHTML = t;
+      thumbsEl.addEventListener('click', function (e) {
+        var btn = e.target.closest ? e.target.closest('.thumb') :
+                  (e.target.className === 'thumb' ? e.target : null);
+        if (btn && heroEl) {
+          heroEl.innerHTML = '<span class="ratio-169"><img src="' + btn.getAttribute('data-src') + '" alt=""></span>';
+          window.scrollTo(0, 0);
+        }
+      });
+    } else if (thumbsEl) {
+      thumbsEl.innerHTML = '';
+    }
+
+    // Back link
+    var backEl = $('[data-project="back"]');
+    if (backEl) backEl.setAttribute('href', 'index.html#work');
+
+    // Next project
+    var nextEl = $('[data-project="next"]');
+    if (nextEl) {
+      var nxt = list[(idx + 1) % list.length];
+      nextEl.setAttribute('href', 'project.html?slug=' + encodeURIComponent(nxt.slug));
+      var label = nextEl.querySelector('span');
+      if (label) label.textContent = nxt.title || 'Next project';
+    }
+  });
+})();
