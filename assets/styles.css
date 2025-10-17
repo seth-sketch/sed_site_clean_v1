@@ -6,7 +6,7 @@
   --line:#e8edf5;
   --brand:#3a51a3;
   --container:1160px;
-  --shadow:0 1px 0 rgba(17,24,39,.02);
+  --shadow:0 8px 16px rgba(2,6,23,.06), 0 2px 4px rgba(2,6,23,.06);
   --header-h:112px;
 }
 *{box-sizing:border-box}
