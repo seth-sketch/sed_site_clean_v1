@@ -19,49 +19,66 @@
   var scroller = findScroller(grid);
 
   // ---- card
-  function card(it){
-    var title = it.title || 'Project';
-    var meta  = [it.client, it.year, it.role].filter(Boolean).join(' · ');
-    var img   = it.cover || (it.gallery && it.gallery[0]) || 'assets/work/placeholder-16x9.jpg';
-    var href  = it.slug ? ('project.html?slug=' + encodeURIComponent(it.slug))
+// --- one card ---------------------------------------------------------------
+function card(it){
+  var title = it.title || 'Project';
+  var meta  = [it.client, it.year, it.role].filter(Boolean).join(' · ');
+  // prefer explicit cover, otherwise try conventional path
+  var primary = it.cover || ('assets/work/' + (it.slug || 'unknown') + '/cover.jpg');
+  var href    = it.slug ? ('project.html?slug=' + encodeURIComponent(it.slug))
                         : (it.href || '#');
-    return ''+
-      '<article class="card">'+
-        '<a class="cover" href="'+href+'">'+
-          '<span class="ratio-169"><img loading="lazy" src="'+img+'" alt=""></span>'+
-        '</a>'+
-        '<div class="footer">'+
-          '<a href="'+href+'">'+title+'</a>'+
-          '<div class="meta">'+meta+'</div>'+
-        '</div>'+
-      '</article>';
-  }
 
-  // ---- load JSON from multiple bases so it works on / and /work/
-  function placeholders(n){
-    var out = [];
-    for (var i=0;i<n;i++){
-      out.push({
-        slug:'ph-'+(i+1),
-        title:'Project '+(i+1),
-        client:'ABC News', year:'—', role:'Production Designer',
-        cover:'assets/work/placeholder-16x9.jpg', href:'#'
-      });
-    }
-    return out;
-  }
+  // NOTE: JS string uses single quotes; HTML attributes use double quotes.
+  // The fallback path is wrapped in single quotes INSIDE the HTML attribute
+  // and escaped as \' to keep the JS string valid.
+  return '' +
+    '<article class="card">' +
+      '<a class="cover" href="' + href + '">' +
+        '<span class="ratio-169">' +
+          '<img loading="lazy" decoding="async" src="' + primary + '" alt="" ' +
+               'onerror="this.onerror=null;this.src=\\\'assets/work/placeholder-16x9.jpg\\\'">' +
+        '</span>' +
+      '</a>' +
+      '<div class="footer">' +
+        '<a href="' + href + '">' + title + '</a>' +
+        '<div class="meta">' + meta + '</div>' +
+      '</div>' +
+    '</article>';
+}
 
-  function loadJSON(){
-    var bases = ['', './', '../', '/']; var i = 0;
-    function tryNext(){
-      if (i >= bases.length) return Promise.resolve(placeholders(24));
-      var url = bases[i++] + 'assets/work.json?v=' + Date.now();
-      return fetch(url, { cache:'no-store' })
-        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
-        .then(function(d){ if(Array.isArray(d) && d.length) return d; throw 0; })
-        .catch(function(){ return tryNext(); });
+// --- placeholders so the layout keeps its shape -----------------------------
+function placeholders(n){
+  var out = [];
+  for (var i = 0; i < n; i++){
+    out.push({
+      slug: 'ph-' + (i + 1),
+      title: 'Project ' + (i + 1),
+      client: 'ABC News',
+      year: '—',
+      role: 'Production Designer',
+      cover: 'assets/work/placeholder-16x9.jpg',
+      href: '#'
+    });
+  }
+  return out;
+}
+
+// --- load JSON from multiple bases so it works from / and /work/ -----------
+function loadJSON(){
+  var bases = ['', './', '../', '/'];
+  var i = 0;
+  function tryNext(){
+    if (i >= bases.length) {
+      return Promise.resolve(placeholders(24));
     }
-    return tryNext();
+    var url = bases[i++] + 'assets/work.json?v=' + Date.now();
+    return fetch(url, { cache: 'no-store' })
+      .then(function (r){ if (!r.ok) throw 0; return r.json(); })
+      .then(function (d){ if (Array.isArray(d) && d.length) return d; throw 0; })
+      .catch(function (){ return tryNext(); });
+  }
+  return tryNext();
+
   }
 
   // ---- state + render
