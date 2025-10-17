@@ -1,7 +1,9 @@
-/* Home grid (ES5) — infinite scroll + absolute paths */
+/* global Promise, IntersectionObserver */
+/* Home grid (ES5) — infinite scroll that works from / and /work/ */
 (function () {
   var PAGE = 12;
 
+  // Find grid + scroller
   var grid = document.getElementById('homeGrid') ||
              document.getElementById('grid') ||
              document.getElementById('workGrid');
@@ -16,47 +18,46 @@
   }
   var scroller = findScroller(grid);
 
-  // absolute path helper so /work/ also loads correctly
-  function abs(p){
-    if (!p) return '';
-    if (/^https?:\/\//i.test(p)) return p;
-    p = p.replace(/^\.?\//,'');   // strip leading ./ or /
-    return '/' + p;
-  }
-
+  // Build one card (uses cover, falls back to placeholder on error)
   function card(it){
     var title = it.title || 'Project';
     var meta  = [it.client, it.year, it.role].filter(Boolean).join(' · ');
-    var img   = abs(it.cover || (it.gallery && it.gallery[0]) || 'assets/work/placeholder-16x9.jpg');
-    var href  = it.slug ? ('/project.html?slug=' + encodeURIComponent(it.slug))
+    var img   = (it.cover || (it.gallery && it.gallery[0]) || 'assets/work/placeholder-16x9.jpg');
+    var href  = it.slug ? ('project.html?slug=' + encodeURIComponent(it.slug))
                         : (it.href || '#');
 
-    return '' +
-      '<article class="card">' +
-        '<a class="cover" href="' + href + '">' +
-          '<span class="ratio-169"><img loading="lazy" src="' + img + '" alt=""></span>' +
-        '</a>' +
-        '<div class="footer">' +
-          '<a href="' + href + '">' + title + '</a>' +
-          '<div class="meta">' + meta + '</div>' +
-        '</div>' +
-      '</article>';
+    return ""
+      + "<article class='card'>"
+      +   "<a class='cover' href='" + href + "'>"
+      +     "<span class='ratio-169'>"
+      +       "<img loading='lazy' src='" + img + "' alt='' "
+      +           "onerror=\"this.onerror=null;this.src='assets/work/placeholder-16x9.jpg'\">"
+      +     "</span>"
+      +   "</a>"
+      +   "<div class='footer'>"
+      +     "<a href='" + href + "'>" + title + "</a>"
+      +     "<div class='meta'>" + meta + "</div>"
+      +   "</div>"
+      + "</article>";
   }
 
+  // Load JSON from several bases so it works on / and /work/
   function loadJSON(){
     var bases = ['', './', '../', '/'];
     var i = 0;
     function tryNext(){
-      if (i >= bases.length) return Promise.resolve([]);
+      if (i >= bases.length) return Promise.resolve([]); // no crash
       var url = bases[i++] + 'assets/work.json?v=' + Date.now();
-      return fetch(url, { cache:'no-store' })
-        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
-        .catch(function(){ return tryNext(); });
+      return fetch(url, { cache: 'no-store' })
+        .then(function (r){ if (!r.ok) throw 0; return r.json(); })
+        .then(function (d){ if (Array.isArray(d)) return d; throw 0; })
+        .catch(function () { return tryNext(); });
     }
     return tryNext();
   }
 
-  var items=[], cursor=0, loading=false, done=false, added={};
+  // State + render
+  var items = [], cursor = 0, loading = false, done = false, added = {};
 
   function renderMore(){
     if (loading || done || !items.length) return;
@@ -73,8 +74,10 @@
     if (html) grid.insertAdjacentHTML('beforeend', html);
     cursor = end;
     if (cursor >= items.length) done = true;
+
     loading = false;
 
+    // If nothing scrolls yet, keep adding until it does
     var root = scroller || document.documentElement;
     if (root.scrollHeight <= root.clientHeight + 8 && !done) renderMore();
   }
@@ -86,21 +89,38 @@
     where.appendChild(s);
     return s;
   }
+
   var s1 = scroller ? makeSentinel(scroller) : null;
-  var after = (grid.closest && grid.closest('.section') && grid.closest('.section').parentNode) || document.body;
+  var section = grid.closest ? grid.closest('.section') : null;
+  var after = (section && section.parentNode) ? section.parentNode : document.body;
   var s2 = makeSentinel(after);
 
-  function observe(root, el){
+  function observe(root, target){
     var io = new IntersectionObserver(function(entries){
       for (var i=0;i<entries.length;i++){
         if (entries[i].isIntersecting) renderMore();
       }
     }, { root: root || null, rootMargin:'400px 0px', threshold:0.01 });
-    io.observe(el);
+    io.observe(target);
+    return io;
   }
 
   loadJSON().then(function(list){
     items = Array.isArray(list) ? list : [];
+
+    // Pad so there’s enough content to actually scroll if your list is short
+    if (items.length < 21){
+      var need = 21 - items.length, base = items.length;
+      for (var i=0;i<need;i++){
+        items.push({
+          slug:'ph-'+(base+i+1),
+          title:'Project '+(base+i+1),
+          client:'ABC News', year:'—', role:'Production Designer',
+          cover:'assets/work/placeholder-16x9.jpg', href:'#'
+        });
+      }
+    }
+
     cursor = 0; loading = false; done = false; added = {};
     renderMore();
     if (s1) observe(scroller, s1);

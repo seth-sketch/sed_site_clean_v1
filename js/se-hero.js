@@ -1,55 +1,71 @@
-/* Hero slideshow — reads #seSlidesJSON and crossfades images */
+/* Hero crossfade (ES5) — reads #seSlidesJSON and crossfades two <img>s */
 (function () {
-  var stage = document.getElementById('heroStage');
+  var stage  = document.getElementById('heroStage');
   var jsonEl = document.getElementById('seSlidesJSON');
   if (!stage || !jsonEl) return;
 
+  // Parse slide list
   var slides = [];
-  try { slides = JSON.parse(jsonEl.textContent || '[]'); } catch (_) {}
+  try { slides = JSON.parse(jsonEl.textContent || jsonEl.innerText || '[]'); } catch (e) {}
   if (!slides || !slides.length) return;
 
-  // make path absolute so it works from / and /work/
+  // Normalize paths so it works from / and /work/
   function abs(p){
     if (!p) return '';
-    if (/^https?:\/\//i.test(p)) return p;
-    p = p.replace(/^\.?\//,'');
-    return '/' + p;
+    if (/^https?:\/\//i.test(p) || p.charAt(0) === '/') return p;
+    return '/' + p.replace(/^\.?\//, '');
   }
-  slides = slides.map(abs);
+  for (var i=0;i<slides.length;i++) slides[i] = abs(slides[i]);
 
-  // two layered <img> elements for a simple crossfade
-  stage.style.position = 'relative';
+  // Two layered imgs we fade between
   stage.innerHTML = '<img class="hero-img" alt=""><img class="hero-img" alt="">';
-  var imgs = stage.querySelectorAll('img');
+  stage.style.position = 'relative';
 
-  for (var k = 0; k < imgs.length; k++) {
+  var imgs = stage.getElementsByClassName('hero-img');
+  for (var k=0;k<imgs.length;k++){
     var im = imgs[k];
-    im.style.position = 'absolute';
-    im.style.inset = '0';
-    im.style.width = '100%';
-    im.style.height = '100%';
-    im.style.objectFit = 'cover';
-    im.style.opacity = k === 0 ? '1' : '0';
-    im.style.transition = 'opacity .6s ease';
-    im.loading = 'eager';
-    im.decoding = 'async';
+    im.style.position   = 'absolute';
+    im.style.top = im.style.left = im.style.right = im.style.bottom = '0';
+    im.style.width      = '100%';
+    im.style.height     = '100%';
+    im.style.objectFit  = 'cover';
+    im.style.opacity    = '0';
+    im.style.transition = 'opacity 700ms ease';
   }
 
-  var i = 0, cur = 0;
-  imgs[cur].src = slides[0];
+  var A = imgs[0], B = imgs[1];
+  var show = A, hide = B;
+  var idx = 0;
 
-  function swap() {
-    i = (i + 1) % slides.length;
-    var next = 1 - cur;
-    imgs[next].src = slides[i];
-    imgs[next].onload = function () {
-      imgs[cur].style.opacity = '0';
-      imgs[next].style.opacity = '1';
-      cur = next;
-    };
+  function reveal(img){
+    // if cached, onload won't fire — handle both cases
+    if (img.complete) {
+      show.style.opacity = '0';
+      img.style.opacity  = '1';
+      var tmp = show; show = img; hide = tmp;
+    } else {
+      img.onload = function(){
+        show.style.opacity = '0';
+        img.style.opacity  = '1';
+        var tmp = show; show = img; hide = tmp;
+      };
+    }
   }
 
-  // gentle preload
-  slides.slice(1).forEach(function (src) { var im = new Image(); im.src = src; });
-  setInterval(swap, 4000);
+  function next(){
+    idx = (idx + 1) % slides.length;
+    hide.style.opacity = '0';
+    hide.src = slides[idx];
+    reveal(hide);
+  }
+
+  // First image
+  A.onload = function(){ A.style.opacity = '1'; };
+  A.src = slides[0];
+
+  // Start cycling
+  if (slides.length > 1) {
+    B.src = slides[1]; // warm second
+    setInterval(next, 4000);
+  }
 })();

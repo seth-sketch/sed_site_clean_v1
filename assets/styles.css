@@ -69,3 +69,19 @@ html{scroll-padding-top:var(--header-h)}
 
 /* hero stage needs positioning so the crossfade imgs can stack */
 #heroStage{ position:relative; }
+/* Hero crossfade */
+.se-slide-stage { position: relative; }
+.se-slide-stage .hero-img {
+  position:absolute; inset:0;
+  width:100%; height:100%; object-fit:cover;
+  opacity:0; transition:opacity .7s ease;
+}
+
+/* Keep media area from collapsing in flex cards */
+.card .cover { display:block; flex:0 0 auto; }
+
+/* Fallback for engines that ignore aspect-ratio (DW Live view, etc.) */
+@supports not (aspect-ratio: 16 / 9) {
+  .ratio-169 { position:relative; height:0; padding-top:56.25%; overflow:hidden; }
+  .ratio-169 > img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+}
