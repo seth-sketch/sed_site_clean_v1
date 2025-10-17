@@ -1,47 +1,38 @@
-/* Infinite Scroll Grid (robust) */
-(function(){
-  const BATCH = 12;
+/* Infinite Scroll Grid – robust
+   - Finds grid: #homeGrid, #grid, or #workGrid
+   - Uses the nearest .scroller as the observer root
+   - Keeps loading until the scroller is at least one viewport tall
+*/
+(function () {
+  const PAGE = 12;
 
   const grid =
     document.getElementById('homeGrid') ||
     document.getElementById('grid') ||
     document.getElementById('workGrid');
-  if (!grid) return;
 
-  // find nearest .scroller (or window)
-  function findScroller(el){
-    let n = el;
-    while (n && n !== document.body){
-      if (n.classList && n.classList.contains('scroller')) return n;
-      n = n.parentNode;
-    }
-    return null;
-  }
-  const scroller = findScroller(grid);
+  if (!grid) { console.warn('[grid] no container'); return; }
 
-  // candidates for work.json (handles accidental nested assets/)
-  const CANDIDATES = [
-    'assets/work.json',
-    './assets/work.json',
-    '/assets/work.json'
-  ];
+  // Find the scrolling container
+  const scroller = grid.closest('.scroller');
+  if (!scroller) { console.warn('[grid] no .scroller ancestor'); return; }
 
-  async function loadWork(){
-    for (const u of CANDIDATES){
-      try {
-        const r = await fetch(u + '?v=' + Date.now(), { cache: 'no-store' });
-        if (r.ok) return await r.json();
-      } catch(e){}
-    }
-    return [];
-  }
+  let items = [];
+  let cursor = 0;
+  let loading = false;
+  let done = false;
 
   function esc(s){ return String(s || ''); }
+
   function card(p){
     const title = esc(p.title || 'Untitled Project');
     const meta  = [p.client, p.year, p.role].filter(Boolean).map(esc).join(' · ');
-    const img   = esc(p.cover || (Array.isArray(p.gallery) && p.gallery[0]) || 'assets/work/placeholder-16x9.jpg');
-    const href  = p.slug ? ('project.html?slug=' + encodeURIComponent(p.slug)) : '#';
+    const img   = esc(p.cover || (p.gallery && p.gallery[0]) || 'assets/work/placeholder-16x9.jpg');
+
+    // One project template:
+    const href = p.slug
+      ? 'project.html?slug=' + encodeURIComponent(p.slug)
+      : (p.href ? esc(p.href) : '#');
 
     return `
       <article class="card">
@@ -52,57 +43,71 @@
           <a href="${href}">${title}</a>
           <div class="meta">${meta}</div>
         </div>
-      </article>`;
+      </article>
+    `;
   }
 
-  // create a sentinel if missing
-  let sentinel = document.getElementById('gridSentinel');
-  if (!sentinel){
+  // Ensure we have a sentinel INSIDE the scroller
+  let sentinel = scroller.querySelector('#gridSentinel');
+  if (!sentinel) {
     sentinel = document.createElement('div');
     sentinel.id = 'gridSentinel';
-    sentinel.style.height = '1px';
-    (grid.parentNode || document.body).appendChild(sentinel);
+    sentinel.style.cssText = 'height:2px;width:100%';
+    scroller.appendChild(sentinel);
   }
 
-  let data = [];
-  let cursor = 0;
-  let done   = false;
+  function loadMore() {
+    if (loading || done || !items.length) return;
+    loading = true;
 
-  function renderNext(){
-    if (!data.length || done) return;
-    const slice = data.slice(cursor, cursor + BATCH);
-    if (slice.length){
-      grid.insertAdjacentHTML('beforeend', slice.map(card).join(''));
-      cursor += slice.length;
-    }
-    if (cursor >= data.length){
+    const end = Math.min(cursor + PAGE, items.length);
+    if (cursor >= end) {
       done = true;
       observer.disconnect();
+      return (loading = false);
+    }
+
+    grid.insertAdjacentHTML(
+      'beforeend',
+      items.slice(cursor, end).map(card).join('')
+    );
+    cursor = end;
+    loading = false;
+
+    // If scroller isn’t filled yet, keep loading until it is (or we run out)
+    if (scroller.scrollHeight <= scroller.clientHeight && !done) {
+      loadMore();
     }
   }
 
-  const observer = new IntersectionObserver((entries)=>{
-    if (entries.some(e => e.isIntersecting)) renderNext();
+  const observer = new IntersectionObserver((entries) => {
+    if (entries.some(e => e.isIntersecting)) loadMore();
   }, {
-    root: scroller || null,
-    rootMargin: '400px 0px 400px 0px',
+    root: scroller,          // KEY: observe inside the scroller
+    rootMargin: '300px 0px',
     threshold: 0.01
   });
 
-  loadWork().then(list=>{
-    data = Array.isArray(list) ? list : [];
-    // If nothing loaded, generate 24 placeholders just to keep layout from looking broken
-    if (!data.length){
-      data = Array.from({length: 24}, (_, i) => ({
-        slug: `placeholder-${i+1}`,
-        title: `Project ${i+1}`,
-        client: 'ABC News',
-        year: '—',
-        role: 'Production Designer',
-        cover: 'assets/work/placeholder-16x9.jpg'
-      }));
-    }
-    renderNext();
-    observer.observe(sentinel);
-  });
+  // Load data with cache-buster
+  fetch('assets/work.json?v=' + Date.now(), { cache: 'no-store' })
+    .then(r => r.ok ? r.json() : [])
+    .then(list => {
+      items = Array.isArray(list) ? list : (list.projects || []);
+      if (!items.length) {
+        // placeholders so layout stays informative
+        items = Array.from({ length: 24 }, (_, n) => ({
+          slug: 'placeholder-' + (n+1),
+          title: 'Project ' + (n+1),
+          client: 'ABC News',
+          year: '—',
+          role: 'Production Designer',
+          cover: 'assets/work/placeholder-16x9.jpg',
+          href: '#'
+        }));
+      }
+      // First render + observe
+      loadMore();
+      observer.observe(sentinel);
+    })
+    .catch(err => console.error('[grid] failed to load work.json', err));
 })();
