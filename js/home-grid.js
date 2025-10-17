@@ -1,115 +1,117 @@
-/* global Promise, IntersectionObserver */
 /* Home grid (ES5) — infinite scroll that works from / and /work/ */
 (function () {
   var PAGE = 12;
 
+  // Find the grid and its scroller
   var grid = document.getElementById('homeGrid') ||
              document.getElementById('grid') ||
              document.getElementById('workGrid');
   if (!grid) return;
 
   function findScroller(el){
-    while (el && el !== document.body){
-      if (el.classList && el.classList.contains('scroller')) return el;
-      el = el.parentNode;
+    var n = el;
+    while (n && n !== document.body){
+      if (n.classList && n.classList.contains('scroller')) return n;
+      n = n.parentNode;
     }
     return null;
   }
   var scroller = findScroller(grid);
 
-  /* one card */
-  function card(it){
-    var title = it.title || 'Project';
-    var meta  = [it.client, it.year, it.role].filter(Boolean).join(' · ');
-    // Prefer JSON cover; otherwise try /assets/work/<slug>/cover.jpg
-    var fallback = it.slug ? ('assets/work/' + it.slug + '/cover.jpg') : 'assets/work/placeholder-16x9.jpg';
-    var img = it.cover || fallback;
-    var href = it.slug ? ('project.html?slug=' + encodeURIComponent(it.slug)) : (it.href || '#');
+  // Clean start
+  grid.innerHTML = '';
 
-    // onerror uses single quotes; we escape them so the outer JS string stays valid
+  // Helpers
+  function esc(s){ return s == null ? '' : String(s); }
+  function coverFor(it){
+    if (it && it.cover) return it.cover;
+    if (it && it.slug)  return 'assets/work/' + it.slug + '/cover.jpg';
+    return 'assets/work/placeholder-16x9.jpg';
+  }
+
+  function card(it){
+    var href  = it.slug ? ('project.html?slug=' + encodeURIComponent(it.slug))
+                        : (it.href || '#');
+    var title = esc(it.title || 'Project');
+    var meta  = [it.client, it.year, it.role].filter(Boolean).join(' · ');
+    var img   = coverFor(it);
+
     return '' +
       '<article class="card">' +
         '<a class="cover" href="' + href + '">' +
           '<span class="ratio-169">' +
             '<img loading="lazy" decoding="async" src="' + img + '" alt="" ' +
-            'onerror="this.onerror=null;this.src=\\\'/assets/work/placeholder-16x9.jpg\\\';">' +
+            "onerror=\"this.onerror=null;this.src='assets/work/placeholder-16x9.jpg'\">" +
           '</span>' +
         '</a>' +
         '<div class="footer">' +
           '<a href="' + href + '">' + title + '</a>' +
-          '<div class="meta">' + meta + '</div>' +
+          '<div class="meta">' + esc(meta) + '</div>' +
         '</div>' +
       '</article>';
   }
 
-  /* load JSON from robust set of bases */
-  function loadJSON(){
+  // Load JSON robustly (works from / and /work/)
+  function loadJSON(cb){
     var bases = ['', './', '../', '/'];
     var i = 0;
-    function tryNext(){
-      if (i >= bases.length) return Promise.resolve([]);
+    function next(){
+      if (i >= bases.length) { cb([]); return; }
       var url = bases[i++] + 'assets/work.json?v=' + Date.now();
-      return fetch(url, { cache: 'no-store' })
-        .then(function (r){ if (!r.ok) throw 0; return r.json(); })
-        .catch(function (){ return tryNext(); });
+      fetch(url, { cache: 'no-store' })
+        .then(function(r){ if (!r.ok) throw 0; return r.json(); })
+        .then(function(data){
+          if (data && data.length) cb(data);
+          else next();
+        })
+        .catch(next);
     }
-    return tryNext();
+    next();
   }
 
-  /* state + render */
-  var items = [], cursor = 0, loading = false, done = false, added = {};
+  // State + render
+  var items = [], cursor = 0, loading = false, done = false;
 
   function renderMore(){
-    if (loading || done || !items.length) return;
+    if (loading || done) return;
     loading = true;
+
+    if (!items.length){ loading = false; return; }
 
     var end = Math.min(cursor + PAGE, items.length);
     var html = '';
     for (var i = cursor; i < end; i++){
       var it = items[i];
-      if (!it || !it.slug || added[it.slug]) continue;
-      added[it.slug] = 1;
+      if (!it || !it.slug) continue;
       html += card(it);
     }
     if (html) grid.insertAdjacentHTML('beforeend', html);
+
     cursor = end;
     if (cursor >= items.length) done = true;
     loading = false;
 
     // If nothing scrolls yet, keep adding until it does
     var root = scroller || document.documentElement;
-    var filled = root.scrollHeight > (root.clientHeight + 8);
-    if (!filled && !done) renderMore();
+    if (root.scrollHeight <= root.clientHeight + 16 && !done) renderMore();
   }
 
-  function sentinel(where){
-    var s = document.createElement('div');
-    s.className = 'grid-sentinel';
-    s.style.cssText = 'height:1px;width:100%';
-    where.appendChild(s);
-    return s;
-  }
+  // Sentinel inside the scroller (or body if no scroller)
+  var sentinel = document.createElement('div');
+  sentinel.id = 'gridSentinel';
+  sentinel.style.height = '1px';
+  (scroller || document.body).appendChild(sentinel);
 
-  var sInside = scroller ? sentinel(scroller) : null;
-  var section = grid.closest ? grid.closest('.section') : null;
-  var after = (section && section.parentNode) ? section.parentNode : document.body;
-  var sPage = sentinel(after);
+  var observer = new IntersectionObserver(function(entries){
+    for (var i=0;i<entries.length;i++){
+      if (entries[i].isIntersecting) renderMore();
+    }
+  }, { root: scroller || null, rootMargin: '400px 0px', threshold: 0.01 });
 
-  function observe(root, target){
-    var io = new IntersectionObserver(function(entries){
-      for (var i=0;i<entries.length;i++){
-        if (entries[i].isIntersecting) renderMore();
-      }
-    }, { root: root || null, rootMargin:'400px 0px', threshold:0.01 });
-    io.observe(target);
-    return io;
-  }
-
-  loadJSON().then(function(list){
+  loadJSON(function(list){
     items = Array.isArray(list) ? list : [];
-    cursor = 0; loading = false; done = false; added = {};
-    renderMore();
-    if (sInside) observe(scroller, sInside);
-    observe(null, sPage);
+    cursor = 0; loading = false; done = false;
+    renderMore();               // first page
+    observer.observe(sentinel); // then infinite
   });
 })();
