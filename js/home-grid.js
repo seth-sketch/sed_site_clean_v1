@@ -3,7 +3,15 @@
 (function () {
   var PAGE = 12;
 
-  // ---- find grid and its scroller
+  // -- helpers ---------------------------------------------------
+  function toRoot(p){
+    if (!p) return '';
+    if (/^https?:\/\//i.test(p)) return p;
+    p = String(p).replace(/^(\.\/)+/, '');
+    return p.charAt(0) === '/' ? p : '/' + p; // -> /assets/...
+  }
+
+  // ---- find grid and its scroller ------------------------------
   var grid = document.getElementById('homeGrid') ||
              document.getElementById('grid') ||
              document.getElementById('workGrid');
@@ -18,78 +26,78 @@
   }
   var scroller = findScroller(grid);
 
-  // ---- card
-// --- one card ---------------------------------------------------------------
-function card(it){
-  var title = it.title || 'Project';
-  var meta  = [it.client, it.year, it.role].filter(Boolean).join(' · ');
-  // prefer explicit cover, otherwise try conventional path
-  var primary = it.cover || ('assets/work/' + (it.slug || 'unknown') + '/cover.jpg');
-  var href    = it.slug ? ('project.html?slug=' + encodeURIComponent(it.slug))
-                        : (it.href || '#');
+  // ---- card ----------------------------------------------------
+  function card(it){
+    var title = it.title || 'Project';
+    var meta  = [it.client, it.year, it.role].filter(Boolean).join(' · ');
 
-  // NOTE: JS string uses single quotes; HTML attributes use double quotes.
-  // The fallback path is wrapped in single quotes INSIDE the HTML attribute
-  // and escaped as \' to keep the JS string valid.
-  return '' +
-    '<article class="card">' +
-      '<a class="cover" href="' + href + '">' +
-        '<span class="ratio-169">' +
-          '<img loading="lazy" decoding="async" src="' + primary + '" alt="" ' +
-               'onerror="this.onerror=null;this.src=\\\'assets/work/placeholder-16x9.jpg\\\'">' +
-        '</span>' +
-      '</a>' +
-      '<div class="footer">' +
-        '<a href="' + href + '">' + title + '</a>' +
-        '<div class="meta">' + meta + '</div>' +
-      '</div>' +
-    '</article>';
-}
+    // prefer explicit cover, else conventional cover path, then placeholder
+    var primary = it.cover || ('assets/work/' + (it.slug || 'unknown') + '/cover.jpg');
+    primary = toRoot(primary);
+    var fallback = '/assets/work/placeholder-16x9.jpg';
 
-// --- placeholders so the layout keeps its shape -----------------------------
-function placeholders(n){
-  var out = [];
-  for (var i = 0; i < n; i++){
-    out.push({
-      slug: 'ph-' + (i + 1),
-      title: 'Project ' + (i + 1),
-      client: 'ABC News',
-      year: '—',
-      role: 'Production Designer',
-      cover: 'assets/work/placeholder-16x9.jpg',
-      href: '#'
-    });
+    // IMPORTANT: use your working route (you use /project?slug=...)
+    var href = it.slug ? ('/project?slug=' + encodeURIComponent(it.slug))
+                       : (it.href || '#');
+
+    return '' +
+      '<article class="card">' +
+        '<a class="cover" href="' + href + '">' +
+          '<span class="ratio-169">' +
+            '<img loading="lazy" decoding="async" src="' + primary + '" alt="" ' +
+                 'onerror="this.onerror=null;this.src=\'' + fallback + '\'">' +
+          '</span>' +
+        '</a>' +
+        '<div class="footer">' +
+          '<a href="' + href + '">' + title + '</a>' +
+          '<div class="meta">' + meta + '</div>' +
+        '</div>' +
+      '</article>';
   }
-  return out;
-}
 
-// --- load JSON from multiple bases so it works from / and /work/ -----------
-function loadJSON(){
-  var bases = ['', './', '../', '/'];
-  var i = 0;
-  function tryNext(){
-    if (i >= bases.length) {
-      return Promise.resolve(placeholders(24));
+  // --- placeholders so layout keeps shape -----------------------
+  function placeholders(n){
+    var out = [];
+    for (var i = 0; i < n; i++){
+      out.push({
+        slug: 'ph-' + (i + 1),
+        title: 'Project ' + (i + 1),
+        client: 'ABC News',
+        year: '—',
+        role: 'Production Designer',
+        cover: '/assets/work/placeholder-16x9.jpg',
+        href: '#'
+      });
     }
-    var url = bases[i++] + 'assets/work.json?v=' + Date.now();
-    return fetch(url, { cache: 'no-store' })
-      .then(function (r){ if (!r.ok) throw 0; return r.json(); })
-      .then(function (d){ if (Array.isArray(d) && d.length) return d; throw 0; })
-      .catch(function (){ return tryNext(); });
-  }
-  return tryNext();
-
+    return out;
   }
 
-  // ---- state + render
-  var items=[], cursor=0, loading=false, done=false, added={};
+  // --- load JSON from multiple bases so it works everywhere -----
+  function loadJSON(){
+    var bases = ['', './', '../', '/'];
+    var i = 0;
+    function tryNext(){
+      if (i >= bases.length) {
+        return Promise.resolve(placeholders(24));
+      }
+      var url = bases[i++] + 'assets/work.json?v=' + Date.now();
+      return fetch(url, { cache: 'no-store' })
+        .then(function (r){ if (!r.ok) throw 0; return r.json(); })
+        .then(function (d){ if (Array.isArray(d) && d.length) return d; throw 0; })
+        .catch(function (){ return tryNext(); });
+    }
+    return tryNext();
+  }
+
+  // ---- state + render ------------------------------------------
+  var items = [], cursor = 0, loading = false, done = false, added = {};
 
   function renderMore(){
     if (loading || done || !items.length) return;
     loading = true;
 
-    var end = Math.min(cursor + PAGE, items.length), html='';
-    for (var i=cursor; i<end; i++){
+    var end = Math.min(cursor + PAGE, items.length), html = '';
+    for (var i = cursor; i < end; i++){
       var it = items[i];
       if (!it || !it.slug || added[it.slug]) continue;
       added[it.slug] = 1;
@@ -146,7 +154,7 @@ function loadJSON(){
           slug:'ph-'+(base+i+1),
           title:'Project '+(base+i+1),
           client:'ABC News', year:'—', role:'Production Designer',
-          cover:'assets/work/placeholder-16x9.jpg', href:'#'
+          cover:'/assets/work/placeholder-16x9.jpg', href:'#'
         });
       }
     }
