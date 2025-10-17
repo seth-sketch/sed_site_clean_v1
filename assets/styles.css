@@ -58,3 +58,19 @@ html{scroll-padding-top:var(--header-h)}
 .detail-actions{margin-top:16px;display:flex;gap:10px}
 .btn-secondary{background:#fff;color:#1f2937;border:1px solid var(--line)}
 .meta-big{color:var(--muted);margin-top:6px}
+/* --- FIX: prevent cover from collapsing in flex column cards --- */
+.card .cover{
+  flex: 0 0 auto; /* keep the media area from shrinking to 0px */
+}
+
+/* --- Fallback if aspect-ratio isn't honored (DW Live view, older engines) --- */
+@supports not (aspect-ratio: 1 / 1){
+  .ratio-169{
+    height: 0;
+    padding-top: 56.25%; /* 9/16 */
+  }
+  .ratio-169 > img{
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+  }
+}

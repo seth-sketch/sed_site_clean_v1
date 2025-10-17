@@ -1,8 +1,8 @@
-/* global Promise, IntersectionObserver */
+/* global IntersectionObserver */
 (function () {
   var PAGE = 12;
 
-  // Fallback rotator used by <img onerror>
+  // Fallback rotator (called from <img onerror>)
   if (!window.sedNextSrc) {
     window.sedNextSrc = function (img) {
       var raw = img.getAttribute('data-srcs') || '';
@@ -14,7 +14,7 @@
     };
   }
 
-  // Find grid + its scrolling container
+  // Find grid & its scroller
   var grid = document.getElementById('homeGrid') ||
              document.getElementById('grid') ||
              document.getElementById('workGrid');
@@ -29,23 +29,34 @@
   }
   var scroller = findScroller(grid);
 
-  // Make absolute /assets/... (so it works from / and /work/)
+  // Always make absolute to root for Pages
   function abs(p){
     if (!p) return '';
     if (/^https?:\/\//i.test(p)) return p;
-    p = String(p).replace(/^(\.\/)+/, '');
-    return '/' + p.replace(/^\/+/, '');
+    p = String(p).replace(/^(\.\/)+/, '').replace(/^\/+/, '');
+    return '/' + p;
   }
+
+  // Final, built-in 16:9 SVG placeholder (never 404s)
+  var DATA_FALLBACK =
+    'data:image/svg+xml,' +
+    encodeURIComponent(
+      "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'>" +
+      "<rect width='1600' height='900' fill='#e5e7eb'/>" +
+      "<text x='800' y='470' text-anchor='middle' " +
+      "font-family='Arial, Helvetica, sans-serif' font-size='64' fill='#9aa3b2'>16:9</text>" +
+      "</svg>"
+    );
 
   function coverCandidates(it){
     var out = [];
     if (it.cover) out.push(abs(it.cover));
     if (it.slug) {
-      out.push(abs('assets/work/' + it.slug + '/cover.jpg'));     // absolute
-      out.push('assets/work/' + it.slug + '/cover.jpg');          // relative
-      out.push('../assets/work/' + it.slug + '/cover.jpg');       // relative (from /work/)
+      out.push(abs('assets/work/' + it.slug + '/cover.jpg'));  // absolute
+      out.push('assets/work/' + it.slug + '/cover.jpg');       // relative (just in case)
     }
-    out.push(abs('assets/work/placeholder-16x9.jpg'));            // guaranteed final fallback
+    out.push(abs('assets/work/placeholder-16x9.jpg'));         // conventional placeholder
+    out.push(DATA_FALLBACK);                                    // guaranteed last fallback
 
     // de-dupe
     var seen = {}, list = [];
@@ -83,16 +94,18 @@
   }
 
   function loadJSON(){
-    var bases = ['', './', '../', '/'];
+    // Prefer absolute first (works from / and /work/)
+    var urls = ['/assets/work.json?v=' + Date.now(),
+                'assets/work.json?v=' + Date.now()];
     var i = 0;
-    function tryNext(){
-      if (i >= bases.length) return Promise.resolve([]);
-      var url = bases[i++] + 'assets/work.json?v=' + Date.now();
-      return fetch(url, { cache: 'no-store' })
+    function next(){
+      if (i >= urls.length) return Promise.resolve([]);
+      var u = urls[i++];
+      return fetch(u, { cache: 'no-store' })
         .then(function(r){ if (!r.ok) throw 0; return r.json(); })
-        .catch(function(){ return tryNext(); });
+        .catch(function(){ return next(); });
     }
-    return tryNext();
+    return next();
   }
 
   var items=[], cursor=0, loading=false, done=false, added={};
@@ -113,7 +126,7 @@
     if (cursor >= items.length) done = true;
     loading = false;
 
-    // If nothing scrolls yet, keep adding
+    // If nothing scrolls yet, keep adding until it does
     var root = scroller || document.documentElement;
     if (root.scrollHeight <= root.clientHeight + 8 && !done) renderMore();
   }
@@ -133,7 +146,7 @@
 
   function observe(root, target){
     var io = new IntersectionObserver(function(entries){
-      for (var i=0;i<entries.length;i++){
+      for (var i=0;i<entries.length; i++){
         if (entries[i].isIntersecting) renderMore();
       }
     }, { root: root || null, rootMargin:'400px 0px', threshold:0.01 });
@@ -144,7 +157,7 @@
   loadJSON().then(function(list){
     items = Array.isArray(list) ? list : [];
 
-    // pad with placeholders so there’s always scroll room
+    // Pad so there is always scrollable content
     if (items.length < 30){
       var need = 30 - items.length, base = items.length;
       for (var i=0;i<need;i++){
@@ -152,7 +165,7 @@
           slug:'ph-'+(base+i+1),
           title:'Project '+(base+i+1),
           client:'ABC News', year:'—', role:'Production Designer',
-          cover:'assets/work/placeholder-16x9.jpg', href:'#'
+          cover:'/assets/work/placeholder-16x9.jpg'
         });
       }
     }
