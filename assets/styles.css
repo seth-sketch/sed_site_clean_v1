@@ -9,6 +9,39 @@
   --shadow:0 8px 16px rgba(2,6,23,.06), 0 2px 4px rgba(2,6,23,.06);
   --header-h:112px;
 }
+/* --- 16:9 media blocks — guaranteed height and cover fit --- */
+.ratio-169{
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  overflow: hidden;
+  background: #ddd; /* you can tweak */
+}
+.ratio-169 > img{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Cards: make sure the media area never collapses in a flex column */
+.card .cover{
+  display: block;
+  flex: 0 0 auto;
+}
+.card .cover .ratio-169{
+  display: block;
+}
+
+/* Project detail hero: ensure full-width 16:9 */
+.detail-media [data-project="hero"] .ratio-169,
+[data-project="hero"] .ratio-169{
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
 *{box-sizing:border-box}
 html,body{
   margin:0;padding:0;background:var(--bg);color:var(--ink);

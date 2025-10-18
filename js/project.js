@@ -22,27 +22,22 @@
     var bases = ['', './', '../', '/'];
     var i = 0;
     function tryNext() {
-      if (i >= bases.length) return cb(new Error('work.json not found'));
+      if (i >= bases.length) { cb(new Error('work.json not found')); return; }
       var url = bases[i++] + 'assets/work.json?v=' + Date.now();
-      if (window.fetch){
-        fetch(url, { cache:'no-store' })
-          .then(function(r){ if (!r.ok) throw 0; return r.json(); })
-          .then(function(d){ cb(null, d); })
-          .catch(function(){ tryNext(); });
-      } else {
-        var x = new XMLHttpRequest();
-        x.open('GET', url, true);
-        x.onreadystatechange = function(){
-          if (x.readyState === 4){
-            if (x.status >= 200 && x.status < 300){
-              try { return cb(null, JSON.parse(x.responseText)); }
-              catch(e){}
-            }
-            tryNext();
-          }
-        };
-        x.send();
-      }
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', url, true);
+      xhr.onreadystatechange = function(){
+        if (xhr.readyState !== 4) return;
+        if (xhr.status >= 200 && xhr.status < 300){
+          try {
+            var data = JSON.parse(xhr.responseText);
+            cb(null, data);
+          } catch(e){ tryNext(); }
+        } else {
+          tryNext();
+        }
+      };
+      xhr.send();
     }
     tryNext();
   }
@@ -54,25 +49,27 @@
   var slug = getSlug();
   if (!slug) return;
 
-  loadWorkJSON(function(err, list){
+  loadWorkJSON(function (err, list) {
     if (err || !list || !list.length) return;
 
+    // find item
     var idx = -1, item = null;
     for (var i = 0; i < list.length; i++) {
       if (list[i].slug === slug) { idx = i; item = list[i]; break; }
     }
     if (!item) return;
 
+    // Title + meta
     setText('[data-project="title"], h1', item.title || 'Project');
-    setText('[data-project="meta"]', [item.client, item.year, item.role].filter(Boolean).join(' · '));
+    setText('[data-project="meta"]',
+      [item.client, item.year, item.role].filter(Boolean).join(' · '));
 
-    var heroSrc = item.cover || (item.gallery && item.gallery[0]) || 'assets/work/placeholder-16x9.jpg';
+    // Hero
+    var heroSrc = item.cover || (item.gallery && item.gallery[0]) || '';
     var heroEl = setHTML('[data-project="hero"]',
-      '<span class="ratio-169"><img src="' + heroSrc + '" alt=""></span>');
+      '<span class="ratio-169"><img src="' + (heroSrc || '') + '" alt=""></span>');
 
-    var descEl = $('[data-project="description"]');
-    if (descEl) descEl.textContent = item.description || '';
-
+    // Thumbs (only if gallery exists)
     var thumbsEl = $('[data-project="thumbs"]');
     if (thumbsEl && item.gallery && item.gallery.length) {
       var t = '';
@@ -81,22 +78,31 @@
         t += '<button class="thumb" data-src="' + src + '"><img loading="lazy" src="' + src + '" alt=""></button>';
       }
       thumbsEl.innerHTML = t;
+
+      // click: accept both button .thumb and bare <img> inside it
       thumbsEl.addEventListener('click', function (e) {
-        var target = e.target || e.srcElement;
-        var btn = target.closest ? target.closest('.thumb') :
-                 (target.className === 'thumb' ? target : null);
-        if (btn && heroEl) {
-          heroEl.innerHTML = '<span class="ratio-169"><img src="' + btn.getAttribute('data-src') + '" alt=""></span>';
-          window.scrollTo(0, 0);
+        var n = e.target;
+        while (n && n !== thumbsEl){
+          if (n.className && String(n.className).indexOf('thumb') > -1){
+            var s = n.getAttribute('data-src');
+            if (s && heroEl) {
+              heroEl.innerHTML = '<span class="ratio-169"><img src="' + s + '" alt=""></span>';
+              window.scrollTo(0, 0);
+            }
+            break;
+          }
+          n = n.parentNode;
         }
       });
     } else if (thumbsEl) {
       thumbsEl.innerHTML = '';
     }
 
+    // Back link
     var backEl = $('[data-project="back"]');
     if (backEl) backEl.setAttribute('href', 'index.html#work');
 
+    // Next project
     var nextEl = $('[data-project="next"]');
     if (nextEl) {
       var nxt = list[(idx + 1) % list.length];
