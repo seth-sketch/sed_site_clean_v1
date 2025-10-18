@@ -47,18 +47,18 @@
 
     <!-- Selected Work -->
     <section class="section" id="work">
-      <h2>Selected Work</h2>
-      <div class="band">
-        <div class="scroller" id="workScroller">
-          <div id="homeGrid" class="grid"></div>
-          <!-- sentinel will be injected if missing -->
-        </div>
-      </div>
-      <div style="margin-top:14px">
-        <a class="btn" href="work/index.html">Open full Work page</a>
-      </div>
-    </section>
-
+  <h2>Selected Work</h2>
+  <div class="band">
+    <div class="scroller" id="workScroller">
+      <div class="grid" id="homeGrid"></div>
+      <!-- sentinel for infinite loading -->
+      <div id="gridSentinel" style="height:1px"></div>
+    </div>
+  </div>
+  <div style="margin-top:14px">
+    <a class="btn" href="work/index.html">Open full Work page</a>
+  </div>
+</section>
     <section class="section" id="press">
       <h2>Press &amp; Features</h2>
       <ul class="list">
@@ -97,5 +97,6 @@
 
   <script src="js/se-hero.js?v=2" defer></script>
   <script src="js/home-grid.js?v=20" defer></script>
+	<script src="js/home-grid.js?v=21" defer></script>
 </body>
 </html>
