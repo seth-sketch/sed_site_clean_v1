@@ -31,26 +31,38 @@
         client: 'ABC News',
         year: '—',
         role: 'Production Designer',
-        cover: 'assets/work/placeholder-16x9.jpg',
+        cover: '', // will fall back to inline SVG
         href: '#'
       });
     }
     return out;
   }
 
+  function inlinePlaceholder(){
+    // neutral 16:9 SVG as data URL (shows even if no files exist)
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 90">' +
+              '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">' +
+              '<stop offset="0" stop-color="#eef2ff"/><stop offset="1" stop-color="#dbe6ff"/></linearGradient></defs>' +
+              '<rect width="160" height="90" fill="url(#g)"/>' +
+              '<path d="M10 65l28-28 24 24 18-18 32 32" fill="none" stroke="#a5b4fc" stroke-width="4" opacity=".6"/>' +
+              '</svg>';
+    return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+  }
+
   function cardHTML(it){
     var title = it.title || 'Project';
     var meta  = [it.client, it.year, it.role].filter(Boolean).join(' · ');
-    var primary = it.cover || ('assets/work/' + (it.slug || 'unknown') + '/cover.jpg');
+    var guess = it.slug ? ('assets/work/' + it.slug + '/cover.jpg') : '';
+    var primary = it.cover || guess || '';
     var href    = it.slug ? ('project.html?slug=' + encodeURIComponent(it.slug))
                           : (it.href || '#');
 
+    // We attach error handlers after insertion, so keep <img> simple
     return '' +
       '<article class="card">' +
         '<a class="cover" href="' + href + '">' +
           '<span class="ratio-169">' +
-            '<img loading="lazy" decoding="async" src="' + primary + '" alt="" ' +
-                 'onerror="this.onerror=null;this.src=\\\'assets/work/placeholder-16x9.jpg\\\'">' +
+            '<img loading="lazy" decoding="async" src="' + (primary || inlinePlaceholder()) + '" alt="">' +
           '</span>' +
         '</a>' +
         '<div class="footer">' +
@@ -58,6 +70,22 @@
           '<div class="meta">' + meta + '</div>' +
         '</div>' +
       '</article>';
+  }
+
+  // After inserting cards, attach img error fallback to inline SVG
+  function hydrateImages(scope){
+    var imgs = (scope || document).querySelectorAll('.card .ratio-169 > img');
+    var fallback = inlinePlaceholder();
+    for (var i=0;i<imgs.length;i++){
+      if (!imgs[i].dataset._sedBound){
+        imgs[i].dataset._sedBound = '1';
+        imgs[i].addEventListener('error', (function(img){
+          return function(){
+            img.src = fallback;
+          };
+        })(imgs[i]));
+      }
+    }
   }
 
   // --------- XHR loader that tries multiple bases
@@ -108,7 +136,12 @@
       added[it.slug] = 1;
       html += cardHTML(it);
     }
-    if (html) grid.insertAdjacentHTML('beforeend', html);
+    if (html) {
+      var before = grid.children.length;
+      grid.insertAdjacentHTML('beforeend', html);
+      // hydrate images we just added
+      hydrateImages(grid);
+    }
     cursor = end;
     if (cursor >= items.length) done = true;
     loading = false;
