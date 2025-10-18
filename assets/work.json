@@ -1,7 +1,7 @@
 [
   {
     "slug": "gma-2025",
-    "title": "Good Morning America — 2025 Studio Revamp",
+    "title": "Good Morning America \u2014 2025 Studio Revamp",
     "client": "ABC News",
     "year": "2025",
     "role": "Production Designer",
@@ -15,7 +15,7 @@
   },
   {
     "slug": "this-week-4e",
-    "title": "This Week — NYC Studio (4E)",
+    "title": "This Week \u2014 NYC Studio (4E)",
     "client": "ABC News",
     "year": "2025",
     "role": "Production Designer",
@@ -29,7 +29,7 @@
   },
   {
     "slug": "election-2024",
-    "title": "Election Night 2024 — Set & On-Set UX",
+    "title": "Election Night 2024 \u2014 Set & On-Set UX",
     "client": "ABC News",
     "year": "2024",
     "role": "Production Designer",
@@ -41,10 +41,9 @@
     ],
     "description": "High-clarity graphics and spatial UX for live returns."
   },
-
   {
     "slug": "abc-debate-stage",
-    "title": "ABC Presidential Debate — Stage Design",
+    "title": "ABC Presidential Debate \u2014 Stage Design",
     "client": "ABC News",
     "year": "2024",
     "role": "Production Designer",
@@ -58,7 +57,7 @@
   },
   {
     "slug": "election-roadset",
-    "title": "Election Coverage — Roadset",
+    "title": "Election Coverage \u2014 Roadset",
     "client": "ABC News",
     "year": "2024",
     "role": "Production Designer",
@@ -72,7 +71,7 @@
   },
   {
     "slug": "world-news-tonight",
-    "title": "World News Tonight — Studio",
+    "title": "World News Tonight \u2014 Studio",
     "client": "ABC News",
     "year": "2024",
     "role": "Production Designer",
@@ -86,7 +85,7 @@
   },
   {
     "slug": "the-view-refresh",
-    "title": "The View — Studio Refresh",
+    "title": "The View \u2014 Studio Refresh",
     "client": "ABC",
     "year": "2024",
     "role": "Production Designer",
@@ -100,7 +99,7 @@
   },
   {
     "slug": "this-week-special",
-    "title": "This Week — Special",
+    "title": "This Week \u2014 Special",
     "client": "ABC News",
     "year": "2024",
     "role": "Production Designer",
@@ -112,10 +111,9 @@
     ],
     "description": "Special-event scenic package and host positions."
   },
-
   {
     "slug": "dan-abrams-live-newsnation",
-    "title": "Dan Abrams Live — NewsNation",
+    "title": "Dan Abrams Live \u2014 NewsNation",
     "client": "NewsNation",
     "year": "2023",
     "role": "Production Designer",
@@ -129,7 +127,7 @@
   },
   {
     "slug": "fight-game-lampley",
-    "title": "The Fight Game — Jim Lampley",
+    "title": "The Fight Game \u2014 Jim Lampley",
     "client": "HBO",
     "year": "2016",
     "role": "Production Designer",
@@ -157,7 +155,7 @@
   },
   {
     "slug": "oscars-red-carpet-abc",
-    "title": "Oscars Red Carpet — ABC",
+    "title": "Oscars Red Carpet \u2014 ABC",
     "client": "ABC",
     "year": "2019",
     "role": "Production Designer",
@@ -185,7 +183,7 @@
   },
   {
     "slug": "ted-ed-bam",
-    "title": "TED-Ed — BAM",
+    "title": "TED-Ed \u2014 BAM",
     "client": "TED",
     "year": "2016",
     "role": "Production Designer",
@@ -199,7 +197,7 @@
   },
   {
     "slug": "ted-live-town-hall",
-    "title": "TED Live — Town Hall",
+    "title": "TED Live \u2014 Town Hall",
     "client": "TED",
     "year": "2016",
     "role": "Production Designer",

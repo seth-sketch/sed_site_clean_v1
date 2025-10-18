@@ -4,121 +4,43 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Project — Seth Easter</title>
-  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-<header class="header">
-  <div class="container nav">
-    <a class="brand" href="index.html" aria-label="Seth Easter Design">
-      <img class="brand-logo" src="assets/sed-logo-tight.svg" alt="Seth Easter Design">
-    </a>
-    <ul class="nav-links">
-      <li><a class="active" href="index.html">Work</a></li>
-      <li><a href="index.html#press">Press</a></li>
-      <li><a href="index.html#awards">Awards</a></li>
-      <li><a href="index.html#contact">Contact</a></li>
-    </ul>
-  </div>
-</header>
-
-<main class="container">
-  <div id="detail" class="work-detail" aria-live="polite">
-    <!-- Left: media -->
-    <div class="detail-media">
-      <div class="ratio-169" id="mainFrame">
-        <img id="mainImg" alt="" />
-      </div>
-      <div id="thumbs" class="detail-thumbs" hidden></div>
+  <header class="header">
+    <div class="container nav">
+      <a class="brand" href="index.html" aria-label="Seth Easter Design">
+        <img class="brand-logo" src="assets/sed-logo-tight.svg" alt="Seth Easter Design">
+      </a>
+      <ul class="nav-links">
+        <li><a class="active" href="work/index.html">Work</a></li>
+        <li><a href="index.html#press">Press</a></li>
+        <li><a href="index.html#awards">Awards</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
     </div>
+  </header>
 
-    <!-- Right: meta -->
-    <div class="detail-meta">
-      <h1 id="title">Project</h1>
-      <div class="meta-big" id="meta"></div>
-      <p id="desc"></p>
-      <div class="detail-actions">
-        <a class="btn btn-secondary" href="index.html">Home</a>
-        <a class="btn" id="nextBtn" href="#">Next project</a>
+  <main class="container">
+    <section class="section">
+      <h1 data-project="title">Project</h1>
+      <div class="meta-big" data-project="meta"></div>
+      <div class="work-detail" style="margin-top:14px">
+        <div class="detail-media" data-project="hero"></div>
+        <aside class="detail-meta">
+          <p data-project="description">Project details and context.</p>
+          <div class="detail-actions">
+            <a class="btn btn-secondary" data-project="back" href="index.html#work">← Home</a>
+            <a class="btn" data-project="next" href="#"><span>Next project</span> →</a>
+          </div>
+        </aside>
       </div>
-    </div>
-  </div>
-</main>
+      <div class="detail-thumbs" data-project="thumbs"></div>
+    </section>
+  </main>
 
-<footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
+  <footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
 
-<script>
-(function(){
-  const qs = new URLSearchParams(location.search);
-  const slug = qs.get('slug') || '';
-  const TITLE = document.getElementById('title');
-  const META  = document.getElementById('meta');
-  const DESC  = document.getElementById('desc');
-  const IMG   = document.getElementById('mainImg');
-  const THUMBS= document.getElementById('thumbs');
-  const NEXT  = document.getElementById('nextBtn');
-
-  const CANDIDATES = [
-    'assets/work.json',
-    './assets/work.json',
-    '/assets/work.json'
-  ];
-
-  async function loadWork(){
-    for (const u of CANDIDATES) {
-      try {
-        const r = await fetch(u + '?v=' + Date.now(), { cache: 'no-store' });
-        if (r.ok) return await r.json();
-      } catch(e){}
-    }
-    return [];
-  }
-
-  function setImage(src){ IMG.src = src; }
-
-  function render(project, all){
-    document.title = project.title + ' — Seth Easter';
-    TITLE.textContent = project.title;
-    META.textContent  = [project.client, project.year, project.role].filter(Boolean).join(' · ');
-    DESC.textContent  = project.description || '';
-
-    const gallery = Array.isArray(project.gallery) && project.gallery.length
-      ? project.gallery
-      : [ project.cover || 'assets/work/placeholder-16x9.jpg' ];
-
-    setImage(gallery[0]);
-
-    if (gallery.length > 1){
-      THUMBS.hidden = false;
-      THUMBS.innerHTML = gallery.map((src,i)=>
-        `<img loading="lazy" src="${src}" alt="" data-src="${src}" />`
-      ).join('');
-      THUMBS.addEventListener('click', e=>{
-        const t = e.target.closest('img[data-src]');
-        if (t) setImage(t.getAttribute('data-src'));
-      });
-    } else {
-      THUMBS.hidden = true;
-      THUMBS.innerHTML = '';
-    }
-
-    // Next project button
-    const i = all.findIndex(p => p.slug === project.slug);
-    const next = all[(i + 1) % all.length];
-    NEXT.href = 'project.html?slug=' + encodeURIComponent(next.slug);
-  }
-
-  loadWork().then(list=>{
-    const data = Array.isArray(list) ? list : [];
-    const first = slug ? data.find(p => p.slug === slug) : data[0];
-    if (!first){
-      TITLE.textContent = 'Not found';
-      META.textContent = '';
-      DESC.textContent = '';
-      return;
-    }
-    render(first, data);
-  });
-})();
-</script>
+  <script src="js/project.js" defer></script>
 </body>
 </html>
