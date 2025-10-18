@@ -1,4 +1,5 @@
-/* Project page loader (ES5) */
+
+/* Project page loader (ES5) — reads assets/work.json and fills the page */
 (function () {
   function getSlug() {
     var q = location.search.replace(/^\?/, '');
@@ -18,14 +19,14 @@
   function loadWorkJSON() {
     var bases = ['', './', '../', '/'];
     var i = 0;
-    function next() {
+    function tryNext() {
       if (i >= bases.length) return Promise.reject(new Error('work.json not found'));
       var url = bases[i++] + 'assets/work.json?v=' + Date.now();
       return fetch(url, { cache: 'no-store' })
         .then(function (r) { if (!r.ok) throw 0; return r.json(); })
-        .catch(function () { return next(); });
+        .catch(function () { return tryNext(); });
     }
-    return next();
+    return tryNext();
   }
 
   function $(sel){ return document.querySelector(sel); }
