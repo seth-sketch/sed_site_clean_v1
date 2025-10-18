@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -23,13 +24,11 @@
   </header>
 
   <main class="container">
-    <!-- Full-width 16:9 hero -->
     <section aria-label="Featured">
       <div class="ratio-169 hero-stage">
         <div id="heroStage" class="se-slide-stage"></div>
       </div>
 
-      <!-- Long skinny copy bar -->
       <div class="hero-copy-card">
         <h1>Broadcast &amp; Live Event Production Design</h1>
         <p>
@@ -45,13 +44,12 @@
       </div>
     </section>
 
-    <!-- Selected Work -->
     <section class="section" id="work">
       <h2>Selected Work</h2>
       <div class="band">
         <div class="scroller" id="workScroller">
           <div id="homeGrid" class="grid"></div>
-          <!-- sentinel will be injected if missing -->
+          <div id="gridSentinel" style="height:1px"></div>
         </div>
       </div>
       <div style="margin-top:14px">
@@ -88,7 +86,6 @@
 
   <footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
 
-  <!-- Hero slides -->
   <script id="seSlidesJSON" type="application/json">[
     "assets/hero/slide1.jpg",
     "assets/hero/slide2.jpg",
