@@ -7,7 +7,29 @@
   <link rel="preload" as="image" href="assets/hero/slide1.jpg" />
   <link rel="stylesheet" href="assets/styles.css?v=20" />
 </head>
+	<script>
+  // Splash fade
+  window.addEventListener('load', function(){
+    var s=document.getElementById('splash'); if(!s) return;
+    setTimeout(function(){ s.classList.add('is-done'); }, 800);
+  });
+
+  // Reel -> slideshow fallback if video fails
+  (function(){
+    var v=document.getElementById('heroVideo');
+    var stage=document.getElementById('heroStage');
+    if(!v||!stage) return;
+    function fallback(){
+      stage.hidden=false;
+      if(v && v.parentNode) v.parentNode.removeChild(v);
+    }
+    v.addEventListener('error', fallback, {once:true});
+    // If the source 404s, error fires; otherwise slideshow stays hidden.
+  })();
+</script>
 <body>
+	<!-- Splash logo (fades out) -->
+<div id="splash"><img src="assets/sed-logo-tight.svg" alt="Seth Easter Design"></div>
   <header class="header">
     <div class="container nav">
       <a class="brand" href="index.html" aria-label="Seth Easter Design">
@@ -25,25 +47,19 @@
   <main class="container">
     <!-- Full-width 16:9 hero -->
     <section aria-label="Featured">
-      <div class="ratio-169 hero-stage">
-        <div id="heroStage" class="se-slide-stage"></div>
-      </div>
+  <div class="ratio-169 hero-stage">
+    <video id="heroVideo" playsinline muted loop autoplay poster="assets/hero/slide1.jpg">
+      <source src="assets/hero/reel.mp4" type="video/mp4">
+    </video>
+    <div id="heroStage" class="se-slide-stage" hidden></div>
+  </div>
 
-      <!-- Long skinny copy bar -->
-      <div class="hero-copy-card">
-        <h1>Broadcast &amp; Live Event Production Design</h1>
-        <p>
-          Studios and stages for ABC News and beyond — Good Morning America,
-          World News Tonight, This Week, The View, Presidential Debates, and
-          Election coverage in studio and across the Nation.
-        </p>
-        <p>
-          <strong>Seth Easter</strong> designs broadcast studios and live event productions
-          across the world and is based in NYC. Multiple Emmys &amp; an ADG award
-          for work at ABC News and beyond.
-        </p>
-      </div>
-    </section>
+  <div class="hero-copy-card">
+    <h1>Broadcast &amp; Live Event Production Design</h1>
+    <p>Studios and stages for ABC News and beyond — Good Morning America, World News Tonight, This Week, The View, Presidential Debates, and Election coverage in studio and across the Nation.</p>
+    <p><strong>Seth Easter</strong> designs broadcast studios and live event productions across the world and is based in NYC. Multiple Emmys &amp; an ADG award for work at ABC News and beyond.</p>
+  </div>
+</section>
 
     <!-- Selected Work -->
     <section class="section" id="work">
