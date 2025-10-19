@@ -1,5 +1,4 @@
-/* global IntersectionObserver */
-/* Home grid — infinite scroll from assets/work.json (unique by slug, 16:9 covers) */
+/* Home grid — infinite scroll, robust path handling for / and /work/ */
 (function () {
   var PAGE = 12;
 
@@ -17,11 +16,28 @@
   }
   var scroller = findScroller(grid);
 
+  // Are we inside /work/ or /press/?
+  var path = location.pathname.replace(/^\//,'');
+  var atWork  = /^work\//.test(path);
+  var atPress = /^press\//.test(path);
+
+  // Make a URL absolute to site root if needed
+  function norm(p){
+    if (!p) return p;
+    if (p[0] === '/' || /^https?:\/\//i.test(p)) return p; // already absolute
+    return (atWork || atPress ? '../' : '') + p;            // step out one level
+  }
+
   function cardHTML(it){
     var title = it.title || 'Project';
     var meta  = [it.client, it.year, it.role].filter(Boolean).join(' · ');
-    var img   = it.cover || (it.gallery && it.gallery[0]) || 'assets/work/placeholder-16x9.jpg';
-    var href  = it.slug ? ('project.html?slug=' + encodeURIComponent(it.slug)) : (it.href || '#');
+    var img   = norm(it.cover || (it.gallery && it.gallery[0]) || 'assets/work/placeholder-16x9.jpg');
+
+    // project page lives at site root as project.html
+    var href  = it.slug
+      ? (atWork || atPress ? ('../project.html?slug=' + encodeURIComponent(it.slug))
+                           : ('project.html?slug=' + encodeURIComponent(it.slug)))
+      : (it.href || '#');
 
     return '' +
       '<article class="card">' +
@@ -36,20 +52,17 @@
   }
 
   function loadWorkJSON(){
-    // Try relative bases so it works on / and /work/
     var bases = ['', './', '../', '/'];
     var i = 0;
     function tryNext(){
-      if (i >= bases.length) return Promise.resolve([]); // no placeholders
+      if (i >= bases.length) return Promise.resolve([]);
       var url = bases[i++] + 'assets/work.json?v=' + Date.now();
       return fetch(url, { cache: 'no-store' })
         .then(function (r){ if (!r.ok) throw 0; return r.json(); })
         .catch(function (){ return tryNext(); });
     }
     return tryNext().then(function(arr){
-      // Deduplicate by slug, keep first
-      var seen = {};
-      var out = [];
+      var seen = {}, out = [];
       if (arr && arr.length){
         for (var k=0;k<arr.length;k++){
           var it = arr[k]; if (!it || !it.slug) continue;
@@ -81,6 +94,7 @@
     loading=false;
   }
 
+  // sentinel inside scroller or parent
   var sentinel = document.createElement('div');
   sentinel.id = 'gridSentinel';
   sentinel.style.cssText = 'height:1px;width:100%';
