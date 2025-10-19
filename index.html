@@ -15,7 +15,7 @@
       </a>
       <ul class="nav-links">
         <li><a class="active" href="index.html">Work</a></li>
-        <li><a href="#press">Press</a></li>
+        <li><a href="press/index.html">Press</a></li>
         <li><a href="#awards">Awards</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -60,15 +60,14 @@
   </div>
 </section>
     <section class="section" id="press">
-      <h2>Press &amp; Features</h2>
-      <ul class="list">
-        <li><a href="https://www.newscaststudio.com/2025/06/14/gma-studio-2025/" target="_blank" rel="noopener">NewscastStudio: Inside the new ‘GMA’ studio</a></li>
-        <li><a href="https://www.newscaststudio.com/2025/03/10/abc-world-news-tonight-studio-hudson-square/" target="_blank" rel="noopener">NewscastStudio: WNT at Hudson Square</a></li>
-        <li><a href="https://www.newscaststudio.com/2025/02/04/abc-this-week-studio-4e/" target="_blank" rel="noopener">‘This Week’ in Studio 4E</a></li>
-        <li><a href="https://www.adweek.com/tvnewser/good-morning-america-begins-broadcasts-from-new-7-hudson-square-home/" target="_blank" rel="noopener">TVNewser: ABC set tour / Hudson Square move</a></li>
-        <li><a href="https://www.newscaststudio.com/2024/09/16/abc-sept-10-debate-set-design/" target="_blank" rel="noopener">Debate stage design</a></li>
-      </ul>
-    </section>
+  <h2>Press &amp; Features</h2>
+  <ul class="list" id="pressList" data-limit="6">
+    <!-- js/press.js will populate this from assets/press.json -->
+  </ul>
+</section>
+
+<!-- at the end of the body (you already have your other scripts) -->
+<script src="js/press.js" defer></script>
 
     <section class="section" id="awards">
       <h2>Awards</h2>
