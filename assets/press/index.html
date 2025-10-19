@@ -29,6 +29,9 @@
           <div id="pressGrid" class="grid"></div>
         </div>
       </div>
+      <p id="pressEmpty" class="meta" style="display:none;margin-top:10px">
+        No press items yet.
+      </p>
     </section>
   </main>
 
@@ -36,28 +39,40 @@
 
   <script>
   (function(){
+    var path = location.pathname.replace(/^\//,'');
+    var atPress = /^press\//.test(path);
+    function norm(p){
+      if (!p) return p;
+      if (p[0] === '/' || /^https?:\/\//i.test(p)) return p;
+      return (atPress ? '../' : '') + p;
+    }
+
     function card(p){
-      var t = p.thumb || '../assets/work/placeholder-16x9.jpg';
+      var t = norm(p.thumb || 'assets/work/placeholder-16x9.jpg');
+      var title = (p.outlet ? p.outlet + ': ' : '') + (p.title || '');
       return '' +
         '<article class="card">' +
           '<a class="cover" href="'+p.url+'" target="_blank" rel="noopener">' +
             '<span class="ratio-169"><img loading="lazy" src="'+t+'" alt=""></span>' +
           '</a>' +
           '<div class="footer">' +
-            '<a href="'+p.url+'" target="_blank" rel="noopener">'+(p.outlet? p.outlet+': ' : '')+(p.title||'')+'</a>' +
+            '<a href="'+p.url+'" target="_blank" rel="noopener">'+title+'</a>' +
             '<div class="meta">'+(p.date||'')+'</div>' +
           '</div>' +
         '</article>';
     }
+
+    function showEmpty(){ var e=document.getElementById('pressEmpty'); if (e) e.style.display=''; }
 
     fetch('../assets/press.json?v=' + Date.now(), { cache:'no-store' })
       .then(function(r){ return r.ok ? r.json() : []; })
       .then(function(list){
         var grid = document.getElementById('pressGrid');
         if (!grid) return;
-        grid.innerHTML = (list||[]).map(card).join('');
+        if (!list || !list.length){ showEmpty(); return; }
+        grid.innerHTML = list.map(card).join('');
       })
-      .catch(function(){});
+      .catch(function(){ showEmpty(); });
   })();
   </script>
 </body>
