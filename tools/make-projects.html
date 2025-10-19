@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Make projects.json</title>
+<style>
+  body{font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;margin:0 auto;max-width:980px;padding:22px}
+  h1{margin:0 0 8px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  input,button{font:inherit;padding:8px;border:1px solid #cbd5e1;border-radius:10px;width:100%}
+  .drop{border:2px dashed #94a3b8;border-radius:12px;padding:18px;text-align:center;color:#475569;margin-top:8px}
+  .pill{display:inline-block;background:#e2e8f0;padding:4px 8px;border-radius:999px;margin:4px 6px 0 0}
+  pre{background:#0b1220;color:#e2e8f0;padding:12px;border-radius:12px;overflow:auto;max-height:40vh}
+</style>
+<link href="assets/fixes.v49.css" rel="stylesheet"/><link href="../assets/fixes.v50.css" rel="stylesheet"/></head>
+<body>
+<h1>Build projects.json (drag images, copy output)</h1>
+<p>Place your real images in <code>media/&lt;slug&gt;/</code> when you deploy. This page just generates the JSON entries.</p>
+<div class="row">
+<div><label>Title <input id="title"/></label></div>
+<div><label>Slug <input id="slug" placeholder="auto from title if empty"/></label></div>
+</div>
+<div class="row" style="margin-top:8px">
+<div><label>Client <input id="client" value="ABC News"/></label></div>
+<div><label>Year <input id="year" value="2025"/></label></div>
+</div>
+<div class="row" style="margin-top:8px">
+<div><label>Role <input id="role" value="Production Designer"/></label></div>
+<div><label>Tags (comma) <input id="tags" value="ABC,Broadcast,Studio"/></label></div>
+</div>
+<div style="margin-top:6px"><label><input checked="" id="featured" type="checkbox"/> Featured</label></div>
+<h3 style="margin:12px 0 6px">Thumbnail</h3>
+<div class="drop" id="thumbDrop">Drop one image (e.g. <code>thumb.jpg</code>)</div>
+<h3 style="margin:12px 0 6px">Gallery</h3>
+<div class="drop" id="galleryDrop">Drop gallery images</div>
+<div id="galleryList"></div>
+<div style="margin-top:14px"><button id="add">Add Project →</button></div>
+<h3 style="margin:16px 0 6px">projects.json</h3>
+<pre id="out">[]</pre>
+<script>
+let projects = [];
+let thumbName = null;
+let galleryNames = [];
+
+function toSlug(t){ return t.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''); }
+
+function refresh(){
+  document.getElementById('out').textContent = JSON.stringify(projects, null, 2);
+}
+
+const thumbDrop = document.getElementById('thumbDrop');
+thumbDrop.addEventListener('dragover', e => {e.preventDefault(); thumbDrop.style.background='#f1f5f9'});
+thumbDrop.addEventListener('dragleave', e => {thumbDrop.style.background=''});
+thumbDrop.addEventListener('drop', e => {
+  e.preventDefault(); thumbDrop.style.background='';
+  if(e.dataTransfer.files.length){
+    thumbName = e.dataTransfer.files[0].name;
+    thumbDrop.textContent = 'Thumb: ' + thumbName;
+  }
+});
+
+const galleryDrop = document.getElementById('galleryDrop');
+const galleryList = document.getElementById('galleryList');
+galleryDrop.addEventListener('dragover', e => {e.preventDefault(); galleryDrop.style.background='#f1f5f9'});
+galleryDrop.addEventListener('dragleave', e => {galleryDrop.style.background=''});
+galleryDrop.addEventListener('drop', e => {
+  e.preventDefault(); galleryDrop.style.background='';
+  for(const f of e.dataTransfer.files){ galleryNames.push(f.name); }
+  galleryList.innerHTML = galleryNames.map(n=>`<span class="pill">${n}</span>`).join('');
+});
+
+document.getElementById('add').onclick = () => {
+  const title = document.getElementById('title').value.trim();
+  let slug = document.getElementById('slug').value.trim();
+  if(!slug) slug = toSlug(title);
+  const client = document.getElementById('client').value.trim();
+  const year = document.getElementById('year').value.trim();
+  const role = document.getElementById('role').value.trim();
+  const tags = document.getElementById('tags').value.split(',').map(s=>s.trim()).filter(Boolean);
+  const featured = document.getElementById('featured').checked;
+
+  const proj = {
+    title, slug, client, year, role, tags, featured,
+    thumb: thumbName ? `media/${slug}/${thumbName}` : "",
+    gallery: galleryNames.map(n=>`media/${slug}/${n}`)
+  };
+  projects.push(proj);
+  refresh();
+
+  thumbName = null; galleryNames = [];
+  galleryList.innerHTML = '';
+  thumbDrop.textContent = "Drop one image (e.g. thumb.jpg)";
+  ['title','slug','client','year','role','tags'].forEach(id=>document.getElementById(id).value="");
+  document.getElementById('featured').checked=false;
+};
+
+refresh();
+</script>
+</body></html>
