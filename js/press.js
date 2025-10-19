@@ -1,49 +1,57 @@
-/* Press list render (ES5) — populates <ul id="pressList"> on the homepage. */
+/* Press page renderer (ES5) */
 (function () {
-  var listEl = document.getElementById('pressList');
-  if (!listEl) return;
+  var grid = document.getElementById('pressGrid');
+  if (!grid) return;
 
-  var bases = ['/','./','../',''];
-  var i = 0;
-
-  function tryNext() {
-    if (i >= bases.length) return Promise.resolve([]);
-    var url = bases[i++] + 'assets/press.json?v=' + Date.now();
-    return fetch(url, { cache: 'no-store' })
-      .then(function (r) { if (!r.ok) throw 0; return r.json(); })
-      .catch(function () { return tryNext(); });
+  function guessIcon(url){
+    try {
+      var a = document.createElement('a'); a.href = url;
+      var domain = a.hostname || '';
+      if (domain) return 'https://www.google.com/s2/favicons?domain=' + encodeURIComponent(domain) + '&sz=128';
+    } catch (e) {}
+    return '../assets/work/placeholder-16x9.jpg';
   }
 
-  function fmtDate(s){
-    var d = s ? new Date(s) : null;
-    return d && !isNaN(d) ? d.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'}) : '';
-  }
-
-  function itemHTML(p) {
-    var meta = [p.outlet || '', fmtDate(p.date)].filter(Boolean).join(' · ');
+  function card(it){
+    var href = it.url || '#';
+    var title = it.title || 'Article';
+    var src = it.image || guessIcon(href);
+    var meta = [it.source, it.date].filter(Boolean).join(' · ');
     return '' +
-      '<li>' +
-        '<a href="' + (p.url || '#') + '" target="_blank" rel="noopener">' +
-          (p.title || 'Untitled') +
+      '<article class="card">' +
+        '<a class="cover" href="' + href + '" target="_blank" rel="noopener">' +
+          '<span class="ratio-169"><img loading="lazy" src="' + src + '" alt=""></span>' +
         '</a>' +
-        (meta ? '<div class="meta">' + meta + '</div>' : '') +
-      '</li>';
+        '<div class="footer">' +
+          '<a href="' + href + '" target="_blank" rel="noopener">' + title + '</a>' +
+          '<div class="meta">' + meta + '</div>' +
+        '</div>' +
+      '</article>';
   }
 
-  tryNext().then(function (items) {
-    if (!Array.isArray(items) || !items.length) return;
+  function loadJSON(){
+    var tries = [
+      '../assets/press.json?v=' + Date.now(),
+      '../js/press.json?v=' + Date.now(),
+      '/assets/press.json?v=' + Date.now()
+    ];
+    var i = 0;
+    function next(){
+      if (i >= tries.length) return Promise.resolve([]);
+      return fetch(tries[i++], { cache: 'no-store' })
+        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+        .catch(function(){ return next(); });
+    }
+    return next();
+  }
 
-    items.sort(function(a,b){
-      var ta = Date.parse(a.date||''); var tb = Date.parse(b.date||'');
-      ta = isNaN(ta) ? -Infinity : ta;
-      tb = isNaN(tb) ? -Infinity : tb;
-      return tb - ta;
-    });
-
-    var limAttr = (listEl.getAttribute('data-limit') || '').toLowerCase();
-    var limit = limAttr === 'all' ? items.length : parseInt(limAttr, 10);
-    if (!limit || limit < 1) limit = 6; // default 6
-
-    listEl.innerHTML = items.slice(0, limit).map(itemHTML).join('');
+  loadJSON().then(function(list){
+    if (!list || !list.length) {
+      grid.innerHTML = '<p class="meta">No press items found. Add items to <code>assets/press.json</code>.</p>';
+      return;
+    }
+    var html = '';
+    for (var i=0;i<list.length;i++) html += card(list[i]);
+    grid.innerHTML = html;
   });
 })();
