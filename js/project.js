@@ -1,82 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Press — Seth Easter</title>
+  <link rel="stylesheet" href="../assets/styles.css?v=7" />
+</head>
+<body>
+  <header class="header">
+    <div class="container nav">
+      <a class="brand" href="../index.html" aria-label="Seth Easter Design">
+        <img class="brand-logo" src="../assets/sed-logo-tight.svg" alt="Seth Easter Design">
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html#work">Work</a></li>
+        <li><a class="active" href="index.html">Press</a></li>
+        <li><a href="../index.html#awards">Awards</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
 
-(function () {
-  function getSlug() {
-    var q = location.search.replace(/^\?/, '');
-    var params = {};
-    if (q) {
-      var parts = q.split('&');
-      for (var i = 0; i < parts.length; i++) {
-        var kv = parts[i].split('=');
-        if (kv[0]) params[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1] || '');
-      }
-    }
-    if (params.slug) return params.slug;
-    var m = location.pathname.match(/\/work\/([^\/]+)\.html$/);
-    return m ? m[1] : null;
-  }
+  <main class="container">
+    <section class="section">
+      <h2>Press &amp; Features</h2>
+      <div class="band">
+        <div class="scroller" id="pressScroller">
+          <div id="pressGrid" class="grid"></div>
+          <div id="pressSentinel" style="height:1px"></div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-  function loadWorkJSON() {
-    var bases = ['', './', '../', '/'];
-    var i = 0;
-    function tryNext() {
-      if (i >= bases.length) return Promise.reject(new Error('work.json not found'));
-      var url = bases[i++] + 'assets/work.json?v=' + Date.now();
-      return fetch(url, { cache: 'no-store' })
-        .then(function (r) { if (!r.ok) throw 0; return r.json(); })
-        .catch(function () { return tryNext(); });
-    }
-    return tryNext();
-  }
+  <footer class="footer-site">© Seth Easter.</footer>
 
-  function $(sel){ return document.querySelector(sel); }
-  function setText(sel, txt){ var el = $(sel); if (el) el.textContent = txt; return el; }
-  function setHTML(sel, html){ var el = $(sel); if (el) el.innerHTML = html; return el; }
-
-  var slug = getSlug();
-  if (!slug) return;
-
-  loadWorkJSON().then(function (list) {
-    if (!list || !list.length) return;
-    var idx = -1, item = null;
-    for (var i = 0; i < list.length; i++) { if (list[i].slug === slug) { idx = i; item = list[i]; break; } }
-    if (!item) return;
-
-    setText('[data-project="title"], h1', item.title || 'Project');
-    setText('[data-project="meta"]', [item.client, item.year, item.role].filter(Boolean).join(' · '));
-    setText('[data-project="description"]', item.description || '');
-
-    var heroSrc = item.cover || (item.gallery && item.gallery[0]) || 'assets/work/placeholder-16x9.jpg';
-    var heroEl = setHTML('[data-project="hero"]','<span class="ratio-169"><img src="' + heroSrc + '" alt=""></span>');
-
-    var thumbsEl = $('[data-project="thumbs"]');
-    if (thumbsEl && item.gallery && item.gallery.length) {
-      var t = '';
-      for (var g = 0; g < item.gallery.length; g++) {
-        var src = item.gallery[g];
-        t += '<button class="thumb" data-src="' + src + '"><img loading="lazy" src="' + src + '" alt=""></button>';
-      }
-      thumbsEl.innerHTML = t;
-      thumbsEl.addEventListener('click', function (e) {
-        var btn = e.target.closest ? e.target.closest('.thumb') :
-                  (e.target.className === 'thumb' ? e.target : null);
-        if (btn && heroEl) {
-          heroEl.innerHTML = '<span class="ratio-169"><img src="' + btn.getAttribute('data-src') + '" alt=""></span>';
-          window.scrollTo(0, 0);
-        }
-      });
-    } else if (thumbsEl) {
-      thumbsEl.innerHTML = '';
-    }
-
-    var backEl = $('[data-project="back"]');
-    if (backEl) backEl.setAttribute('href', 'index.html#work');
-
-    var nextEl = $('[data-project="next"]');
-    if (nextEl) {
-      var nxt = list[(idx + 1) % list.length];
-      nextEl.setAttribute('href', 'project.html?slug=' + encodeURIComponent(nxt.slug));
-      var label = nextEl.querySelector('span');
-      if (label) label.textContent = nxt.title || 'Next project';
-    }
-  });
-})();
+  <script src="../js/press.js?v=7" defer></script>
+</body>
+</html>
