@@ -58,6 +58,19 @@
       if (list[i].slug === slug) { idx = i; item = list[i]; break; }
     }
     if (!item) return;
+	  // after you've loaded `item`
+var pressWrap = document.getElementById('project-press');
+var pressList = document.querySelector('[data-project="press"]');
+if (item.press && item.press.length && pressList && pressWrap){
+  var html = '';
+  for (var p=0;p<item.press.length;p++){
+    var pr = item.press[p];
+    if (!pr || !pr.url) continue;
+    var label = (pr.outlet ? pr.outlet + ': ' : '') + (pr.title || pr.url);
+    html += '<li><a href="'+pr.url+'" target="_blank" rel="noopener">'+label+'</a></li>';
+  }
+  if (html){ pressList.innerHTML = html; pressWrap.style.display = ''; }
+}
 
     // Title + meta
     setText('[data-project="title"], h1', item.title || 'Project');
@@ -68,7 +81,10 @@
     var heroSrc = item.cover || (item.gallery && item.gallery[0]) || '';
     var heroEl = setHTML('[data-project="hero"]',
       '<span class="ratio-169"><img src="' + (heroSrc || '') + '" alt=""></span>');
-
+<section class="section" id="project-press" style="display:none">
+  <h2>Press</h2>
+  <ul class="list" data-project="press"></ul>
+</section>
     // Thumbs (only if gallery exists)
     var thumbsEl = $('[data-project="thumbs"]');
     if (thumbsEl && item.gallery && item.gallery.length) {
