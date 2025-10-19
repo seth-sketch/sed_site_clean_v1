@@ -1,57 +1,44 @@
-/* Press page renderer (ES5) */
-(function () {
+
+(function(){
   var grid = document.getElementById('pressGrid');
   if (!grid) return;
 
-  function guessIcon(url){
-    try {
-      var a = document.createElement('a'); a.href = url;
-      var domain = a.hostname || '';
-      if (domain) return 'https://www.google.com/s2/favicons?domain=' + encodeURIComponent(domain) + '&sz=128';
-    } catch (e) {}
-    return '../assets/work/placeholder-16x9.jpg';
-  }
-
-  function card(it){
-    var href = it.url || '#';
-    var title = it.title || 'Article';
-    var src = it.image || guessIcon(href);
-    var meta = [it.source, it.date].filter(Boolean).join(' · ');
-    return '' +
-      '<article class="card">' +
-        '<a class="cover" href="' + href + '" target="_blank" rel="noopener">' +
-          '<span class="ratio-169"><img loading="lazy" src="' + src + '" alt=""></span>' +
-        '</a>' +
-        '<div class="footer">' +
-          '<a href="' + href + '" target="_blank" rel="noopener">' + title + '</a>' +
-          '<div class="meta">' + meta + '</div>' +
-        '</div>' +
-      '</article>';
-  }
-
-  function loadJSON(){
-    var tries = [
-      '../assets/press.json?v=' + Date.now(),
-      '../js/press.json?v=' + Date.now(),
-      '/assets/press.json?v=' + Date.now()
-    ];
+  function getJSON(){
+    var paths = ['../assets/press.json', '../js/press.json', '/assets/press.json'];
     var i = 0;
     function next(){
-      if (i >= tries.length) return Promise.resolve([]);
-      return fetch(tries[i++], { cache: 'no-store' })
-        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+      if (i >= paths.length) return Promise.resolve([]);
+      var url = paths[i++] + '?v=' + Date.now();
+      return fetch(url, { cache:'no-store' })
+        .then(function(r){ if (!r.ok) throw 0; return r.json(); })
         .catch(function(){ return next(); });
     }
     return next();
   }
 
-  loadJSON().then(function(list){
-    if (!list || !list.length) {
-      grid.innerHTML = '<p class="meta">No press items found. Add items to <code>assets/press.json</code>.</p>';
-      return;
-    }
-    var html = '';
-    for (var i=0;i<list.length;i++) html += card(list[i]);
-    grid.innerHTML = html;
+  function siteIcon(url){
+    try{ var u = new URL(url); return 'https://www.google.com/s2/favicons?domain=' + u.hostname + '&sz=128'; }
+    catch(e){ return ''; }
+  }
+
+  function card(p){
+    var img = p.image || siteIcon(p.url);
+    var host = '';
+    try{ host = new URL(p.url).hostname.replace('www.',''); }catch(e){}
+    return ''+
+      '<article class="card">'+
+        '<a class="cover" target="_blank" rel="noopener" href="'+p.url+'">'+
+          '<span class="ratio-169">'+ (img ? '<img src="'+img+'" alt="">' : '') +'</span>'+
+        '</a>'+
+        '<div class="footer">'+
+          '<a target="_blank" rel="noopener" href="'+p.url+'">'+(p.title||'Press item')+'</a>'+
+          '<div class="meta">'+ (p.source || host || '') + (p.date? ' · '+p.date : '') +'</div>'+
+        '</div>'+
+      '</article>';
+  }
+
+  getJSON().then(function(list){
+    if (!Array.isArray(list)) list = (list.items || []);
+    grid.innerHTML = list.map(card).join('');
   });
 })();

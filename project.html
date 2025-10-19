@@ -4,17 +4,17 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Project — Seth Easter</title>
-  <link rel="stylesheet" href="assets/styles.css?v=20">
+  <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
   <header class="header">
     <div class="container nav">
       <a class="brand" href="index.html" aria-label="Seth Easter Design">
-        <img class="brand-logo" src="assets/sed-logo-tight.svg?v=2" alt="Seth Easter Design">
+        <img class="brand-logo" src="assets/sed-logo-tight.svg" alt="Seth Easter Design">
       </a>
       <ul class="nav-links">
-        <li><a class="active" href="index.html#work">Work</a></li>
-        <li><a href="index.html#press">Press</a></li>
+        <li><a href="work/index.html">Work</a></li>
+        <li><a href="press/index.html">Press</a></li>
         <li><a href="index.html#awards">Awards</a></li>
         <li><a href="index.html#contact">Contact</a></li>
       </ul>
@@ -26,15 +26,15 @@
       <h1 data-project="title">Project</h1>
       <div class="meta meta-big" data-project="meta"></div>
 
-      <div class="work-detail">
+      <div class="work-detail" style="margin-top:12px">
         <div class="detail-media" data-project="hero"></div>
-        <div class="detail-meta">
-          <div data-project="description">Project details.</div>
+        <aside class="detail-meta">
+          <p data-project="description"></p>
           <div class="detail-actions">
-            <a class="btn btn-secondary" data-project="back" href="index.html#work">← Back to Work</a>
+            <a class="btn btn-secondary" data-project="back" href="index.html#work">← Back</a>
             <a class="btn" data-project="next" href="#"><span>Next project</span> →</a>
           </div>
-        </div>
+        </aside>
       </div>
 
       <div class="detail-thumbs" data-project="thumbs"></div>
@@ -42,7 +42,6 @@
   </main>
 
   <footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
-
-  <script src="js/project.js?v=5" defer></script>
+  <script src="js/project.js" defer></script>
 </body>
 </html>
