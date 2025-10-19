@@ -1,7 +1,8 @@
-/* js/home-grid.js — ES5 infinite grid with 16:9 covers + fallbacks */
+/* Home grid (ES5) — infinite scroll inside .scroller. Works from / and /work/ */
 (function () {
   var PAGE = 12;
 
+  // Find the grid and its scroller
   var grid = document.getElementById('homeGrid') ||
              document.getElementById('grid') ||
              document.getElementById('workGrid');
@@ -16,21 +17,20 @@
   }
   var scroller = findScroller(grid);
 
-  function esc(s){ return String(s || ''); }
-
+  // Card HTML
   function card(it){
-    var slug  = esc(it.slug);
-    var cover = esc(it.cover || ('assets/work/' + slug + '/cover.jpg'));
-    var href  = slug ? ('project.html?slug=' + encodeURIComponent(slug)) : esc(it.href || '#');
-    var meta  = [it.client, it.year, it.role].filter(Boolean).map(esc).join(' · ');
-    var title = esc(it.title || 'Project');
+    var title = it.title || 'Project';
+    var meta  = [it.client, it.year, it.role].filter(Boolean).join(' · ');
+    var img   = it.cover || (it.gallery && it.gallery[0]) || 'assets/work/placeholder-16x9.jpg';
+    var href  = it.slug ? ('project.html?slug=' + encodeURIComponent(it.slug))
+                        : (it.href || '#');
 
     return '' +
       '<article class="card">' +
         '<a class="cover" href="' + href + '">' +
           '<span class="ratio-169">' +
-            '<img loading="lazy" decoding="async" src="' + cover + '" alt="" ' +
-            'onerror="this.onerror=null;this.src=\'assets/work/placeholder-16x9.jpg\'">' +
+            '<img loading="lazy" decoding="async" src="' + img + '" alt="" ' +
+              'onerror="this.onerror=null;this.src=\'assets/work/placeholder-16x9.jpg\'">' +
           '</span>' +
         '</a>' +
         '<div class="footer">' +
@@ -40,24 +40,38 @@
       '</article>';
   }
 
+  // Load JSON from several bases so it works from / and /work/
   function loadJSON(){
     var bases = ['', './', '../', '/'];
     var i = 0;
-    function next(){
-      if (i >= bases.length) return Promise.resolve([]);
+    function tryNext(){
+      if (i >= bases.length) {
+        // fallback placeholders so layout still works
+        var ph = [];
+        for (var n=0;n<24;n++){
+          ph.push({
+            slug:'ph-'+(n+1), title:'Project '+(n+1),
+            client:'ABC News', year:'—', role:'Production Designer',
+            cover:'assets/work/placeholder-16x9.jpg', href:'#'
+          });
+        }
+        return Promise.resolve(ph);
+      }
       var url = bases[i++] + 'assets/work.json?v=' + Date.now();
-      return fetch(url, { cache:'no-store' })
-        .then(function(r){ if (!r.ok) throw 0; return r.json(); })
-        .catch(function(){ return next(); });
+      return fetch(url, { cache: 'no-store' })
+        .then(function (r){ if (!r.ok) throw 0; return r.json(); })
+        .then(function (d){ if (Array.isArray(d) && d.length) return d; throw 0; })
+        .catch(function (){ return tryNext(); });
     }
-    return next();
+    return tryNext();
   }
 
-  var items = [], cursor = 0, added = {}, done = false, busy = false;
+  // State + render
+  var items=[], cursor=0, loading=false, done=false, added={};
 
   function renderMore(){
-    if (busy || done || !items.length) return;
-    busy = true;
+    if (loading || done || !items.length) return;
+    loading = true;
 
     var end = Math.min(cursor + PAGE, items.length);
     var html = '';
@@ -70,26 +84,37 @@
     if (html) grid.insertAdjacentHTML('beforeend', html);
     cursor = end;
     if (cursor >= items.length) done = true;
-    busy = false;
+    loading = false;
 
-    // ensure there is something to scroll
-    var root = scroller || document.documentElement;
-    if (root.scrollHeight <= root.clientHeight + 8 && !done) renderMore();
+    // If the scroller or page isn't tall enough yet, add more
+    var roots = [scroller, document.documentElement];
+    var scrollable = roots.some(function(root){
+      if(!root) return false;
+      return root.scrollHeight > root.clientHeight + 8;
+    });
+    if (!scrollable && !done) renderMore();
   }
 
-  var sentinel = document.createElement('div');
-  sentinel.style.height = '1px';
-  (scroller || document.body).appendChild(sentinel);
+  // Sentinel(s)
+  var sentinel = document.getElementById('gridSentinel');
+  if (!sentinel){
+    sentinel = document.createElement('div');
+    sentinel.id = 'gridSentinel';
+    sentinel.style.height = '1px';
+    (scroller || document.body).appendChild(sentinel);
+  }
 
-  var io = new IntersectionObserver(function (entries) {
+  var observer = new IntersectionObserver(function(entries){
     for (var i=0;i<entries.length;i++){
       if (entries[i].isIntersecting) renderMore();
     }
   }, { root: scroller || null, rootMargin: '400px 0px', threshold: 0.01 });
 
-  loadJSON().then(function(list){
+  // Kick off
+  loadJSON().then(function (list) {
     items = Array.isArray(list) ? list : [];
-    renderMore();
-    io.observe(sentinel);
+    cursor = 0; loading = false; done = false; added = {};
+    renderMore();               // first page
+    observer.observe(sentinel); // then infinite
   });
 })();
