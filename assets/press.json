@@ -1,26 +1,186 @@
+Got it—here are the press drop-ins you asked for. They plug straight into the rescue pack I sent (paths matter). They use your existing CSS and fall back to your 16:9 placeholder if no thumbnail is set.
+
+⸻
+
+1) assets/press.json
+
+Put this file at assets/press.json. It has the articles you provided earlier. You can add more rows any time—same shape.
+
 [
   {
-    "title": "NewscastStudio: Inside the new \u2018GMA\u2019 studio",
-    "url": "https://www.newscaststudio.com/2025/06/14/gma-studio-2025/"
+    "title": "Inside the new ‘GMA’ studio at 7 Hudson Square",
+    "source": "NewscastStudio",
+    "date": "2025-06-14",
+    "url": "https://www.newscaststudio.com/2025/06/14/gma-studio-2025/",
+    "image": "assets/work/placeholder-16x9.jpg"
   },
   {
-    "title": "NewscastStudio: WNT at Hudson Square",
-    "url": "https://www.newscaststudio.com/2025/03/10/abc-world-news-tonight-studio-hudson-square/"
+    "title": "ABC World News Tonight moves to Hudson Square",
+    "source": "NewscastStudio",
+    "date": "2025-03-10",
+    "url": "https://www.newscaststudio.com/2025/03/10/abc-world-news-tonight-studio-hudson-square/",
+    "image": "assets/work/placeholder-16x9.jpg"
   },
   {
-    "title": "NewscastStudio: \u2018This Week\u2019 in Studio 4E",
-    "url": "https://www.newscaststudio.com/2025/02/04/abc-this-week-studio-4e/"
+    "title": "‘This Week’ debuts from Studio 4E",
+    "source": "NewscastStudio",
+    "date": "2025-02-04",
+    "url": "https://www.newscaststudio.com/2025/02/04/abc-this-week-studio-4e/",
+    "image": "assets/work/placeholder-16x9.jpg"
   },
   {
-    "title": "NewscastStudio: \u2018The View\u2019 transforms",
-    "url": "https://www.newscaststudio.com/2025/02/22/the-view-hudson-square/"
+    "title": "‘The View’ transforms at Hudson Square",
+    "source": "NewscastStudio",
+    "date": "2025-02-22",
+    "url": "https://www.newscaststudio.com/2025/02/22/the-view-hudson-square/",
+    "image": "assets/work/placeholder-16x9.jpg"
   },
   {
-    "title": "TVNewser/Adweek: ABC set tour / Hudson Square move",
-    "url": "https://www.adweek.com/tvnewser/good-morning-america-begins-broadcasts-from-new-7-hudson-square-home/"
+    "title": "ABC set tour / Hudson Square move",
+    "source": "TVNewser (Adweek)",
+    "date": "2025-01-15",
+    "url": "https://www.adweek.com/tvnewser/good-morning-america-begins-broadcasts-from-new-7-hudson-square-home/",
+    "image": "assets/work/placeholder-16x9.jpg"
   },
   {
-    "title": "NewscastStudio: Debate stage design",
-    "url": "https://www.newscaststudio.com/2024/09/16/abc-sept-10-debate-set-design/"
+    "title": "Debate stage design",
+    "source": "NewscastStudio",
+    "date": "2024-09-16",
+    "url": "https://www.newscaststudio.com/2024/09/16/abc-sept-10-debate-set-design/",
+    "image": "assets/work/placeholder-16x9.jpg"
   }
 ]
+
+To use real thumbnails later, save 16:9 JPGs in assets/press/ and replace each "image" path.
+
+⸻
+
+2) js/press-teaser.js
+
+Put this at js/press-teaser.js. It fills the home page <ul id="pressList"> with the first 6 press items.
+
+(function(){
+  var listEl = document.getElementById('pressList');
+  if (!listEl) return;
+
+  function li(item){
+    var t = item && item.title ? item.title : 'Press';
+    var s = item && item.source ? item.source : '';
+    var u = item && item.url ? item.url : '#';
+    var d = item && item.date ? ' — ' + item.date : '';
+    return '<li><a href="'+u+'" target="_blank" rel="noopener">'+t+'</a>' +
+           (s ? ' <span class="meta">('+s+d+')</span>' : '') +
+           '</li>';
+  }
+
+  fetch('assets/press.json?v='+Date.now(), { cache:'no-store' })
+    .then(function(r){ return r.ok ? r.json() : []; })
+    .catch(function(){ return []; })
+    .then(function(items){
+      if (!Array.isArray(items) || !items.length) return;
+      var top = items.slice(0, 6).map(li).join('');
+      listEl.innerHTML = top;
+    });
+})();
+
+index.html from the rescue pack already references this file:
+<script src="js/press-teaser.js?v=2" defer></script>
+
+⸻
+
+3) press/index.html
+
+Create folder press/ and add this file as press/index.html.
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Press — Seth Easter</title>
+  <link rel="stylesheet" href="../assets/styles.css?v=2">
+</head>
+<body>
+  <header class="header">
+    <div class="container nav">
+      <a class="brand" href="../index.html" aria-label="Seth Easter Design">
+        <img class="brand-logo" src="../assets/sed-logo-tight.svg" alt="Seth Easter Design">
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html#work">Work</a></li>
+        <li><a class="active" href="./index.html">Press</a></li>
+        <li><a href="../index.html#awards">Awards</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section">
+      <h1>Press & Features</h1>
+      <div id="pressGrid" class="grid"></div>
+    </section>
+  </main>
+
+  <footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
+  <script src="js/press.js?v=2" defer></script>
+</body>
+</html>
+
+
+⸻
+
+4) press/js/press.js
+
+Create folder press/js/ and add this file as press/js/press.js.
+
+(function(){
+  var grid = document.getElementById('pressGrid');
+  if (!grid) return;
+
+  function card(p){
+    var img = (p && p.image) ? p.image : '../assets/work/placeholder-16x9.jpg';
+    var url = (p && p.url) ? p.url : '#';
+    var title = (p && p.title) ? p.title : 'Press';
+    var source = (p && p.source) ? p.source : '';
+    var date = (p && p.date) ? p.date : '';
+    var meta = [source, date].filter(Boolean).join(' · ');
+
+    return ''
+      + '<article class="card">'
+      + '  <a class="cover" href="'+url+'" target="_blank" rel="noopener">'
+      + '    <span class="ratio-169"><img loading="lazy" src="'+img+'" alt=""></span>'
+      + '  </a>'
+      + '  <div class="footer">'
+      + '    <a href="'+url+'" target="_blank" rel="noopener">'+title+'</a>'
+      + '    <div class="meta">'+meta+'</div>'
+      + '  </div>'
+      + '</article>';
+  }
+
+  fetch('../assets/press.json?v='+Date.now(), { cache:'no-store' })
+    .then(function(r){ return r.ok ? r.json() : []; })
+    .catch(function(){ return []; })
+    .then(function(items){
+      if (!Array.isArray(items) || !items.length) return;
+      grid.innerHTML = items.map(card).join('');
+    });
+})();
+
+
+⸻
+
+Cache-bust tip
+
+If Cloudflare Pages or your browser sticks on old JS/CSS, append a higher ?v= number to the <script> and <link> tags you changed (I already used v=2). You can bump to v=3 if needed.
+
+⸻
+
+Quick checklist
+    •    Add these four files in the paths above.
+    •    Make sure assets/sed-logo-tight.svg exists (your correct logo).
+    •    Ensure assets/hero/slide1.jpg, slide2.jpg, slide3.jpg are present (hero).
+    •    Keep your assets/work.json and all /assets/work/<slug>/cover.jpg folders.
+    •    Optional press thumbs: drop images in assets/press/ and update press.json "image" fields.
+
+If you want, I can also give you a single ZIP layout list showing every file/folder to verify your structure matches—just say the word.
