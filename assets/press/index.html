@@ -4,19 +4,25 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Press — Seth Easter Design</title>
-  <link rel="stylesheet" href="../assets/styles.css">
+
+  <!-- Root-absolute so it works no matter where this page lives -->
+  <link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body>
   <header class="header">
     <div class="container nav">
-      <a class="brand" href="../index.html" aria-label="Seth Easter Design">
-        <img class="brand-logo" src="../assets/sed-logo-tight.svg" alt="Seth Easter Design">
+      <a class="brand" href="/index.html" aria-label="Seth Easter Design">
+        <!-- Try your preferred SVG first; fall back to your other logo name if needed -->
+        <img class="brand-logo"
+             src="/assets/sed-logo-tight.svg?v=1"
+             alt="Seth Easter Design"
+             onerror="this.onerror=null;this.src='/assets/sed-logo-tight.v60.svg?v=1'">
       </a>
       <ul class="nav-links">
-        <li><a href="../index.html#work">Work</a></li>
-        <li><a class="active" href="./index.html">Press</a></li>
-        <li><a href="../index.html#awards">Awards</a></li>
-        <li><a href="../index.html#contact">Contact</a></li>
+        <li><a href="/index.html#work">Work</a></li>
+        <li><a class="active" href="/press/index.html">Press</a></li>
+        <li><a href="/index.html#awards">Awards</a></li>
+        <li><a href="/index.html#contact">Contact</a></li>
       </ul>
     </div>
   </header>
@@ -24,6 +30,7 @@
   <main class="container">
     <section class="section">
       <h1>Press</h1>
+      <div id="pressStatus" class="meta" style="margin:6px 0 14px"></div>
       <div id="pressGrid" class="grid"></div>
     </section>
   </main>
@@ -32,50 +39,65 @@
 
   <script>
   (function(){
-    var grid = document.getElementById('pressGrid');
+    var grid   = document.getElementById('pressGrid');
+    var status = document.getElementById('pressStatus');
     if (!grid) return;
 
-    var bases = ['../','/','./',''];
+    function say(msg){ if (status) status.textContent = msg; }
+
+    // Try absolute first, then relatives (covers local preview + Pages)
+    var tries = [
+      '/assets/press.json',
+      '../assets/press.json',
+      'assets/press.json',
+      './assets/press.json'
+    ];
     var i = 0;
 
-    function tryNext() {
-      if (i >= bases.length) return Promise.resolve([]);
-      var url = bases[i++] + 'assets/press.json?v=' + Date.now();
+    function next() {
+      if (i >= tries.length) return Promise.reject(new Error('assets/press.json not found'));
+      var url = tries[i++] + '?v=' + Date.now();
       return fetch(url, { cache: 'no-store' })
-        .then(function (r) { if (!r.ok) throw 0; return r.json(); })
-        .catch(function () { return tryNext(); });
+        .then(function(r){ if (!r.ok) throw new Error('HTTP '+r.status); return r.text(); })
+        .then(function(txt){ try { return JSON.parse(txt); } catch(e){ throw new Error('JSON parse error'); } })
+        .catch(function(){ return next(); });
+    }
+
+    function fmtDate(s){
+      var d = s ? new Date(s) : null;
+      return d && !isNaN(d) ? d.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'}) : '';
     }
 
     function card(p){
-      var title = p.title || 'Untitled';
-      var d = p.date ? new Date(p.date) : null;
-      var meta  = [p.outlet||'', (d && !isNaN(d) ? d.toLocaleDateString() : '')].filter(Boolean).join(' · ');
       var href  = p.url || '#';
-      var img   = p.thumb || 'assets/work/placeholder-16x9.jpg';
-      var cover = '<span class="ratio-169"><img loading="lazy" src="' + img + '" alt=""></span>';
+      var img   = p.thumb || '/assets/work/placeholder-16x9.jpg';
+      var title = p.title || 'Untitled';
+      var meta  = [p.outlet||'', fmtDate(p.date)].filter(Boolean).join(' · ');
 
       return '' +
-      '<article class="card">' +
-        '<a class="cover" href="' + href + '" target="_blank" rel="noopener">' + cover + '</a>' +
-        '<div class="footer">' +
-          '<a href="' + href + '" target="_blank" rel="noopener">' + title + '</a>' +
-          (meta ? '<div class="meta">' + meta + '</div>' : '') +
-        '</div>' +
-      '</article>';
+        '<article class="card">' +
+          '<a class="cover" href="'+href+'" target="_blank" rel="noopener">' +
+            '<span class="ratio-169"><img loading="lazy" src="'+img+'" alt=""></span>' +
+          '</a>' +
+          '<div class="footer">' +
+            '<a href="'+href+'" target="_blank" rel="noopener">'+title+'</a>' +
+            (meta ? '<div class="meta">'+meta+'</div>' : '') +
+          '</div>' +
+        '</article>';
     }
 
-    tryNext().then(function(items){
-      if (!Array.isArray(items) || !items.length) {
-        grid.innerHTML = '<p class="meta">No press items found.</p>';
-        return;
-      }
+    say('Loading…');
+    next().then(function(items){
+      if (!Array.isArray(items) || !items.length) { say('No press items found.'); return; }
       items.sort(function(a,b){
-        var ta = Date.parse(a.date||''); var tb = Date.parse(b.date||'');
-        ta = isNaN(ta) ? -Infinity : ta;
-        tb = isNaN(tb) ? -Infinity : tb;
+        var ta = Date.parse(a.date||''); ta = isNaN(ta) ? -Infinity : ta;
+        var tb = Date.parse(b.date||''); tb = isNaN(tb) ? -Infinity : tb;
         return tb - ta;
       });
       grid.innerHTML = items.map(card).join('');
+      say('');
+    }).catch(function(err){
+      say('Could not load Press ('+err.message+'). Make sure /assets/press.json exists and is valid JSON.');
     });
   })();
   </script>
