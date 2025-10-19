@@ -31,12 +31,11 @@
   <footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
 
   <script>
-  // Tiny inline loader (ES5) to render press.json as a thumbnail grid
   (function(){
     var grid = document.getElementById('pressGrid');
     if (!grid) return;
 
-    var bases = ['../', './', '/', ''];
+    var bases = ['../','/','./',''];
     var i = 0;
 
     function tryNext() {
@@ -49,12 +48,11 @@
 
     function card(p){
       var title = p.title || 'Untitled';
-      var meta  = [p.outlet||'', p.date || ''].filter(Boolean).join(' · ');
+      var d = p.date ? new Date(p.date) : null;
+      var meta  = [p.outlet||'', (d && !isNaN(d) ? d.toLocaleDateString() : '')].filter(Boolean).join(' · ');
       var href  = p.url || '#';
-      var img   = p.thumb || '';
-      var cover = img
-        ? '<span class="ratio-169"><img loading="lazy" src="' + img + '" alt=""></span>'
-        : '<span class="ratio-169" style="background:#eef2ff"></span>';
+      var img   = p.thumb || 'assets/work/placeholder-16x9.jpg';
+      var cover = '<span class="ratio-169"><img loading="lazy" src="' + img + '" alt=""></span>';
 
       return '' +
       '<article class="card">' +
@@ -67,13 +65,16 @@
     }
 
     tryNext().then(function(items){
-      if (!Array.isArray(items) || !items.length) return;
-
-      // newest first
+      if (!Array.isArray(items) || !items.length) {
+        grid.innerHTML = '<p class="meta">No press items found.</p>';
+        return;
+      }
       items.sort(function(a,b){
-        return (new Date(b.date||'1970-01-01')) - (new Date(a.date||'1970-01-01'));
+        var ta = Date.parse(a.date||''); var tb = Date.parse(b.date||'');
+        ta = isNaN(ta) ? -Infinity : ta;
+        tb = isNaN(tb) ? -Infinity : tb;
+        return tb - ta;
       });
-
       grid.innerHTML = items.map(card).join('');
     });
   })();

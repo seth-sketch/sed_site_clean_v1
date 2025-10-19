@@ -59,12 +59,12 @@
     <a class="btn" href="work/index.html">Open full Work page</a>
   </div>
 </section>
-<section class="section" id="press">
+   <section class="section" id="press">
   <h2>Press &amp; Features</h2>
-  <ul class="list" id="pressList">
-    <!-- js/press.js will populate this from assets/press.json -->
-  </ul>
+  <ul class="list" id="pressList" data-limit="all"></ul>
 </section>
+<!-- and make sure this script is included near the end -->
+<script src="js/press.js" defer></script>
 
 <!-- at the end of the body (you already have your other scripts) -->
 <script src="js/press.js" defer></script>
