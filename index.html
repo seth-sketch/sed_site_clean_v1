@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Seth Easter — Selected Work</title>
+  <link rel="preload" as="image" href="assets/hero/slide1.jpg" />
+  <link rel="stylesheet" href="assets/styles.css?v=20" />
+</head>
+	<script>
+  // Splash fade
+  window.addEventListener('load', function(){
+    var s=document.getElementById('splash'); if(!s) return;
+    setTimeout(function(){ s.classList.add('is-done'); }, 800);
+  });
+
+  // Reel -> slideshow fallback if video fails
+  (function(){
+    var v=document.getElementById('heroVideo');
+    var stage=document.getElementById('heroStage');
+    if(!v||!stage) return;
+    function fallback(){
+      stage.hidden=false;
+      if(v && v.parentNode) v.parentNode.removeChild(v);
+    }
+    v.addEventListener('error', fallback, {once:true});
+    // If the source 404s, error fires; otherwise slideshow stays hidden.
+  })();
+</script>
+<body>
+	<!-- Splash logo (fades out) -->
+<div id="splash"><img src="assets/sed-logo-tight.svg" alt="Seth Easter Design"></div>
+  <header class="header">
+    <div class="container nav">
+      <a class="brand" href="index.html" aria-label="Seth Easter Design">
+        <img class="brand-logo" src="assets/sed-logo-tight.svg?v=2" alt="Seth Easter Design">
+      </a>
+      <ul class="nav-links">
+        <li><a class="active" href="index.html">Work</a></li>
+        <li><a href="press/index.html">Press</a></li>
+        <li><a href="#awards">Awards</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Full-width 16:9 hero -->
+    <section aria-label="Featured">
+  <div class="ratio-169 hero-stage">
+    <video id="heroVideo" playsinline muted loop autoplay poster="assets/hero/slide1.jpg">
+      <source src="assets/hero/reel.mp4" type="video/mp4">
+    </video>
+    <div id="heroStage" class="se-slide-stage" hidden></div>
+  </div>
+
+  <div class="hero-copy-card">
+    <h1>Broadcast &amp; Live Event Production Design</h1>
+    <p>Studios and stages for ABC News and beyond — Good Morning America, World News Tonight, This Week, The View, Presidential Debates, and Election coverage in studio and across the Nation.</p>
+    <p><strong>Seth Easter</strong> designs broadcast studios and live event productions across the world and is based in NYC. Multiple Emmys &amp; an ADG award for work at ABC News and beyond.</p>
+  </div>
+</section>
+
+    <!-- Selected Work -->
+    <section class="section" id="work">
+  <h2>Selected Work</h2>
+  <div class="band">
+    <div class="scroller" id="workScroller">
+      <div class="grid" id="homeGrid"></div>
+      <!-- sentinel for infinite loading -->
+      <div id="gridSentinel" style="height:1px"></div>
+    </div>
+  </div>
+  <div style="margin-top:14px">
+    <a class="btn" href="work/index.html">Open full Work page</a>
+  </div>
+</section>
+   <section class="section" id="press">
+  <h2>Press &amp; Features</h2>
+  <ul class="list" id="pressList" data-limit="all"></ul>
+</section>
+<!-- and make sure this script is included near the end -->
+<script src="js/press.js?v=2" defer></script>
+
+    <section class="section" id="awards">
+      <h2>Awards</h2>
+      <ul class="list">
+        <li><strong>News &amp; Documentary Emmy — Outstanding News Special (ABC News: “The President and the People”)</strong> · <em>Senior Producer (2017)</em> — <b>Winner</b></li>
+        <li><strong>Art Directors Guild — Excellence in Production Design (Awards/Music/Game Show): The 67th Annual Tony Awards</strong> · <em>Art Director (2014)</em> — <b>Winner</b></li>
+        <li><strong>Primetime Emmy — Outstanding Art Direction for Variety or Nonfiction Programming (65th Annual Tony Awards)</strong> · <em>Art Director (2012)</em> — <b>Winner</b></li>
+        <li><strong>Primetime Emmy — Outstanding Art Direction for Variety, Music or Nonfiction Programming (63rd Annual Tony Awards)</strong> · <em>Art Director (2010)</em> — <b>Nomination</b></li>
+      </ul>
+    </section>
+
+    <section class="section" id="contact">
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:info@your-domain.com">info@your-domain.com</a></p>
+    </section>
+  </main>
+
+  <footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
+
+  <!-- Hero slides -->
+  <script id="seSlidesJSON" type="application/json">[
+    "assets/hero/slide1.jpg",
+    "assets/hero/slide2.jpg",
+    "assets/hero/slide3.jpg"
+  ]</script>
+
+  <script src="js/se-hero.js?v=2" defer></script>
+  <script src="js/home-grid.js?v=20" defer></script>
+	<script src="js/home-grid.js?v=22" defer></script>
+</body>
+</html>
