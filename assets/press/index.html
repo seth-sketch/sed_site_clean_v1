@@ -5,18 +5,17 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Press — Seth Easter Design</title>
 
-  <!-- Root-absolute so it works no matter where this page lives -->
-  <link rel="stylesheet" href="/assets/styles.css">
+  <!-- Root-absolute so subfolders work -->
+  <link rel="stylesheet" href="/assets/styles.css?v=2">
 </head>
 <body>
   <header class="header">
     <div class="container nav">
       <a class="brand" href="/index.html" aria-label="Seth Easter Design">
-        <!-- Try your preferred SVG first; fall back to your other logo name if needed -->
         <img class="brand-logo"
-             src="/assets/sed-logo-tight.svg?v=1"
+             src="/assets/sed-logo-tight.svg?v=2"
              alt="Seth Easter Design"
-             onerror="this.onerror=null;this.src='/assets/sed-logo-tight.v60.svg?v=1'">
+             onerror="this.onerror=null;this.src='/assets/sed-logo-tight.v60.svg?v=2'">
       </a>
       <ul class="nav-links">
         <li><a href="/index.html#work">Work</a></li>
@@ -37,30 +36,66 @@
 
   <footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
 
+  <!-- Inline fallback data. Replace or remove once /assets/press.json is live -->
+  <script id="pressData" type="application/json">[
+    {
+      "title": "Inside the new ‘GMA’ studio",
+      "outlet": "NewscastStudio",
+      "date": "2025-06-14",
+      "url": "https://www.newscaststudio.com/2025/06/14/gma-studio-2025/",
+      "thumb": "/assets/work/placeholder-16x9.jpg"
+    },
+    {
+      "title": "WNT at Hudson Square",
+      "outlet": "NewscastStudio",
+      "date": "2025-03-10",
+      "url": "https://www.newscaststudio.com/2025/03/10/abc-world-news-tonight-studio-hudson-square/",
+      "thumb": "/assets/work/placeholder-16x9.jpg"
+    },
+    {
+      "title": "‘This Week’ in Studio 4E",
+      "outlet": "NewscastStudio",
+      "date": "2025-02-04",
+      "url": "https://www.newscaststudio.com/2025/02/04/abc-this-week-studio-4e/",
+      "thumb": "/assets/work/placeholder-16x9.jpg"
+    },
+    {
+      "title": "ABC set tour / Hudson Square move",
+      "outlet": "TVNewser (Adweek)",
+      "date": "2025-02-01",
+      "url": "https://www.adweek.com/tvnewser/good-morning-america-begins-broadcasts-from-new-7-hudson-square-home/",
+      "thumb": "/assets/work/placeholder-16x9.jpg"
+    },
+    {
+      "title": "Debate stage design",
+      "outlet": "NewscastStudio",
+      "date": "2024-09-16",
+      "url": "https://www.newscaststudio.com/2024/09/16/abc-sept-10-debate-set-design/",
+      "thumb": "/assets/work/placeholder-16x9.jpg"
+    }
+  ]</script>
+
   <script>
   (function(){
     var grid   = document.getElementById('pressGrid');
     var status = document.getElementById('pressStatus');
     if (!grid) return;
-
     function say(msg){ if (status) status.textContent = msg; }
 
-    // Try absolute first, then relatives (covers local preview + Pages)
-    var tries = [
-      '/assets/press.json',
-      '../assets/press.json',
-      'assets/press.json',
-      './assets/press.json'
-    ];
-    var i = 0;
+    // 1) Try fetching /assets/press.json (cache-busted)
+    function loadExternal(){
+      var url = '/assets/press.json?v=' + Date.now();
+      return fetch(url, { cache:'no-store' })
+        .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); })
+        .then(function(txt){ return JSON.parse(txt); });
+    }
 
-    function next() {
-      if (i >= tries.length) return Promise.reject(new Error('assets/press.json not found'));
-      var url = tries[i++] + '?v=' + Date.now();
-      return fetch(url, { cache: 'no-store' })
-        .then(function(r){ if (!r.ok) throw new Error('HTTP '+r.status); return r.text(); })
-        .then(function(txt){ try { return JSON.parse(txt); } catch(e){ throw new Error('JSON parse error'); } })
-        .catch(function(){ return next(); });
+    // 2) Fallback to inline JSON block if fetch fails
+    function loadInline(){
+      var el = document.getElementById('pressData');
+      if (!el) throw new Error('No inline pressData');
+      var txt = el.textContent || el.innerText || '[]';
+      return JSON.parse(txt);
     }
 
     function fmtDate(s){
@@ -73,7 +108,6 @@
       var img   = p.thumb || '/assets/work/placeholder-16x9.jpg';
       var title = p.title || 'Untitled';
       var meta  = [p.outlet||'', fmtDate(p.date)].filter(Boolean).join(' · ');
-
       return '' +
         '<article class="card">' +
           '<a class="cover" href="'+href+'" target="_blank" rel="noopener">' +
@@ -87,18 +121,21 @@
     }
 
     say('Loading…');
-    next().then(function(items){
-      if (!Array.isArray(items) || !items.length) { say('No press items found.'); return; }
-      items.sort(function(a,b){
-        var ta = Date.parse(a.date||''); ta = isNaN(ta) ? -Infinity : ta;
-        var tb = Date.parse(b.date||''); tb = isNaN(tb) ? -Infinity : tb;
-        return tb - ta;
+    loadExternal()
+      .catch(function(){ return loadInline(); })
+      .then(function(items){
+        if (!Array.isArray(items) || !items.length) { say('No press items yet.'); return; }
+        items.sort(function(a,b){
+          var ta = Date.parse(a.date||''); ta = isNaN(ta) ? -Infinity : ta;
+          var tb = Date.parse(b.date||''); tb = isNaN(tb) ? -Infinity : tb;
+          return tb - ta;
+        });
+        grid.innerHTML = items.map(card).join('');
+        say('');
+      })
+      .catch(function(err){
+        say('Could not load Press ('+err.message+').');
       });
-      grid.innerHTML = items.map(card).join('');
-      say('');
-    }).catch(function(err){
-      say('Could not load Press ('+err.message+'). Make sure /assets/press.json exists and is valid JSON.');
-    });
   })();
   </script>
 </body>
