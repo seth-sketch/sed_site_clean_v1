@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Helper — Make Projects JSON</title>
+<style>body{font:14px/1.4 system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif; padding:20px}textarea{width:100%;height:300px}input[type=text]{width:100%}.row{display:grid;grid-template-columns:1fr 1fr; gap:10px}</style>
+</head>
+<body>
+  <h1>Make projects JSON</h1>
+  <p>Paste slugs (one per line) to generate objects for <code>assets/work.json</code>.</p>
+  <div class="row">
+    <div>
+      <h3>Slugs</h3>
+      <textarea id="slugs" placeholder="gma-2025&#10;this-week-4e"></textarea>
+      <label>Images per project <input id="count" type="number" value="3" min="0" max="12"></label>
+    </div>
+    <div>
+      <h3>Output</h3>
+      <textarea id="out"></textarea>
+    </div>
+  </div>
+  <button id="go">Generate</button>
+<script>
+document.getElementById('go').addEventListener('click', function(){
+  var lines = document.getElementById('slugs').value.split(/\r?\n/).map(function(s){return s.trim();}).filter(Boolean);
+  var n = parseInt(document.getElementById('count').value,10) || 0;
+  var out = [];
+  lines.forEach(function(slug){
+    var g=[]; for (var i=1;i<=n;i++){ g.push('assets/work/'+slug+'/'+i+'.jpg'); }
+    out.push({slug:slug,title:slug.replace(/-/g,' ').replace(/\b\w/g,function(m){return m.toUpperCase()}),
+      client:'',year:'',role:'',cover:'assets/work/'+slug+'/cover.jpg',gallery:g,description:''});
+  });
+  document.getElementById('out').value = JSON.stringify(out, null, 2);
+});
+</script>
+</body></html>
