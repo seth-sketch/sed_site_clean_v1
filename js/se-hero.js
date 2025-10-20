@@ -1,61 +1,24 @@
-/* Hero crossfade (ES5) — reads #seSlidesJSON and crossfades two <img>s */
-(function () {
+(function(){
   var stage = document.getElementById('heroStage');
   var jsonEl = document.getElementById('seSlidesJSON');
   if (!stage || !jsonEl) return;
-
-  // Read slide list
   var slides = [];
-  try {
-    slides = JSON.parse(jsonEl.textContent || jsonEl.innerText || '[]');
-  } catch (e) {}
-  if (!slides || !slides.length) return;
-
-  // Normalize paths so it works from / and /work/
-  function abs(p){
-    if (!p) return '';
-    if (/^https?:\/\//i.test(p) || p.charAt(0) === '/') return p;
-    return '/' + p.replace(/^\.\?\/*/, '');
+  try { slides = JSON.parse(jsonEl.textContent || '[]'); } catch(e){ slides = []; }
+  if (!slides.length) return;
+  var i = 0;
+  function render(s){
+    if (typeof s === 'string') s = { type:'image', src:s };
+    if (!s.type) s.type = 'image';
+    if (s.type === 'video'){
+      var attrs = ['playsinline','autoplay','muted','loop'].join(' ');
+      var poster = s.poster ? ' poster="'+s.poster+'"' : '';
+      stage.innerHTML = '<video '+attrs+poster+' style="width:100%;height:100%;object-fit:cover"><source src="'+s.src+'"></video>';
+      var v = stage.querySelector('video'); if (v) { try{ v.play(); }catch(_){ } }
+    } else {
+      stage.innerHTML = '<img src="'+s.src+'" alt="" style="width:100%;height:100%;object-fit:cover">';
+    }
   }
-  for (var i=0;i<slides.length;i++) slides[i] = abs(slides[i]);
-
-  // Two layered <img> elements for a simple crossfade
-  stage.style.position = 'relative';
-  stage.innerHTML = '<img class="hero-img" alt=""><img class="hero-img" alt="">';
-  var imgs = stage.getElementsByClassName('hero-img');
-  for (var k=0;k<imgs.length;k++){
-    var im = imgs[k];
-    im.style.position = 'absolute';
-    im.style.top = im.style.left = im.style.right = im.style.bottom = '0';
-    im.style.width = '100%';
-    im.style.height = '100%';
-    im.style.objectFit = 'cover';
-    im.style.opacity = '0';
-    im.style.transition = 'opacity 900ms ease';
-  }
-
-  var A = imgs[0], B = imgs[1];
-  var show = A, hide = B;
-  var idx = 0;
-
-  function reveal(img){
-    img.onload = function(){ img.style.opacity = '1'; };
-    // Handle cached images as well
-    if (img.complete) { setTimeout(function(){ img.style.opacity = '1'; }, 30); }
-  }
-
-  function next(){
-    var src = slides[idx % slides.length];
-    hide.style.opacity = '0';
-    show.src = src;
-    reveal(show);
-
-    // swap
-    var t = show; show = hide; hide = t;
-    idx++;
-  }
-
-  // Kick off and loop
-  next();
-  setInterval(next, 5000);
+  function next(){ i = (i + 1) % slides.length; render(slides[i]); }
+  render(slides[0]);
+  setInterval(next, 4000);
 })();

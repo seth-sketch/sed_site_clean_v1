@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
+  <div id="splash"><img src="assets/sed-logo-tight.svg" alt="Seth Easter Design"></div>
   <header class="header">
     <div class="container nav">
       <a class="brand" href="index.html" aria-label="Seth Easter Design">
@@ -15,26 +16,26 @@
       </a>
       <ul class="nav-links">
         <li><a class="active" href="index.html">Work</a></li>
-        <li><a href="press/index.html">Press</a></li>
+        <li><a href="#press">Press</a></li>
         <li><a href="#awards">Awards</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
   </header>
-
   <main class="container">
     <section aria-label="Featured">
       <div class="ratio-169 hero-stage">
         <div id="heroStage" class="se-slide-stage"></div>
       </div>
-
       <div class="hero-copy-card">
         <h1>Broadcast &amp; Live Event Production Design</h1>
-        <p>Studios and stages for ABC News and beyond — Good Morning America, World News Tonight, This Week, The View, Presidential Debates, and Election coverage.</p>
-        <p><strong>Seth Easter</strong> designs broadcast studios and live events around the world and is based in NYC.</p>
+        <p>Studios and stages for ABC News and beyond — Good Morning America,
+           World News Tonight, This Week, The View, Presidential Debates, and
+           Election coverage in studio and across the Nation.</p>
+        <p><strong>Seth Easter</strong> designs broadcast studios and live event productions
+           across the world and is based in NYC. Multiple Emmys &amp; an ADG award for work at ABC News and beyond.</p>
       </div>
     </section>
-
     <section class="section" id="work">
       <h2>Selected Work</h2>
       <div class="band">
@@ -46,16 +47,36 @@
         <a class="btn" href="work/index.html">Open full Work page</a>
       </div>
     </section>
+    <section class="section" id="press">
+      <h2>Press &amp; Features</h2>
+      <div class="press-grid" id="pressGrid"></div>
+      <div style="margin-top:14px">
+        <a class="btn" href="press/index.html">Open full Press page</a>
+      </div>
+    </section>
+    <section class="section" id="awards">
+      <h2>Awards</h2>
+      <ul class="list">
+        <li><strong>News &amp; Documentary Emmy — Outstanding News Special (ABC News: “The President and the People”)</strong> · <em>Senior Producer (2017)</em> — <b>Winner</b></li>
+        <li><strong>Art Directors Guild — Excellence in Production Design (Awards/Music/Game Show): The 67th Annual Tony Awards</strong> · <em>Art Director (2014)</em> — <b>Winner</b></li>
+        <li><strong>Primetime Emmy — Outstanding Art Direction for Variety or Nonfiction Programming (65th Annual Tony Awards)</strong> · <em>Art Director (2012)</em> — <b>Winner</b></li>
+        <li><strong>Primetime Emmy — Outstanding Art Direction for Variety, Music or Nonfiction Programming (63rd Annual Tony Awards)</strong> · <em>Art Director (2010)</em> — <b>Nomination</b></li>
+      </ul>
+    </section>
+    <section class="section" id="contact">
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:info@your-domain.com">info@your-domain.com</a></p>
+    </section>
   </main>
-
   <footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
-
   <script id="seSlidesJSON" type="application/json">[
     "assets/hero/slide1.jpg",
     "assets/hero/slide2.jpg",
     "assets/hero/slide3.jpg"
   ]</script>
+  <script src="js/splash.js" defer></script>
   <script src="js/se-hero.js" defer></script>
   <script src="js/home-grid.js" defer></script>
+  <script src="js/press.js" defer></script>
 </body>
 </html>

@@ -1,20 +1,23 @@
 [
   {
     "title": "Inside the new \u2018GMA\u2019 studio at 7 Hudson Square",
+    "source": "NewscastStudio",
+    "date": "2025-06-14",
     "url": "https://www.newscaststudio.com/2025/06/14/gma-studio-2025/",
-    "source": "NewscastStudio",
-    "date": "2025-06-14"
+    "thumb": "assets/press/gma-2025-thumb.jpg"
   },
   {
-    "title": "\u2018This Week\u2019 moves into redesigned Studio 4E",
-    "url": "https://www.newscaststudio.com/2025/02/04/abc-this-week-studio-4e/",
+    "title": "WNT at Hudson Square",
     "source": "NewscastStudio",
-    "date": "2025-02-04"
-  },
-  {
-    "title": "ABC World News Tonight\u2019s move to Hudson Square",
+    "date": "2025-03-10",
     "url": "https://www.newscaststudio.com/2025/03/10/abc-world-news-tonight-studio-hudson-square/",
+    "thumb": "assets/press/wnt-thumb.jpg"
+  },
+  {
+    "title": "\u2018This Week\u2019 in Studio 4E",
     "source": "NewscastStudio",
-    "date": "2025-03-10"
+    "date": "2025-02-04",
+    "url": "https://www.newscaststudio.com/2025/02/04/abc-this-week-studio-4e/",
+    "thumb": "assets/press/this-week-thumb.jpg"
   }
 ]
