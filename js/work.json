@@ -1,0 +1,214 @@
+[
+  {
+    "slug": "gma-2025",
+    "title": "Good Morning America — 2025 Studio Revamp",
+    "client": "ABC News",
+    "year": "2025",
+    "role": "Production Designer",
+    "cover": "assets/work/gma-2025/cover.jpg",
+    "gallery": [
+      "assets/work/gma-2025/1.jpg",
+      "assets/work/gma-2025/2.jpg",
+      "assets/work/gma-2025/3.jpg"
+    ],
+    "description": "Studio revamp with broadcast and audience flows."
+  },
+  {
+    "slug": "this-week-4e",
+    "title": "This Week — NYC Studio (4E)",
+    "client": "ABC News",
+    "year": "2025",
+    "role": "Production Designer",
+    "cover": "assets/work/this-week-4e/cover.jpg",
+    "gallery": [
+      "assets/work/this-week-4e/1.jpg",
+      "assets/work/this-week-4e/2.jpg",
+      "assets/work/this-week-4e/3.jpg"
+    ],
+    "description": "Political format with dynamic on-air zones and LED features."
+  },
+  {
+    "slug": "election-2024",
+    "title": "Election Night 2024 — Set & On-Set UX",
+    "client": "ABC News",
+    "year": "2024",
+    "role": "Production Designer",
+    "cover": "assets/work/election-2024/cover.jpg",
+    "gallery": [
+      "assets/work/election-2024/1.jpg",
+      "assets/work/election-2024/2.jpg",
+      "assets/work/election-2024/3.jpg"
+    ],
+    "description": "High-clarity graphics and spatial UX for live returns."
+  },
+
+  {
+    "slug": "abc-debate-stage",
+    "title": "ABC Presidential Debate — Stage Design",
+    "client": "ABC News",
+    "year": "2024",
+    "role": "Production Designer",
+    "cover": "assets/work/abc-debate-stage/cover.jpg",
+    "gallery": [
+      "assets/work/abc-debate-stage/1.jpg",
+      "assets/work/abc-debate-stage/2.jpg",
+      "assets/work/abc-debate-stage/3.jpg"
+    ],
+    "description": "Debate lecterns, audience layout, and network-level scenic package."
+  },
+  {
+    "slug": "election-roadset",
+    "title": "Election Coverage — Roadset",
+    "client": "ABC News",
+    "year": "2024",
+    "role": "Production Designer",
+    "cover": "assets/work/election-roadset/cover.jpg",
+    "gallery": [
+      "assets/work/election-roadset/1.jpg",
+      "assets/work/election-roadset/2.jpg",
+      "assets/work/election-roadset/3.jpg"
+    ],
+    "description": "Portable set with fast load-in for remote election coverage."
+  },
+  {
+    "slug": "world-news-tonight",
+    "title": "World News Tonight — Studio",
+    "client": "ABC News",
+    "year": "2024",
+    "role": "Production Designer",
+    "cover": "assets/work/world-news-tonight/cover.jpg",
+    "gallery": [
+      "assets/work/world-news-tonight/1.jpg",
+      "assets/work/world-news-tonight/2.jpg",
+      "assets/work/world-news-tonight/3.jpg"
+    ],
+    "description": "Primary news environment with deep video integration."
+  },
+  {
+    "slug": "the-view-refresh",
+    "title": "The View — Studio Refresh",
+    "client": "ABC",
+    "year": "2024",
+    "role": "Production Designer",
+    "cover": "assets/work/the-view-refresh/cover.jpg",
+    "gallery": [
+      "assets/work/the-view-refresh/1.jpg",
+      "assets/work/the-view-refresh/2.jpg",
+      "assets/work/the-view-refresh/3.jpg"
+    ],
+    "description": "Audience-forward refresh with updated finishes and LED."
+  },
+  {
+    "slug": "this-week-special",
+    "title": "This Week — Special",
+    "client": "ABC News",
+    "year": "2024",
+    "role": "Production Designer",
+    "cover": "assets/work/this-week-special/cover.jpg",
+    "gallery": [
+      "assets/work/this-week-special/1.jpg",
+      "assets/work/this-week-special/2.jpg",
+      "assets/work/this-week-special/3.jpg"
+    ],
+    "description": "Special-event scenic package and host positions."
+  },
+
+  {
+    "slug": "dan-abrams-live-newsnation",
+    "title": "Dan Abrams Live — NewsNation",
+    "client": "NewsNation",
+    "year": "2023",
+    "role": "Production Designer",
+    "cover": "assets/work/dan-abrams-live-newsnation/cover.jpg",
+    "gallery": [
+      "assets/work/dan-abrams-live-newsnation/1.jpg",
+      "assets/work/dan-abrams-live-newsnation/2.jpg",
+      "assets/work/dan-abrams-live-newsnation/3.jpg"
+    ],
+    "description": "Immersive storytelling positions with flexible stand-ups."
+  },
+  {
+    "slug": "fight-game-lampley",
+    "title": "The Fight Game — Jim Lampley",
+    "client": "HBO",
+    "year": "2016",
+    "role": "Production Designer",
+    "cover": "assets/work/fight-game-lampley/cover.jpg",
+    "gallery": [
+      "assets/work/fight-game-lampley/1.jpg",
+      "assets/work/fight-game-lampley/2.jpg",
+      "assets/work/fight-game-lampley/3.jpg"
+    ],
+    "description": "Boxing analysis set with intimate on-camera positions."
+  },
+  {
+    "slug": "on-patrol-live",
+    "title": "On Patrol: Live",
+    "client": "Reelz",
+    "year": "2022",
+    "role": "Production Designer",
+    "cover": "assets/work/on-patrol-live/cover.jpg",
+    "gallery": [
+      "assets/work/on-patrol-live/1.jpg",
+      "assets/work/on-patrol-live/2.jpg",
+      "assets/work/on-patrol-live/3.jpg"
+    ],
+    "description": "Multi-desk live control zone with high telemetry visibility."
+  },
+  {
+    "slug": "oscars-red-carpet-abc",
+    "title": "Oscars Red Carpet — ABC",
+    "client": "ABC",
+    "year": "2019",
+    "role": "Production Designer",
+    "cover": "assets/work/oscars-red-carpet-abc/cover.jpg",
+    "gallery": [
+      "assets/work/oscars-red-carpet-abc/1.jpg",
+      "assets/work/oscars-red-carpet-abc/2.jpg",
+      "assets/work/oscars-red-carpet-abc/3.jpg"
+    ],
+    "description": "Lively red-carpet broadcast positions and elegant scenic."
+  },
+  {
+    "slug": "tamron-hall",
+    "title": "Tamron Hall",
+    "client": "ABC",
+    "year": "2019",
+    "role": "Production Designer",
+    "cover": "assets/work/tamron-hall/cover.jpg",
+    "gallery": [
+      "assets/work/tamron-hall/1.jpg",
+      "assets/work/tamron-hall/2.jpg",
+      "assets/work/tamron-hall/3.jpg"
+    ],
+    "description": "Daytime talk show environment with warm textures."
+  },
+  {
+    "slug": "ted-ed-bam",
+    "title": "TED-Ed — BAM",
+    "client": "TED",
+    "year": "2016",
+    "role": "Production Designer",
+    "cover": "assets/work/ted-ed-bam/cover.jpg",
+    "gallery": [
+      "assets/work/ted-ed-bam/1.jpg",
+      "assets/work/ted-ed-bam/2.jpg",
+      "assets/work/ted-ed-bam/3.jpg"
+    ],
+    "description": "Educational live show design at BAM."
+  },
+  {
+    "slug": "ted-live-town-hall",
+    "title": "TED Live — Town Hall",
+    "client": "TED",
+    "year": "2016",
+    "role": "Production Designer",
+    "cover": "assets/work/ted-live-town-hall/cover.jpg",
+    "gallery": [
+      "assets/work/ted-live-town-hall/1.jpg",
+      "assets/work/ted-live-town-hall/2.jpg",
+      "assets/work/ted-live-town-hall/3.jpg"
+    ],
+    "description": "Live TED discussion format with audience participation."
+  }
+]
