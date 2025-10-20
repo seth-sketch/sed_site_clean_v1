@@ -100,3 +100,23 @@ html{scroll-padding-top:var(--header-h)}
   font-weight:700;text-decoration:none;border:1px solid #1554c0}
 .btn:hover{filter:brightness(.98)}
 .footer-site{padding:28px 0 40px;color:var(--muted);text-align:center;font-size:13px}
+/* 16:9 wrapper that works everywhere */
+.ratio-169{ position:relative; width:100%; height:0; padding-top:56.25%; overflow:hidden; background:#ddd; }
+.ratio-169 > img,
+.ratio-169 > video,
+.ratio-169 > picture > img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+
+/* Cards / grid / scroller */
+.scroller{ height:clamp(520px,70vh,880px); overflow:auto; overscroll-behavior:contain; padding-right:4px; }
+.grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+@media (max-width:900px){ .grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:620px){ .grid{ grid-template-columns:1fr; } }
+
+.card{ display:flex; flex-direction:column; border:1px solid #e8edf5; background:#fff; overflow:hidden;
+       box-shadow:0 8px 16px rgba(2,6,23,.06), 0 2px 4px rgba(2,6,23,.06); }
+.card .cover{ display:block; border-bottom:1px solid #e8edf5; flex:0 0 auto; }
+.card .cover .ratio-169{ background:#eef2ff; }
+.footer{ padding:12px 14px; }
+.footer a{ display:block; font-weight:700; color:#1f6feb; text-decoration:none; }
+.footer a:hover{ text-decoration:underline; }
+.meta{ margin-top:4px; font-size:13px; color:#6b7280; }

@@ -1,31 +1,26 @@
+/* simple press renderer from /assets/press.json */
 (function(){
   var grid = document.getElementById('pressGrid');
   if (!grid) return;
 
-  function esc(s){ return String(s||''); }
-
-  function card(it){
-    var thumb = esc(it.thumb || '../assets/work/placeholder-16x9.jpg');
-    var title = esc(it.title || 'Article');
-    var meta = [esc(it.source||''), esc(it.date||'')].filter(Boolean).join(' · ');
+  function card(p){
+    var img = p.thumb || '/assets/press/wnt-thumb.jpg'; // fallback if you have one
     return '' +
-      '<a class="press-card" href="'+esc(it.url)+'" target="_blank" rel="noopener">' +
-        '<div class="thumb"><span class="ratio-169">' +
-          '<img loading="lazy" decoding="async" src="'+thumb+'" alt="">' +
-        '</span></div>' +
-        '<div class="info">' +
-          '<h3>'+ title +'</h3>' +
-          (meta ? '<div class="meta">'+meta+'</div>' : '') +
+      '<article class="card">' +
+        '<a class="cover" href="'+p.url+'" target="_blank" rel="noopener">' +
+          '<span class="ratio-169"><img loading="lazy" src="'+img+'" alt=""></span>' +
+        '</a>' +
+        '<div class="footer">' +
+          '<a href="'+p.url+'" target="_blank" rel="noopener">'+p.title+'</a>' +
+          '<div class="meta">'+(p.source||'')+' · '+(p.date||'')+'</div>' +
         '</div>' +
-      '</a>';
+      '</article>';
   }
 
-  fetch('../assets/press.json?v='+Date.now(), { cache:'no-store' })
-    .then(function(r){ if(!r.ok) throw 0; return r.json(); })
-    .then(function(items){
-      if (!Array.isArray(items) || !items.length) return;
-      items.sort(function(a,b){ return String(b.date||'').localeCompare(String(a.date||'')); });
-      grid.innerHTML = items.map(card).join('');
-    })
-    .catch(function(){});
+  fetch('/assets/press.json', { cache:'no-store' })
+    .then(function(r){ return r.json(); })
+    .then(function(list){
+      if (!Array.isArray(list) || !list.length) return;
+      grid.innerHTML = list.map(card).join('');
+    });
 })();
