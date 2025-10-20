@@ -25,9 +25,12 @@
   <main class="container">
     <section aria-label="Featured">
       <div class="ratio-169 hero-stage">
-        <div id="heroStage" class="se-slide-stage"></div>
-      </div>
-      <div class="hero-copy-card">
+  <!-- If you have a video, put it here; if not, keep the tag but comment it out -->
+  <video id="heroVideo" class="hero-video" playsinline muted preload="metadata" poster="assets/hero/slide1.jpg" style="width:100%;height:100%;object-fit:cover">
+    <source src="assets/hero/intro.mp4" type="video/mp4">
+  </video>
+  <div id="heroStage" class="se-slide-stage"></div>
+</div>
         <h1>Broadcast &amp; Live Event Production Design</h1>
         <p>Studios and stages for ABC News and beyond — Good Morning America,
            World News Tonight, This Week, The View, Presidential Debates, and
@@ -74,10 +77,10 @@
     "assets/hero/slide2.jpg",
     "assets/hero/slide3.jpg"
   ]</script>
-  <script src="js/splash.js" defer></script>
-  <script src="js/se-hero.js" defer></script>
-  <script src="js/home-grid.js" defer></script>
-  <script src="js/press.js" defer></script>
-  <script src="js/press-home.js?v=1" defer></script>
+  <script src="js/splash.js?v=2" defer></script>
+  <script src="js/se-hero.js?v=2" defer></script>
+  <script src="js/home-grid.js?v=2" defer></script>
+  <script src="js/press.js?v=2" defer></script>
+  <script src="js/press-home.js?v=2" defer></script>
 </body>
 </html>
