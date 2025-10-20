@@ -4,79 +4,161 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Seth Easter — Selected Work</title>
-  <link rel="preload" as="image" href="assets/hero/slide1.jpg" />
-  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="stylesheet" href="assets/assets/styles.css?v=7" />
+  <link rel="preload" as="image" href="assets/assets/hero/slide1.jpg" />
 </head>
 <body>
-  <div id="splash"><img src="assets/sed-logo-tight.svg" alt="Seth Easter Design"></div>
+
+  <!-- Splash (fades out on load) -->
+  <div id="splash" class="splash">
+    <img src="assets/assets/sed-logo-tight.svg" alt="Seth Easter Design">
+  </div>
+
   <header class="header">
     <div class="container nav">
-      <a class="brand" href="index.html" aria-label="Seth Easter Design">
-        <img class="brand-logo" src="assets/sed-logo-tight.svg" alt="Seth Easter Design">
+      <a class="brand" href="assets/index.html" aria-label="Seth Easter Design">
+        <img class="brand-logo" src="assets/assets/sed-logo-tight.svg" alt="Seth Easter Design">
       </a>
       <ul class="nav-links">
-        <li><a class="active" href="index.html">Work</a></li>
-        <li><a href="#press">Press</a></li>
+        <li><a class="active" href="#work">Work</a></li>
+        <li><a href="assets/press/index.html">Press</a></li>
         <li><a href="#awards">Awards</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
   </header>
+
   <main class="container">
+
+    <!-- Hero slideshow (accepts images or a video file) -->
     <section aria-label="Featured">
       <div class="ratio-169 hero-stage">
         <div id="heroStage" class="se-slide-stage"></div>
       </div>
+
       <div class="hero-copy-card">
         <h1>Broadcast &amp; Live Event Production Design</h1>
-        <p>Studios and stages for ABC News and beyond — Good Morning America,
-           World News Tonight, This Week, The View, Presidential Debates, and
-           Election coverage in studio and across the Nation.</p>
-        <p><strong>Seth Easter</strong> designs broadcast studios and live event productions
-           across the world and is based in NYC. Multiple Emmys &amp; an ADG award for work at ABC News and beyond.</p>
+        <p>
+          Studios and stages for ABC News and beyond — Good Morning America,
+          World News Tonight, This Week, The View, Presidential Debates, and
+          election coverage in studio and across the Nation.
+        </p>
+        <p>
+          <strong>Seth Easter</strong> designs broadcast studios and live event productions
+          across the world and is based in NYC. Multiple Emmys &amp; an ADG award
+          for work at ABC News and beyond.
+        </p>
       </div>
     </section>
+
+    <!-- Work -->
     <section class="section" id="work">
       <h2>Selected Work</h2>
       <div class="band">
         <div class="scroller" id="workScroller">
           <div id="homeGrid" class="grid"></div>
+          <div id="gridSentinel" style="height:1px"></div>
         </div>
       </div>
       <div style="margin-top:14px">
-        <a class="btn" href="work/index.html">Open full Work page</a>
+        <a class="btn" href="assets/work/index.html">Open full Work page</a>
       </div>
     </section>
+
+    <!-- Press preview (top 6) -->
     <section class="section" id="press">
       <h2>Press &amp; Features</h2>
-      <div class="press-grid" id="pressGrid"></div>
+      <div class="band">
+        <div class="scroller" id="pressHomeScroller">
+          <div id="pressHomeGrid" class="grid"></div>
+        </div>
+      </div>
       <div style="margin-top:14px">
-        <a class="btn" href="press/index.html">Open full Press page</a>
+        <a class="btn" href="assets/press/index.html">Open full Press page</a>
       </div>
     </section>
+
+    <!-- Awards -->
     <section class="section" id="awards">
       <h2>Awards</h2>
       <ul class="list">
         <li><strong>News &amp; Documentary Emmy — Outstanding News Special (ABC News: “The President and the People”)</strong> · <em>Senior Producer (2017)</em> — <b>Winner</b></li>
-        <li><strong>Art Directors Guild — Excellence in Production Design (Awards/Music/Game Show): The 67th Annual Tony Awards</strong> · <em>Art Director (2014)</em> — <b>Winner</b></li>
-        <li><strong>Primetime Emmy — Outstanding Art Direction for Variety or Nonfiction Programming (65th Annual Tony Awards)</strong> · <em>Art Director (2012)</em> — <b>Winner</b></li>
-        <li><strong>Primetime Emmy — Outstanding Art Direction for Variety, Music or Nonfiction Programming (63rd Annual Tony Awards)</strong> · <em>Art Director (2010)</em> — <b>Nomination</b></li>
+        <li><strong>Art Directors Guild — Excellence in Production Design (Awards/Music/Game Show): 67th Tony Awards</strong> · <em>Art Director (2014)</em> — <b>Winner</b></li>
+        <li><strong>Primetime Emmy — Outstanding Art Direction (65th Tony Awards)</strong> · <em>Art Director (2012)</em> — <b>Winner</b></li>
+        <li><strong>Primetime Emmy — Outstanding Art Direction (63rd Tony Awards)</strong> · <em>Art Director (2010)</em> — <b>Nomination</b></li>
       </ul>
     </section>
+
     <section class="section" id="contact">
       <h2>Contact</h2>
       <p>Email: <a href="mailto:info@your-domain.com">info@your-domain.com</a></p>
     </section>
   </main>
+
   <footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
+
+  <!-- Slides: your 3 images + optional video reel (leave as-is; add reel.mp4 when ready) -->
   <script id="seSlidesJSON" type="application/json">[
+    "assets/hero/reel.mp4",
     "assets/hero/slide1.jpg",
     "assets/hero/slide2.jpg",
     "assets/hero/slide3.jpg"
   ]</script>
-  <script src="js/splash.js" defer></script>
-  <script src="js/se-hero.js" defer></script>
-  <script src="js/home-grid.js" defer></script>
-  <script src="js/press.js" defer></script>
+
+  <!-- Splash fade -->
+  <script>
+    window.addEventListener('load', function () {
+      document.body.classList.add('ready');
+      setTimeout(function(){
+        var s = document.getElementById('splash'); if (s) s.remove();
+      }, 500);
+    });
+  </script>
+
+  <!-- JS -->
+  <script src="assets/js/se-hero.js?v=7" defer></script>
+  <script src="assets/js/home-grid.js?v=7" defer></script>
+  <script>
+  // Home Press preview (first 6)
+  (function(){
+    var grid = document.getElementById('pressHomeGrid');
+    if (!grid) return;
+
+    function card(p){
+      var t = p.title || 'Press';
+      var s = [p.source||'', p.date||''].filter(Boolean).join(' · ');
+      var u = p.url || '#';
+      var img = p.image || 'assets/work/placeholder-16x9.jpg';
+      return '' +
+        '<article class="card">' +
+          '<a class="cover" href="' + u + '" target="_blank" rel="noopener">' +
+            '<span class="ratio-169"><img loading="lazy" decoding="async" src="' + img + '" alt=""></span>' +
+          '</a>' +
+          '<div class="footer">' +
+            '<a href="' + u + '" target="_blank" rel="noopener">' + t + '</a>' +
+            '<div class="meta">' + s + '</div>' +
+          '</div>' +
+        '</article>';
+    }
+
+    function fetchPress(){
+      var bases = ['', './', '/']; var i=0;
+      function next(){
+        if (i>=bases.length) return Promise.resolve([]);
+        var url = bases[i++] + 'assets/press.json?v=' + Date.now();
+        return fetch(url, {cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }).catch(next);
+      }
+      return next();
+    }
+
+    fetchPress().then(function(list){
+      if (!list || !list.length) return;
+      var first = list.slice(0,6);
+      var html = '';
+      for (var i=0;i<first.length;i++) html += card(first[i]);
+      grid.innerHTML = html;
+    });
+  })();
+  </script>
 </body>
 </html>
