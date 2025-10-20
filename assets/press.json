@@ -1,23 +1,72 @@
 [
   {
-    "title": "Inside the new \u2018GMA\u2019 studio at 7 Hudson Square",
-    "source": "NewscastStudio",
+    "title": "Inside the new ‘GMA’ studio at 7 Hudson Square",
+    "outlet": "NewscastStudio",
     "date": "2025-06-14",
     "url": "https://www.newscaststudio.com/2025/06/14/gma-studio-2025/",
-    "thumb": "assets/press/gma-2025-thumb.jpg"
+    "thumb": "https://image.thum.io/get/width/1200/https://www.newscaststudio.com/2025/06/14/gma-studio-2025/"
+  },
+  {
+    "title": "‘This Week’ moves to new studio in former WQHT space",
+    "outlet": "NewscastStudio",
+    "date": "2025-02-04",
+    "url": "https://www.newscaststudio.com/2025/02/04/abc-this-week-studio-4e/",
+    "thumb": "https://image.thum.io/get/width/1200/https://www.newscaststudio.com/2025/02/04/abc-this-week-studio-4e/"
+  },
+  {
+    "title": "Inside ‘The View’s’ modified look at 7 Hudson Square",
+    "outlet": "NewscastStudio",
+    "date": "2025-02-22",
+    "url": "https://www.newscaststudio.com/2025/02/22/the-view-hudson-square/",
+    "thumb": "https://image.thum.io/get/width/1200/https://www.newscaststudio.com/2025/02/22/the-view-hudson-square/"
   },
   {
     "title": "WNT at Hudson Square",
-    "source": "NewscastStudio",
+    "outlet": "NewscastStudio",
     "date": "2025-03-10",
     "url": "https://www.newscaststudio.com/2025/03/10/abc-world-news-tonight-studio-hudson-square/",
-    "thumb": "assets/press/wnt-thumb.jpg"
+    "thumb": "https://image.thum.io/get/width/1200/https://www.newscaststudio.com/2025/03/10/abc-world-news-tonight-studio-hudson-square/"
   },
   {
-    "title": "\u2018This Week\u2019 in Studio 4E",
-    "source": "NewscastStudio",
-    "date": "2025-02-04",
-    "url": "https://www.newscaststudio.com/2025/02/04/abc-this-week-studio-4e/",
-    "thumb": "assets/press/this-week-thumb.jpg"
+    "title": "Debate stage design",
+    "outlet": "NewscastStudio",
+    "date": "2024-09-16",
+    "url": "https://www.newscaststudio.com/2024/09/16/abc-sept-10-debate-set-design/",
+    "thumb": "https://image.thum.io/get/width/1200/https://www.newscaststudio.com/2024/09/16/abc-sept-10-debate-set-design/"
+  },
+  {
+    "title": "TVNewser/Adweek: ABC set tour / Hudson Square move",
+    "outlet": "Adweek / TVNewser",
+    "date": "2025-??-??",
+    "url": "https://www.adweek.com/tvnewser/good-morning-america-begins-broadcasts-from-new-7-hudson-square-home/",
+    "thumb": "https://image.thum.io/get/width/1200/https://www.adweek.com/tvnewser/good-morning-america-begins-broadcasts-from-new-7-hudson-square-home/"
+  },
+  {
+    "title": "‘ABC World News Tonight’ moves to main part of TV3, gets new open",
+    "outlet": "NewscastStudio",
+    "date": "2020-09-09",
+    "url": "https://www.newscaststudio.com/2020/09/09/abc-world-news-tonight-studio/",
+    "thumb": "https://image.thum.io/get/width/1200/https://www.newscaststudio.com/2020/09/09/abc-world-news-tonight-studio/"
+  },
+  {
+    "title": "‘Tamron Hall’ introduces set updates to go along with previous graphics redo",
+    "outlet": "NewscastStudio",
+    "date": "2020-09-14",
+    "url": "https://www.newscaststudio.com/2020/09/14/tamron-hall-season-2-updates/",
+    "thumb": "https://image.thum.io/get/width/1200/https://www.newscaststudio.com/2020/09/14/tamron-hall-season-2-updates/"
+  },
+  {
+    "title": "‘Good Morning America’ gets new set to match its new graphics",
+    "outlet": "NewscastStudio",
+    "date": "2019-04-02",
+    "url": "https://www.newscaststudio.com/2019/04/02/gma-new-set/",
+    "thumb": "https://image.thum.io/get/width/1200/https://www.newscaststudio.com/2019/04/02/gma-new-set/"
+  },
+  {
+    "title": "Sportsmedia column (mention: The Fight Game — set designer Seth Easter)",
+    "outlet": "Variety",
+    "date": "2013-05-28",
+    "url": "https://variety.com/2013/tv/columns/sportsmedia-red-sox-giants-eckersley-krukow-1200485840/",
+    "thumb": "https://image.thum.io/get/width/1200/https://variety.com/2013/tv/columns/sportsmedia-red-sox-giants-eckersley-krukow-1200485840/"
   }
 ]
