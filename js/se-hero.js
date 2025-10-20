@@ -1,24 +1,28 @@
 (function(){
   var stage = document.getElementById('heroStage');
-  var jsonEl = document.getElementById('seSlidesJSON');
-  if (!stage || !jsonEl) return;
-  var slides = [];
-  try { slides = JSON.parse(jsonEl.textContent || '[]'); } catch(e){ slides = []; }
-  if (!slides.length) return;
+  if (!stage) return;
+  function isVideo(src){ return /\.(mp4|webm|ogg|ogv|mov)$/i.test(src); }
+  var data = [];
+  try{
+    var raw = document.getElementById('seSlidesJSON');
+    if (raw) data = JSON.parse(raw.textContent || "[]");
+  }catch(e){ data = []; }
+  if (!Array.isArray(data) || !data.length){
+    data = ["assets/hero/slide1.jpg","assets/hero/slide2.jpg","assets/hero/slide3.jpg"];
+  }
   var i = 0;
-  function render(s){
-    if (typeof s === 'string') s = { type:'image', src:s };
-    if (!s.type) s.type = 'image';
-    if (s.type === 'video'){
-      var attrs = ['playsinline','autoplay','muted','loop'].join(' ');
-      var poster = s.poster ? ' poster="'+s.poster+'"' : '';
-      stage.innerHTML = '<video '+attrs+poster+' style="width:100%;height:100%;object-fit:cover"><source src="'+s.src+'"></video>';
-      var v = stage.querySelector('video'); if (v) { try{ v.play(); }catch(_){ } }
-    } else {
-      stage.innerHTML = '<img src="'+s.src+'" alt="" style="width:100%;height:100%;object-fit:cover">';
+  function render(){
+    var src = data[i];
+    i = (i + 1) % data.length;
+    if (typeof src === "object" && src.src) src = src.src;
+    if (isVideo(src)){
+      stage.innerHTML = '<video autoplay muted loop playsinline preload="auto">' +
+                        '<source src="'+src+'" type="video/mp4">' +
+                        '</video>';
+    }else{
+      stage.innerHTML = '<img src="'+src+'" alt="">';
     }
   }
-  function next(){ i = (i + 1) % slides.length; render(slides[i]); }
-  render(slides[0]);
-  setInterval(next, 4000);
+  render();
+  setInterval(render, 4000);
 })();
