@@ -1,0 +1,20 @@
+
+/* SED fixes v50: global nav logo size + header height */
+header.header,
+.header{min-height:128px !important;}
+header.header .container, header.header nav,
+.header .container, .header nav{min-height:128px !important; align-items:center !important;}
+/* Hit the common logo selectors hard */
+header.header img, .header img, .nav img, .brand img,
+header.header svg, .header svg, .nav svg, .brand svg{
+  height:128px !important; width:auto !important; display:block !important;
+}
+@media (max-width: 640px){
+  header.header, .header{min-height:80px !important;}
+  header.header .container, header.header nav,
+  .header .container, .header nav{min-height:80px !important;}
+  header.header img, .header img, .nav img, .brand img,
+  header.header svg, .header svg, .nav svg, .brand svg{
+    height:80px !important;
+  }
+}
