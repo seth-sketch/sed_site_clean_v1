@@ -1,0 +1,11 @@
+
+/* index-override.v5.css — only linked on the home page */
+/* Force the left hero card to fill with the tight SVG and center perfectly */
+.hero-card.logo{
+  background-image: url('assets/sed-logo-tight.v5.svg') !important;
+  background-repeat: no-repeat !important;
+  background-position: 50% 50% !important;
+  background-size: contain !important;
+}
+/* Hide the inline <img> so we avoid any global img rules interfering */
+.hero-card.logo > img{ display: none !important; }
