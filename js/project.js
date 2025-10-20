@@ -1,3 +1,4 @@
+/* Project page loader (ES5) — reads /assets/work.json and fills the page */
 (function () {
   function getSlug() {
     var q = location.search.replace(/^\?/, '');
@@ -36,6 +37,7 @@
 
   loadWorkJSON().then(function (list) {
     if (!list || !list.length) return;
+
     var idx = -1, item = null;
     for (var i = 0; i < list.length; i++) {
       if (list[i].slug === slug) { idx = i; item = list[i]; break; }
@@ -43,25 +45,26 @@
     if (!item) return;
 
     setText('[data-project="title"], h1', item.title || 'Project');
-    setText('[data-project="meta"]', [item.client, item.year, item.role].filter(Boolean).join(' · '));
+    setText('[data-project="meta"]',
+      [item.client, item.year, item.role].filter(Boolean).join(' · '));
 
-    var heroSrc = item.cover || (item.gallery && item.gallery[0]) || 'assets/work/placeholder-16x9.jpg';
+    var heroSrc = item.cover || (item.gallery && item.gallery[0]) || '/assets/work/placeholder-16x9.jpg';
     var heroEl = setHTML('[data-project="hero"]',
-      '<span class="ratio-169"><img src="'+heroSrc+'" alt=""></span>');
+      '<span class="ratio-169"><img src="' + heroSrc + '" alt=""></span>');
 
     var thumbsEl = $('[data-project="thumbs"]');
     if (thumbsEl && item.gallery && item.gallery.length) {
       var t = '';
       for (var g = 0; g < item.gallery.length; g++) {
         var src = item.gallery[g];
-        t += '<button class="thumb" data-src="'+src+'"><img loading="lazy" src="'+src+'" alt=""></button>';
+        t += '<button class="thumb" data-src="' + src + '"><img loading="lazy" src="' + src + '" alt=""></button>';
       }
       thumbsEl.innerHTML = t;
       thumbsEl.addEventListener('click', function (e) {
         var btn = e.target.closest ? e.target.closest('.thumb') :
                   (e.target.className === 'thumb' ? e.target : null);
         if (btn && heroEl) {
-          heroEl.innerHTML = '<span class="ratio-169"><img src="'+btn.getAttribute('data-src')+'" alt=""></span>';
+          heroEl.innerHTML = '<span class="ratio-169"><img src="' + btn.getAttribute('data-src') + '" alt=""></span>';
           window.scrollTo(0, 0);
         }
       });
@@ -70,14 +73,24 @@
     }
 
     var backEl = $('[data-project="back"]');
-    if (backEl) backEl.setAttribute('href', 'index.html#work');
+    if (backEl) backEl.setAttribute('href', '/#work');
 
     var nextEl = $('[data-project="next"]');
     if (nextEl) {
       var nxt = list[(idx + 1) % list.length];
-      nextEl.setAttribute('href', 'project.html?slug=' + encodeURIComponent(nxt.slug));
+      nextEl.setAttribute('href', '/project.html?slug=' + encodeURIComponent(nxt.slug));
       var label = nextEl.querySelector('span');
       if (label) label.textContent = nxt.title || 'Next project';
+    }
+
+    // OPTIONAL: per-project press links if present
+    var pressWrap = $('[data-project="press"]');
+    if (pressWrap && item.press && item.press.length){
+      pressWrap.innerHTML = item.press.map(function(p){
+        return '<li><a href="'+p.url+'" target="_blank" rel="noopener">'+p.title+'</a></li>';
+      }).join('');
+    } else if (pressWrap){
+      pressWrap.innerHTML = '';
     }
   });
 })();
