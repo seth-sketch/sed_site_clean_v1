@@ -1,10 +1,10 @@
-/* simple press renderer from /assets/press.json */
+/* render /assets/press.json into cards with thumbs */
 (function(){
   var grid = document.getElementById('pressGrid');
   if (!grid) return;
 
   function card(p){
-    var img = p.thumb || '/assets/press/wnt-thumb.jpg'; // fallback if you have one
+    var img = p.thumb || '/assets/press/wnt-thumb.jpg'; // put a generic fallback here if you want
     return '' +
       '<article class="card">' +
         '<a class="cover" href="'+p.url+'" target="_blank" rel="noopener">' +
@@ -12,7 +12,7 @@
         '</a>' +
         '<div class="footer">' +
           '<a href="'+p.url+'" target="_blank" rel="noopener">'+p.title+'</a>' +
-          '<div class="meta">'+(p.source||'')+' · '+(p.date||'')+'</div>' +
+          '<div class="meta">'+(p.source||"")+(p.date?(" · "+p.date):"")+'</div>' +
         '</div>' +
       '</article>';
   }

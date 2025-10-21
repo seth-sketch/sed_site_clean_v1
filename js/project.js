@@ -83,7 +83,7 @@
       if (label) label.textContent = nxt.title || 'Next project';
     }
 
-    // OPTIONAL: per-project press links if present
+    // Optional per-project press
     var pressWrap = $('[data-project="press"]');
     if (pressWrap && item.press && item.press.length){
       pressWrap.innerHTML = item.press.map(function(p){
