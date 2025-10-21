@@ -1,29 +1,32 @@
 (function(){
-  var list = document.getElementById('pressList');
-  if (!list) return;
+  var host = document.getElementById('pressHome');
+  if (!host) return;
 
-  function fmt(d){
-    if (!d) return '';
-    var m = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    var mm = parseInt((d.split('-')[1]||''),10), yyyy = (d.split('-')[0]||'').trim();
-    return (m[mm-1] || '') + (yyyy ? ' ' + yyyy : '');
+  function xhrJSON(url, cb){
+    var x = new XMLHttpRequest();
+    x.open('GET', url, true);
+    x.onreadystatechange = function(){
+      if (x.readyState === 4){
+        if (x.status >= 200 && x.status < 300){
+          try { cb(JSON.parse(x.responseText)); } catch(e){ cb([]); }
+        } else { cb([]); }
+      }
+    };
+    x.send();
   }
 
-  fetch('assets/press.json?v='+Date.now(), { cache:'no-store' })
-    .then(function(r){ if(!r.ok) throw 0; return r.json(); })
-    .then(function(items){
-      if (!Array.isArray(items) || !items.length) return;
-      items.sort(function(a,b){ return String(b.date||'').localeCompare(String(a.date||'')); });
-      var top = items.slice(0, 6);
-      list.innerHTML = top.map(function(it){
-        var meta = [];
-        if (it.source) meta.push(it.source);
-        if (it.date)   meta.push(fmt(it.date));
-        return '<li><a href="'+it.url+'" target="_blank" rel="noopener">'+
-                 (it.title || 'Article') +
-               '</a>' + (meta.length ? ' · <span class="meta">'+meta.join(' · ')+'</span>' : '') +
-               '</li>';
-      }).join('');
-    })
-    .catch(function(){});
+  function row(p){
+    var icon = 'https://www.google.com/s2/favicons?sz=64&domain_url=' + encodeURIComponent(p.url);
+    return ''+
+      '<a class="press-card" href="'+p.url+'" target="_blank" rel="noopener">'+
+        '<div class="thumb"><span class="ratio-169"><img src="'+icon+'" alt=""></span></div>'+
+        '<div><div><strong>'+ (p.title || p.source || 'Press') +'</strong></div>'+
+        '<div class="meta">'+ (p.source || '') +'</div></div>'+
+      '</a>';
+  }
+
+  xhrJSON('/assets/press.json?v='+Date.now(), function(list){
+    if (!list || !list.length){ host.innerHTML = '<div class="meta">No press yet.</div>'; return; }
+    host.innerHTML = list.slice(0,6).map(row).join('');
+  });
 })();
