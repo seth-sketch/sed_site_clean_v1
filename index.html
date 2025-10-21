@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Seth Easter — Selected Work</title>
   <link rel="preload" as="image" href="/assets/hero/slide1.jpg" />
-  <link rel="stylesheet" href="/assets/styles.css?v=fix169-2" />
+  <!-- IMPORTANT: only one stylesheet link, no stray text -->
+  <link rel="stylesheet" href="/assets/styles.css?v=fix169-3" />
 </head>
 <body>
   <!-- Optional splash (fades out) -->
@@ -16,7 +17,7 @@
   <header class="header">
     <div class="container nav">
       <a class="brand" href="/" aria-label="Seth Easter Design">
-        <img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="Seth Easter Design" />
+        <img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="Seth Easter Design">
       </a>
       <ul class="nav-links">
         <li><a class="active" href="/">Work</a></li>
@@ -28,25 +29,15 @@
   </header>
 
   <main class="container">
-    <!-- Featured hero -->
+    <!-- FEATURED / HERO -->
     <section aria-label="Featured">
+      <!-- 16:9 stage container -->
       <div class="ratio-169 hero-stage">
+        <!-- MUST be a closed, empty container the script can fill -->
         <div id="heroStage" class="se-slide-stage"></div>
       </div>
 
-      <!-- Hero config. If /assets/hero/reel.mp4 is missing, remove the "video" line. -->
-      <script id="seSlidesJSON" type="application/json">
-      {
-        "video": "/assets/hero/reel.mp4",
-        "slides": [
-          "/assets/hero/slide1.jpg",
-          "/assets/hero/slide2.jpg",
-          "/assets/hero/slide3.jpg"
-        ],
-        "interval": 4000
-      }
-      </script>
-
+      <!-- Long skinny copy bar under hero -->
       <div class="hero-copy-card">
         <h1>Broadcast &amp; Live Event Production Design</h1>
         <p>
@@ -62,7 +53,7 @@
       </div>
     </section>
 
-    <!-- Selected Work -->
+    <!-- SELECTED WORK -->
     <section class="section" id="work">
       <h2>Selected Work</h2>
       <div class="band">
@@ -73,7 +64,7 @@
       </div>
     </section>
 
-    <!-- Home Press teaser -->
+    <!-- HOME PRESS TEASER -->
     <section class="section" id="press">
       <h2>Press &amp; Features</h2>
       <div id="pressHome" class="press-list"></div>
@@ -95,17 +86,29 @@
 
   <footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
 
-  <!-- Tiny splash fade (safe even without /js/splash.js) -->
+  <!-- HERO CONFIG (must be OUTSIDE the hero divs, and valid JSON) -->
+  <script id="seSlidesJSON" type="application/json">
+  {
+    "video": "/assets/hero/reel.mp4",
+    "slides": [
+      "/assets/hero/slide1.jpg",
+      "/assets/hero/slide2.jpg",
+      "/assets/hero/slide3.jpg"
+    ],
+    "interval": 4000
+  }
+  </script>
+
+  <!-- Tiny splash fade (safe even without a separate splash.js) -->
   <script>
-    (function(){
-      var s = document.getElementById('splash'); if(!s) return;
+    (function(){var s=document.getElementById('splash'); if(!s) return;
       setTimeout(function(){ s.classList.add('hide'); }, 900);
     })();
   </script>
 
-  <!-- JS -->
-  <script src="/js/se-hero.js?v=2" defer></script>
-  <script src="/js/home-grid.js?v=2" defer></script>
-  <script src="/js/press-home.js?v=2" defer></script>
+  <!-- JS (defer so DOM is ready) -->
+  <script src="/js/se-hero.js?v=fix169-3" defer></script>
+  <script src="/js/home-grid.js?v=fix169-3" defer></script>
+  <script src="/js/press-home.js?v=fix169-3" defer></script>
 </body>
 </html>
