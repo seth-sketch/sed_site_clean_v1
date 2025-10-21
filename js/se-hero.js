@@ -1,42 +1,47 @@
-/* Hero crossfade with optional first video, then slides */
+/* Hero: video first, then slides (ES5) */
 (function(){
   var stage = document.getElementById('heroStage');
-  var cfgEl = document.getElementById('seSlidesJSON');
-  if (!stage || !cfgEl) return;
+  if (!stage) return;
 
-  var cfg = { slides: [], interval: 4000, video: null };
-  try {
-    var raw = cfgEl.textContent || cfgEl.innerText || '[]';
-    var parsed = JSON.parse(raw);
-    if (Array.isArray(parsed)) {
-      cfg.slides = parsed;
-    } else {
-      cfg.slides   = parsed.slides || [];
-      cfg.interval = parsed.interval || 4000;
-      cfg.video    = parsed.video || null;
-    }
-  } catch(_){}
+  function cfg(){
+    var el = document.getElementById('seSlidesJSON');
+    var out = { video:null, slides:[], interval:4000 };
+    try{
+      if(!el) return out;
+      var raw = el.textContent || el.innerText || '[]';
+      var data = JSON.parse(raw);
+      if (Object.prototype.toString.call(data) === '[object Array]'){
+        out.slides = data;
+      } else {
+        out.video    = data.video || null;
+        out.slides   = data.slides || [];
+        out.interval = data.interval || 4000;
+      }
+    }catch(_){}
+    return out;
+  }
 
-  function setHTML(html){ stage.innerHTML = html; }
   function showImg(src){
-    setHTML('<span class="ratio-169"><img class="hero-img" src="'+src+'" alt=""></span>');
+    stage.innerHTML = '<span class="ratio-169"><img src="'+src+'" alt=""></span>';
   }
-  function showVideo(src, next){
-    setHTML('<span class="ratio-169"><video class="hero-video" src="'+src+'" muted playsinline autoplay></video></span>');
+  function showVideo(src, done){
+    stage.innerHTML =
+      '<span class="ratio-169"><video src="'+src+'" muted playsinline autoplay></video></span>';
     var v = stage.querySelector('video');
-    if (!v) { next && next(); return; }
-    var done = function(){ next && next(); };
-    v.addEventListener('ended', done);
-    v.addEventListener('error', done);
+    if(!v){ if(done) done(); return; }
+    v.addEventListener('ended', function(){ if(done) done(); });
+    v.addEventListener('error', function(){ if(done) done(); });
   }
 
+  var c = cfg();
   var i = 0;
   function rotate(){
-    if (!cfg.slides.length) return;
-    showImg(cfg.slides[i]);
-    i = (i + 1) % cfg.slides.length;
-    setTimeout(rotate, cfg.interval);
+    if (!c.slides || !c.slides.length) return;
+    showImg(c.slides[i]);
+    i = (i + 1) % c.slides.length;
+    setTimeout(rotate, c.interval);
   }
 
-  if (cfg.video) showVideo(cfg.video, rotate); else rotate();
+  if (c.video) showVideo(c.video, rotate);
+  else rotate();
 })();

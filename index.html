@@ -7,6 +7,8 @@
   <link rel="preload" as="image" href="/assets/hero/slide1.jpg" />
   <<link rel="stylesheet" href="/assets/styles.css?v=fix169-1">link rel="stylesheet" href="/assets/styles.css" />
 </head>
+	<!-- in index.html head or just before </body> include -->
+<script src="js/se-hero.js" defer></script>
 <body>
   <!-- Optional splash (fades out) -->
   <div id="splash" class="splash">
@@ -63,7 +65,14 @@
       </div>
     </section>
 
-    <!-- Optional: show a couple press items on home if you want
+   <section class="section" id="press">
+  <h2>Press &amp; Features</h2>
+  <div id="pressHome" class="press-list"></div>
+  <div style="margin-top:12px">
+    <a class="btn" href="press/index.html">Open full Press page</a>
+  </div>
+</section>
+<script src="js/press-home.js?v=sed-fix1" defer></script> <!-- Optional: show a couple press items on home if you want
     <section class="section" id="press-teaser">
       <h2>Press &amp; Features</h2>
       <div id="pressGrid" class="grid"></div>
@@ -102,7 +111,7 @@
     })();
   </script>
   <script src="/js/se-hero.js" defer></script>
-  <script src="/js/home-grid.js" defer></script>
+  <script src="/js/home-grid.js?v=sed-fix1" defer></script>
   <!-- If you want home press teaser active, also include: -->
   <!-- <script src="/js/press-list.js" defer></script> -->
 </body>

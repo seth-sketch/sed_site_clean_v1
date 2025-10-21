@@ -1,37 +1,60 @@
-:root{
-  --bg:#f6f7fb;
-  --card:#fff;
-  --ink:#1f2937;
-  --muted:#6b7280;
-  --line:#e8edf5;
-  --brand:#3a51a3;
-  --container:1160px;
-  --shadow:0 8px 16px rgba(2,6,23,.06), 0 2px 4px rgba(2,6,23,.06);
-  --header-h:112px;
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Work — Seth Easter</title>
+  <link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<!-- in index.html head or just before </body> include -->
+<script src="js/se-hero.js" defer></script>
+<body>
+  <header class="header">
+    <div class="container nav">
+      <a class="brand" href="/" aria-label="Seth Easter Design">
+        <img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="Seth Easter Design">
+      </a>
+      <ul class="nav-links">
+        <li><a class="active" href="/work">Work</a></li>
+        <li><a href="/press">Press</a></li>
+        <li><a href="/#awards">Awards</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section">
+      <h1>Work</h1>
+      <div class="band">
+        <div class="scroller">
+          <div id="workGrid" class="grid"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer-site">© Seth Easter.</footer>
+
+  <script src="/js/home-grid.js" defer></script>
+</body>
+</html>
+/* ===== SED: reliable 16:9 cards + non-collapsing cover ===== */
+.card .cover{
+  display:block;
+  border-bottom:1px solid var(--line);
+  /* prevent the media from collapsing in the flex column */
+  flex:0 0 auto;
 }
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
-  font:16px/1.55 Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
-html{scroll-padding-top:var(--header-h)}
-.container{max-width:var(--container);margin:0 auto;padding:22px}
 
-/* header / nav */
-.header{position:sticky;top:0;z-index:10;background:#ffffffee;
-  backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--line)}
-.nav{display:flex;align-items:flex-end;gap:16px;padding-top:12px;padding-bottom:18px}
-.brand-logo{height:56px;width:auto;display:block}
-.nav-links{list-style:none;padding:0;margin:0 8% 0 auto;display:flex;gap:20px}
-.nav-links a{color:var(--brand);text-decoration:none;font-weight:700}
-.nav-links a.active{border-bottom:2px solid var(--brand)}
-
-/* universal 16:9 box (no @supports) */
-./* --- 16:9 media and safe fallback --- */
+/* Fallback 16:9 (works in DW Live View and older engines) */
 .ratio-169{
   position:relative;
   width:100%;
-  aspect-ratio:16/9;
-  background:#eef2ff; /* shows while images load */
+  height:0;                 /* fallback first */
+  padding-top:56.25%;       /* 9 / 16 */
   overflow:hidden;
+  background:#ddd;
 }
 .ratio-169 > img,
 .ratio-169 > video,
@@ -43,93 +66,72 @@ html{scroll-padding-top:var(--header-h)}
   object-fit:cover;
   display:block;
 }
-/* Fallback if aspect-ratio unsupported (older preview engines) */
-@supports not (aspect-ratio: 1 / 1){
-  .ratio-169{ height:0; padding-top:56.25%; } /* 9/16 */
-  .ratio-169 > img,
-  .ratio-169 > video{ position:absolute; inset:0; }
+
+/* Use native aspect-ratio when available */
+@supports (aspect-ratio: 16 / 9){
+  .ratio-169{
+    aspect-ratio:16/9;
+    height:auto;
+    padding-top:0;
+  }
 }
 
-/* --- Card layout: keep media area from collapsing --- */
+/* Optional: a touch more lift on cards */
 .card{
-  display:flex;
-  flex-direction:column;
-  border:1px solid var(--line);
-  background:var(--card);
-  box-shadow:var(--shadow);
+  box-shadow: var(--shadow);
+  background: var(--card);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+/* ===== SED FIX PACK — reliable 16:9 + non-collapsing cover + card shadow ===== */
+.card .cover{
+  display:block;
+  border-bottom:1px solid var(--line);
+  /* prevent media from collapsing in flex column cards */
+  flex:0 0 auto;
+}
+
+/* Fallback 16:9 (works in DW Live View and older engines) */
+.ratio-169{
+  position:relative;
+  width:100%;
+  height:0;                 /* fallback first */
+  padding-top:56.25%;       /* 9 / 16 */
   overflow:hidden;
+  background:#ddd;
 }
-.card .cover{ display:block; border-bottom:1px solid var(--line); flex:0 0 auto; }
-.card .cover .ratio-169{ background:#eef2ff; }
-.footer{ padding:12px 14px; }
-.footer a{ display:block; font-weight:700; color:#1f6feb; text-decoration:none; }
-.footer a:hover{ text-decoration:underline; }
-
-/* --- Grid --- */
-.grid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:18px; }
-@media (max-width:900px){ .grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
-@media (max-width:620px){ .grid{ grid-template-columns:1fr; } }
-
-/* --- Scroller band keeps the inner list scrollable --- */
-.band{ border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding-block:10px; margin-top:8px; }
-.scroller{ height:clamp(520px, 70vh, 880px); overflow:auto; overscroll-behavior:contain; padding-right:4px; }
-
-/* --- Press grid (home + press page) --- */
-.press-grid{
-  list-style:none; padding:0; margin:0;
-  display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:14px;
-}
-@media (max-width:700px){ .press-grid{ grid-template-columns:1fr; } }
-.press-card{
-  display:flex; gap:12px; align-items:center; border:1px solid var(--line);
-  background:var(--card); padding:10px; text-decoration:none; color:inherit;
-}
-.press-card .thumb{ flex:0 0 120px; }
-.press-card .thumb .ratio-169{ background:#ddd; }
-.press-card .meta{ font-size:13px; color:var(--muted); margin-top:4px; }
-
-/* work detail */
-.work-detail{display:grid;grid-template-columns:2fr 1fr;gap:22px}
-@media (max-width: 900px){ .work-detail{grid-template-columns:1fr} }
-.detail-media{border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow)}
-.detail-thumbs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-top:10px}
-.detail-thumbs img{width:100%;height:auto;display:block}
-.detail-meta{border:1px solid var(--line);background:var(--card);padding:16px}
-.detail-actions{margin-top:16px;display:flex;gap:10px}
-.btn{display:inline-block;background:#1f6feb;color:#fff;padding:10px 14px;border-radius:0;
-  font-weight:700;text-decoration:none;border:1px solid #1554c0}
-.btn:hover{filter:brightness(.98)}
-.footer-site{padding:28px 0 40px;color:var(--muted);text-align:center;font-size:13px}
-/* 16:9 wrapper that works everywhere */
-/* 16:9 that works everywhere */
-.ratio-169{ position:relative; width:100%; height:0; padding-top:56.25%; overflow:hidden; background:#ddd; }
 .ratio-169 > img,
 .ratio-169 > video,
-.ratio-169 > picture > img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+.ratio-169 > picture > img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
 
-/* Grid / cards */
-.scroller{ height:clamp(520px,70vh,880px); overflow:auto; overscroll-behavior:contain; padding-right:4px; }
-.grid{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
-@media (max-width:900px){ .grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
-@media (max-width:620px){ .grid{ grid-template-columns:1fr; } }
+/* Use native aspect-ratio when available */
+@supports (aspect-ratio: 16 / 9){
+  .ratio-169{
+    aspect-ratio:16/9;
+    height:auto;
+    padding-top:0;
+  }
+}
 
-.card{ display:flex; flex-direction:column; border:1px solid #e8edf5; background:#fff; overflow:hidden;
-       box-shadow:0 8px 16px rgba(2,6,23,.06), 0 2px 4px rgba(2,6,23,.06); }
-.card .cover{ display:block; border-bottom:1px solid #e8edf5; flex:0 0 auto; }
-.card .cover .ratio-169{ background:#eef2ff; }
-.footer{ padding:12px 14px; }
-.footer a{ display:block; font-weight:700; color:#1f6feb; text-decoration:none; }
-.footer a:hover{ text-decoration:underline; }
-.meta{ margin-top:4px; font-size:13px; color:#6b7280; }
+/* Give cards some lift */
+.card{
+  box-shadow: var(--shadow);
+  background: var(--card);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
 
-/* Project detail */
-.work-detail{ display:grid; grid-template-columns:2fr 1fr; gap:22px; }
-@media (max-width:900px){ .work-detail{ grid-template-columns:1fr; } }
-.detail-media{ border:1px solid #e8edf5; background:#fff; }
-.detail-thumbs{ display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:10px; margin-top:10px; }
-.detail-thumbs img{ width:100%; aspect-ratio:16/9; object-fit:cover; border:1px solid #e8edf5; cursor:pointer; }
-.detail-meta{ border:1px solid #e8edf5; background:#fff; padding:16px; }
-.detail-actions{ margin-top:16px; display:flex; gap:10px; }
-.btn{ display:inline-block; background:#1f6feb; color:#fff; padding:10px 14px; border-radius:0; font-weight:700; text-decoration:none; border:1px solid #1554c0; }
-.btn-secondary{ background:#fff; color:#1f2937; border:1px solid #e8edf5; }
-.meta-big{ color:#6b7280; margin-top:6px; }
+/* Home press teaser */
+.press-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width: 700px){ .press-list{grid-template-columns:1fr} }
+.press-item{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);background:var(--card);padding:12px}
+.press-item img{width:36px;height:36px;object-fit:cover;border-radius:4px}
+.press-item a{font-weight:700;color:#1f6feb;text-decoration:none}
+.press-item a:hover{text-decoration:underline}
