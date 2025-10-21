@@ -1,5 +1,5 @@
-/* Home grid (ES5): infinite scroll, 16:9 covers, placeholder fallback */
-(function () {
+/* global Promise */
+(function(){
   var PAGE = 12;
 
   var grid = document.getElementById('homeGrid') ||
@@ -16,20 +16,19 @@
   }
   var scroller = findScroller(grid);
 
-  grid.innerHTML = '';
-
   function card(it){
     var title = it.title || 'Project';
     var meta  = [it.client, it.year, it.role].filter(Boolean).join(' · ');
-    var img   = it.cover || (it.gallery && it.gallery[0]) || 'assets/work/placeholder-16x9.jpg';
-    var href  = it.slug ? ('project.html?slug=' + encodeURIComponent(it.slug))
-                        : (it.href || '#');
+    var img   = it.cover || (it.gallery && it.gallery[0]) || '/assets/work/placeholder-16x9.jpg';
+    var href  = it.slug ? ('/project?slug=' + encodeURIComponent(it.slug)) : (it.href || '#');
 
     return '' +
       '<article class="card">' +
         '<a class="cover" href="' + href + '">' +
-          '<span class="ratio-169"><img loading="lazy" decoding="async" src="' + img + '" ' +
-            'onerror="this.onerror=null;this.src=\'assets/work/placeholder-16x9.jpg\'" alt=""></span>' +
+          '<span class="ratio-169">' +
+            '<img loading="lazy" decoding="async" src="' + img + '" alt="" ' +
+            'onerror="this.onerror=null;this.src=\'/assets/work/placeholder-16x9.jpg\'">' +
+          '</span>' +
         '</a>' +
         '<div class="footer">' +
           '<a href="' + href + '">' + title + '</a>' +
@@ -38,43 +37,28 @@
       '</article>';
   }
 
-  function xhrJSON(url, cb){
-    try{
-      var x = new XMLHttpRequest();
-      x.open('GET', url, true);
-      x.onreadystatechange = function(){
-        if (x.readyState === 4){
-          if (x.status >= 200 && x.status < 300){
-            try { cb(JSON.parse(x.responseText)); } catch(e){ cb([]); }
-          } else { cb([]); }
-        }
-      };
-      x.send();
-    }catch(_){ cb([]); }
-  }
-
-  function loadWork(cb){
+  function loadJSON(){
     var bases = ['', './', '../', '/'];
     var i = 0;
-    function next(){
-      if (i >= bases.length) return cb([]);
+    function tryNext(){
+      if (i >= bases.length) return Promise.resolve([]);
       var url = bases[i++] + 'assets/work.json?v=' + Date.now();
-      xhrJSON(url, function(data){
-        if (data && data.length) cb(data);
-        else next();
-      });
+      return fetch(url, { cache:'no-store' })
+        .then(function(r){ if (!r.ok) throw 0; return r.json(); })
+        .then(function(d){ if (Array.isArray(d) && d.length) return d; throw 0; })
+        .catch(function(){ return tryNext(); });
     }
-    next();
+    return tryNext();
   }
 
   var items=[], cursor=0, loading=false, done=false, added={};
+
   function renderMore(){
     if (loading || done || !items.length) return;
     loading = true;
 
-    var end = Math.min(cursor + PAGE, items.length);
-    var html = '';
-    for (var i=cursor; i<end; i++){
+    var end = Math.min(cursor + PAGE, items.length), html = '';
+    for (var i = cursor; i < end; i++){
       var it = items[i];
       if (!it || !it.slug) continue;
       if (added[it.slug]) continue;
@@ -86,41 +70,29 @@
     if (cursor >= items.length) done = true;
     loading = false;
 
-    // If nothing scrolls yet, keep adding until it does
+    // If page isn't scrollable yet, keep adding until it is
     var root = scroller || document.documentElement;
-    var filled = root.scrollHeight > root.clientHeight + 8;
-    if (!filled && !done) renderMore();
+    if (root.scrollHeight <= root.clientHeight + 8 && !done) renderMore();
   }
 
-  function makeSentinel(where){
+  var sentinel = document.getElementById('gridSentinel') || (function(){
     var s = document.createElement('div');
     s.id = 'gridSentinel';
-    s.style.cssText = 'height:1px;width:100%';
-    where.appendChild(s);
+    s.style.height = '1px';
+    (scroller || document.body).appendChild(s);
     return s;
-  }
-  var sentinel = scroller ? makeSentinel(scroller) : makeSentinel(document.body);
+  })();
 
-  function observe(root){
-    if (!('IntersectionObserver' in window)){
-      window.addEventListener('scroll', function(){
-        var rect = sentinel.getBoundingClientRect();
-        if (rect.top < (window.innerHeight + 200)) renderMore();
-      });
-      return;
+  var io = new IntersectionObserver(function(entries){
+    for (var i=0;i<entries.length;i++){
+      if (entries[i].isIntersecting) renderMore();
     }
-    var io = new IntersectionObserver(function(entries){
-      for (var i=0;i<entries.length;i++){
-        if (entries[i].isIntersecting) renderMore();
-      }
-    }, { root: root || null, rootMargin:'400px 0px', threshold:0.01 });
-    io.observe(sentinel);
-  }
+  }, { root: scroller || null, rootMargin:'400px 0px', threshold:0.01 });
 
-  loadWork(function(list){
-    items = (list && list.length) ? list : [];
+  loadJSON().then(function(list){
+    items = Array.isArray(list) ? list : [];
     cursor = 0; loading = false; done = false; added = {};
     renderMore();
-    observe(scroller || null);
+    io.observe(sentinel);
   });
 })();
