@@ -4,8 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Seth Easter — Selected Work</title>
+
+  <!-- Preload first hero image to avoid flash -->
   <link rel="preload" as="image" href="/assets/hero/slide1.jpg" />
-  <link rel="stylesheet" href="/assets/styles.css?v=fix169-1">link rel="stylesheet" href="/assets/styles.css" />
+
+  <!-- Single, valid stylesheet link (cache bust as needed) -->
+  <link rel="stylesheet" href="/assets/styles.css?v=fix169-2" />
 </head>
 	<!-- in index.html head or just before </body> include -->
 <body>
@@ -109,10 +113,17 @@
     })();
   </script>
 <footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
-	
-  <script src="/js/se-hero.js" defer></script>
-  <script src="/js/home-grid.js?v=sed-fix1" defer></script>
-  <!-- If you want home press teaser active, also include: -->
-  <!-- <script src="/js/press-list.js" defer></script> -->
+
+<script>
+  // Tiny splash fade (safe even without /js/splash.js)
+  (function(){var s=document.getElementById('splash'); if(!s) return;
+    setTimeout(function(){ s.classList.add('hide'); }, 900);
+  })();
+</script>
+
+<script src="/js/se-hero.js?v=2" defer></script>
+<script src="/js/home-grid.js?v=2" defer></script>
+<script src="/js/press-home.js?v=2" defer></script>
+</body>>
 </body>
 </html>
