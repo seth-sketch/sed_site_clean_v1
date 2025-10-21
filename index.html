@@ -4,83 +4,106 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Seth Easter — Selected Work</title>
-  <link rel="preload" as="image" href="assets/hero/slide1.jpg" />
-  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="preload" as="image" href="/assets/hero/slide1.jpg" />
+  <<link rel="stylesheet" href="/assets/styles.css?v=fix169-1">link rel="stylesheet" href="/assets/styles.css" />
 </head>
 <body>
-  <div id="splash"><img src="assets/sed-logo-tight.svg" alt="Seth Easter Design"></div>
+  <!-- Optional splash (fades out) -->
+  <div id="splash" class="splash">
+    <img src="/assets/sed-logo-tight.svg" alt="Seth Easter Design" />
+  </div>
+
   <header class="header">
     <div class="container nav">
-      <a class="brand" href="index.html" aria-label="Seth Easter Design">
-        <img class="brand-logo" src="assets/sed-logo-tight.svg" alt="Seth Easter Design">
+      <a class="brand" href="/" aria-label="Seth Easter Design">
+        <img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="Seth Easter Design">
       </a>
       <ul class="nav-links">
-        <li><a class="active" href="index.html">Work</a></li>
-        <li><a href="#press">Press</a></li>
-        <li><a href="#awards">Awards</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a class="active" href="/">Work</a></li>
+        <li><a href="/press">Press</a></li>
+        <li><a href="/#awards">Awards</a></li>
+        <li><a href="/#contact">Contact</a></li>
       </ul>
     </div>
   </header>
+
   <main class="container">
+
+    <!-- Full-width hero (16:9). If "video" exists, it plays once then rotates slides -->
     <section aria-label="Featured">
       <div class="ratio-169 hero-stage">
-  <!-- If you have a video, put it here; if not, keep the tag but comment it out -->
-  <video id="heroVideo" class="hero-video" playsinline muted preload="metadata" poster="assets/hero/slide1.jpg" style="width:100%;height:100%;object-fit:cover">
-    <source src="assets/hero/intro.mp4" type="video/mp4">
-  </video>
-  <div id="heroStage" class="se-slide-stage"></div>
-</div>
+        <div id="heroStage" class="se-slide-stage"></div>
+      </div>
+
+      <!-- Long skinny copy card below hero -->
+      <div class="hero-copy-card">
         <h1>Broadcast &amp; Live Event Production Design</h1>
-        <p>Studios and stages for ABC News and beyond — Good Morning America,
-           World News Tonight, This Week, The View, Presidential Debates, and
-           Election coverage in studio and across the Nation.</p>
-        <p><strong>Seth Easter</strong> designs broadcast studios and live event productions
-           across the world and is based in NYC. Multiple Emmys &amp; an ADG award for work at ABC News and beyond.</p>
+        <p>
+          Studios and stages for ABC News and beyond — Good Morning America,
+          World News Tonight, This Week, The View, Presidential Debates, and
+          Election coverage in studio and across the Nation.
+        </p>
+        <p>
+          <strong>Seth Easter</strong> designs broadcast studios and live event productions
+          across the world and is based in NYC. Multiple Emmys &amp; an ADG award
+          for work at ABC News and beyond.
+        </p>
       </div>
     </section>
+
+    <!-- Selected Work (infinite scroll grid; cards are 16:9 covers) -->
     <section class="section" id="work">
       <h2>Selected Work</h2>
       <div class="band">
         <div class="scroller" id="workScroller">
           <div id="homeGrid" class="grid"></div>
+          <!-- sentinel (safe even if your JS also injects one) -->
+          <div id="gridSentinel" style="height:1px;"></div>
         </div>
       </div>
-      <div style="margin-top:14px">
-        <a class="btn" href="work/index.html">Open full Work page</a>
-      </div>
     </section>
-    <section class="section" id="press">
-  <h2>Press &amp; Features</h2>
-  <ul class="list" id="pressList"></ul>
-  <div style="margin-top:14px">
-    <a class="btn" href="press/index.html">Open full Press page</a>
-  </div>
-</section>
+
+    <!-- Optional: show a couple press items on home if you want
+    <section class="section" id="press-teaser">
+      <h2>Press &amp; Features</h2>
+      <div id="pressGrid" class="grid"></div>
+    </section>
+    -->
+
     <section class="section" id="awards">
       <h2>Awards</h2>
-      <ul class="list">
-        <li><strong>News &amp; Documentary Emmy — Outstanding News Special (ABC News: “The President and the People”)</strong> · <em>Senior Producer (2017)</em> — <b>Winner</b></li>
-        <li><strong>Art Directors Guild — Excellence in Production Design (Awards/Music/Game Show): The 67th Annual Tony Awards</strong> · <em>Art Director (2014)</em> — <b>Winner</b></li>
-        <li><strong>Primetime Emmy — Outstanding Art Direction for Variety or Nonfiction Programming (65th Annual Tony Awards)</strong> · <em>Art Director (2012)</em> — <b>Winner</b></li>
-        <li><strong>Primetime Emmy — Outstanding Art Direction for Variety, Music or Nonfiction Programming (63rd Annual Tony Awards)</strong> · <em>Art Director (2010)</em> — <b>Nomination</b></li>
-      </ul>
+      <!-- your awards list here -->
     </section>
+
     <section class="section" id="contact">
       <h2>Contact</h2>
       <p>Email: <a href="mailto:info@your-domain.com">info@your-domain.com</a></p>
     </section>
   </main>
+
   <footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
-  <script id="seSlidesJSON" type="application/json">[
-    "assets/hero/slide1.jpg",
-    "assets/hero/slide2.jpg",
-    "assets/hero/slide3.jpg"
-  ]</script>
-  <script src="js/splash.js?v=2" defer></script>
-  <script src="js/se-hero.js?v=2" defer></script>
-  <script src="js/home-grid.js?v=2" defer></script>
-  <script src="js/press.js?v=2" defer></script>
-  <script src="js/press-home.js?v=2" defer></script>
+
+  <!-- Hero config. If no /assets/hero/reel.mp4, the script will just rotate slides. -->
+  <script id="seSlidesJSON" type="application/json">{
+    "video": "/assets/hero/reel.mp4",
+    "slides": [
+      "/assets/hero/slide1.jpg",
+      "/assets/hero/slide2.jpg",
+      "/assets/hero/slide3.jpg"
+    ],
+    "interval": 4000
+  }</script>
+
+  <!-- JS (must exist) -->
+  <script>
+    // Minimal splash fade if your splash.js isn't present
+    (function(){var s=document.getElementById('splash'); if(!s) return;
+      setTimeout(function(){ s.classList.add('hide'); }, 900);
+    })();
+  </script>
+  <script src="/js/se-hero.js" defer></script>
+  <script src="/js/home-grid.js" defer></script>
+  <!-- If you want home press teaser active, also include: -->
+  <!-- <script src="/js/press-list.js" defer></script> -->
 </body>
 </html>
