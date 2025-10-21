@@ -16,7 +16,7 @@
   <header class="header">
     <div class="container nav">
       <a class="brand" href="/" aria-label="Seth Easter Design">
-        <img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="Seth Easter Design">
+        <img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="Seth Easter Design" />
       </a>
       <ul class="nav-links">
         <li><a class="active" href="/">Work</a></li>
@@ -26,23 +26,27 @@
       </ul>
     </div>
   </header>
-	
+
   <main class="container">
+    <!-- Featured hero -->
     <section aria-label="Featured">
       <div class="ratio-169 hero-stage">
-        <div id="heroStage" class="se-slide-stage">
+        <div id="heroStage" class="se-slide-stage"></div>
       </div>
-<script id="seSlidesJSON" type="application/json">
-{
-  "video": "/assets/hero/reel.mp4",
-  "slides": [
-    "/assets/hero/slide1.jpg",
-    "/assets/hero/slide2.jpg",
-    "/assets/hero/slide3.jpg"
-  ],
-  "interval": 4000
-}
-</script>
+
+      <!-- Hero config. If /assets/hero/reel.mp4 is missing, remove the "video" line. -->
+      <script id="seSlidesJSON" type="application/json">
+      {
+        "video": "/assets/hero/reel.mp4",
+        "slides": [
+          "/assets/hero/slide1.jpg",
+          "/assets/hero/slide2.jpg",
+          "/assets/hero/slide3.jpg"
+        ],
+        "interval": 4000
+      }
+      </script>
+
       <div class="hero-copy-card">
         <h1>Broadcast &amp; Live Event Production Design</h1>
         <p>
@@ -56,32 +60,27 @@
           for work at ABC News and beyond.
         </p>
       </div>
+    </section>
 
-    <!-- Selected Work (infinite scroll grid; cards are 16:9 covers) -->
+    <!-- Selected Work -->
     <section class="section" id="work">
       <h2>Selected Work</h2>
       <div class="band">
         <div class="scroller" id="workScroller">
           <div id="homeGrid" class="grid"></div>
-          <!-- sentinel (safe even if your JS also injects one) -->
           <div id="gridSentinel" style="height:1px;"></div>
         </div>
       </div>
     </section>
 
-   <section class="section" id="press">
-  <h2>Press &amp; Features</h2>
-  <div id="pressHome" class="press-list"></div>
-  <div style="margin-top:12px">
-    <a class="btn" href="press/index.html">Open full Press page</a>
-  </div>
-</section>
-<script src="js/press-home.js?v=sed-fix1" defer></script> <!-- Optional: show a couple press items on home if you want
-    <section class="section" id="press-teaser">
+    <!-- Home Press teaser -->
+    <section class="section" id="press">
       <h2>Press &amp; Features</h2>
-      <div id="pressGrid" class="grid"></div>
+      <div id="pressHome" class="press-list"></div>
+      <div style="margin-top:12px">
+        <a class="btn" href="/press/index.html">Open full Press page</a>
+      </div>
     </section>
-    -->
 
     <section class="section" id="awards">
       <h2>Awards</h2>
@@ -92,24 +91,21 @@
       <h2>Contact</h2>
       <p>Email: <a href="mailto:info@your-domain.com">info@your-domain.com</a></p>
     </section>
-  <!-- JS (must exist) -->
+  </main>
+
+  <footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
+
+  <!-- Tiny splash fade (safe even without /js/splash.js) -->
   <script>
-    // Minimal splash fade if your splash.js isn't present
-    (function(){var s=document.getElementById('splash'); if(!s) return;
+    (function(){
+      var s = document.getElementById('splash'); if(!s) return;
       setTimeout(function(){ s.classList.add('hide'); }, 900);
     })();
   </script>
-<footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
 
-<script>
-  // Tiny splash fade (safe even without /js/splash.js)
-  (function(){var s=document.getElementById('splash'); if(!s) return;
-    setTimeout(function(){ s.classList.add('hide'); }, 900);
-  })();
-</script>
-
-<script src="/js/se-hero.js?v=2" defer></script>
-<script src="/js/home-grid.js?v=2" defer></script>
-<script src="/js/press-home.js?v=2" defer></script>
+  <!-- JS -->
+  <script src="/js/se-hero.js?v=2" defer></script>
+  <script src="/js/home-grid.js?v=2" defer></script>
+  <script src="/js/press-home.js?v=2" defer></script>
 </body>
 </html>
