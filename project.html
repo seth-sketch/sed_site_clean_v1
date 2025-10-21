@@ -20,32 +20,36 @@
       </ul>
     </div>
   </header>
-
+	
+<section>
   <main class="container">
-    <section class="section work-detail">
-      <div class="detail-media">
-        <div data-project="hero"></div>
-        <div class="detail-thumbs" data-project="thumbs"></div>
-      </div>
-      <aside class="detail-meta">
-        <h1 data-project="title">Project</h1>
-        <div class="meta-big" data-project="meta"></div>
+   <div class="work-detail">
+  <div class="detail-media">
+    <div data-project="hero"></div>
+    <div class="detail-thumbs" data-project="thumbs"></div>
+  </div>
 
-        <div class="detail-actions">
-          <a class="btn" data-project="back" href="/#work">Back to Work</a>
-          <a class="btn btn-secondary" data-project="next" href="#"><span>Next Project</span></a>
-        </div>
+  <aside class="detail-meta">
+    <h1 data-project="title">Project</h1>
+    <div class="meta-big" data-project="meta"></div>
 
-        <div style="margin-top:16px">
-          <h3>Press</h3>
-          <ul class="list" data-project="press"></ul>
-        </div>
+    <!-- Optional press link for this project -->
+    <div id="projectPress" style="margin-top:10px; display:none;">
+      <a id="projectPressLink" href="#" target="_blank" rel="noopener" class="btn btn-secondary">Read press</a>
+    </div>
+
+    <div class="detail-actions" style="margin-top:16px">
+      <a class="btn btn-secondary" data-project="back" href="/">← Back</a>
+      <a class="btn" data-project="next" href="#"><span>Next project</span> →</a>
+    </div>
+  </aside>
+</div>
       </aside>
     </section>
   </main>
 
   <footer class="footer-site">© Seth Easter.</footer>
 
-  <script src="/js/project.js" defer></script>
+  <script src="/js/project.js?v=2" defer></script>
 </body>
 </html>

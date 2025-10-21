@@ -4,14 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Seth Easter — Selected Work</title>
-
-  <!-- Preload first hero image to avoid flash -->
   <link rel="preload" as="image" href="/assets/hero/slide1.jpg" />
-
-  <!-- Single, valid stylesheet link (cache bust as needed) -->
   <link rel="stylesheet" href="/assets/styles.css?v=fix169-2" />
 </head>
-	<!-- in index.html head or just before </body> include -->
 <body>
   <!-- Optional splash (fades out) -->
   <div id="splash" class="splash">
@@ -31,16 +26,23 @@
       </ul>
     </div>
   </header>
-
+	
   <main class="container">
-
-    <!-- Full-width hero (16:9). If "video" exists, it plays once then rotates slides -->
     <section aria-label="Featured">
       <div class="ratio-169 hero-stage">
-        <div id="heroStage" class="se-slide-stage"></div>
+        <div id="heroStage" class="se-slide-stage">
       </div>
-
-      <!-- Long skinny copy card below hero -->
+<script id="seSlidesJSON" type="application/json">
+{
+  "video": "/assets/hero/reel.mp4",
+  "slides": [
+    "/assets/hero/slide1.jpg",
+    "/assets/hero/slide2.jpg",
+    "/assets/hero/slide3.jpg"
+  ],
+  "interval": 4000
+}
+</script>
       <div class="hero-copy-card">
         <h1>Broadcast &amp; Live Event Production Design</h1>
         <p>
@@ -54,7 +56,6 @@
           for work at ABC News and beyond.
         </p>
       </div>
-    </section>
 
     <!-- Selected Work (infinite scroll grid; cards are 16:9 covers) -->
     <section class="section" id="work">
@@ -91,20 +92,6 @@
       <h2>Contact</h2>
       <p>Email: <a href="mailto:info@your-domain.com">info@your-domain.com</a></p>
     </section>
-  </main>
-
-
-  <!-- Hero config. If no /assets/hero/reel.mp4, the script will just rotate slides. -->
-  <script id="seSlidesJSON" type="application/json">{
-    "video": "/assets/hero/reel.mp4",
-    "slides": [
-      "/assets/hero/slide1.jpg",
-      "/assets/hero/slide2.jpg",
-      "/assets/hero/slide3.jpg"
-    ],
-    "interval": 4000
-  }</script>
-
   <!-- JS (must exist) -->
   <script>
     // Minimal splash fade if your splash.js isn't present
@@ -124,6 +111,5 @@
 <script src="/js/se-hero.js?v=2" defer></script>
 <script src="/js/home-grid.js?v=2" defer></script>
 <script src="/js/press-home.js?v=2" defer></script>
-</body>>
 </body>
 </html>
