@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Seth Easter — Selected Work</title>
   <link rel="preload" as="image" href="/assets/hero/slide1.jpg" />
-  <!-- IMPORTANT: only one stylesheet link, no stray text -->
   <link rel="stylesheet" href="/assets/styles.css?v=fix169-3" />
 </head>
 <body>
@@ -87,18 +86,17 @@
   <footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
 
   <!-- HERO CONFIG (must be OUTSIDE the hero divs, and valid JSON) -->
-  <script id="seSlidesJSON" type="application/json">
-  {
-    "video": "/assets/hero/reel.mp4",
-    "slides": [
-      "/assets/hero/slide1.jpg",
-      "/assets/hero/slide2.jpg",
-      "/assets/hero/slide3.jpg"
-    ],
-    "interval": 4000
-  }
-  </script>
-
+  <!-- replace your current seSlidesJSON block with this -->
+<script id="seSlidesJSON" type="application/json">
+{
+  "slides": [
+    "/assets/hero/slide1.jpg",
+    "/assets/hero/slide2.jpg",
+    "/assets/hero/slide3.jpg"
+  ],
+  "interval": 4000
+}
+</script>
   <!-- Tiny splash fade (safe even without a separate splash.js) -->
   <script>
     (function(){var s=document.getElementById('splash'); if(!s) return;
