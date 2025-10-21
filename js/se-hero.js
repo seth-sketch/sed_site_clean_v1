@@ -1,38 +1,44 @@
-(function(){
+/* Hero crossfade (ES5): reads #seSlidesJSON and shows video once, then slides */
+(function () {
   var stage = document.getElementById('heroStage');
   var cfgEl = document.getElementById('seSlidesJSON');
   if (!stage || !cfgEl) return;
 
-  var cfg = { slides: [], interval: 4000 };
+  var cfg = { slides: [], interval: 4000, video: null };
   try {
     var raw = cfgEl.textContent || cfgEl.innerText || '[]';
     var parsed = JSON.parse(raw);
-    if (Array.isArray(parsed)) cfg.slides = parsed;
-    else {
-      cfg.video = parsed.video;
-      cfg.slides = parsed.slides || [];
+    if (Array.isArray(parsed)) {
+      cfg.slides = parsed;
+    } else {
+      cfg.slides   = parsed.slides || [];
       cfg.interval = parsed.interval || 4000;
+      cfg.video    = parsed.video || null;
     }
-  } catch(_) {}
+  } catch (_){}
 
   function showImg(src){
     stage.innerHTML = '<span class="ratio-169"><img src="'+src+'" alt=""></span>';
   }
-  function showVideo(src, onDone){
-    stage.innerHTML = '<span class="ratio-169"><video src="'+src+'" muted playsinline autoplay></video></span>';
+  function showVideoOnce(src, done){
+    if (!src) { done(); return; }
+    stage.innerHTML =
+      '<span class="ratio-169"><video src="'+src+'" muted playsinline autoplay></video></span>';
     var v = stage.querySelector('video');
-    if (!v){ onDone && onDone(); return; }
-    v.addEventListener('ended', function(){ onDone && onDone(); });
-    v.addEventListener('error', function(){ onDone && onDone(); });
+    if (!v){ done(); return; }
+    var next = function(){ v.removeEventListener('ended', next); v.removeEventListener('error', next); done(); };
+    v.addEventListener('ended', next);
+    v.addEventListener('error', next);
+    v.play().catch(next);
   }
 
   var i = 0;
   function rotate(){
-    if (!cfg.slides || !cfg.slides.length) return;
+    if (!cfg.slides.length) return;
     showImg(cfg.slides[i]);
     i = (i + 1) % cfg.slides.length;
     setTimeout(rotate, cfg.interval);
   }
 
-  if (cfg.video) showVideo(cfg.video, rotate); else rotate();
+  if (cfg.video) showVideoOnce(cfg.video, rotate); else rotate();
 })();
