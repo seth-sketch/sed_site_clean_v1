@@ -3,7 +3,6 @@
   var stage = document.getElementById('heroStage');
   if (!stage) return;
 
-  // Read config from <script id="seSlidesJSON" type="application/json">…</script>
   var cfg = { slides: [], interval: 4000, video: null };
   try {
     var el = document.getElementById('seSlidesJSON');
