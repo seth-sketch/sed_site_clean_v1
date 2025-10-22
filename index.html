@@ -4,11 +4,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Seth Easter — Selected Work</title>
+
+  <!-- Preload first hero slide for fast paint -->
   <link rel="preload" as="image" href="/assets/hero/slide1.jpg" />
-  <link rel="stylesheet" href="/assets/styles.css?v=hero-fix2" />
+
+  <!-- ONE stylesheet include, with cache-buster -->
+  <link rel="stylesheet" href="/assets/styles.css?v=fix1" />
 </head>
 <body>
-  <!-- Splash (fades out) -->
+  <!-- Splash (fades after ~1s) -->
   <div id="splash" class="splash">
     <img src="/assets/sed-logo-tight.svg" alt="Seth Easter Design" />
   </div>
@@ -16,11 +20,11 @@
   <header class="header">
     <div class="container nav">
       <a class="brand" href="/" aria-label="Seth Easter Design">
-        <img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="Seth Easter Design" />
+        <img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="Seth Easter Design">
       </a>
       <ul class="nav-links">
         <li><a class="active" href="/">Work</a></li>
-        <li><a href="/press/">Press</a></li>
+        <li><a href="/press">Press</a></li>
         <li><a href="/#awards">Awards</a></li>
         <li><a href="/#contact">Contact</a></li>
       </ul>
@@ -28,44 +32,41 @@
   </header>
 
   <main class="container">
-    <!-- FEATURED / HERO -->
-    <!-- in <main> -->
-<!-- FEATURED / HERO -->
-<section aria-label="Featured">
-  <div class="ratio-169 hero-stage">
-    <div id="heroStage" class="se-slide-stage"></div>
-  </div>
+    <!-- HERO -->
+    <section aria-label="Featured">
+      <div class="ratio-169 hero-stage">
+        <div id="heroStage" class="se-slide-stage"></div>
+      </div>
 
-  <!-- Slideshow config (video optional; MUST be valid JSON and only once on page) -->
- <!-- FEATURED / HERO -->
-<section aria-label="Featured">
-  <!-- Full-width 16:9 hero -->
-  <div class="ratio-169 hero-stage">
-    <div id="heroStage" class="se-slide-stage"></div>
-  </div>
+      <!-- Slideshow / video config -->
+      <script id="seSlidesJSON" type="application/json">
+      {
+        "video": "/assets/hero/reel.mp4",
+        "slides": [
+          "/assets/hero/slide1.jpg",
+          "/assets/hero/slide2.jpg",
+          "/assets/hero/slide3.jpg"
+        ],
+        "interval": 4000
+      }
+      </script>
 
-  <!-- Hero config: if video exists, it plays once then slides rotate -->
-  <script id="seSlidesJSON" type="application/json">
-  {
-    "video": "/assets/hero/reel.mp4",
-    "slides": [
-      "/assets/hero/slide1.jpg",
-      "/assets/hero/slide2.jpg",
-      "/assets/hero/slide3.jpg"
-    ],
-    "interval": 4000
-  }
-  </script>
+      <!-- Skinny copy bar under hero -->
+      <div class="hero-copy-card">
+        <h1>Broadcast &amp; Live Event Production Design</h1>
+        <p>
+          Studios and stages for ABC News and beyond — Good Morning America,
+          World News Tonight, This Week, The View, Presidential Debates, and
+          Election coverage in studio and across the Nation.
+        </p>
+        <p>
+          <strong>Seth Easter</strong> designs broadcast studios and live event productions
+          across the world and is based in NYC. Multiple Emmys &amp; an ADG award
+          for work at ABC News and beyond.
+        </p>
+      </div>
+    </section>
 
-  <!-- Skinny copy card under hero (keep or edit text) -->
-  <div class="hero-copy-card">
-    <h1>Broadcast &amp; Live Event Production Design</h1>
-    <p>Studios and stages for ABC News and beyond — Good Morning America, World News Tonight,
-       This Week, The View, Presidential Debates, and nationwide election coverage.</p>
-    <p><strong>Seth Easter</strong> designs broadcast studios and live events worldwide from NYC.
-       Multiple Emmys &amp; an ADG award.</p>
-  </div>
-</section>
     <!-- WORK GRID -->
     <section class="section" id="work">
       <h2>Selected Work</h2>
@@ -77,39 +78,43 @@
       </div>
     </section>
 
-    <!-- Press teaser (optional; can comment out) -->
-    <section class="section" id="press">
+    <!-- HOME PRESS TEASER (top 6) -->
+    <section class="section" id="press-teaser">
       <h2>Press &amp; Features</h2>
-      <div id="pressHome" class="press-list"></div>
+      <ul id="pressHome" class="press-list"></ul>
       <div style="margin-top:12px">
-        <a class="btn" href="/press/">Open full Press page</a>
+        <a class="btn" href="/press">Open full Press page</a>
       </div>
     </section>
 
     <section class="section" id="awards">
       <h2>Awards</h2>
-      <!-- your awards list here -->
+      <ul class="list">
+        <li><strong>News &amp; Documentary Emmy — Outstanding News Special (ABC News: “The President and the People”)</strong> · <em>Senior Producer (2017)</em> — <b>Winner</b></li>
+        <li><strong>Art Directors Guild — Excellence in Production Design (Awards/Music/Game Show): The 67th Annual Tony Awards</strong> · <em>Art Director (2014)</em> — <b>Winner</b></li>
+        <li><strong>Primetime Emmy — Outstanding Art Direction for Variety or Nonfiction Programming (65th Annual Tony Awards)</strong> · <em>Art Director (2012)</em> — <b>Winner</b></li>
+        <li><strong>Primetime Emmy — Outstanding Art Direction for Variety, Music or Nonfiction Programming (63rd Annual Tony Awards)</strong> · <em>Art Director (2010)</em> — <b>Nomination</b></li>
+      </ul>
     </section>
 
     <section class="section" id="contact">
       <h2>Contact</h2>
       <p>Email: <a href="mailto:info@your-domain.com">info@your-domain.com</a></p>
     </section>
+  </main>
+
   <footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
 
-  <!-- Tiny splash fade (safe even if /js/splash.js is missing) -->
+  <!-- Tiny splash fade (kept inline so it can't “miss”) -->
   <script>
     (function(){var s=document.getElementById('splash'); if(!s) return;
       setTimeout(function(){ s.classList.add('hide'); }, 900);
     })();
- <script>
-  // Tiny splash fade (safe even if CSS/JS cached)
-  (function(){var s=document.getElementById('splash'); if(!s) return;
-    setTimeout(function(){ s.classList.add('hide'); }, 900);
-  })();
-</script>
-<script src="/js/se-hero.js?v=merge-bf92" defer></script>
-  <script src="/js/home-grid.js?v=restore3" defer></script>
-  <script src="/js/press-home.js?v=restore3" defer></script>
+  </script>
+
+  <!-- Scripts (cache-busted) -->
+  <script src="/js/se-hero.js?v=fix1" defer></script>
+  <script src="/js/home-grid.js?v=fix1" defer></script>
+  <script src="/js/press-home.js?v=fix1" defer></script>
 </body>
 </html>

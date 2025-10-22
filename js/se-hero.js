@@ -1,23 +1,23 @@
-/* Hero (ES5) — plays optional video once, then rotates slides */
+/* Hero: plays optional video once, then rotates slides */
 (function(){
   var stage = document.getElementById('heroStage');
   if (!stage) return;
 
+  // read config
   var cfg = { slides: [], interval: 4000, video: null };
-  try {
+  try{
     var el = document.getElementById('seSlidesJSON');
-    if (el) {
+    if (el){
       var raw = el.textContent || el.innerText || '[]';
-      var parsed = JSON.parse(raw);
-      if (Array.isArray(parsed)) {
-        cfg.slides = parsed;
-      } else if (parsed && typeof parsed === 'object') {
-        cfg.video    = parsed.video || null;
-        cfg.slides   = parsed.slides || [];
-        cfg.interval = parsed.interval || cfg.interval;
+      var data = JSON.parse(raw);
+      if (Array.isArray(data)) cfg.slides = data;
+      else {
+        cfg.video = data.video || null;
+        cfg.slides = data.slides || [];
+        cfg.interval = data.interval || 4000;
       }
     }
-  } catch (_) {}
+  }catch(_){}
 
   function showImg(src){
     stage.innerHTML = '<span class="ratio-169"><img src="'+src+'" alt=""></span>';
@@ -32,7 +32,7 @@
 
   var i = 0;
   function rotate(){
-    if (!cfg.slides || !cfg.slides.length) return;
+    if (!cfg.slides.length) return;
     showImg(cfg.slides[i]);
     i = (i + 1) % cfg.slides.length;
     setTimeout(rotate, cfg.interval);

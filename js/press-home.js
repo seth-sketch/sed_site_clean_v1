@@ -1,21 +1,25 @@
-/* Home press teaser — render first few items from /assets/press.json */
+/* Home press teaser (top 6 from /assets/press.json) */
 (function(){
-  var host = document.getElementById('pressHome');
-  if (!host) return;
+  var listEl = document.getElementById('pressHome');
+  if (!listEl) return;
+
   fetch('/assets/press.json?v=' + Date.now(), { cache:'no-store' })
     .then(function(r){ return r.json(); })
     .then(function(items){
       if (!Array.isArray(items)) return;
-      var take = Math.min(items.length, 6);
-      var html = '';
-      for (var i=0;i<take;i++){
-        var it = items[i];
-        html += '<div class="press-item">' +
-                  '<img src="'+(it.thumb || '/assets/press/wnt-thumb.jpg')+'" alt="" width="36" height="36">' +
-                  '<div><a href="'+it.url+'" target="_blank" rel="noopener">'+it.title+'</a>' +
-                  '<div class="meta">'+(it.source || '')+'</div></div>' +
-                '</div>';
-      }
-      host.innerHTML = html;
+      items.slice(0,6).forEach(function(p){
+        var thumb = p.thumb || '/assets/press/placeholder-16x9.jpg';
+        var html = ''+
+          '<li class="press-item">'+
+            '<a class="thumb" href="'+p.url+'" target="_blank" rel="noopener">'+
+              '<span class="ratio-169"><img src="'+thumb+'" alt=""></span>'+
+            '</a>'+
+            '<div>'+
+              '<a href="'+p.url+'" target="_blank" rel="noopener">'+(p.title||'Article')+'</a>'+
+              '<div class="meta">'+(p.source||'')+(p.date?(' · '+p.date):'')+'</div>'+
+            '</div>'+
+          '</li>';
+        listEl.insertAdjacentHTML('beforeend', html);
+      });
     });
 })();
