@@ -1,78 +1,85 @@
-/* Home/work grid — infinite scroll + 16:9 cards (no Promise, no fetch) */
+/* global Promise, IntersectionObserver */
+/* Home grid (ES5) — 16:9 covers + placeholder + infinite scroll */
 (function () {
+  var PAGE = 12;
+
   var grid = document.getElementById('homeGrid') ||
-             document.getElementById('workGrid');
+             document.getElementById('workGrid') ||
+             document.getElementById('grid');
   if (!grid) return;
 
-  var scroller = (function findScroller(el){
+  function findScroller(el){
     while (el && el !== document.body){
       if (el.classList && el.classList.contains('scroller')) return el;
       el = el.parentNode;
     }
     return null;
-  })(grid);
+  }
+  var scroller = findScroller(grid);
 
-  var PAGE = 12, items = [], cursor = 0, loading = false, done = false;
-
-  function card(it) {
+  // ---- one card
+  function card(it){
     var title = it.title || 'Project';
     var meta  = [it.client, it.year, it.role].filter(Boolean).join(' · ');
-    var img   = it.cover || (it.gallery && it.gallery[0]) || '/assets/work/placeholder-16x9.jpg';
-    var href  = it.slug ? ('/project?slug=' + encodeURIComponent(it.slug)) : '#';
+    var img   = it.cover || ('/assets/work/' + (it.slug || '') + '/cover.jpg');
+    var href  = it.slug ? ('/project?slug=' + encodeURIComponent(it.slug))
+                        : (it.href || '#');
+
     return '' +
       '<article class="card">' +
-        '<a class="cover" href="'+href+'">' +
-          '<span class="ratio-169"><img loading="lazy" src="'+img+'" alt=""></span>' +
+        '<a class="cover" href="' + href + '">' +
+          '<span class="ratio-169">' +
+            '<img loading="lazy" decoding="async" src="' + img + '" alt="" ' +
+                 'onerror="this.onerror=null;this.src=\'/assets/work/placeholder-16x9.jpg\'">' +
+          '</span>' +
         '</a>' +
         '<div class="footer">' +
-          '<a href="'+href+'">'+title+'</a>' +
-          '<div class="meta">'+meta+'</div>' +
+          '<a href="' + href + '">' + title + '</a>' +
+          '<div class="meta">' + meta + '</div>' +
         '</div>' +
       '</article>';
   }
 
-  /* Promise-free JSON loader with XHR and multi-base fallback */
-  function loadJSON(cb){
-    var bases = ['', './', '../', '/'], i = 0;
-
-    function tryNext(){
-      if (i >= bases.length){ cb([]); return; }
-      var url = bases[i++] + 'assets/work.json?v=' + (+new Date());
-      var x = new XMLHttpRequest();
-      x.open('GET', url, true);
-      x.onreadystatechange = function(){
-        if (x.readyState !== 4) return;
-        if (x.status >= 200 && x.status < 300){
-          try {
-            var data = JSON.parse(x.responseText);
-            if (data && data.length){ cb(data); return; }
-          } catch(_) {}
-        }
-        tryNext();
-      };
-      x.onerror = tryNext;
-      x.send();
+  // ---- robust JSON loader (tries /, ./, ../, /)
+  function loadJSON(){
+    var bases = ['', './', '../', '/'];
+    var i = 0;
+    function next(){
+      if (i >= bases.length) return Promise.resolve([]); // empty => we’ll pad below
+      var url = bases[i++] + 'assets/work.json?v=' + Date.now();
+      return fetch(url, { cache: 'no-store' })
+        .then(function(r){ if (!r.ok) throw 0; return r.json(); })
+        .catch(function(){ return next(); });
     }
-    tryNext();
+    return next();
   }
 
+  // ---- state + render
+  var items=[], cursor=0, loading=false, done=false, added={};
+
   function renderMore(){
-    if (loading || done || !items.length) return;
+    if (loading || done) return;
     loading = true;
 
     var end = Math.min(cursor + PAGE, items.length);
     var html = '';
-    for (var j = cursor; j < end; j++) html += card(items[j]);
+    for (var i = cursor; i < end; i++){
+      var it = items[i];
+      if (!it || !it.slug || added[it.slug]) continue;
+      added[it.slug] = 1;
+      html += card(it);
+    }
     if (html) grid.insertAdjacentHTML('beforeend', html);
     cursor = end;
     if (cursor >= items.length) done = true;
     loading = false;
 
-    // If there’s still no scroll area, keep filling
+    // ensure there’s enough to actually scroll
     var root = scroller || document.documentElement;
-    if (root.scrollHeight <= root.clientHeight + 8 && !done) renderMore();
+    if (root.scrollHeight <= root.clientHeight + 16 && !done) renderMore();
   }
 
+  // sentinel inside scroller (or body)
   var sentinel = document.getElementById('gridSentinel');
   if (!sentinel){
     sentinel = document.createElement('div');
@@ -81,12 +88,30 @@
     (scroller || document.body).appendChild(sentinel);
   }
 
-  var io = new IntersectionObserver(function (entries) {
-    for (var k=0;k<entries.length;k++){
-      if (entries[k].isIntersecting){ renderMore(); break; }
+  var io = new IntersectionObserver(function(entries){
+    for (var i = 0; i < entries.length; i++){
+      if (entries[i].isIntersecting) renderMore();
     }
   }, { root: scroller || null, rootMargin:'400px 0px', threshold:0.01 });
-  io.observe(sentinel);
 
-  loadJSON(function(list){ items = list || []; renderMore(); });
+  loadJSON().then(function(list){
+    items = Array.isArray(list) ? list : [];
+
+    // pad with placeholders so the scroller can scroll even with short lists
+    var MIN = 30;
+    for (var n = items.length; n < MIN; n++){
+      items.push({
+        slug: 'ph-' + (n+1),
+        title: 'Project ' + (n+1),
+        client: '', year: '—', role: '',
+        cover: '/assets/work/placeholder-16x9.jpg',
+        href: '#'
+      });
+    }
+
+    cursor = 0; loading = false; done = false; added = {};
+    grid.innerHTML = '';
+    renderMore();
+    io.observe(sentinel);
+  });
 })();
