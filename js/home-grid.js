@@ -17,7 +17,6 @@
   }
   var scroller = findScroller(grid);
 
-  // ---- one card
   function card(it){
     var title = it.title || 'Project';
     var meta  = [it.client, it.year, it.role].filter(Boolean).join(' · ');
@@ -40,12 +39,11 @@
       '</article>';
   }
 
-  // ---- robust JSON loader (tries /, ./, ../, /)
   function loadJSON(){
     var bases = ['', './', '../', '/'];
     var i = 0;
     function next(){
-      if (i >= bases.length) return Promise.resolve([]); // empty => we’ll pad below
+      if (i >= bases.length) return Promise.resolve([]);
       var url = bases[i++] + 'assets/work.json?v=' + Date.now();
       return fetch(url, { cache: 'no-store' })
         .then(function(r){ if (!r.ok) throw 0; return r.json(); })
@@ -54,13 +52,11 @@
     return next();
   }
 
-  // ---- state + render
   var items=[], cursor=0, loading=false, done=false, added={};
 
   function renderMore(){
     if (loading || done) return;
     loading = true;
-
     var end = Math.min(cursor + PAGE, items.length);
     var html = '';
     for (var i = cursor; i < end; i++){
@@ -74,12 +70,10 @@
     if (cursor >= items.length) done = true;
     loading = false;
 
-    // ensure there’s enough to actually scroll
     var root = scroller || document.documentElement;
     if (root.scrollHeight <= root.clientHeight + 16 && !done) renderMore();
   }
 
-  // sentinel inside scroller (or body)
   var sentinel = document.getElementById('gridSentinel');
   if (!sentinel){
     sentinel = document.createElement('div');
@@ -96,19 +90,15 @@
 
   loadJSON().then(function(list){
     items = Array.isArray(list) ? list : [];
-
-    // pad with placeholders so the scroller can scroll even with short lists
     var MIN = 30;
     for (var n = items.length; n < MIN; n++){
       items.push({
-        slug: 'ph-' + (n+1),
-        title: 'Project ' + (n+1),
-        client: '', year: '—', role: '',
-        cover: '/assets/work/placeholder-16x9.jpg',
-        href: '#'
+        slug:'ph-'+(n+1),
+        title:'Project '+(n+1),
+        client:'', year:'—', role:'',
+        cover:'/assets/work/placeholder-16x9.jpg', href:'#'
       });
     }
-
     cursor = 0; loading = false; done = false; added = {};
     grid.innerHTML = '';
     renderMore();
