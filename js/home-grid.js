@@ -74,10 +74,10 @@
 
   var sentinel = document.getElementById('gridSentinel');
   if (!sentinel){
-    sentinel = document.createElement('div');
-    sentinel.id = 'gridSentinel';
-    sentinel.style.height = '1px';
-    (scroller || document.body).appendChild(sentinel);
+    var where = scroller || document.body;
+    var s = document.createElement('div');
+    s.id = 'gridSentinel'; s.style.height = '1px';
+    where.appendChild(s);
   }
 
   var io = new IntersectionObserver(function(entries){
@@ -88,6 +88,8 @@
 
   loadJSON().then(function(list){
     items = Array.isArray(list) ? list : [];
+
+    // pad so the scroller actually scrolls even with few items
     var MIN = 30;
     for (var n = items.length; n < MIN; n++){
       items.push({
@@ -97,9 +99,10 @@
         cover:'/assets/work/placeholder-16x9.jpg', href:'#'
       });
     }
+
     cursor = 0; loading = false; done = false; added = {};
     grid.innerHTML = '';
     renderMore();
-    io.observe(sentinel);
+    io.observe(document.getElementById('gridSentinel'));
   });
 })();
