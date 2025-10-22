@@ -2,11 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Seth Easter — Selected Work</title>
   <link rel="preload" as="image" href="/assets/hero/slide1.jpg" />
-  <link rel="stylesheet" href="/assets/styles.css?v=fix169-3" />
+  <link rel="stylesheet" href="/assets/styles.css?v=hero-fix1" />
 </head>
+	<script>
+(function(){
+  var stage = document.getElementById('heroStage');
+  if (!stage) return;
+
+  // Read the JSON config you already placed earlier on the page
+  var cfg = { slides: [], interval: 4000 };
+  try {
+    var raw = (document.getElementById('seSlidesJSON') || {}).textContent || '{}';
+    var parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) {
+      cfg.slides = parsed;
+    } else {
+      cfg.slides = parsed.slides || [];
+      cfg.interval = parsed.interval || 4000;
+    }
+  } catch(e){}
+
+  function showImg(src){
+    stage.innerHTML = '<span class="ratio-169"><img src="'+ src +'" alt=""></span>';
+  }
+
+  var i = 0;
+  function next(){
+    if (!cfg.slides.length) return;
+    showImg(cfg.slides[i]);
+    i = (i + 1) % cfg.slides.length;
+    setTimeout(next, cfg.interval);
+  }
+  next();
+})();
+</script>
 <body>
   <!-- Optional splash (fades out) -->
   <div id="splash" class="splash">
@@ -29,28 +61,32 @@
 
   <main class="container">
     <!-- FEATURED / HERO -->
-    <section aria-label="Featured">
-      <!-- 16:9 stage container -->
-      <div class="ratio-169 hero-stage">
-        <!-- MUST be a closed, empty container the script can fill -->
-        <div id="heroStage" class="se-slide-stage"></div>
-      </div>
+  <!-- FEATURED / HERO -->
+<section aria-label="Featured">
+  <!-- Full-width 16:9 hero -->
+  <div class="ratio-169 hero-stage">
+    <div id="heroStage" class="se-slide-stage"></div>
+  </div>
 
-      <!-- Long skinny copy bar under hero -->
-      <div class="hero-copy-card">
-        <h1>Broadcast &amp; Live Event Production Design</h1>
-        <p>
-          Studios and stages for ABC News and beyond — Good Morning America,
-          World News Tonight, This Week, The View, Presidential Debates, and
-          Election coverage in studio and across the Nation.
-        </p>
-        <p>
-          <strong>Seth Easter</strong> designs broadcast studios and live event productions
-          across the world and is based in NYC. Multiple Emmys &amp; an ADG award
-          for work at ABC News and beyond.
-        </p>
-      </div>
-    </section>
+  <!-- Slideshow config (slides only for now) -->
+  <script id="seSlidesjson" type="application/json">
+  {
+    "slides": [
+      "assets/hero/slide1.jpg",
+      "assets/hero/slide2.jpg",
+      "assets/hero/slide3.jpg"
+    ],
+    "interval": 4000
+  }
+  </script>
+
+  <!-- Long skinny copy card -->
+  <div class="hero-copy-card">
+    <h1>Broadcast &amp; Live Event Production Design</h1>
+    <p>Studios and stages for ABC News and beyond — Good Morning America, World News Tonight, This Week, The View, Presidential Debates, and Election coverage in studio and across the Nation.</p>
+    <p><strong>Seth Easter</strong> designs broadcast studios and live event productions across the world and is based in NYC. Multiple Emmys &amp; an ADG award for work at ABC News and beyond.</p>
+  </div>
+</section>
 
     <!-- SELECTED WORK -->
     <section class="section" id="work">
@@ -87,7 +123,7 @@
 
   <!-- HERO CONFIG (must be OUTSIDE the hero divs, and valid JSON) -->
   <!-- replace your current seSlidesJSON block with this -->
-<script id="seSlidesJSON" type="application/json">
+<script id="seSlidesjson" type="application/json">
 {
   "slides": [
     "/assets/hero/slide1.jpg",
@@ -108,5 +144,38 @@
   <script src="/js/se-hero.js?v=fix169-3" defer></script>
   <script src="/js/home-grid.js?v=fix169-3" defer></script>
   <script src="/js/press-home.js?v=fix169-3" defer></script>
+	<script>
+(function(){
+  var stage = document.getElementById('heroStage');
+  if (!stage) return;
+
+  // read JSON config
+  var cfg = { slides: [], interval: 4000 };
+  try {
+    var raw = (document.getElementById('seSlidesJSON') || {}).textContent || '{}';
+    var parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) { cfg.slides = parsed; }
+    else {
+      cfg.slides   = parsed.slides || [];
+      cfg.interval = parsed.interval || 4000;
+    }
+  } catch(e){}
+
+  // simple rotator
+  var i = 0;
+  function showImg(src){
+    stage.innerHTML =
+      '<span class="ratio-169"><img src="'+ src +'" alt=""></span>';
+  }
+  function next(){
+    if (!cfg.slides.length) return;
+    showImg(cfg.slides[i]);
+    i = (i + 1) % cfg.slides.length;
+    setTimeout(next, cfg.interval);
+  }
+  next();
+})();
+</script>
+	<script src="/js/se-hero.js?v=1" defer></script>
 </body>
 </html>
