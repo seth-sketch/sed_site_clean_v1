@@ -1,33 +1,28 @@
-/* Home/work grid (ES5) — infinite scroll within .scroller */
-(function () {
+/* Home grid (ES5): 16:9 cards, infinite scroll, placeholder-safe. */
+(function(){
   var PAGE = 12;
 
   var grid = document.getElementById('homeGrid') ||
-             document.getElementById('grid') ||
-             document.getElementById('workGrid');
+             document.getElementById('workGrid') ||
+             document.getElementById('grid');
+  var scroller = document.getElementById('workScroller') || null;
   if (!grid) return;
 
-  function findScroller(el){
-    while (el && el !== document.body){
-      if (el.classList && el.classList.contains('scroller')) return el;
-      el = el.parentNode;
-    }
-    return null;
-  }
-  var scroller = findScroller(grid);
+  grid.innerHTML = '';
 
   function card(it){
+    var slug = it.slug || '';
+    var img  = it.cover || ('/assets/work/' + slug + '/cover.jpg');
+    var href = it.href  || ('/project?slug=' + encodeURIComponent(slug));
+    var meta = [it.client, it.year, it.role].filter(Boolean).join(' · ');
     var title = it.title || 'Project';
-    var meta  = [it.client, it.year, it.role].filter(Boolean).join(' · ');
-    var primary = it.cover || ('/assets/work/' + (it.slug || 'x') + '/cover.jpg');
-    var href    = it.slug ? ('/project?slug=' + encodeURIComponent(it.slug)) : (it.href || '#');
 
     return ''+
       '<article class="card">'+
         '<a class="cover" href="'+href+'">'+
           '<span class="ratio-169">'+
-            '<img loading="lazy" decoding="async" src="'+primary+'" alt="" '+
-                 'onerror="this.onerror=null;this.src=\'/assets/work/placeholder-16x9.jpg\'">'+
+            '<img loading="lazy" decoding="async" src="'+img+'" alt="" '+
+            'onerror="this.onerror=null;this.src=\'/assets/work/placeholder-16x9.jpg\'">'+
           '</span>'+
         '</a>'+
         '<div class="footer">'+
@@ -37,39 +32,37 @@
       '</article>';
   }
 
-  function loadJSON(){
+  function loadJSON(done){
     var bases = ['', './', '../', '/'];
     var i = 0;
-    function tryNext(){
-      if (i >= bases.length) return Promise.resolve([]);
-      var url = bases[i++] + 'assets/work.json?v=' + Date.now();
-      return fetch(url, { cache:'no-store' })
-        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
-        .catch(function(){ return tryNext(); });
+    function next(){
+      if (i >= bases.length){ done([]); return; }
+      var url = bases[i++] + 'assets/work.json?v=' + (new Date().getTime());
+      fetch(url, { cache:'no-store' })
+        .then(function(r){ if (!r.ok) throw 0; return r.json(); })
+        .then(function(j){ if (Array.isArray(j)) done(j); else next(); })
+        .catch(function(){ next(); });
     }
-    return tryNext();
+    next();
   }
 
-  var items = [], cursor = 0, loading = false, done = false, added = {};
+  var items = [], cursor = 0, busy = false, finished = false;
 
   function renderMore(){
-    if (loading || done || !items.length) return;
-    loading = true;
-    var end = Math.min(cursor + PAGE, items.length), html = '';
-    for (var i=cursor; i<end; i++){
-      var it = items[i];
-      if (!it || !it.slug || added[it.slug]) continue;
-      added[it.slug] = 1;
-      html += card(it);
-    }
-    if (html) grid.insertAdjacentHTML('beforeend', html);
-    cursor = end;
-    if (cursor >= items.length) done = true;
-    loading = false;
+    if (busy || finished || !items.length) return;
+    busy = true;
 
-    // ensure we actually get scrollable content
+    var end = Math.min(cursor + PAGE, items.length);
+    var html = '';
+    for (var i = cursor; i < end; i++) html += card(items[i]);
+    if (html) grid.insertAdjacentHTML('beforeend', html);
+
+    cursor = end;
+    finished = cursor >= items.length;
+    busy = false;
+
     var root = scroller || document.documentElement;
-    if ((root.scrollHeight <= root.clientHeight + 8) && !done) renderMore();
+    if (!finished && (root.scrollHeight <= root.clientHeight + 16)) renderMore();
   }
 
   var sentinel = document.getElementById('gridSentinel');
@@ -80,15 +73,21 @@
     (scroller || document.body).appendChild(sentinel);
   }
 
-  var io = new IntersectionObserver(function(entries){
-    for (var i=0;i<entries.length;i++){
-      if (entries[i].isIntersecting) renderMore();
+  var io = new IntersectionObserver(function(ents){
+    for (var k=0;k<ents.length;k++){
+      if (ents[k].isIntersecting) renderMore();
     }
   }, { root: scroller || null, rootMargin:'400px 0px', threshold:0.01 });
 
-  loadJSON().then(function(list){
-    items = Array.isArray(list) ? list : [];
-    cursor = 0; loading = false; done = false; added = {};
+  loadJSON(function(list){
+    items = list && list.length ? list : [];
+    if (!items.length){
+      // placeholders so layout shows shape
+      for (var n=1;n<=24;n++){
+        items.push({ slug:'ph-'+n, title:'Project '+n, client:'—', year:'', role:'',
+                     cover:'/assets/work/placeholder-16x9.jpg', href:'#' });
+      }
+    }
     renderMore();
     io.observe(sentinel);
   });
