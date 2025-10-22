@@ -1,94 +1,89 @@
-/* Home grid (ES5): 16:9 cards, infinite scroll, placeholder-safe. */
-(function(){
-  var PAGE = 12;
-
+/* /js/home-grid.js — 16:9 cards + infinite scroll. ES5, absolute paths. */
+(function () {
   var grid = document.getElementById('homeGrid') ||
-             document.getElementById('workGrid') ||
-             document.getElementById('grid');
+             document.getElementById('grid') ||
+             document.getElementById('workGrid');
   var scroller = document.getElementById('workScroller') || null;
   if (!grid) return;
 
   grid.innerHTML = '';
 
-  function card(it){
-    var slug = it.slug || '';
-    var img  = it.cover || ('/assets/work/' + slug + '/cover.jpg');
-    var href = it.href  || ('/project?slug=' + encodeURIComponent(slug));
-    var meta = [it.client, it.year, it.role].filter(Boolean).join(' · ');
-    var title = it.title || 'Project';
+  var items = [], cursor = 0, page = 12, loading = false, done = false, added = {};
 
-    return ''+
-      '<article class="card">'+
-        '<a class="cover" href="'+href+'">'+
-          '<span class="ratio-169">'+
-            '<img loading="lazy" decoding="async" src="'+img+'" alt="" '+
-            'onerror="this.onerror=null;this.src=\'/assets/work/placeholder-16x9.jpg\'">'+
-          '</span>'+
-        '</a>'+
-        '<div class="footer">'+
-          '<a href="'+href+'">'+title+'</a>'+
-          '<div class="meta">'+meta+'</div>'+
-        '</div>'+
-      '</article>';
+  function card(it) {
+    var slug  = it.slug || '';
+    var href  = '/project?slug=' + encodeURIComponent(slug);
+    var cover = it.cover || ('/assets/work/' + slug + '/cover.jpg');
+
+    var html  = '';
+    html += '<article class="card">';
+    html += '  <a class="cover" href="' + href + '">';
+    html += '    <span class="ratio-169">';
+    html += '      <img loading="lazy" src="' + cover + '"';
+    html += '           onerror="this.onerror=null;this.src=\'/assets/work/placeholder-16x9.jpg\'" alt="">';
+    html += '    </span>';
+    html += '  </a>';
+    html += '  <div class="footer">';
+    html += '    <a href="' + href + '">' + (it.title || 'Project') + '</a>';
+    html += '    <div class="meta">' + [it.client, it.year, it.role].filter(Boolean).join(' · ') + '</div>';
+    html += '  </div>';
+    html += '</article>';
+    return html;
   }
 
-  function loadJSON(done){
-    var bases = ['', './', '../', '/'];
-    var i = 0;
-    function next(){
-      if (i >= bases.length){ done([]); return; }
-      var url = bases[i++] + 'assets/work.json?v=' + (new Date().getTime());
-      fetch(url, { cache:'no-store' })
-        .then(function(r){ if (!r.ok) throw 0; return r.json(); })
-        .then(function(j){ if (Array.isArray(j)) done(j); else next(); })
-        .catch(function(){ next(); });
-    }
-    next();
-  }
+  function render() {
+    if (loading || done) return;
+    loading = true;
 
-  var items = [], cursor = 0, busy = false, finished = false;
-
-  function renderMore(){
-    if (busy || finished || !items.length) return;
-    busy = true;
-
-    var end = Math.min(cursor + PAGE, items.length);
+    var end = Math.min(cursor + page, items.length);
     var html = '';
-    for (var i = cursor; i < end; i++) html += card(items[i]);
+    for (var i = cursor; i < end; i++) {
+      var it = items[i];
+      if (!it || !it.slug || added[it.slug]) continue;
+      added[it.slug] = 1;
+      html += card(it);
+    }
     if (html) grid.insertAdjacentHTML('beforeend', html);
-
     cursor = end;
-    finished = cursor >= items.length;
-    busy = false;
+    if (cursor >= items.length) done = true;
+    loading = false;
 
+    // Auto-fill until something scrolls
     var root = scroller || document.documentElement;
-    if (!finished && (root.scrollHeight <= root.clientHeight + 16)) renderMore();
+    if (root.scrollHeight <= root.clientHeight + 8 && !done) render();
   }
 
-  var sentinel = document.getElementById('gridSentinel');
-  if (!sentinel){
-    sentinel = document.createElement('div');
-    sentinel.id = 'gridSentinel';
-    sentinel.style.height = '1px';
-    (scroller || document.body).appendChild(sentinel);
-  }
-
-  var io = new IntersectionObserver(function(ents){
-    for (var k=0;k<ents.length;k++){
-      if (ents[k].isIntersecting) renderMore();
+  function observe() {
+    var sentinel = document.getElementById('gridSentinel');
+    if (!sentinel) {
+      sentinel = document.createElement('div');
+      sentinel.id = 'gridSentinel';
+      sentinel.style.height = '1px';
+      (scroller || document.body).appendChild(sentinel);
     }
-  }, { root: scroller || null, rootMargin:'400px 0px', threshold:0.01 });
-
-  loadJSON(function(list){
-    items = list && list.length ? list : [];
-    if (!items.length){
-      // placeholders so layout shows shape
-      for (var n=1;n<=24;n++){
-        items.push({ slug:'ph-'+n, title:'Project '+n, client:'—', year:'', role:'',
-                     cover:'/assets/work/placeholder-16x9.jpg', href:'#' });
+    var io = new IntersectionObserver(function (entries) {
+      for (var j = 0; j < entries.length; j++) {
+        if (entries[j].isIntersecting) render();
       }
-    }
-    renderMore();
+    }, { root: scroller || null, rootMargin: '400px 0px', threshold: 0.01 });
     io.observe(sentinel);
-  });
+  }
+
+  function load() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/assets/work.json?' + Date.now(), true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4) {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          try { items = JSON.parse(xhr.responseText) || []; } catch (e) { items = []; }
+          cursor = 0; added = {}; done = false;
+          render();
+          observe();
+        }
+      }
+    };
+    xhr.send();
+  }
+
+  load();
 })();
