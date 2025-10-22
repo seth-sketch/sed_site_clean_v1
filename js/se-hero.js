@@ -1,33 +1,33 @@
-/* Hero: plays optional video once, then rotates slides */
-(function(){
+/* Hero slideshow: plays optional video once, then rotates images */
+(function () {
   var stage = document.getElementById('heroStage');
   if (!stage) return;
 
-  // read config
-  var cfg = { slides: [], interval: 4000, video: null };
-  try{
-    var el = document.getElementById('seSlidesJSON');
-    if (el){
-      var raw = el.textContent || el.innerText || '[]';
+  var cfg = { video:null, slides:[], interval:4000 };
+  var cfgEl = document.getElementById('seSlidesJSON');
+  try {
+    if (cfgEl) {
+      var raw = cfgEl.textContent || cfgEl.innerText || '[]';
       var data = JSON.parse(raw);
       if (Array.isArray(data)) cfg.slides = data;
-      else {
-        cfg.video = data.video || null;
-        cfg.slides = data.slides || [];
-        cfg.interval = data.interval || 4000;
+      else if (data && typeof data === 'object') {
+        cfg.video    = data.video || null;
+        cfg.slides   = Array.isArray(data.slides) ? data.slides : [];
+        cfg.interval = +data.interval || 4000;
       }
     }
-  }catch(_){}
+  } catch (e) { /* ignore bad JSON */ }
 
+  function set(html){ stage.innerHTML = html; }
   function showImg(src){
-    stage.innerHTML = '<span class="ratio-169"><img src="'+src+'" alt=""></span>';
+    set('<img alt="" src="'+src+'">');
   }
   function showVideo(src, done){
-    stage.innerHTML = '<span class="ratio-169"><video src="'+src+'" muted playsinline autoplay></video></span>';
+    set('<video src="'+src+'" muted playsinline autoplay></video>');
     var v = stage.querySelector('video');
-    if (!v){ if (done) done(); return; }
-    v.addEventListener('ended', function(){ if (done) done(); });
-    v.addEventListener('error', function(){ if (done) done(); });
+    if (!v) { done && done(); return; }
+    v.addEventListener('ended', function(){ done && done(); });
+    v.addEventListener('error', function(){ done && done(); });
   }
 
   var i = 0;
@@ -38,5 +38,6 @@
     setTimeout(rotate, cfg.interval);
   }
 
-  if (cfg.video) showVideo(cfg.video, rotate); else rotate();
+  if (cfg.video) showVideo(cfg.video, rotate);
+  else rotate();
 })();
