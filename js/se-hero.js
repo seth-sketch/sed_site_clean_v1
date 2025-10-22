@@ -1,43 +1,58 @@
-/* Hero slideshow: plays optional video once, then rotates images */
-(function () {
+/* Hero: plays optional video once, then rotates slides. ES5-safe. */
+(function(){
   var stage = document.getElementById('heroStage');
   if (!stage) return;
 
-  var cfg = { video:null, slides:[], interval:4000 };
-  var cfgEl = document.getElementById('seSlidesJSON');
-  try {
-    if (cfgEl) {
-      var raw = cfgEl.textContent || cfgEl.innerText || '[]';
-      var data = JSON.parse(raw);
-      if (Array.isArray(data)) cfg.slides = data;
-      else if (data && typeof data === 'object') {
-        cfg.video    = data.video || null;
-        cfg.slides   = Array.isArray(data.slides) ? data.slides : [];
-        cfg.interval = +data.interval || 4000;
-      }
-    }
-  } catch (e) { /* ignore bad JSON */ }
-
-  function set(html){ stage.innerHTML = html; }
-  function showImg(src){
-    set('<img alt="" src="'+src+'">');
+  function renderImg(src){
+    stage.innerHTML = '<span class="ratio-169"><img src="'+src+'" alt=""></span>';
   }
-  function showVideo(src, done){
-    set('<video src="'+src+'" muted playsinline autoplay></video>');
+  function renderVideo(src, done){
+    stage.innerHTML =
+      '<span class="ratio-169"><video muted playsinline autoplay>' +
+      '<source src="'+src+'" type="video/mp4"></video></span>';
     var v = stage.querySelector('video');
-    if (!v) { done && done(); return; }
-    v.addEventListener('ended', function(){ done && done(); });
-    v.addEventListener('error', function(){ done && done(); });
+    if (!v){ if (done) done(); return; }
+    v.addEventListener('ended', function(){ if (done) done(); });
+    v.addEventListener('error', function(){ if (done) done(); });
   }
 
-  var i = 0;
-  function rotate(){
-    if (!cfg.slides.length) return;
-    showImg(cfg.slides[i]);
-    i = (i + 1) % cfg.slides.length;
-    setTimeout(rotate, cfg.interval);
+  function startRotation(cfg){
+    var list = cfg && cfg.slides ? cfg.slides.slice(0) : [];
+    var delay = (cfg && cfg.interval) || 4000;
+    if (!list.length) return;
+    var i = 0;
+    function tick(){
+      renderImg(list[i]);
+      i = (i + 1) % list.length;
+      setTimeout(tick, delay);
+    }
+    tick();
   }
 
-  if (cfg.video) showVideo(cfg.video, rotate);
-  else rotate();
+  function cfgFromInline(){
+    try{
+      var el = document.getElementById('seSlidesJSON');
+      if (!el) return null;
+      var txt = el.textContent || el.innerText || '';
+      if (!txt) return null;
+      return JSON.parse(txt);
+    }catch(e){ return null; }
+  }
+
+  function cfgFromFile(cb){
+    var url = '/assets/hero/seSlides.json?v=' + (new Date().getTime());
+    fetch(url, { cache:'no-store' })
+      .then(function(r){ if (!r.ok) throw 0; return r.json(); })
+      .then(function(j){ cb(j); })
+      .catch(function(){ cb(null); });
+  }
+
+  cfgFromFile(function(cfg){
+    if (!cfg) cfg = cfgFromInline() || { slides:[], interval:4000 };
+    if (cfg.video){
+      renderVideo(cfg.video, function(){ startRotation(cfg); });
+    }else{
+      startRotation(cfg);
+    }
+  });
 })();

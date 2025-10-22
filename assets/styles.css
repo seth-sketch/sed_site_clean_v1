@@ -108,3 +108,12 @@ html{scroll-padding-top:var(--header-h)}
 .press-item .thumb{flex:0 0 120px}
 .press-item .thumb .ratio-169{background:#ddd}
 .press-item .meta{font-size:13px;color:var(--muted);margin-top:4px}
+/* Linter-friendly fallbacks (don’t change visuals) */
+.ratio-169 > img,
+.ratio-169 > video,
+.ratio-169 > picture > img{
+  top: 0; right: 0; bottom: 0; left: 0; /* fallback for 'inset:0' parsers */
+}
+
+/* Belt-and-suspenders: keep media area from collapsing in flex cards */
+.card .cover{ flex: 0 0 auto; }
