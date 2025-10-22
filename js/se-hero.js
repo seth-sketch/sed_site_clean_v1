@@ -1,22 +1,24 @@
-/* Hero crossfade (ES5) — plays optional video, then rotates slides */
+/* Hero (ES5) — plays optional video once, then rotates slide images */
 (function(){
   var stage = document.getElementById('heroStage');
   if (!stage) return;
 
+  // Read config from <script id="seSlidesJSON" type="application/json">…</script>
   var cfg = { slides: [], interval: 4000, video: null };
-  var jsonEl = document.getElementById('seSlidesJSON');
-  try{
-    if (jsonEl){
-      var raw = jsonEl.textContent || jsonEl.innerText || '[]';
+  try {
+    var el = document.getElementById('seSlidesJSON');
+    if (el) {
+      var raw = el.textContent || el.innerText || '[]';
       var parsed = JSON.parse(raw);
-      if (Array.isArray(parsed)) { cfg.slides = parsed; }
-      else {
-        cfg.video = parsed.video || null;
-        cfg.slides = parsed.slides || [];
+      if (Array.isArray(parsed)) {
+        cfg.slides = parsed;
+      } else if (parsed && typeof parsed === 'object') {
+        cfg.video    = parsed.video || null;
+        cfg.slides   = parsed.slides || [];
         cfg.interval = parsed.interval || cfg.interval;
       }
     }
-  }catch(_){}
+  } catch (_) {}
 
   function showImg(src){
     stage.innerHTML = '<span class="ratio-169"><img src="'+src+'" alt=""></span>';

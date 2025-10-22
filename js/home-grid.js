@@ -1,5 +1,4 @@
 /* global Promise, IntersectionObserver */
-/* Home grid (ES5) — 16:9 covers + placeholder + infinite scroll */
 (function () {
   var PAGE = 12;
 
@@ -40,8 +39,7 @@
   }
 
   function loadJSON(){
-    var bases = ['', './', '../', '/'];
-    var i = 0;
+    var bases = ['', './', '../', '/']; var i = 0;
     function next(){
       if (i >= bases.length) return Promise.resolve([]);
       var url = bases[i++] + 'assets/work.json?v=' + Date.now();
@@ -83,7 +81,7 @@
   }
 
   var io = new IntersectionObserver(function(entries){
-    for (var i = 0; i < entries.length; i++){
+    for (var i=0;i<entries.length;i++){
       if (entries[i].isIntersecting) renderMore();
     }
   }, { root: scroller || null, rootMargin:'400px 0px', threshold:0.01 });
