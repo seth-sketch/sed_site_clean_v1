@@ -17,26 +17,21 @@ html{scroll-padding-top:var(--header-h)}
 .container{max-width:var(--container);margin:0 auto;padding:22px}
 
 /* splash */
-.splash{position:fixed;inset:0;background:#fff;display:grid;place-items:center;z-index:999;
-  transition:opacity .45s ease}
+./* Splash */
+.splash{position:fixed;inset:0;display:grid;place-items:center;background:#fff;z-index:20;transition:opacity .35s}
 .splash.hide{opacity:0;pointer-events:none}
 .splash img{width:min(360px,50vw);height:auto}
 
-/* header / nav */
-.header{position:sticky;top:0;z-index:10;background:#ffffffee;
-  backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--line)}
-.nav{display:flex;align-items:flex-end;gap:16px;padding-top:12px;padding-bottom:18px}
-.brand-logo{height:56px;width:auto;display:block}
-.nav-links{list-style:none;padding:0;margin:0 8% 0 auto;display:flex;gap:20px}
-.nav-links a{color:var(--brand);text-decoration:none;font-weight:700}
-.nav-links a.active{border-bottom:2px solid var(--brand)}
-
-/* universal 16:9 box with safe fallback */
-/* universal 16:9 box + safe fallback */
+/* 16:9 (fallback + native) */
 .ratio-169{position:relative;width:100%;height:0;padding-top:56.25%;overflow:hidden;background:#eef2ff}
 .ratio-169>img,.ratio-169>video,.ratio-169>picture>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 @supports (aspect-ratio:16/9){.ratio-169{aspect-ratio:16/9;height:auto;padding-top:0}}
 
+/* Hero shell */
+.hero-stage{border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow)}
+.se-slide-stage{width:100%;height:100%}
+
+/* (you already have grid/card styles from the bf92 page—leave them as-is) */
 .card{display:flex;flex-direction:column;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow);overflow:hidden}
 .card .cover{display:block;border-bottom:1px solid var(--line);flex:0 0 auto}
 .card .cover .ratio-169{background:#eef2ff}

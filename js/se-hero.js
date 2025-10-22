@@ -1,4 +1,4 @@
-/* Hero (ES5) — plays optional video once, then rotates slide images */
+/* Hero (ES5) — plays optional video once, then rotates slides */
 (function(){
   var stage = document.getElementById('heroStage');
   if (!stage) return;
