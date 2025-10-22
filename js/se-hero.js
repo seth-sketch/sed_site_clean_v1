@@ -1,58 +1,59 @@
-/* Hero: plays optional video once, then rotates slides. ES5-safe. */
-(function(){
+/* /js/se-hero.js — plays /assets/hero/reel.mp4 once, then rotates slides. ES5 only. */
+(function () {
   var stage = document.getElementById('heroStage');
   if (!stage) return;
 
-  function renderImg(src){
-    stage.innerHTML = '<span class="ratio-169"><img src="'+src+'" alt=""></span>';
+  function readInlineCfg() {
+    var el = document.getElementById('seSlidesJSON');
+    if (!el) return null;
+    try { return JSON.parse(el.textContent || el.innerText || ''); } catch (_) { return null; }
   }
-  function renderVideo(src, done){
-    stage.innerHTML =
-      '<span class="ratio-169"><video muted playsinline autoplay>' +
-      '<source src="'+src+'" type="video/mp4"></video></span>';
+  function fetchCfg(cb) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/assets/hero/seSlides.json?' + Date.now(), true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4) {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          try { cb(JSON.parse(xhr.responseText)); } catch (e) { cb(null); }
+        } else cb(null);
+      }
+    };
+    xhr.send();
+  }
+
+  function showImg(src) {
+    stage.innerHTML = '<span class="ratio-169"><img src="' + src + '" alt=""></span>';
+  }
+  function showVideo(src, onDone) {
+    if (!src) { if (onDone) onDone(); return; }
+    stage.innerHTML = '<span class="ratio-169"><video src="' + src + '" muted playsinline autoplay></video></span>';
     var v = stage.querySelector('video');
-    if (!v){ if (done) done(); return; }
-    v.addEventListener('ended', function(){ if (done) done(); });
-    v.addEventListener('error', function(){ if (done) done(); });
+    if (!v) { if (onDone) onDone(); return; }
+    v.addEventListener('ended', function(){ if (onDone) onDone(); });
+    v.addEventListener('error', function(){ if (onDone) onDone(); });
   }
 
-  function startRotation(cfg){
-    var list = cfg && cfg.slides ? cfg.slides.slice(0) : [];
-    var delay = (cfg && cfg.interval) || 4000;
-    if (!list.length) return;
+  function start(cfg) {
+    var slides = (cfg && cfg.slides && cfg.slides.length) ? cfg.slides : [
+      '/assets/hero/slide1.jpg',
+      '/assets/hero/slide2.jpg',
+      '/assets/hero/slide3.jpg'
+    ];
+    var interval = (cfg && cfg.interval) || 4000;
     var i = 0;
-    function tick(){
-      renderImg(list[i]);
-      i = (i + 1) % list.length;
-      setTimeout(tick, delay);
+
+    function rotate() {
+      if (!slides.length) return;
+      showImg(slides[i]);
+      i = (i + 1) % slides.length;
+      window.setTimeout(rotate, interval);
     }
-    tick();
+
+    if (cfg && cfg.video) showVideo(cfg.video, rotate);
+    else rotate();
   }
 
-  function cfgFromInline(){
-    try{
-      var el = document.getElementById('seSlidesJSON');
-      if (!el) return null;
-      var txt = el.textContent || el.innerText || '';
-      if (!txt) return null;
-      return JSON.parse(txt);
-    }catch(e){ return null; }
-  }
-
-  function cfgFromFile(cb){
-    var url = '/assets/hero/seSlides.json?v=' + (new Date().getTime());
-    fetch(url, { cache:'no-store' })
-      .then(function(r){ if (!r.ok) throw 0; return r.json(); })
-      .then(function(j){ cb(j); })
-      .catch(function(){ cb(null); });
-  }
-
-  cfgFromFile(function(cfg){
-    if (!cfg) cfg = cfgFromInline() || { slides:[], interval:4000 };
-    if (cfg.video){
-      renderVideo(cfg.video, function(){ startRotation(cfg); });
-    }else{
-      startRotation(cfg);
-    }
-  });
+  var inline = readInlineCfg();
+  if (inline) start(inline);
+  else fetchCfg(function (fileCfg) { start(fileCfg); });
 })();
