@@ -1,0 +1,9 @@
+{
+  "video": "/assets/hero/reel.mp4",
+  "slides": [
+    "/assets/hero/slide1.jpg",
+    "/assets/hero/slide2.jpg",
+    "/assets/hero/slide3.jpg"
+  ],
+  "interval": 4000
+}
