@@ -1,45 +1,38 @@
-/* Hero: play video once (if provided) then loop slides */
+/* se-hero.js — plays optional video once, then rotates slides */
 (function(){
   var stage = document.getElementById('heroStage');
   if (!stage) return;
 
-  function renderImg(src){
-    stage.innerHTML = '<span class="ratio-169"><img src="'+src+'" alt=""></span>';
-  }
-  function renderVideo(src, ondone){
-    stage.innerHTML = '<span class="ratio-169"><video muted playsinline autoplay src="'+src+'"></video></span>';
-    var v = stage.querySelector('video');
-    if (!v){ if(ondone) ondone(); return; }
-    v.addEventListener('ended', function(){ if(ondone) ondone(); });
-    v.addEventListener('error', function(){ if(ondone) ondone(); });
-  }
-
-  function tryInline(){
+  function cfgFromScript(){
     var el = document.getElementById('seSlidesJSON');
     if (!el) return null;
-    try{ var cfg = JSON.parse((el.textContent||'').trim()); return cfg; }catch(e){ return null; }
-  }
-  function tryExternal(){
-    return fetch('/assets/hero/seSlides.json?ts='+Date.now(), { cache:'no-store' })
-      .then(function(r){ return r.ok ? r.json() : null; })
-      .catch(function(){ return null; });
+    try{
+      var raw = el.textContent || el.innerText || '';
+      return JSON.parse(raw);
+    }catch(e){ return null; }
   }
 
-  function start(cfg){
-    var slides = (cfg && cfg.slides && cfg.slides.length) ? cfg.slides
-      : ['/assets/hero/slide1.jpg','/assets/hero/slide2.jpg','/assets/hero/slide3.jpg'];
-    var interval = (cfg && cfg.interval) || 4000;
-    var i = 0;
-    function loop(){
-      renderImg(slides[i]);
-      i = (i+1) % slides.length;
-      setTimeout(loop, interval);
-    }
-    if (cfg && cfg.video){ renderVideo(cfg.video, loop); }
-    else { loop(); }
+  var cfg = cfgFromScript() || { slides: [], interval: 4000 };
+
+  function showImg(src){
+    stage.innerHTML = '<span class="ratio-169"><img src="'+src+'" alt=""></span>';
+  }
+  function showVideo(src, onDone){
+    stage.innerHTML =
+      '<span class="ratio-169"><video src="'+src+'" muted playsinline autoplay></video></span>';
+    var v = stage.querySelector('video');
+    if (!v){ onDone && onDone(); return; }
+    v.addEventListener('ended', function(){ onDone && onDone(); });
+    v.addEventListener('error', function(){ onDone && onDone(); });
   }
 
-  var inline = tryInline();
-  if (inline) start(inline);
-  else tryExternal().then(start);
+  var i = 0;
+  function rotate(){
+    if (!cfg.slides || !cfg.slides.length) return;
+    showImg(cfg.slides[i]);
+    i = (i + 1) % cfg.slides.length;
+    setTimeout(rotate, cfg.interval || 4000);
+  }
+
+  if (cfg.video) showVideo(cfg.video, rotate); else rotate();
 })();

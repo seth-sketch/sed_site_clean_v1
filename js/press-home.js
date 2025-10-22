@@ -1,38 +1,45 @@
-/* Renders top 6 on home (#pressHome) and full list on /press (#pressPage) */
+/* press-home.js — renders press teasers on home and full list on /press */
 (function(){
-  function loadPress(){
-    var urls = ['/assets/press.json?v='+Date.now(), '../assets/press.json?v='+Date.now(), '/press/assets/press.json?v='+Date.now()];
-    var i = 0;
-    function next(){
-      if (i >= urls.length) return Promise.resolve([]);
-      return fetch(urls[i++], { cache:'no-store' })
-        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
-        .catch(function(){ return next(); });
-    }
-    return next();
+  function loadPress(cb){
+    var url = '/assets/press.json?v=' + Date.now();
+    fetch(url, { cache:'no-store' })
+      .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+      .then(function(d){ cb(Array.isArray(d)?d:[]); })
+      .catch(function(){ cb([]); });
   }
-  function card(p){
-    var tn = p.thumbnail || '/assets/press/press-placeholder.jpg';
-    return '' +
+  function itemHTML(p){
+    var u = p.url || '#';
+    var t = p.title || 'Press';
+    var o = p.outlet || '';
+    var d = p.date || '';
+    var img = p.thumb || '/assets/work/placeholder-16x9.jpg';
+    return ''+
       '<li class="press-item">' +
-        '<div class="thumb"><span class="ratio-169"><img src="'+tn+'" alt=""></span></div>' +
+        '<a class="thumb" href="'+u+'" target="_blank" rel="noopener">' +
+          '<span class="ratio-169"><img src="'+img+'" alt=""></span>' +
+        '</a>' +
         '<div>' +
-          '<a href="'+p.url+'" target="_blank" rel="noopener">'+(p.title||'Press')+'</a>' +
-          '<div class="meta">'+[p.source, p.date].filter(Boolean).join(' · ')+'</div>' +
+          '<a href="'+u+'" target="_blank" rel="noopener">'+t+'</a>' +
+          '<div class="meta">'+[o,d].filter(Boolean).join(' · ')+'</div>' +
         '</div>' +
       '</li>';
   }
 
-  loadPress().then(function(list){
-    if (!Array.isArray(list)) list = [];
+  loadPress(function(list){
+    // home (first 6)
     var home = document.getElementById('pressHome');
-    var page = document.getElementById('pressPage');
-
     if (home){
-      home.innerHTML = list.slice(0,6).map(card).join('');
+      var n = Math.min(6, list.length);
+      var html = '';
+      for (var i=0;i<n;i++) html += itemHTML(list[i]);
+      home.innerHTML = html;
     }
-    if (page){
-      page.innerHTML = list.map(card).join('');
+    // press page (all)
+    var grid = document.getElementById('pressGrid');
+    if (grid){
+      var all = '';
+      for (var j=0;j<list.length;j++) all += itemHTML(list[j]);
+      grid.innerHTML = all;
     }
   });
 })();
