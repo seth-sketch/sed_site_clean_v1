@@ -1,4 +1,4 @@
-/* se-hero.js — poster first, then video, then slide rotation */
+/* se-hero.js — poster-first hero (no black flash), then video ➜ slides */
 (function () {
   "use strict";
 
@@ -28,50 +28,65 @@
     var prev = st.children.length > 1 ? st.children[0] : null;
     if (prev) setTimeout(function(){ prev.remove(); }, 380);
   }
-  function showImg(st, src){
-    var img = make("img", { src: src, alt: "" }, null);
-    var wrap = make("div", { class: "ratio-169" }, [img]);
-    fadeSwap(st, make("div", { class: "se-slide" }, [wrap]));
-  }
-  function showVideo(st, src, onDone){
-    var v = make("video", { src: src, playsinline: "", muted: "", autoplay: "", preload: "auto" }, null);
-    var wrap = make("div", { class: "ratio-169" }, [v]);
-    fadeSwap(st, make("div", { class: "se-slide" }, [wrap]));
-
-    var finished = false;
-    function finishOnce(){ if (!finished) { finished = true; if (onDone) onDone(); } }
-
-    v.addEventListener("ended", finishOnce);
-    v.addEventListener("error", finishOnce);
-
-    try {
-      var p = v.play();
-      if (p && p.then) p.catch(function(){ finishOnce(); });
-    } catch (err) {
-      finishOnce();
-    }
-    // If autoplay is blocked, advance quickly to slides
-    setTimeout(function(){ if (v.currentTime === 0) finishOnce(); }, 300);
-  }
 
   function boot(){
     var st = stage(), cfg = parseCfg();
     if (!st || !cfg || !(cfg.video || (cfg.slides && cfg.slides.length))) return false;
 
     var slides = cfg.slides || [];
+    var posterSrc = slides[0] || "";
     var idx = 0, interval = Math.max(1200, +cfg.interval || 4000);
 
-    // poster-first (prevents “black” hero)
-    if (slides.length) showImg(st, slides[0]);
+    // Build a stable ratio wrapper that contains video + a poster overlay we can fade away
+    var wrap = make("div", { class:"ratio-169", style:"position:relative" }, []);
+    var poster = make("img", { src: posterSrc, alt:"", style:"position:absolute;inset:0;width:100%;height:100%;object-fit:cover" }, null);
+    var layer = make("div", { class:"se-slide" }, [wrap]);
+    fadeSwap(st, layer);   // mount the wrapper now so we never show a black box
+    wrap.appendChild(poster);
 
     function rotate(){
       if (!slides.length) return;
       idx = (idx + 1) % slides.length;
-      showImg(st, slides[idx]);
+      poster.src = slides[idx];   // reuse the overlay as our slideshow image
       setTimeout(rotate, interval);
     }
 
-    if (cfg.video) showVideo(st, cfg.video, rotate); else rotate();
+    function startSlides(){ rotate(); }
+
+    if (cfg.video) {
+      // Create the video UNDER the poster so it can load without a black flash
+      var v = make("video", {
+        src: cfg.video, playsinline:"", muted:"", autoplay:"", preload:"auto",
+        poster: posterSrc
+      }, null);
+      v.style.cssText = "position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block";
+      wrap.insertBefore(v, poster); // video under, poster on top
+
+      var peeled = false;
+      function peelPoster(){
+        if (peeled) return; peeled = true;
+        poster.style.transition = "opacity .25s ease";
+        poster.style.opacity = "0";
+        setTimeout(function(){ if (poster && poster.parentNode) poster.remove(); }, 260);
+      }
+      function finishToSlides(){ if (!peeled) { /* leave poster visible */ } startSlides(); }
+
+      v.addEventListener("playing", peelPoster);   // as soon as a frame renders
+      v.addEventListener("timeupdate", function(){ if (v.currentTime > 0.05) peelPoster(); });
+      v.addEventListener("ended", finishToSlides);
+      v.addEventListener("error", finishToSlides);
+
+      try {
+        var p = v.play();
+        if (p && p.then) { p.catch(function(){ finishToSlides(); }); }
+      } catch (err) {
+        finishToSlides();
+      }
+      // If autoplay is blocked (no progress), switch to slides fast
+      setTimeout(function(){ if (v.currentTime === 0) finishToSlides(); }, 350);
+    } else {
+      startSlides();
+    }
     return true;
   }
 
@@ -82,6 +97,5 @@
     window.addEventListener("pageshow", boot);
     document.addEventListener("visibilitychange", function(){ if(!document.hidden) boot(); });
   }
-
   (document.readyState === "loading") ? document.addEventListener("DOMContentLoaded", arm) : arm();
 })();
