@@ -57,7 +57,11 @@
         var btn = findThumb(e.target); if(!btn) return;
         var src = btn.getAttribute("data-src");
         if (hero) hero.innerHTML = ratioHTML(src);
-        try { window.scrollTo({ top: 0, behavior: "smooth" }); } catch(_){}
+        try {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+} catch (err) {
+  window.scrollTo(0, 0);
+}
       });
     } else if (thumbs){ thumbs.innerHTML=""; }
 

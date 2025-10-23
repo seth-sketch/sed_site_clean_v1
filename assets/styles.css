@@ -108,3 +108,22 @@ html{scroll-padding-top:var(--header-h)}
 .press-item .thumb{flex:0 0 120px}
 .press-item .thumb .ratio-169{background:#ddd}
 .press-item .meta{font-size:13px;color:#6b7280;margin-top:4px}
+/* bullet-proof 16:9 wrapper */
+.ratio-169 {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding-top: 56.25%;
+  background: #f6f6f6;
+  overflow: hidden;
+  border-radius: 6px;
+}
+.ratio-169 > img,
+.ratio-169 > video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
