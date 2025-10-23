@@ -8,12 +8,15 @@
   --container:1160px;
   --shadow:0 8px 16px rgba(2,6,23,.06), 0 2px 4px rgba(2,6,23,.06);
   --header-h:112px;
+  --brand-blue:#1f6feb; /* headings color to match “Selected Work” */
 }
 
 /* Base */
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
-  font:16px/1.55 Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+html,body{
+  margin:0;padding:0;background:var(--bg);color:var(--ink);
+  font:16px/1.55 Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif
+}
 html{scroll-padding-top:var(--header-h)}
 .container{max-width:var(--container);margin:0 auto;padding:22px}
 
@@ -24,8 +27,10 @@ html{scroll-padding-top:var(--header-h)}
 @media (prefers-reduced-motion: reduce){ .splash{display:none} }
 
 /* Header / nav */
-.header{position:sticky;top:0;z-index:10;background:#ffffffee;
-  backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--line)}
+.header{
+  position:sticky;top:0;z-index:10;background:#ffffffee;
+  backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid var(--line)
+}
 .nav{display:flex;align-items:flex-end;gap:16px;padding-top:12px;padding-bottom:18px}
 .brand-logo{height:56px;width:auto;display:block}
 .nav-links{list-style:none;padding:0;margin:0 8% 0 auto;display:flex;gap:20px}
@@ -33,39 +38,42 @@ html{scroll-padding-top:var(--header-h)}
 .nav-links a.active{border-bottom:2px solid var(--brand)}
 
 /* HERO */
-.hero-stage{background:#e8edf5}
-
-/* Bullet-proof 16:9 (fallback first, then aspect-ratio if supported) */
-.ratio-169{
-  position:relative;
-  width:100%;
-  height:0;                 /* fallback (works everywhere) */
-  padding-top:56.25%;       /* 9 / 16 */
-  overflow:hidden;
-  background:#ddd;
+/* 16:9 wrapper — single source of truth */
+.ratio-169 {
+  position: relative;
+  width: 100%;
+  height: 0;              /* fallback for all browsers */
+  padding-top: 56.25%;    /* 9 / 16 */
+  overflow: hidden;
+  background: #f6f6f6;
+  display: block;
+  border-radius: 6px;
 }
 .ratio-169 > img,
 .ratio-169 > video,
-.ratio-169 > picture > img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
+.ratio-169 > picture > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
-@supports (aspect-ratio:16/9){
-  .ratio-169{ aspect-ratio:16/9; height:auto; padding-top:0; }
+/* Modern browsers: switch to aspect-ratio (keeps correct height, avoids double stacking) */
+@supports (aspect-ratio: 16/9) {
+  .ratio-169 { aspect-ratio: 16 / 9; height: auto; padding-top: 0; }
+}
 }
 
 /* Sections / grid */
 .section{padding:24px 0;border-top:1px solid var(--line)}
-.section h2{margin:0 0 10px;font-size:22px;color:#3552a7}
+.section h2{margin:0 0 10px;font-size:22px;color:var(--brand-blue)}
+.section h3{color:var(--brand-blue)}
 .band{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-block:10px;margin-top:8px}
 .scroller{height:clamp(520px,70vh,880px);overflow:auto;overscroll-behavior:contain;padding-right:4px}
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-@media (max-width: 900px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
-@media (max-width: 620px){ .grid{grid-template-columns:1fr} }
+@media (max-width:900px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:620px){ .grid{grid-template-columns:1fr} }
 
 /* Cards */
 .card{
@@ -75,12 +83,12 @@ html{scroll-padding-top:var(--header-h)}
 .card .cover{border-bottom:1px solid var(--line);display:block;flex:0 0 auto}
 .card .cover .ratio-169{background:#eef2ff}
 .footer{padding:12px 14px}
-.footer a{display:block;font-weight:700;color:#1f6feb;text-decoration:none}
+.footer a{display:block;font-weight:700;color:var(--brand-blue);text-decoration:none}
 .footer a:hover{text-decoration:underline}
 .meta{margin-top:4px;font-size:13px;color:var(--muted)}
 
 /* Buttons / lists / footer */
-.btn{display:inline-block;background:#1f6feb;color:#fff;padding:10px 14px;border-radius:0;
+.btn{display:inline-block;background:var(--brand-blue);color:#fff;padding:10px 14px;border-radius:0;
   font-weight:700;text-decoration:none;border:1px solid #1554c0}
 .btn:hover{filter:brightness(.98)}
 .list{list-style:disc;padding-left:20px;margin:0}
@@ -89,7 +97,7 @@ html{scroll-padding-top:var(--header-h)}
 
 /* Work detail */
 .work-detail{display:grid;grid-template-columns:2fr 1fr;gap:22px}
-@media (max-width: 900px){ .work-detail{grid-template-columns:1fr} }
+@media (max-width:900px){ .work-detail{grid-template-columns:1fr} }
 .detail-media{border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow)}
 .detail-thumbs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-top:10px}
 .detail-thumbs img{width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--line);cursor:pointer}
@@ -98,59 +106,26 @@ html{scroll-padding-top:var(--header-h)}
 .btn-secondary{background:#fff;color:#1f2937;border:1px solid var(--line)}
 .meta-big{color:var(--muted);margin-top:6px}
 
-/* Press teasers (home) */
-.press-list{
-  list-style:none;margin:0;padding:0;
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px
+/* HOME — Press links band (links only) */
+.press-links{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.press-links li{line-height:1.4}
+.press-links a{text-decoration:none}
+.press-links .meta{opacity:.7}
+
+/* /press — small press cards */
+.press-grid.small{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px
 }
-@media (max-width:700px){ .press-list{grid-template-columns:1fr} }
-.press-item{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);background:var(--card);padding:12px}
-.press-item .thumb{flex:0 0 120px}
-.press-item .thumb .ratio-169{background:#ddd}
-.press-item .meta{font-size:13px;color:#6b7280;margin-top:4px}
+@media (max-width:900px){ .press-grid.small{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:620px){ .press-grid.small{grid-template-columns:1fr} }
+
+.press-card.small{
+  display:grid;grid-template-rows:auto 1fr;gap:8px;background:#fff;border-radius:8px;
+  box-shadow:0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.06);padding:10px
+}
+.press-card.small .cover{display:block}
+.press-card.small .body{display:grid;gap:4px}
+.press-card.small .title{font-weight:700;text-decoration:none}
+.press-card.small .meta{opacity:.7;font-size:.9em}
+.press-card.small .desc{margin:6px 0 0}
 /* bullet-proof 16:9 wrapper */
-.ratio-169 {
-  position: relative;
-  display: block;
-  width: 100%;
-  padding-top: 56.25%;
-  background: #f6f6f6;
-  overflow: hidden;
-  border-radius: 6px;
-}
-.ratio-169 > img,
-.ratio-169 > video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-	/* Press links band on HOME */
-.press-links { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-.press-links li { line-height: 1.4; }
-.press-links a { text-decoration: none; }
-.press-links .meta { opacity: .7; }
-
-/* Small press cards on /press */
-.press-grid.small {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0,1fr));
-  gap: 16px;
-}
-@media (max-width: 900px){ .press-grid.small { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-@media (max-width: 620px){  .press-grid.small { grid-template-columns: 1fr; } }
-
-.press-card.small { display: grid; grid-template-rows: auto 1fr; gap: 8px; background: #fff; border-radius: 8px;
-  box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.06); padding: 10px; }
-.press-card.small .cover { display: block; }
-.press-card.small .body { display: grid; gap: 4px; }
-.press-card.small .title { font-weight: 700; text-decoration: none; }
-.press-card.small .meta { opacity: .7; font-size: .9em; }
-.press-card.small .desc { margin: 6px 0 0 0; }
-
-/* Headings match the blue used in your “Selected Work” links.
-   If you have a CSS var for link color, use it; else override with your exact blue hex. */
-:root { --brand-blue: #2563eb; } /* update this to the exact link blue you use */
-.section h2, .section h3 { color: var(--brand-blue); }
-}
