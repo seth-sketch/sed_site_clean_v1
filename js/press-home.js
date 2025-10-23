@@ -1,65 +1,7 @@
-/* press-home.js — HOME: links-only band; /press: thumbnails-only grid after Awards */
-(function(){
-  "use strict";
-  var LIMIT_HOME = 8;
-
-  function $(s){ return document.querySelector(s); }
-  function j(url){ return fetch(url,{cache:"no-store"}).then(function(r){ if(!r.ok) throw 0; return r.json(); }); }
-  function loadPress(cb){
-    var bases=["/assets/press.json","./assets/press.json","../assets/press.json"];
-    (function next(i){ if(i>=bases.length) return cb([]); j(bases[i]+"?v="+Date.now()).then(function(d){ cb(Array.isArray(d)?d:[]); }).catch(function(){ next(i+1); }); })(0);
-  }
-
-  function ensureHome(){
-    var el = $("#pressLinks") || $("[data-press='links']");
-    if (el) return el;
-    var after = $("#awards") || $("#work") || $("main");
-    var sec = document.createElement("section");
-    sec.className="section";
-    sec.id="press-links-home";
-    sec.innerHTML='<h2>Press</h2><ul id="pressLinks" class="press-links"></ul>';
-    after.parentNode.insertBefore(sec, after.nextElementSibling);
-    return sec.querySelector("#pressLinks");
-  }
-  function renderHome(list){
-    var m = ensureHome(); if (!m) return;
-    var n = Math.min(LIMIT_HOME, list.length), html="";
-    for (var i=0;i<n;i++){
-      var p=list[i], u=p.url||"#", t=p.title||"Press", o=p.outlet||p.source||"", d=p.date||"";
-      html += '<li><a href="'+u+'" target="_blank" rel="noopener">'+t+'</a>'+
-              (o||d ? '<span class="meta"> — '+[o,d].filter(Boolean).join(" · ")+'</span>' : '')+
-              '</li>';
-    }
-    m.innerHTML = html;
-  }
-
-  function ensurePressGrid(){
-    var g = $("#pressGrid");
-    if (g) return g;
-    var sec = $("#press") || document.createElement("section");
-    if (!sec.id) { sec.id="press"; sec.className="section"; sec.innerHTML="<h2>Press</h2>"; (document.querySelector("main")||document.body).appendChild(sec); }
-    g = document.createElement("div");
-    g.id="pressGrid"; g.className="press-grid thumbs-only";
-    sec.appendChild(g);
-    return g;
-  }
-  function tile(p){
-    var u=p.url||"#";
-    var img=p.thumb||"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'><rect width='16' height='9' fill='%23e5e7eb'/></svg>";
-    return '<a class="press-tile" href="'+u+'" target="_blank" rel="noopener"><span class="ratio-169"><img loading="lazy" src="'+img+'" alt=""></span></a>';
-  }
-  function renderPress(list){
-    var g = ensurePressGrid(); if (!g) return;
-    var html=""; for (var i=0;i<list.length;i++) html+=tile(list[i]);
-    g.innerHTML = html;
-  }
-
-  function init(){
-    var path = location.pathname.replace(/\/+$/,"");
-    loadPress(function(list){
-      if (path === "" || path === "/" || path.endsWith("/index.html")) renderHome(list);
-      else if (path === "/press" || path.endsWith("/press.html")) renderPress(list);
-    });
-  }
-  (document.readyState==="loading") ? document.addEventListener("DOMContentLoaded", init) : init();
-})();
+(function(){"use strict";var LIMIT_HOME=8;function $(s){return document.querySelector(s);}function j(url){return fetch(url,{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();});}
+function loadPress(cb){var bases=["/assets/press.json","./assets/press.json","../assets/press.json"];(function next(i){if(i>=bases.length)return cb([]);j(bases[i]+"?v="+Date.now()).then(function(d){cb(Array.isArray(d)?d:[]);}).catch(function(){next(i+1);});})(0);}
+function renderHome(list){var m=document.getElementById("pressLinks");if(!m)return;var n=Math.min(LIMIT_HOME,list.length),html="";for(var i=0;i<n;i++){var p=list[i],u=p.url||"#",t=p.title||"Press",o=p.outlet||p.source||"",d=p.date||"";html+='<li><a href="'+u+'" target="_blank" rel="noopener">'+t+'</a>'+(o||d?'<span class="meta"> — '+[o,d].filter(Boolean).join(" · ")+'</span>':'')+'</li>';}m.innerHTML=html;}
+function tile(p){var u=p.url||"#";var img=p.thumb||"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'><rect width='16' height='9' fill='%23e5e7eb'/></svg>';return '<a class="press-tile" href="'+u+'" target="_blank" rel="noopener"><span class="ratio-169"><img loading="lazy" src="'+img+'" alt=""></span></a>';}
+function renderPress(list){var g=document.getElementById("pressGrid");if(!g)return;var html="";for(var i=0;i<list.length;i++)html+=tile(list[i]);g.innerHTML=html;}
+function init(){var path=location.pathname.replace(/\/+$/,"");loadPress(function(list){if((path===""||path==="/"||path.endsWith("/index.html"))&&document.getElementById("pressLinks"))renderHome(list);else if((path==="/press"||path.endsWith("/press.html"))&&document.getElementById("pressGrid"))renderPress(list);});}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();})();

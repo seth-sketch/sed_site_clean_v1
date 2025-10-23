@@ -1,7 +1,1 @@
-/* splash.js — optional splash fade (kept tiny in index inline too) */
-(function(){
-  var s = document.getElementById('splash');
-  if(!s) return;
-  // To show once per session instead, gate with sessionStorage.
-  setTimeout(function(){ s.classList.add('hide'); }, 900);
-})();
+(function(){function hide(){var s=document.getElementById('splash');if(!s)return;s.classList.add('hide');setTimeout(function(){s.remove&&s.remove();},450);}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',function(){setTimeout(hide,200);});}else{setTimeout(hide,100);}})();
