@@ -1,6 +1,8 @@
-/* home-grid.js (defensive) — 16:9 project cards + infinite scroll + placeholders */
-(function(){"use strict";
-  var PLACEHOLDER="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'><rect width='16' height='9' fill='%23f0f0f0'/><path d='M0 9 L6 3 L10 7 L13 5 L16 9Z' fill='%23d0d0d0'/><circle cx='4' cy='3' r='1' fill='%23c0c0c0'/><text x='8' y='5' dominant-baseline='middle' text-anchor='middle' font-size='1.2' fill='%23999'>16:9</text></svg>";
+/* home-grid.js — 16:9 cards + infinite scroll + placeholders */
+(function(){
+  "use strict";
+  var PLACEHOLDER="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'><rect width='16' height='9' fill='%23f0f0f0'/></svg>";
+
   function gridEl(){
     return document.getElementById('homeGrid')||document.getElementById('workGrid')||document.querySelector('[data-grid="work"]')||document.querySelector('.work-grid');
   }
@@ -20,7 +22,7 @@
     var title=it.title||'Untitled Project';
     var meta=[it.client,it.year,it.role].filter(Boolean).join(' · ');
     var cover=it.cover||(it.gallery&&it.gallery[0])||PLACEHOLDER;
-    var href=it.slug?('/project?slug='+encodeURIComponent(it.slug)):'#';
+    var href=it.slug?('/project.html?slug='+encodeURIComponent(it.slug)):'#';
     var html=''+
       '<article class="card">'+
         '<a class="cover" href="'+href+'">'+

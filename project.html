@@ -1,54 +1,41 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Project — Seth Easter</title>
-  <link rel="stylesheet" href="/assets/styles.css?v=fix7" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Project</title>
+  <link rel="stylesheet" href="/assets/styles.css?v=fix-h">
 </head>
 <body>
   <header class="header">
     <div class="container nav">
-      <a class="brand" href="/" aria-label="Seth Easter Design">
-        <img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="Seth Easter Design">
-      </a>
+      <a href="/" class="brand"><img class="brand-logo" src="/assets/logo.svg" alt="logo"></a>
       <ul class="nav-links">
-        <li><a href="/">Work</a></li>
-        <li><a href="/press/">Press</a></li>
-        <li><a href="/#awards">Awards</a></li>
-        <li><a href="/#contact">Contact</a></li>
+        <li><a href="/work.html">Work</a></li>
+        <li><a href="/press.html">Press &amp; Awards</a></li>
       </ul>
     </div>
   </header>
 
   <main class="container">
-    <article>
-      <h1 data-project="title">Project</h1>
-      <div class="meta meta-big" data-project="meta"></div>
-
-      <div class="work-detail">
-        <div class="detail-media" data-project="hero"></div>
-        <aside class="detail-meta">
-          <div data-project="description"></div>
-
-          <div id="proj-press" style="margin-top:14px; display:none">
-            <h3 style="margin:0 0 6px">Press</h3>
-            <ul id="proj-press-list" class="list" style="margin:0;padding-left:18px"></ul>
-          </div>
-
-          <div class="detail-actions">
-            <a class="btn btn-secondary" data-project="back" href="/">← Home</a>
-            <a class="btn" data-project="next" href="#"><span>Next project</span> →</a>
-          </div>
-        </aside>
+    <section class="section work-detail">
+      <div class="detail-media">
+        <div id="projectHero" data-project="hero"></div>
+        <div class="detail-thumbs" id="projectThumbs" data-project="thumbs"></div>
       </div>
-
-      <div class="detail-thumbs" data-project="thumbs"></div>
-    </article>
+      <aside>
+        <h2 class="project-title" data-project="title">Project</h2>
+        <div class="project-meta meta" data-project="meta"></div>
+        <div class="detail-actions">
+          <a class="btn btn-secondary project-back" data-project="back" href="/work.html">Back</a>
+          <a class="btn project-next" data-project="next" href="#"><span>Next</span> →</a>
+        </div>
+      </aside>
+    </section>
   </main>
 
-  <footer class="footer-site">© Seth Easter.</footer>
+  <footer class="footer-site">© seth</footer>
 
-  <script src="/js/project.js?v=fix-g" defer></script>
+  <script src="/js/project.js?v=fix-h" defer></script>
 </body>
 </html>

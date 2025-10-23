@@ -1,113 +1,59 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Seth Easter — Selected Work</title>
-
-  <!-- Preload first hero slide for fast paint -->
-  <link rel="preload" as="image" href="/assets/hero/slide1.jpg" />
-
-  <!-- ONE stylesheet include -->
-  <link rel="stylesheet" href="/assets/styles.css?v=fix-g" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Home</title>
+  <link rel="stylesheet" href="/assets/styles.css?v=fix-h">
 </head>
 <body>
-  <!-- Splash (fades after ~1s) -->
-  <div id="splash" class="splash">
-    <img src="/assets/sed-logo-tight.svg" alt="Seth Easter Design" />
-  </div>
-
   <header class="header">
     <div class="container nav">
-      <a class="brand" href="/" aria-label="Seth Easter Design">
-        <img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="Seth Easter Design">
-      </a>
+      <a href="/" class="brand"><img class="brand-logo" src="/assets/logo.svg" alt="logo"></a>
       <ul class="nav-links">
-        <li><a class="active" href="/">Work</a></li>
-		<li><a href="/work.html">Work</a></li>
-        <li><a href="/press">Press &amp; Awards</a></li>
-        <li><a href="/#awards">Awards</a></li>
-        <li><a href="/#contact">Contact</a></li>
+        <li><a href="/work.html">Work</a></li>
+        <li><a href="/press.html">Press &amp; Awards</a></li>
       </ul>
     </div>
   </header>
 
   <main class="container">
-    <!-- HERO -->
-    <section aria-label="Featured">
-      <div class="ratio-169 hero-stage">
-        <div id="heroStage" class="se-slide-stage"></div>
-      </div>
-
-      <!-- Slideshow / video config (single source of truth) -->
+    <section class="section" id="hero">
+      <div id="heroStage" class="hero-stage"></div>
       <script id="seSlidesJSON" type="application/json">
-      {
-        "video": "/assets/hero/reel.mp4",
-        "slides": [
-          "/assets/hero/slide1.jpg",
-          "/assets/hero/slide2.jpg",
-          "/assets/hero/slide3.jpg"
-        ],
-        "interval": 4000
-      }
+        {
+          "interval": 4000,
+          "video": "/assets/hero/reel.mp4",
+          "slides": ["/assets/hero/slide1.jpg","/assets/hero/slide2.jpg","/assets/hero/slide3.jpg"]
+        }
       </script>
-
-      <!-- Skinny copy bar under hero -->
-      <div class="hero-copy-card">
-        <h1>Broadcast &amp; Live Event Production Design</h1>
-        <p>
-          Studios and stages for ABC News and beyond — Good Morning America,
-          World News Tonight, This Week, The View, Presidential Debates, and
-          Election coverage in studio and across the Nation.
-        </p>
-        <p>
-          <strong>Seth Easter</strong> designs broadcast studios and live event productions
-          across the world and is based in NYC. Multiple Emmys &amp; an ADG award
-          for work at ABC News and beyond.
-        </p>
-      </div>
     </section>
 
-    <!-- WORK GRID -->
-    <section class="section" id="work">
+    <section class="section hero-copy-card">
+      <h1>Broadcast &amp; Live Event Production</h1>
+    </section>
+
+    <section id="work" class="section">
       <h2>Selected Work</h2>
-      <div class="band">
-        <div class="scroller" id="workScroller">
-          <div id="homeGrid" class="grid"></div>
-          <div id="gridSentinel" style="height:1px;"></div>
-        </div>
-      </div>
+      <div id="homeGrid" class="grid"></div>
+      <div id="gridSentinel" style="height:1px"></div>
     </section>
 
-    <section class="section" id="awards">
+    <section id="awards" class="section">
       <h2>Awards</h2>
-      <ul class="list">
-        <li><strong>News &amp; Documentary Emmy — Outstanding News Special (ABC News: “The President and the People”)</strong> · <em>Senior Producer (2017)</em> — <b>Winner</b></li>
-        <li><strong>Art Directors Guild — Excellence in Production Design (Awards/Music/Game Show): The 67th Annual Tony Awards</strong> · <em>Art Director (2014)</em> — <b>Winner</b></li>
-        <li><strong>Primetime Emmy — Outstanding Art Direction for Variety or Nonfiction Programming (65th Annual Tony Awards)</strong> · <em>Art Director (2012)</em> — <b>Winner</b></li>
-        <li><strong>Primetime Emmy — Outstanding Art Direction for Variety, Music or Nonfiction Programming (63rd Annual Tony Awards)</strong> · <em>Art Director (2010)</em> — <b>Nomination</b></li>
-      </ul>
+      <ul class="list"></ul>
     </section>
 
-    <section class="section" id="contact">
-      <h2>Contact</h2>
-      <p>Email: <a href="mailto:info@your-domain.com">info@your-domain.com</a></p>
+    <section class="section">
+      <h2>Press</h2>
+      <ul id="pressLinks" class="press-links"></ul>
     </section>
   </main>
 
-  <footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
+  <footer class="footer-site">© seth</footer>
 
-  <!-- Tiny splash fade (inline so it can’t “miss”) -->
-  <script>
-    (function(){var s=document.getElementById('splash'); if(!s) return;
-      setTimeout(function(){ s.classList.add('hide'); }, 900);
-    })();
-  </script>
-
-  <!-- Scripts (cache-busted) -->
-  <script src="/js/se-hero.js?v=fix-g" defer></script>
-<script src="/js/home-grid.js?v=fix-g" defer></script>
-<script src="/js/press-home.js?v=fix-g" defer></script>
-<script src="/js/project.js?v=fix-g" defer></script>
+  <script src="/js/se-hero.js?v=fix-h" defer></script>
+  <script src="/js/home-grid.js?v=fix-h" defer></script>
+  <script src="/js/press-home.js?v=fix-h" defer></script>
 </body>
 </html>

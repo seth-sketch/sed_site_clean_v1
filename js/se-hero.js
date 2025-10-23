@@ -1,4 +1,4 @@
-/* se-hero.js — poster-first hero (no black flash), then video ➜ slides */
+/* se-hero.js — poster-first hero (no black flash), video under overlay, then slides */
 (function () {
   "use strict";
 
@@ -28,39 +28,34 @@
     var prev = st.children.length > 1 ? st.children[0] : null;
     if (prev) setTimeout(function(){ prev.remove(); }, 380);
   }
-
   function boot(){
     var st = stage(), cfg = parseCfg();
     if (!st || !cfg || !(cfg.video || (cfg.slides && cfg.slides.length))) return false;
 
     var slides = cfg.slides || [];
     var posterSrc = slides[0] || "";
-    var idx = 0, interval = Math.max(1200, +cfg.interval || 4000);
+    var idx = 0, interval = Math.max(1400, +cfg.interval || 4000);
 
-    // Build a stable ratio wrapper that contains video + a poster overlay we can fade away
     var wrap = make("div", { class:"ratio-169", style:"position:relative" }, []);
     var poster = make("img", { src: posterSrc, alt:"", style:"position:absolute;inset:0;width:100%;height:100%;object-fit:cover" }, null);
     var layer = make("div", { class:"se-slide" }, [wrap]);
-    fadeSwap(st, layer);   // mount the wrapper now so we never show a black box
+    fadeSwap(st, layer);
     wrap.appendChild(poster);
 
     function rotate(){
       if (!slides.length) return;
       idx = (idx + 1) % slides.length;
-      poster.src = slides[idx];   // reuse the overlay as our slideshow image
+      poster.src = slides[idx];
       setTimeout(rotate, interval);
     }
-
     function startSlides(){ rotate(); }
 
     if (cfg.video) {
-      // Create the video UNDER the poster so it can load without a black flash
       var v = make("video", {
-        src: cfg.video, playsinline:"", muted:"", autoplay:"", preload:"auto",
-        poster: posterSrc
+        src: cfg.video, playsinline:"", muted:"", autoplay:"", preload:"auto", poster: posterSrc
       }, null);
       v.style.cssText = "position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block";
-      wrap.insertBefore(v, poster); // video under, poster on top
+      wrap.insertBefore(v, poster);
 
       var peeled = false;
       function peelPoster(){
@@ -69,9 +64,9 @@
         poster.style.opacity = "0";
         setTimeout(function(){ if (poster && poster.parentNode) poster.remove(); }, 260);
       }
-      function finishToSlides(){ if (!peeled) { /* leave poster visible */ } startSlides(); }
+      function finishToSlides(){ startSlides(); }
 
-      v.addEventListener("playing", peelPoster);   // as soon as a frame renders
+      v.addEventListener("playing", peelPoster);
       v.addEventListener("timeupdate", function(){ if (v.currentTime > 0.05) peelPoster(); });
       v.addEventListener("ended", finishToSlides);
       v.addEventListener("error", finishToSlides);
@@ -82,8 +77,7 @@
       } catch (err) {
         finishToSlides();
       }
-      // If autoplay is blocked (no progress), switch to slides fast
-      setTimeout(function(){ if (v.currentTime === 0) finishToSlides(); }, 350);
+      setTimeout(function(){ if (v.currentTime === 0) finishToSlides(); }, 400);
     } else {
       startSlides();
     }

@@ -4,11 +4,10 @@
   --ink:#1f2937;
   --muted:#6b7280;
   --line:#e8edf5;
-  --brand:#3a51a3;
+  --brand:#3a51a3;          /* matches your Selected Work link blue */
   --container:1160px;
   --shadow:0 8px 16px rgba(2,6,23,.06), 0 2px 4px rgba(2,6,23,.06);
   --header-h:112px;
-  --brand-blue:#1f6feb; /* headings color to match “Selected Work” */
 }
 
 /* Base */
@@ -20,7 +19,7 @@ html,body{
 html{scroll-padding-top:var(--header-h)}
 .container{max-width:var(--container);margin:0 auto;padding:22px}
 
-/* Splash */
+/* Splash (optional; retained) */
 .splash{position:fixed;inset:0;display:grid;place-items:center;background:#fff;z-index:999}
 .splash img{width:min(360px,60vw);height:auto}
 .splash.hide{opacity:0;visibility:hidden;transition:opacity .4s ease, visibility 0s .4s}
@@ -38,41 +37,25 @@ html{scroll-padding-top:var(--header-h)}
 .nav-links a.active{border-bottom:2px solid var(--brand)}
 
 /* HERO */
-/* 16:9 wrapper — single source of truth */
-.ratio-169 {
-  position: relative;
-  width: 100%;
-  height: 0;              /* fallback for all browsers */
-  padding-top: 56.25%;    /* 9 / 16 */
-  overflow: hidden;
-  background: #f6f6f6;
-  display: block;
-  border-radius: 6px;
-}
-.ratio-169 > img,
-.ratio-169 > video,
-.ratio-169 > picture > img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-/* Modern browsers: switch to aspect-ratio (keeps correct height, avoids double stacking) */
-@supports (aspect-ratio: 16/9) {
-  .ratio-169 { aspect-ratio: 16 / 9; height: auto; padding-top: 0; }
-}
+.hero-stage{background:#e8edf5}
+
+/* 16:9 wrapper (SINGLE source of truth) */
+.ratio-169{position:relative;width:100%;height:0;padding-top:56.25%;overflow:hidden;background:#f6f6f6;display:block;border-radius:6px}
+.ratio-169>img,.ratio-169>video,.ratio-169>picture>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+@supports (aspect-ratio:16/9){ .ratio-169{aspect-ratio:16/9;height:auto;padding-top:0} }
+
+/* Section headings — force same blue as Selected Work */
+.hero-copy-card h1, .section h2, .section h3 { color: var(--brand) !important; }
 
 /* Sections / grid */
 .section{padding:24px 0;border-top:1px solid var(--line)}
-.section h2{margin:0 0 10px;font-size:22px;color:var(--brand-blue)}
-.section h3{color:var(--brand-blue)}
+.section h2{margin:0 0 10px;font-size:22px}
+.section h3{margin:0 0 8px;font-size:18px}
 .band{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding-block:10px;margin-top:8px}
 .scroller{height:clamp(520px,70vh,880px);overflow:auto;overscroll-behavior:contain;padding-right:4px}
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-@media (max-width:900px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
-@media (max-width:620px){ .grid{grid-template-columns:1fr} }
+@media (max-width:1000px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:620px){  .grid{grid-template-columns:1fr} }
 
 /* Cards */
 .card{
@@ -82,13 +65,13 @@ html{scroll-padding-top:var(--header-h)}
 .card .cover{border-bottom:1px solid var(--line);display:block;flex:0 0 auto}
 .card .cover .ratio-169{background:#eef2ff}
 .footer{padding:12px 14px}
-.footer a{display:block;font-weight:700;color:var(--brand-blue);text-decoration:none}
+.footer a{display:block;font-weight:700;color:var(--brand);text-decoration:none}
 .footer a:hover{text-decoration:underline}
 .meta{margin-top:4px;font-size:13px;color:var(--muted)}
 
 /* Buttons / lists / footer */
-.btn{display:inline-block;background:var(--brand-blue);color:#fff;padding:10px 14px;border-radius:0;
-  font-weight:700;text-decoration:none;border:1px solid #1554c0}
+.btn{display:inline-block;background:var(--brand);color:#fff;padding:10px 14px;border-radius:0;
+  font-weight:700;text-decoration:none;border:1px solid #2b3b7b}
 .btn:hover{filter:brightness(.98)}
 .list{list-style:disc;padding-left:20px;margin:0}
 .list li{margin:6px 0}
@@ -111,23 +94,7 @@ html{scroll-padding-top:var(--header-h)}
 .press-links a{text-decoration:none}
 .press-links .meta{opacity:.7}
 
-/* /press — small press cards */
-.press-grid.small{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px
-}
-@media (max-width:900px){ .press-grid.small{grid-template-columns:repeat(2,minmax(0,1fr))} }
-@media (max-width:620px){ .press-grid.small{grid-template-columns:1fr} }
-
-.press-card.small{
-  display:grid;grid-template-rows:auto 1fr;gap:8px;background:#fff;border-radius:8px;
-  box-shadow:0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.06);padding:10px
-}
-.press-card.small .cover{display:block}
-.press-card.small .body{display:grid;gap:4px}
-.press-card.small .title{font-weight:700;text-decoration:none}
-.press-card.small .meta{opacity:.7;font-size:.9em}
-.press-card.small .desc{margin:6px 0 0}
-/* bullet-proof 16:9 wrapper */
+/* /press — thumbnails-only grid (bigger tiles, no text) */
 .press-grid.thumbs-only{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
 @media (max-width:1000px){ .press-grid.thumbs-only{grid-template-columns:repeat(3,minmax(0,1fr))} }
 @media (max-width:700px){  .press-grid.thumbs-only{grid-template-columns:repeat(2,minmax(0,1fr))} }
