@@ -1,45 +1,42 @@
-/* press-home.js — renders press teasers on home and full list on /press */
+/* press-home.js — renders press teasers on home and full list on /press (vanilla ES5) */
 (function(){
+  function tryFetch(url){ return fetch(url, { cache:'no-store' }).then(function(r){ if(!r.ok) throw 0; return r.json(); }); }
   function loadPress(cb){
-    var url = '/assets/press.json?v=' + Date.now();
-    fetch(url, { cache:'no-store' })
-      .then(function(r){ if(!r.ok) throw 0; return r.json(); })
-      .then(function(d){ cb(Array.isArray(d)?d:[]); })
-      .catch(function(){ cb([]); });
+    var bases = ['/assets/press.json', './assets/press.json', '../assets/press.json'];
+    (function next(i){
+      if (i >= bases.length) return cb([]);
+      tryFetch(bases[i] + '?v=' + Date.now())
+        .then(function(d){ cb(Array.isArray(d)?d:[]); })
+        .catch(function(){ next(i+1); });
+    })(0);
   }
+
   function itemHTML(p){
     var u = p.url || '#';
     var t = p.title || 'Press';
-    var o = p.outlet || '';
+    var o = p.outlet || p.source || '';
     var d = p.date || '';
     var img = p.thumb || '/assets/work/placeholder-16x9.jpg';
-    return ''+
-      '<li class="press-item">' +
-        '<a class="thumb" href="'+u+'" target="_blank" rel="noopener">' +
-          '<span class="ratio-169"><img src="'+img+'" alt=""></span>' +
+    return '' +
+      '<article class="card">' +
+        '<a class="cover" href="'+u+'" target="_blank" rel="noopener">' +
+          '<span class="ratio-169"><img loading="lazy" src="'+img+'" alt=""></span>' +
         '</a>' +
-        '<div>' +
-          '<a href="'+u+'" target="_blank" rel="noopener">'+t+'</a>' +
-          '<div class="meta">'+[o,d].filter(Boolean).join(' · ')+'</div>' +
+        '<div class="footer">' +
+          '<a href="'+u+'" target="_blank" rel="noopener"><strong>'+t+'</strong></a>' +
+          '<div class="meta">'+[o, d].filter(Boolean).join(' · ')+'</div>' +
         '</div>' +
-      '</li>';
+      '</article>';
   }
 
-  loadPress(function(list){
-    // home (first 6)
-    var home = document.getElementById('pressHome');
-    if (home){
-      var n = Math.min(6, list.length);
-      var html = '';
-      for (var i=0;i<n;i++) html += itemHTML(list[i]);
-      home.innerHTML = html;
-    }
-    // press page (all)
-    var grid = document.getElementById('pressGrid');
-    if (grid){
-      var all = '';
-      for (var j=0;j<list.length;j++) all += itemHTML(list[j]);
-      grid.innerHTML = all;
-    }
+  document.addEventListener('DOMContentLoaded', function(){
+    loadPress(function(list){
+      var grid = document.getElementById('pressGrid');
+      if (grid){
+        var all = '';
+        for (var j=0;j<list.length;j++) all += itemHTML(list[j]);
+        grid.innerHTML = all;
+      }
+    });
   });
 })();

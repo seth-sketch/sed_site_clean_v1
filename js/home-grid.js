@@ -1,109 +1,97 @@
-/* Home grid (ES5) — infinite scroll from / or /work/ */
+/* home-grid.js — builds 16:9 project cards with infinite scroll
+   - Loads /assets/work.json and renders cards into #homeGrid.
+   - Uses IntersectionObserver on #gridSentinel to load in pages.
+   - Fully ES5 to run on static hosts. */
+
 (function () {
   var PAGE = 12;
-
   var grid = document.getElementById('homeGrid');
-  if (!grid) return;
+  var sentinel = document.getElementById('gridSentinel');
+  if (!grid || !sentinel) return;
+
+  var items = [];
+  var cursor = 0;
+  var loading = false;
+  var done = false;
 
   function card(it){
     var title = it.title || 'Project';
     var meta  = [it.client, it.year, it.role].filter(Boolean).join(' · ');
-    var cover = it.cover || ('/assets/work/' + (it.slug || 'unknown') + '/cover.jpg');
+    var cover = (it.cover || ('/assets/work/' + (it.slug || 'unknown') + '/cover.jpg')).replace(/^\.\/+/,'/');
     var href  = it.slug ? ('/project?slug=' + encodeURIComponent(it.slug)) : '#';
 
-    return '' +
+    // 16:9 cover enforced with .ratio-169 wrapper
+    var html = '' +
       '<article class="card">' +
         '<a class="cover" href="' + href + '">' +
-          '<span class="ratio-169">' +
-            '<img loading="lazy" decoding="async" src="' + cover + '" alt="" ' +
-              'onerror="this.onerror=null;this.src=\'/assets/work/placeholder-16x9.jpg\'">' +
-          '</span>' +
+          '<span class="ratio-169"><img loading="lazy" src="' + cover + '" alt=""></span>' +
         '</a>' +
         '<div class="footer">' +
-          '<a href="' + href + '">' + title + '</a>' +
-          '<div class="meta">' + meta + '</div>' +
+          '<a href="'+href+'">' + title + '</a>' +
+          (meta ? '<div class="meta">' + meta + '</div>' : '') +
         '</div>' +
       '</article>';
+    return html;
   }
 
-  function placeholders(n){
-    var out=[], i;
-    for (i=0;i<n;i++){
-      out.push({
-        slug:'ph-'+(i+1), title:'Project '+(i+1),
-        client:'ABC News', year:'—', role:'Production Designer',
-        cover:'/assets/work/placeholder-16x9.jpg'
-      });
-    }
-    return out;
-  }
-
-  function loadJSON(){
-    var bases = ['/', './', '../'];
-    var i = 0;
-    function next(){
-      if (i >= bases.length) return Promise.resolve(placeholders(24));
-      var url = bases[i++] + 'assets/work.json?v=' + Date.now();
-      return fetch(url, { cache: 'no-store' })
-        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
-        .then(function(d){ if(Array.isArray(d) && d.length) return d; throw 0; })
-        .catch(function(){ return next(); });
-    }
-    return next();
-  }
-
-  var items=[], cursor=0, loading=false, done=false, added={};
   function renderMore(){
-    if (loading || done || !items.length) return;
+    if (done || loading) return;
     loading = true;
 
-    var end = Math.min(cursor + PAGE, items.length), html='';
-    for (var i=cursor; i<end; i++){
-      var it = items[i];
-      if (!it || !it.slug || added[it.slug]) continue;
-      added[it.slug] = 1;
-      html += card(it);
-    }
-    if (html) grid.insertAdjacentHTML('beforeend', html);
+    var end = Math.min(cursor + PAGE, items.length);
+    var html = '';
+    for (var i = cursor; i < end; i++) html += card(items[i]);
     cursor = end;
+    if (html) {
+      var tmp = document.createElement('div');
+      tmp.innerHTML = html;
+      while (tmp.firstChild) grid.appendChild(tmp.firstChild);
+    }
+
     if (cursor >= items.length) done = true;
     loading = false;
-
-    var root = document.getElementById('workScroller') || document.documentElement;
-    var scrollable = root.scrollHeight > root.clientHeight + 8;
-    if (!scrollable && !done) renderMore();
   }
 
   function observe(){
-    var root = document.getElementById('workScroller') || null;
-    var target = document.getElementById('gridSentinel');
-    if (!target){
-      target = document.createElement('div');
-      target.id = 'gridSentinel';
-      target.style.height = '1px';
-      (root || document.body).appendChild(target);
-    }
-    var io = new IntersectionObserver(function(entries){
-      for (var i=0;i<entries.length;i++){
-        if (entries[i].isIntersecting) renderMore();
+    if ('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        for (var i=0;i<entries.length;i++){
+          if (entries[i].isIntersecting) renderMore();
+        }
+      }, { root: grid.parentNode && grid.parentNode.classList.contains('scroller') ? grid.parentNode : null, rootMargin: '0px 0px 200px 0px' });
+      io.observe(sentinel);
+    }else{
+      // fallback: scroll listener on parent scroller or window
+      var scroller = grid.parentNode && grid.parentNode.classList.contains('scroller') ? grid.parentNode : window;
+      function onScroll(){
+        var rect = sentinel.getBoundingClientRect();
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+        if (rect.top < vh + 200) renderMore();
       }
-    }, { root: root, rootMargin:'400px 0px', threshold:0.01 });
-    io.observe(target);
+      (scroller === window ? window : scroller).addEventListener('scroll', onScroll);
+    }
   }
 
-  loadJSON().then(function(list){
+  function tryFetch(url){
+    return fetch(url, { cache:'no-store' }).then(function(r){ if(!r.ok) throw 0; return r.json(); });
+  }
+
+  function loadList(cb){
+    // Be flexible for relative vs absolute paths
+    var bases = ['/assets/work.json', './assets/work.json', '../assets/work.json'];
+    (function next(i){
+      if (i >= bases.length) return cb([]);
+      tryFetch(bases[i] + '?v=' + Date.now())
+        .then(function(d){ cb(Array.isArray(d)?d:[]); })
+        .catch(function(){ next(i+1); });
+    })(0);
+  }
+
+  loadList(function(list){
     items = Array.isArray(list) ? list : [];
-    if (items.length < 30){
-      var need = 30 - items.length, base = items.length;
-      for (var i=0;i<need;i++){
-        items.push({
-          slug:'ph-'+(base+i+1), title:'Project '+(base+i+1),
-          client:'ABC News', year:'—', role:'Production Designer',
-          cover:'/assets/work/placeholder-16x9.jpg'
-        });
-      }
-    }
-    cursor = 0; loading = false; done = false; added = {};
-    renderMore(); observe();
+    // If fewer items than a screenful, still render all
+    cursor = 0; loading = false; done = false;
+    renderMore();
+    observe();
   });
 })();
