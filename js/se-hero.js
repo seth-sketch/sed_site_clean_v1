@@ -1,38 +1,36 @@
-/* se-hero.js — plays optional video once, then rotates slides */
-(function(){
+/* Hero slideshow (ES5) */
+(function () {
   var stage = document.getElementById('heroStage');
-  if (!stage) return;
+  var cfgEl = document.getElementById('seSlidesJSON');
+  if (!stage || !cfgEl) return;
 
-  function cfgFromScript(){
-    var el = document.getElementById('seSlidesJSON');
-    if (!el) return null;
-    try{
-      var raw = el.textContent || el.innerText || '';
-      return JSON.parse(raw);
-    }catch(e){ return null; }
-  }
+  var cfg = { slides: [], interval: 4000, video: null };
+  try {
+    var raw = cfgEl.textContent || cfgEl.innerText || '{}';
+    var data = JSON.parse(raw);
+    if (data) {
+      if (data.slides && data.slides.length) cfg.slides = data.slides;
+      if (data.interval) cfg.interval = data.interval;
+      if (data.video) cfg.video = data.video;
+    }
+  } catch (_) {}
 
-  var cfg = cfgFromScript() || { slides: [], interval: 4000 };
-
-  function showImg(src){
-    stage.innerHTML = '<span class="ratio-169"><img src="'+src+'" alt=""></span>';
-  }
-  function showVideo(src, onDone){
-    stage.innerHTML =
-      '<span class="ratio-169"><video src="'+src+'" muted playsinline autoplay></video></span>';
-    var v = stage.querySelector('video');
-    if (!v){ onDone && onDone(); return; }
-    v.addEventListener('ended', function(){ onDone && onDone(); });
-    v.addEventListener('error', function(){ onDone && onDone(); });
+  function set(h) { stage.innerHTML = '<span class="ratio-169">' + h + '</span>'; }
+  function img(src) { set('<img src="' + src + '" alt="">'); }
+  function vid(src, done) {
+    set('<video src="' + src + '" muted playsinline autoplay></video>');
+    var v = stage.querySelector('video'); if (!v) { if (done) done(); return; }
+    v.addEventListener('ended', function(){ if (done) done(); });
+    v.addEventListener('error', function(){ if (done) done(); });
   }
 
   var i = 0;
   function rotate(){
     if (!cfg.slides || !cfg.slides.length) return;
-    showImg(cfg.slides[i]);
+    img(cfg.slides[i]);
     i = (i + 1) % cfg.slides.length;
-    setTimeout(rotate, cfg.interval || 4000);
+    setTimeout(rotate, cfg.interval);
   }
 
-  if (cfg.video) showVideo(cfg.video, rotate); else rotate();
+  if (cfg.video) vid(cfg.video, rotate); else rotate();
 })();

@@ -4,11 +4,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Seth Easter — Selected Work</title>
+
+  <!-- Preload first hero slide for fast paint -->
   <link rel="preload" as="image" href="/assets/hero/slide1.jpg" />
-  <link rel="stylesheet" href="/assets/styles.css?v=fix7" />
+
+  <!-- ONE stylesheet include -->
+  <link rel="stylesheet" href="/assets/styles.css?v=fix-a" />
 </head>
 <body>
-  <!-- Splash -->
+  <!-- Splash (fades after ~1s) -->
   <div id="splash" class="splash">
     <img src="/assets/sed-logo-tight.svg" alt="Seth Easter Design" />
   </div>
@@ -20,7 +24,7 @@
       </a>
       <ul class="nav-links">
         <li><a class="active" href="/">Work</a></li>
-        <li><a href="/press/">Press</a></li>
+        <li><a href="/press">Press</a></li>
         <li><a href="/#awards">Awards</a></li>
         <li><a href="/#contact">Contact</a></li>
       </ul>
@@ -34,7 +38,7 @@
         <div id="heroStage" class="se-slide-stage"></div>
       </div>
 
-      <!-- Config (video plays once, then slides loop) -->
+      <!-- Slideshow / video config (single source of truth) -->
       <script id="seSlidesJSON" type="application/json">
       {
         "video": "/assets/hero/reel.mp4",
@@ -47,14 +51,19 @@
       }
       </script>
 
+      <!-- Skinny copy bar under hero -->
       <div class="hero-copy-card">
         <h1>Broadcast &amp; Live Event Production Design</h1>
-        <p>Studios and stages for ABC News and beyond — Good Morning America,
-           World News Tonight, This Week, The View, Presidential Debates, and
-           Election coverage in studio and across the Nation.</p>
-        <p><strong>Seth Easter</strong> designs broadcast studios and live event productions
-           across the world and is based in NYC. Multiple Emmys &amp; an ADG award
-           for work at ABC News and beyond.</p>
+        <p>
+          Studios and stages for ABC News and beyond — Good Morning America,
+          World News Tonight, This Week, The View, Presidential Debates, and
+          Election coverage in studio and across the Nation.
+        </p>
+        <p>
+          <strong>Seth Easter</strong> designs broadcast studios and live event productions
+          across the world and is based in NYC. Multiple Emmys &amp; an ADG award
+          for work at ABC News and beyond.
+        </p>
       </div>
     </section>
 
@@ -66,15 +75,6 @@
           <div id="homeGrid" class="grid"></div>
           <div id="gridSentinel" style="height:1px;"></div>
         </div>
-      </div>
-    </section>
-
-    <!-- HOME PRESS TEASER (top 6) -->
-    <section class="section" id="press">
-      <h2>Press &amp; Features</h2>
-      <ul id="pressHome" class="press-list"></ul>
-      <div style="margin-top:12px">
-        <a class="btn" href="/press/">Open full Press page</a>
       </div>
     </section>
 
@@ -96,13 +96,15 @@
 
   <footer class="footer-site">© Seth Easter. Member, United Scenic Artists Local USA 829.</footer>
 
-  <!-- Tiny splash fade (inline so it always runs) -->
-  <script>(function(){var s=document.getElementById('splash'); if(!s) return;
-    setTimeout(function(){ s.classList.add('hide'); }, 900);
-  })();</script>
+  <!-- Tiny splash fade (inline so it can’t “miss”) -->
+  <script>
+    (function(){var s=document.getElementById('splash'); if(!s) return;
+      setTimeout(function(){ s.classList.add('hide'); }, 900);
+    })();
+  </script>
 
-  <script src="/js/se-hero.js?v=fix8" defer></script>
-  <script src="/js/home-grid.js?v=fix8" defer></script>
-  <script src="/js/press-home.js?v=fix8" defer></script>
+  <!-- Scripts (cache-busted) -->
+  <script src="/js/se-hero.js?v=fix-a" defer></script>
+  <script src="/js/home-grid.js?v=fix-a" defer></script>
 </body>
 </html>
