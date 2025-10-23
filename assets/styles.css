@@ -126,4 +126,31 @@ html{scroll-padding-top:var(--header-h)}
   height: 100%;
   object-fit: cover;
   display: block;
+	/* Press links band on HOME */
+.press-links { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.press-links li { line-height: 1.4; }
+.press-links a { text-decoration: none; }
+.press-links .meta { opacity: .7; }
+
+/* Small press cards on /press */
+.press-grid.small {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 16px;
+}
+@media (max-width: 900px){ .press-grid.small { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 620px){  .press-grid.small { grid-template-columns: 1fr; } }
+
+.press-card.small { display: grid; grid-template-rows: auto 1fr; gap: 8px; background: #fff; border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.06); padding: 10px; }
+.press-card.small .cover { display: block; }
+.press-card.small .body { display: grid; gap: 4px; }
+.press-card.small .title { font-weight: 700; text-decoration: none; }
+.press-card.small .meta { opacity: .7; font-size: .9em; }
+.press-card.small .desc { margin: 6px 0 0 0; }
+
+/* Headings match the blue used in your “Selected Work” links.
+   If you have a CSS var for link color, use it; else override with your exact blue hex. */
+:root { --brand-blue: #2563eb; } /* update this to the exact link blue you use */
+.section h2, .section h3 { color: var(--brand-blue); }
 }
