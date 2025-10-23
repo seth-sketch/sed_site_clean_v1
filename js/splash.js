@@ -1,1 +1,18 @@
-(function(){function h(){var s=document.getElementById('splash');if(!s)return;s.classList.add('hide');setTimeout(function(){s.remove&&s.remove();},450);}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',function(){setTimeout(h,200);});}else{setTimeout(h,100);}})();
+(function(){
+  var MIN = 1700;               // minimum ms to keep splash visible
+  var start = Date.now();
+  function hideNow(){
+    var s=document.getElementById('splash'); if(!s) return;
+    s.classList.add('hide');
+    setTimeout(function(){ s.remove && s.remove(); }, 450);
+  }
+  function maybeHide(){
+    var wait = Math.max(0, MIN - (Date.now() - start));
+    setTimeout(hideNow, wait);
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', maybeHide);
+  } else {
+    maybeHide();
+  }
+})();
