@@ -1,8 +1,7 @@
 /* project.js — 16:9 hero + resilient thumb switching */
 (function () {
   "use strict";
-  var PLACEHOLDER =
-    "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'><rect width='16' height='9' fill='%23f0f0f0'/></svg>";
+  var PLACEHOLDER="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'><rect width='16' height='9' fill='%23f0f0f0'/></svg>";
 
   function $(s){ return document.querySelector(s); }
   function first(a){ for (var i=0;i<a.length;i++){ var el=$(a[i]); if(el) return el; } return null; }
@@ -46,10 +45,8 @@
     if (titleEl) titleEl.textContent = (item && item.title) || "Project";
     if (metaEl)  metaEl.textContent  = item ? [item.client,item.year,item.role].filter(Boolean).join(" · ") : "";
 
-    // 16:9 hero with fallback
     if (hero) hero.innerHTML = ratioHTML(item && (item.cover || (item.gallery && item.gallery[0])));
 
-    // thumbs
     if (thumbs && item && item.gallery && item.gallery.length){
       var t=""; for (var g=0; g<item.gallery.length; g++) t+='<button class="thumb" data-src="'+item.gallery[g]+'"><img loading="lazy" src="'+item.gallery[g]+'" alt=""></button>';
       thumbs.innerHTML = t;
@@ -57,28 +54,23 @@
         var btn = findThumb(e.target); if(!btn) return;
         var src = btn.getAttribute("data-src");
         if (hero) hero.innerHTML = ratioHTML(src);
-        try {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-} catch (err) {
-  window.scrollTo(0, 0);
-}
+        try { window.scrollTo({ top: 0, behavior: "smooth" }); } catch (err) { window.scrollTo(0,0); }
       });
     } else if (thumbs){ thumbs.innerHTML=""; }
 
-    // next/back
-    var back = first(['[data-project="back"]','.project-back']); if (back) back.href="/";
+    var back = first(['[data-project="back"]','.project-back']); if (back) back.href="/work.html";
+
     var next = first(['[data-project="next"]','.project-next']);
     if (next && list && list.length){
       var n = list[(idx+1)%list.length];
-      next.href = n.slug ? ("/project?slug="+encodeURIComponent(n.slug)) : "/";
+      next.href = n.slug ? ("/project.html?slug="+encodeURIComponent(n.slug)) : "/work.html";
       var s = next.querySelector("span"); if (s) s.textContent = n.title || "Next project";
     }
 
-    // image fallback
     document.addEventListener("error", function(e){
       var img = e.target && e.target.tagName==="IMG" ? e.target : null;
-      if (!img) return;
-      img.src = PLACEHOLDER; img.setAttribute("data-ph","1");
+      if (!img) return; img.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'><rect width='16' height='9' fill='%23f0f0f0'/></svg>";
+      img.setAttribute("data-ph","1");
     }, true);
   }
 

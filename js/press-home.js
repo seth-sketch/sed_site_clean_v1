@@ -10,7 +10,6 @@
     (function next(i){ if(i>=bases.length) return cb([]); j(bases[i]+"?v="+Date.now()).then(function(d){ cb(Array.isArray(d)?d:[]); }).catch(function(){ next(i+1); }); })(0);
   }
 
-  // HOME — links only
   function ensureHome(){
     var el = $("#pressLinks") || $("[data-press='links']");
     if (el) return el;
@@ -34,7 +33,6 @@
     m.innerHTML = html;
   }
 
-  // /press — thumbnails only (no text)
   function ensurePressGrid(){
     var g = $("#pressGrid");
     if (g) return g;
@@ -59,8 +57,8 @@
   function init(){
     var path = location.pathname.replace(/\/+$/,"");
     loadPress(function(list){
-      if (path === "" || path === "/") renderHome(list);
-      else if (path === "/press")     renderPress(list);
+      if (path === "" || path === "/" || path.endsWith("/index.html")) renderHome(list);
+      else if (path === "/press" || path.endsWith("/press.html")) renderPress(list);
     });
   }
   (document.readyState==="loading") ? document.addEventListener("DOMContentLoaded", init) : init();
