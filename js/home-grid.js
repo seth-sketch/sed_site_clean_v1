@@ -8,22 +8,41 @@
 
   function sentinelEl(g){
     var s = byId('gridSentinel');
-    if(!s){ s=document.createElement('div'); s.id='gridSentinel'; s.style.height='1px'; (g.parentNode||document.body).appendChild(s); }
+    if(!s){
+      s=document.createElement('div');
+      s.id='gridSentinel';
+      s.style.height='1px';
+      (g.parentNode||document.body).appendChild(s);
+    }
     return s;
   }
 
   function fetchJSON(u){ return fetch(u,{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }); }
   function loadList(cb){
     var bases=['/assets/work.json','./assets/work.json','../assets/work.json'];
-    (function next(i){ if(i>=bases.length) return cb([]); fetchJSON(bases[i]+'?v='+Date.now()).then(function(d){ cb(Array.isArray(d)?d:[]); }).catch(function(){ next(i+1); }); })(0);
+    (function next(i){
+      if(i>=bases.length) return cb([]);
+      fetchJSON(bases[i]+'?v='+Date.now())
+        .then(function(d){ cb(Array.isArray(d)?d:[]); })
+        .catch(function(){ next(i+1); });
+    })(0);
   }
 
   function card(it){
     var title=it.title||'Untitled Project';
     var meta=[it.client,it.year,it.role].filter(Boolean).join(' · ');
     var cover=it.cover||(it.gallery&&it.gallery[0])||PH;
-    var href=it.slug?('/project.html?slug='+encodeURIComponent(it.slug)):'#';
-    return '<article class="card"><a class="cover" href="'+href+'"><span class="ratio-169"><img loading="lazy" src="'+cover+'" alt=""></span></a><div class="footer"><a href="'+href+'">'+title+'</a>'+(meta?'<div class="meta">'+meta+'</div>':'')+'</div></article>';
+    // Link to /project?slug=... (redirect rule maps it to project.html)
+    var href=it.slug?('/project?slug='+encodeURIComponent(it.slug)):'#';
+    return ''+
+      '<article class="card">'+
+        '<a class="cover" href="'+href+'">'+
+          '<span class="ratio-169"><img loading="lazy" src="'+cover+'" alt=""></span>'+
+        '</a>'+
+        '<div class="footer">'+
+          '<a href="'+href+'">'+title+'</a>'+(meta?'<div class="meta">'+meta+'</div>':'')+
+        '</div>'+
+      '</article>';
   }
 
   function attachFallback(root){
@@ -45,20 +64,26 @@
       var end=Math.min(i+PAGE,list.length), html='';
       for(var k=i;k<end;k++) html+=card(list[k]);
       i=end;
-      if(html){ var tmp=document.createElement('div'); tmp.innerHTML=html; while(tmp.firstChild) g.appendChild(tmp.firstChild); }
+      if(html){
+        var tmp=document.createElement('div'); tmp.innerHTML=html;
+        while(tmp.firstChild) g.appendChild(tmp.firstChild);
+      }
       if(i>=list.length) done=true;
       loading=false;
       return !done;
     }
 
     if('IntersectionObserver' in window){
-      var io=new IntersectionObserver(function(ents){ for(var j=0;j<ents.length;j++) if(ents[j].isIntersecting) renderMore(); }, {root:null, rootMargin:'0px 0px 360px 0px'});
+      var io=new IntersectionObserver(function(ents){
+        for(var j=0;j<ents.length;j++) if(ents[j].isIntersecting) renderMore();
+      }, {root:null, rootMargin:'0px 0px 360px 0px', threshold:0});
       io.observe(s);
     }else{
       function onScroll(){ var rect=s.getBoundingClientRect(); var vh=window.innerHeight||document.documentElement.clientHeight; if(rect.top<vh+360) renderMore(); }
       window.addEventListener('scroll', onScroll);
     }
 
+    // Ensure page can scroll on first paint (important if the list is short)
     function fillViewport(){
       var guard=0;
       while(guard++<50){
@@ -77,7 +102,12 @@
     for(var i=0;i<list.length;i++){
       var it=list[i];
       if(it.cover && it.cover.charAt(0)!=='/') it.cover='/'+it.cover.replace(/^\/+/,'');
-      if(it.gallery&&it.gallery.length){ for(var j=0;j<it.gallery.length;j++){ var p=it.gallery[j]; it.gallery[j]=(p.charAt(0)==='/'?p:'/'+p.replace(/^\/+/,'')); } }
+      if(it.gallery&&it.gallery.length){
+        for(var j=0;j<it.gallery.length;j++){
+          var p=it.gallery[j];
+          it.gallery[j]=(p.charAt(0)==='/'?p:'/'+p.replace(/^\/+/,''));
+        }
+      }
     }
     return list;
   }
