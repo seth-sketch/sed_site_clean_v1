@@ -1,0 +1,8 @@
+{
+  "name": "sed-site-data",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:data": "node tools/build-work-manifest.mjs"
+  }
+}
