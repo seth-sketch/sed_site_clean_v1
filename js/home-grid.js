@@ -4,7 +4,17 @@
   var PH="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'><rect width='16' height='9' fill='%23f0f0f0'/></svg>";
 
   function byId(id){ return document.getElementById(id); }
-  function gridEl(){ return byId('homeGrid') || byId('workGrid') || document.querySelector('.grid'); }
+  function q(sel,scope){ return (scope||document).querySelector(sel); }
+
+  function scrollRoot(){
+    // If the page uses an internal scroll container (your layout does on Home), use it
+    return q('.scroller') || null;
+  }
+
+  function gridEl(){
+    var root = scrollRoot();
+    return (root && q('.grid', root)) || byId('homeGrid') || byId('workGrid') || q('.grid');
+  }
 
   function sentinelEl(g){
     var s = byId('gridSentinel');
@@ -12,7 +22,8 @@
       s=document.createElement('div');
       s.id='gridSentinel';
       s.style.height='1px';
-      (g.parentNode||document.body).appendChild(s);
+      var r = scrollRoot();
+      if(r){ r.appendChild(s); } else { (g.parentNode||document.body).appendChild(s); }
     }
     return s;
   }
@@ -32,6 +43,7 @@
     var title=it.title||'Untitled Project';
     var meta=[it.client,it.year,it.role].filter(Boolean).join(' · ');
     var cover=it.cover||(it.gallery&&it.gallery[0])||PH;
+    // Direct file link (no redirect dependency)
     var href=it.slug?('/project.html?slug='+encodeURIComponent(it.slug)):'#';
     return ''+
       '<article class="card">'+
@@ -52,49 +64,71 @@
   }
 
   function start(list){
-    var g=gridEl(); if(!g || !list.length) return;
-    attachFallback(g);
-    var s=sentinelEl(g);
-    var i=0, loading=false, done=false;
+  var g = gridEl(); if(!g || !list.length) return;
+  attachFallback(g);
+  var s = sentinelEl(g);
+  var i = 0, loading = false, done = false;
+  var root = scrollRoot();
 
-    function renderMore(){
-      if(done||loading) return false;
-      loading=true;
-      var end=Math.min(i+PAGE,list.length), html='';
-      for(var k=i;k<end;k++) html+=card(list[k]);
-      i=end;
-      if(html){
-        var tmp=document.createElement('div'); tmp.innerHTML=html;
-        while(tmp.firstChild) g.appendChild(tmp.firstChild);
+  // function expression instead of inner function declaration
+  var renderMore = function(){
+    if (done || loading) return false;
+    loading = true;
+    var end = Math.min(i + PAGE, list.length), html = '';
+    for (var k = i; k < end; k++) html += card(list[k]);
+    i = end;
+    if (html){
+      var tmp = document.createElement('div'); tmp.innerHTML = html;
+      while (tmp.firstChild) g.appendChild(tmp.firstChild);
+    }
+    if (i >= list.length) done = true;
+    loading = false;
+    return !done;
+  };
+
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(ents){
+      for (var j = 0; j < ents.length; j++) if (ents[j].isIntersecting) renderMore();
+    }, { root: root || null, rootMargin: '0px 0px 360px 0px', threshold: 0 });
+    io.observe(s);
+  } else {
+    // function expression here too
+    var onScroll = function(){
+      if (root){
+        var nearBottom = (root.scrollHeight - root.scrollTop - root.clientHeight) < 420;
+        if (nearBottom) renderMore();
+      } else {
+        var rect = s.getBoundingClientRect();
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+        if (rect.top < vh + 360) renderMore();
       }
-      if(i>=list.length) done=true;
-      loading=false;
-      return !done;
-    }
-
-    if('IntersectionObserver' in window){
-      var io=new IntersectionObserver(function(ents){
-        for(var j=0;j<ents.length;j++) if(ents[j].isIntersecting) renderMore();
-      }, {root:null, rootMargin:'0px 0px 360px 0px', threshold:0});
-      io.observe(s);
-    }else{
-      function onScroll(){ var rect=s.getBoundingClientRect(); var vh=window.innerHeight||document.documentElement.clientHeight; if(rect.top<vh+360) renderMore(); }
-      window.addEventListener('scroll', onScroll);
-    }
-
-    function fillViewport(){
-      var guard=0;
-      while(guard++<50){
-        var rect=s.getBoundingClientRect();
-        var vh=window.innerHeight||document.documentElement.clientHeight;
-        if(rect.top>vh+240) break;
-        if(!renderMore()) break;
-      }
-    }
-    renderMore();
-    requestAnimationFrame(fillViewport);
-    window.addEventListener('resize', fillViewport);
+    };
+    (root || window).addEventListener('scroll', onScroll);
   }
+
+  // also expression, keeps linters happy
+  var fillViewport = function(){
+    var guard = 0;
+    if (root){
+      while (guard++ < 50){
+        var nearBottom = (root.scrollHeight - root.scrollTop - root.clientHeight) < 420;
+        if (!nearBottom) break;
+        if (!renderMore()) break;
+      }
+    } else {
+      while (guard++ < 50){
+        var rect = s.getBoundingClientRect();
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+        if (rect.top > vh + 240) break;
+        if (!renderMore()) break;
+      }
+    }
+  };
+
+  renderMore();
+  requestAnimationFrame(fillViewport);
+  window.addEventListener('resize', fillViewport);
+}
 
   function normalize(list){
     for(var i=0;i<list.length;i++){

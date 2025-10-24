@@ -1,3 +1,4 @@
 /work      /work/           301
 /press     /press/          301
-/project*  /project.html    200
+/project   /project.html    200
+/project/* /project.html    200
