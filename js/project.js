@@ -11,7 +11,9 @@
       var q=location.search.slice(1).split("&");
       for(var i=0;i<q.length;i++){
         var kv=q[i].split("=");
-        if(decodeURIComponent(kv[0])==="slug"){ s=decodeURIComponent(kv[1]||"").trim(); break; }
+        if(decodeURIComponent(kv[0])==="slug"){
+          s=decodeURIComponent(kv[1]||"").trim(); break;
+        }
       }
     }
     if(!s){
@@ -57,7 +59,7 @@
     for (var i=0;i<list.length;i++){
       if (slugify(list[i].slug)===q || slugify(list[i].title)===q) return { item:list[i], idx:i };
     }
-    return { item:list[0], idx:0 }; // safe fallback so page never looks broken
+    return { item:list[0], idx:0 }; // safe fallback
   }
 
   function render(item, idx, list){
@@ -89,12 +91,12 @@
     var next = pick(['[data-project="next"]','.project-next']);
     if (next && list && list.length){
       var n = list[(idx+1)%list.length];
-      next.href = n.slug ? ("/project?slug="+encodeURIComponent(n.slug)) : "/work/";
+      next.href = n.slug ? ("/project.html?slug="+encodeURIComponent(n.slug)) : "/work/";
       var s = next.querySelector("span"); if (s) s.textContent = n.title || "Next project";
     }
 
     document.addEventListener("error", function(e){
-      var img = e.target && e.target.tagName==="IMG" ? e.target : null;
+      var img=e.target && e.target.tagName==="IMG" ? e.target : null;
       if (!img) return; img.src = PH; img.setAttribute("data-ph","1");
     }, true);
   }
