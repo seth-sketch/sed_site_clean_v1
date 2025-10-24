@@ -59,7 +59,7 @@
     for (var i=0;i<list.length;i++){
       if (slugify(list[i].slug)===q || slugify(list[i].title)===q) return { item:list[i], idx:i };
     }
-    return { item:list[0], idx:0 }; // safe fallback
+    return { item:list[0], idx:0 };
   }
 
   function render(item, idx, list){
