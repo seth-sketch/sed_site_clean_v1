@@ -41,3 +41,11 @@ html{scroll-padding-top:var(--header-h)}.container{max-width:var(--container);ma
 @media (prefers-reduced-motion: reduce) {
   .splash { display: none; }
 }
+/* Work/Home scroll root for infinite grid */
+.scroller{
+  height: clamp(520px, 70vh, 880px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding-right: 4px;
+  -webkit-overflow-scrolling: touch;
+}
