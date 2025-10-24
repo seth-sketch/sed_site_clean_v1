@@ -32,7 +32,7 @@
     var title=it.title||'Untitled Project';
     var meta=[it.client,it.year,it.role].filter(Boolean).join(' · ');
     var cover=it.cover||(it.gallery&&it.gallery[0])||PH;
-    // Link to /project?slug=... (redirect rule maps it to project.html)
+    // link to /project?slug=... (redirect maps to project.html)
     var href=it.slug?('/project?slug='+encodeURIComponent(it.slug)):'#';
     return ''+
       '<article class="card">'+
@@ -83,7 +83,7 @@
       window.addEventListener('scroll', onScroll);
     }
 
-    // Ensure page can scroll on first paint (important if the list is short)
+    // Make sure you can scroll after first paint
     function fillViewport(){
       var guard=0;
       while(guard++<50){
