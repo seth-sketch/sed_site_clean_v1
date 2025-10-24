@@ -49,3 +49,11 @@ html{scroll-padding-top:var(--header-h)}.container{max-width:var(--container);ma
   padding-right: 4px;
   -webkit-overflow-scrolling: touch;
 }
+.hero-copy-card p { 
+  color: var(--ink);   /* black/ink */
+  margin: 8px 0;
+  max-width: 80ch;
+}
+.hero-copy-card p.lead { 
+  font-weight: 700;
+}
