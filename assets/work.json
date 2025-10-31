@@ -98,18 +98,18 @@
     "description": "Audience-forward refresh with updated finishes and LED."
   },
   {
-    "slug": "this-week-special",
-    "title": "This Week \u2014 Special",
+    "slug": "abc-news-live",
+    "title": "ABC News Live \u2014 News live",
     "client": "ABC News",
     "year": "2024",
     "role": "Production Designer",
-    "cover": "assets/work/this-week-special/cover.jpg",
+    "cover": "assets/work/abc-news-live/cover.jpg",
     "gallery": [
-      "assets/work/this-week-special/1.jpg",
-      "assets/work/this-week-special/2.jpg",
-      "assets/work/this-week-special/3.jpg"
+      "assets/work/abc-news-live/1.jpg",
+      "assets/work/abc-news-live/2.jpg",
+      "assets/work/abc-news-live/3.jpg"
     ],
-    "description": "Special-event scenic package and host positions."
+    "description": "Abc News live studios."
   },
   {
     "slug": "dan-abrams-live-newsnation",
