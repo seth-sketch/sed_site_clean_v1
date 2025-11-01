@@ -1,7 +1,17 @@
 {
+  "cv_version": "1.2",
+  "last_updated": "2025-11-01",
   "name": "Seth Easter",
-  "headline": "Senior Production Designer, ABC News & ABC Daytime | Emmy-winning Art Director",
-  "summary": "Production designer and creative director with ~20 years at ABC News / ABC Daytime leading LED/video-forward broadcast environments, election-night HQs, debate stages and modular multi-show studios.",
+  "headline": "Senior Production Designer, ABC News & ABC Daytime · Emmy-winning Art Director · Experiential/Broadcast Environments",
+  "location": "New York City, NY, USA",
+  "imdb_id": "nm3267837",
+  "imdb_url": "https://www.imdb.com/name/nm3267837/",
+  "summary": "American production designer and creative director best known for long-running work for ABC News and ABC Daytime, including the design of LED-forward, video-as-scenery, modular multi-show studios for the network’s Hudson Square facility, election-night headquarters, debate stages and special events. Art director on multiple Tony Awards broadcasts and part of the Emmy-winning team for the 65th Tony Awards broadcast. Skilled at delivering large, technology-heavy sets on immovable news and live-event timelines.",
+  "contact": {
+    "email": "",
+    "website": "",
+    "company": "Seth Easter Design"
+  },
   "experience": [
     {
       "title": "Senior Production Designer, ABC News & ABC Daytime",
@@ -9,33 +19,265 @@
       "location": "New York, NY",
       "date_range": "c. 2005 – present",
       "highlights": [
-        "Hudson Square migration and consistency across GMA Studio C (2025), World News Tonight, The View (2024).",
-        "Studio TV3 wraparound LED / AR-capable studio for election coverage.",
-        "Election-night and debate-stage scenic systems with embedded touchscreens."
+        "Led scenic design through ABC’s migration to Disney’s Hudson Square complex, keeping visual identity consistent across flagship news and daytime shows.",
+        "Production designer on GMA Studio C (2025 rebuild) — loft-style, 187M-pixel LED environment with moving multipurpose walls and AR-ready layouts.",
+        "Spearheaded the Studio TV3 election-cycle overhaul (2020): wraparound LED, AR-capable, shareable between multiple ABC News shows.",
+        "Designed 2024 election-night environment with embedded touchscreens, presenter interactivity and re-envisioned desks.",
+        "Designed debate-stage treatment for ABC U.S. presidential coverage (dark, candidate-first scenic with integrated LED and typography).",
+        "Developed modular, video-heavy scenic language reused for smaller Hudson Square studios (WNN, GMA First Look, etc.).",
+        "Collaborated with lighting, AV/integration, graphics and editorial teams to deliver broadcast-ready spaces on fixed dates."
+      ]
+    },
+    {
+      "title": "Founder / Principal",
+      "organization": "Seth Easter Design",
+      "location": "New York, NY",
+      "date_range": "c. 2005 – present",
+      "highlights": [
+        "Independent production-design practice focused on broadcast and live entertainment, political events and televised specials.",
+        "Known for bringing broadcast technologies (large LED, video floors, AR layouts) into entertainment-style productions.",
+        "Engaged for high-pressure events requiring fast scenic turnarounds."
+      ]
+    },
+    {
+      "title": "Art Director, Televised Events (Tony Awards broadcasts)",
+      "organization": "White Cherry Entertainment / CBS",
+      "location": "New York, NY",
+      "date_range": "2009 – 2012 (select broadcasts)",
+      "highlights": [
+        "Art Director, 65th Tony Awards — broadcast won the Primetime Emmy Award for Outstanding Art Direction for Variety or Nonfiction Programming; worked with Production Designer Steve Bass.",
+        "Art Director, 63rd Tony Awards — broadcast received Primetime Emmy nomination in same category.",
+        "Worked in large, multi-camera live entertainment broadcast workflows."
       ]
     }
   ],
-  "credits": [
+  "education": [
     {
-      "title": "As It Happened (\"Diddy on Trial: As It Happened\")",
-      "year": 2025,
-      "role": "Production Designer"
-    },
-    {
-      "title": "ABC News Presidential Debate",
-      "year": 2024,
-      "role": "Production Designer"
+      "institution": "University of North Carolina School of the Arts (UNCSA)",
+      "program": "Design and Production (reported in industry biographies)",
+      "location": "Winston-Salem, NC",
+      "notes": "Frequently listed in industry bios; formal degree details not always published."
     }
   ],
   "skills": [
-    "Production design (broadcast/live)",
-    "LED / video-as-scenery",
-    "Modular multi-show studios",
+    "Production design for broadcast and live events",
+    "Creative direction for multi-show, modular studios",
+    "LED / video-as-scenery / AR-ready layouts",
+    "Scenic systems with movable / air walls",
+    "Facility-wide look + brand consistency",
+    "Election-night and special-event staging",
+    "Debate-stage design",
+    "Team leadership in time-sensitive environments",
+    "Vendor / scenic / AV / lighting coordination",
     "Adobe Creative Suite",
     "Twinmotion",
     "Vectorworks",
     "Unreal Engine",
     "SketchUp",
     "AutoCAD"
+  ],
+  "imdb_production_designer_credits": [
+    {
+      "title": "As It Happened (\"Diddy on Trial: As It Happened\")",
+      "year": 2025,
+      "type": "TV Mini-series",
+      "role": "Production Designer",
+      "episodes": "multiple",
+      "notes": "ABC News / news-event format"
+    },
+    {
+      "title": "Tamron Hall – “Right Place, Right Time” (and related 2025 eps)",
+      "year": 2025,
+      "type": "TV Episode",
+      "series": "Tamron Hall",
+      "role": "Production Designer"
+    },
+    {
+      "title": "Listen Up!",
+      "year": 2025,
+      "type": "Series / talk",
+      "role": "Production Designer"
+    },
+    {
+      "title": "ABC News Presidential Debate",
+      "year": 2024,
+      "type": "TV Special",
+      "role": "Production Designer"
+    },
+    {
+      "title": "2024 State of the Union",
+      "year": 2024,
+      "type": "TV Special",
+      "role": "Production Designer"
+    },
+    {
+      "title": "ABC News Live Prime with Linsey Davis",
+      "year": 2024,
+      "type": "TV Series (episode)",
+      "role": "Production Designer"
+    },
+    {
+      "title": "The Year: Countdown 2024",
+      "year": 2023,
+      "type": "TV Special",
+      "role": "Production Designer"
+    },
+    {
+      "title": "State of the Union and the Republican Response",
+      "year": 2023,
+      "type": "TV Special",
+      "role": "Production Designer"
+    },
+    {
+      "title": "CC: Black History Month",
+      "year": 2023,
+      "type": "TV Special",
+      "role": "Production Designer"
+    },
+    {
+      "title": "Oscars 95 Nominations",
+      "year": 2023,
+      "type": "TV Special",
+      "role": "Production Designer"
+    },
+    {
+      "title": "Your Voice, Your Vote 2022",
+      "year": 2022,
+      "type": "TV Special (election coverage)",
+      "role": "Production Designer"
+    },
+    {
+      "title": "The Year: 2022",
+      "year": 2022,
+      "type": "TV Special",
+      "role": "Production Designer"
+    },
+    {
+      "title": "American Epidemic: One Nation Under Fire",
+      "year": 2021,
+      "type": "TV Special / news",
+      "role": "Production Designer"
+    },
+    {
+      "title": "Mission to Mars, LIVE!",
+      "year": 2021,
+      "type": "TV Special / documentary",
+      "role": "Production Designer"
+    },
+    {
+      "title": "Good Morning America (selected 2021 episodes)",
+      "year": 2021,
+      "type": "TV Series (episodes)",
+      "role": "Production Designer",
+      "notes": "Multiple dated GMA episodes across 2021 list production design"
+    },
+    {
+      "title": "A Tribute for a King",
+      "year": 2020,
+      "type": "TV Special (ABC)",
+      "role": "Production Designer"
+    },
+    {
+      "title": "ABC News 2020 Democratic National Convention",
+      "year": 2020,
+      "type": "TV Special",
+      "role": "Production Designer"
+    },
+    {
+      "title": "The President and the People",
+      "year": 2020,
+      "type": "TV Special / town hall",
+      "role": "Production Designer"
+    },
+    {
+      "title": "What Comes Next?",
+      "year": 2020,
+      "type": "TV Special",
+      "role": "Production Designer"
+    },
+    {
+      "title": "The Democratic Debate (ABC)",
+      "year": 2020,
+      "type": "TV Special / debate",
+      "role": "Production Designer"
+    },
+    {
+      "title": "The Year: 2020",
+      "year": 2020,
+      "type": "TV Special",
+      "role": "Production Designer"
+    },
+    {
+      "title": "ABC World News Tonight (selected episode)",
+      "year": 2021,
+      "type": "TV Series (episode)",
+      "role": "Production Designer"
+    },
+    {
+      "title": "TED Talks: Science and Wonder",
+      "year": 2016,
+      "type": "TV Movie / special",
+      "role": "Production Designer"
+    },
+    {
+      "title": "ABC News Specials / Special Events (multiple)",
+      "year": "2010–2019",
+      "type": "TV Specials / news",
+      "role": "Production Designer",
+      "notes": "Election nights, royal coverage, red carpet, major-news special reports — listed across multiple IMDb pages; add specific titles as you unroll the full IMDb listing."
+    }
+  ],
+  "awards": [
+    {
+      "name": "Primetime Emmy Award for Outstanding Art Direction for Variety or Nonfiction Programming",
+      "organization": "Television Academy",
+      "year": 2012,
+      "work": "65th Tony Awards",
+      "role": "Art Director"
+    },
+    {
+      "name": "Primetime Emmy nomination for Outstanding Art Direction for Variety, Music or Nonfiction Programming",
+      "organization": "Television Academy",
+      "year": 2010,
+      "work": "63rd Tony Awards",
+      "role": "Art Director"
+    },
+    {
+      "name": "Trade / industry recognition",
+      "organization": "NewscastStudio, Variety, PLSN, LDG",
+      "year": "2020–2025",
+      "work": "ABC studio overhauls, election-night environments",
+      "role": "Production Designer"
+    }
+  ],
+  "style_and_approach": [
+    "Video-forward and LED-heavy scenic design intended to be camera-ready from multiple angles.",
+    "Modular, changeable studios with movable walls and shared scenic language so multiple shows can use one footprint.",
+    "Built for very fast-turn news and special-event production.",
+    "Integration of AV, lighting and graphics teams from the start of design."
+  ],
+  "future_alignment": [
+    {
+      "target_role": "Head of Creative / Events & Experiential (brand / tech / media)",
+      "why": "Portfolio shows delivery of large, LED-based, high-visibility environments on non-negotiable timelines; directly parallels 2025 Apple Events & Experiential posting."
+    },
+    {
+      "target_role": "VP / Senior Creative Director, Broadcast or Studio",
+      "why": "Led network-level look, not just single-show packages."
+    }
+  ],
+  "sources": [
+    {
+      "label": "IMDb — Seth Easter",
+      "url": "https://www.imdb.com/name/nm3267837/"
+    },
+    {
+      "label": "Television Academy — Seth Easter",
+      "url": "https://www.televisionacademy.com/bios/seth-easter"
+    },
+    {
+      "label": "NewscastStudio — Seth Easter Design",
+      "url": "https://www.newscaststudio.com/designers/seth-easter-design/"
+    }
   ]
 }
