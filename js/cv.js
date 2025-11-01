@@ -3,51 +3,49 @@
   if (!root) return;
 
   try {
-    const res = await fetch("/data/cv.json"); // <-- matches your folder
+    // YOUR JSON IS HERE 👇
+    const res = await fetch("/assets/cv.json");
     const cv = await res.json();
 
-    const expHtml = (cv.experience || [])
-      .map(
-        (exp) => `
+    const exp = (cv.experience || [])
+      .map(exp => `
         <article class="cv-item">
           <h3>${exp.title}</h3>
-          <p><strong>${exp.organization || ""}</strong> · ${exp.location || ""}</p>
+          <p><strong>${exp.organization || ""}</strong>${exp.location ? " · " + exp.location : ""}</p>
           <p class="dates">${exp.date_range || ""}</p>
           <ul>
-            ${(exp.highlights || []).map((h) => `<li>${h}</li>`).join("")}
+            ${(exp.highlights || []).map(h => `<li>${h}</li>`).join("")}
           </ul>
         </article>
-      `
-      )
+      `)
       .join("");
 
-    const creditsHtml = (cv.credits || [])
-      .map(
-        (c) =>
-          `<li><strong>${c.title}</strong>${c.year ? " (" + c.year + ")" : ""} — ${
-            c.role || ""
-          }</li>`
-      )
+    const credits = (cv.imdb_production_designer_credits || cv.credits || [])
+      .map(c => `
+        <li>
+          <strong>${c.title}</strong>${c.year ? " (" + c.year + ")" : ""} — ${c.role || "Production Designer"}
+          ${c.type ? " · " + c.type : ""}
+        </li>
+      `)
       .join("");
 
     root.innerHTML = `
-      <h1>${cv.name || "CV"}</h1>
+      <h1>${cv.name || "Seth Easter"}</h1>
       ${cv.headline ? `<p class="meta">${cv.headline}</p>` : ""}
       ${cv.summary ? `<p>${cv.summary}</p>` : ""}
 
       <h2>Experience</h2>
-      ${expHtml || "<p>No experience added yet.</p>"}
+      ${exp || "<p>No experience in JSON.</p>"}
 
       <h2>Selected Production Designer Credits</h2>
       <ul class="cv-list">
-        ${creditsHtml || "<li>Add credits to data/cv.json</li>"}
+        ${credits || "<li>Add credits to assets/cv.json</li>"}
       </ul>
 
-      <h2>Skills</h2>
-      <p>${(cv.skills || []).join(" · ")}</p>
+      ${cv.skills ? `<h2>Skills</h2><p>${cv.skills.join(" · ")}</p>` : ""}
     `;
   } catch (err) {
     console.error(err);
-    root.innerHTML = "<p>Couldn't load CV JSON.</p>";
+    root.innerHTML = "<p>Couldn't load CV JSON from /assets/cv.json.</p>";
   }
 })();
