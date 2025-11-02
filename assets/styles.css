@@ -57,3 +57,33 @@ html{scroll-padding-top:var(--header-h)}.container{max-width:var(--container);ma
 .hero-copy-card p.lead { 
   font-weight: 700;
 }
+/* iPhone tweaks */
+body {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.header {
+  padding-top: env(safe-area-inset-top);
+}
+
+/* tighten container on small screens */
+@media (max-width: 640px) {
+  .container {
+    padding: 14px 14px 18px;
+  }
+  .nav {
+    gap: 10px;
+  }
+  .nav-links {
+    gap: 14px;
+    margin-right: 0;
+  }
+  .btn,
+  .footer a {
+    min-height: 44px;
+  }
+  img, video, iframe {
+    max-width: 100%;
+    height: auto;
+  }
+}
