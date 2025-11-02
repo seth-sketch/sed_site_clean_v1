@@ -39,7 +39,7 @@ html{scroll-padding-top:var(--header-h)}.container{max-width:var(--container);ma
   pointer-events: none;
 }
 @media (prefers-reduced-motion: reduce) {
-  .splash { display: none; }
+  .splash { opacity: 1; }
 }
 /* Work/Home scroll root for infinite grid */
 .scroller{
