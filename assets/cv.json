@@ -1,12 +1,12 @@
 {
-  "cv_version": "1.2",
-  "last_updated": "2025-11-01",
+  "cv_version": "1.3",
+  "last_updated": "2025-11-03",
   "name": "Seth Easter",
-  "headline": "Senior Production Designer, ABC News & ABC Daytime · Emmy-winning Art Director · Experiential/Broadcast Environments",
+  "headline": "Senior Production Designer, ABC News & ABC Daytime \u00b7 Emmy-winning Art Director \u00b7 Experiential/Broadcast Environments",
   "location": "New York City, NY, USA",
   "imdb_id": "nm3267837",
   "imdb_url": "https://www.imdb.com/name/nm3267837/",
-  "summary": "American production designer and creative director best known for long-running work for ABC News and ABC Daytime, including the design of LED-forward, video-as-scenery, modular multi-show studios for the network’s Hudson Square facility, election-night headquarters, debate stages and special events. Art director on multiple Tony Awards broadcasts and part of the Emmy-winning team for the 65th Tony Awards broadcast. Skilled at delivering large, technology-heavy sets on immovable news and live-event timelines.",
+  "summary": "American production designer and creative director best known for long-running work for ABC News and ABC Daytime, including LED-forward, video-as-scenery, modular multi-show studios (Disney Hudson Square), election-night HQs, debate stages and special events. Art director on multiple Tony Awards broadcasts and part of the Emmy-winning team for the 65th Tony Awards.",
   "contact": {
     "email": "",
     "website": "",
@@ -17,54 +17,55 @@
       "title": "Senior Production Designer, ABC News & ABC Daytime",
       "organization": "ABC / Disney",
       "location": "New York, NY",
-      "date_range": "c. 2005 – present",
+      "date_range": "c. 2005 \u2013 present",
       "highlights": [
-        "Led scenic design through ABC’s migration to Disney’s Hudson Square complex, keeping visual identity consistent across flagship news and daytime shows.",
-        "Production designer on GMA Studio C (2025 rebuild) — loft-style, 187M-pixel LED environment with moving multipurpose walls and AR-ready layouts.",
-        "Spearheaded the Studio TV3 election-cycle overhaul (2020): wraparound LED, AR-capable, shareable between multiple ABC News shows.",
-        "Designed 2024 election-night environment with embedded touchscreens, presenter interactivity and re-envisioned desks.",
-        "Designed debate-stage treatment for ABC U.S. presidential coverage (dark, candidate-first scenic with integrated LED and typography).",
-        "Developed modular, video-heavy scenic language reused for smaller Hudson Square studios (WNN, GMA First Look, etc.).",
-        "Collaborated with lighting, AV/integration, graphics and editorial teams to deliver broadcast-ready spaces on fixed dates."
+        "Production designer on GMA Studio C (2025 rebuild): loft-style, ~187M-pixel LED environment with moving multipurpose walls; AR-ready.",
+        "Spearheaded Studio TV3 overhaul for 2020 election cycle: wraparound LED, AR-capable, shareable between multiple shows.",
+        "Designed 2024 election-night environment with embedded touchscreens and re-envisioned desks.",
+        "Debate-stage scenic for ABC U.S. presidential coverage (candidate-first, integrated LED, typographic lighting).",
+        "Developed modular scenic language applied across smaller Hudson Square studios (e.g., WNN, GMA First Look).",
+        "Ongoing collaboration with lighting/AV/graphics teams to deliver broadcast-ready spaces on fixed dates."
       ]
     },
     {
       "title": "Founder / Principal",
       "organization": "Seth Easter Design",
       "location": "New York, NY",
-      "date_range": "c. 2005 – present",
+      "date_range": "c. 2005 \u2013 present",
       "highlights": [
-        "Independent production-design practice focused on broadcast and live entertainment, political events and televised specials.",
-        "Known for bringing broadcast technologies (large LED, video floors, AR layouts) into entertainment-style productions.",
-        "Engaged for high-pressure events requiring fast scenic turnarounds."
+        "Independent production-design practice for broadcast specials, political events and live/entertainment TV.",
+        "Known for bringing broadcast technologies (large LED, video floors, AR layouts) into entertainment productions."
       ]
     },
     {
-      "title": "Art Director, Televised Events (Tony Awards broadcasts)",
+      "title": "Art Director \u2014 Tony Awards (select broadcasts)",
       "organization": "White Cherry Entertainment / CBS",
       "location": "New York, NY",
-      "date_range": "2009 – 2012 (select broadcasts)",
+      "date_range": "2007 \u2013 2012",
       "highlights": [
-        "Art Director, 65th Tony Awards — broadcast won the Primetime Emmy Award for Outstanding Art Direction for Variety or Nonfiction Programming; worked with Production Designer Steve Bass.",
-        "Art Director, 63rd Tony Awards — broadcast received Primetime Emmy nomination in same category.",
-        "Worked in large, multi-camera live entertainment broadcast workflows."
+        "Art Director, 65th Tony Awards (2011 broadcast) \u2014 Primetime Emmy Award for Outstanding Art Direction for Variety or Nonfiction Programming.",
+        "Art Director, 63rd Tony Awards (2009 broadcast) \u2014 Primetime Emmy nomination.",
+        "Art Director, 2007, 2008, 2009, 2010 broadcasts (credit across multiple years)."
       ]
     }
   ],
   "education": [
     {
       "institution": "University of North Carolina School of the Arts (UNCSA)",
-      "program": "Design and Production (reported in industry biographies)",
+      "program": "BFA, Scenic Design",
       "location": "Winston-Salem, NC",
-      "notes": "Frequently listed in industry bios; formal degree details not always published."
+      "notes": "Degree confirmed in earlier CV materials."
     }
+  ],
+  "memberships": [
+    "United Scenic Artists, Local USA 829"
   ],
   "skills": [
     "Production design for broadcast and live events",
     "Creative direction for multi-show, modular studios",
     "LED / video-as-scenery / AR-ready layouts",
-    "Scenic systems with movable / air walls",
-    "Facility-wide look + brand consistency",
+    "Scenic systems with movable/air walls",
+    "Facility-wide look & brand consistency",
     "Election-night and special-event staging",
     "Debate-stage design",
     "Team leadership in time-sensitive environments",
@@ -76,20 +77,33 @@
     "SketchUp",
     "AutoCAD"
   ],
+  "awards": [
+    {
+      "name": "Primetime Emmy Award \u2014 Outstanding Art Direction for Variety or Nonfiction Programming",
+      "organization": "Television Academy",
+      "year": 2012,
+      "work": "65th Tony Awards",
+      "role": "Art Director"
+    },
+    {
+      "name": "Primetime Emmy nomination \u2014 Outstanding Art Direction for Variety, Music or Nonfiction Programming",
+      "organization": "Television Academy",
+      "year": 2010,
+      "work": "63rd Tony Awards",
+      "role": "Art Director"
+    }
+  ],
   "imdb_production_designer_credits": [
     {
       "title": "As It Happened (\"Diddy on Trial: As It Happened\")",
       "year": 2025,
       "type": "TV Mini-series",
-      "role": "Production Designer",
-      "episodes": "multiple",
-      "notes": "ABC News / news-event format"
+      "role": "Production Designer"
     },
     {
-      "title": "Tamron Hall – “Right Place, Right Time” (and related 2025 eps)",
+      "title": "Tamron Hall \u2014 \u201cRight Place, Right Time\u201d (and related 2025 eps)",
       "year": 2025,
       "type": "TV Episode",
-      "series": "Tamron Hall",
       "role": "Production Designer"
     },
     {
@@ -111,7 +125,7 @@
       "role": "Production Designer"
     },
     {
-      "title": "ABC News Live Prime with Linsey Davis",
+      "title": "ABC News Live Prime with Linsey Davis (selected ep.)",
       "year": 2024,
       "type": "TV Series (episode)",
       "role": "Production Designer"
@@ -208,10 +222,25 @@
       "role": "Production Designer"
     },
     {
-      "title": "ABC World News Tonight (selected episode)",
-      "year": 2021,
-      "type": "TV Series (episode)",
-      "role": "Production Designer"
+      "title": "Democratic Primary Debate (ABC/Univision, Houston)",
+      "year": 2019,
+      "type": "TV Special / debate",
+      "role": "Production Designer",
+      "notes": "Texas Southern University, 9/12/2019; design credited to Seth Easter"
+    },
+    {
+      "title": "Good Morning America (set overhaul + 2019 episodes)",
+      "year": 2019,
+      "type": "TV Series (episodes)",
+      "role": "Production Designer",
+      "notes": "Designed 2019 set; add specific ep IDs as you confirm"
+    },
+    {
+      "title": "ABC News Midterm Election Headquarters",
+      "year": 2018,
+      "type": "TV Special (election coverage)",
+      "role": "Production Designer",
+      "notes": "Two-story AR-capable HQ set; credited to Seth Easter"
     },
     {
       "title": "TED Talks: Science and Wonder",
@@ -220,34 +249,409 @@
       "role": "Production Designer"
     },
     {
-      "title": "ABC News Specials / Special Events (multiple)",
-      "year": "2010–2019",
-      "type": "TV Specials / news",
+      "title": "ABC News Election Headquarters (2016)",
+      "year": 2016,
+      "type": "TV Special (election coverage)",
       "role": "Production Designer",
-      "notes": "Election nights, royal coverage, red carpet, major-news special reports — listed across multiple IMDb pages; add specific titles as you unroll the full IMDb listing."
+      "notes": "Times Square/TV3 modifications; credited to Seth Easter"
+    },
+    {
+      "title": "Stars In Danger: The High Dive",
+      "year": 2012,
+      "type": "TV Special / reality",
+      "role": "Production Designer",
+      "network": "FOX"
+    },
+    {
+      "title": "Katie Couric Year in Review",
+      "year": 2012,
+      "type": "TV Special",
+      "role": "Production Designer",
+      "network": "ABC"
+    },
+    {
+      "title": "CBS Thanksgiving Parade Coverage",
+      "year": 2012,
+      "type": "TV Special",
+      "role": "Production Designer",
+      "network": "CBS"
+    },
+    {
+      "title": "Real Sports with Bryant Gumbel \u2014 Year Ender",
+      "year": 2012,
+      "type": "TV Special",
+      "role": "Production Designer",
+      "network": "HBO"
+    },
+    {
+      "title": "Best in TV with Barbara Walters",
+      "year": 2012,
+      "type": "TV Special",
+      "role": "Production Designer",
+      "network": "ABC"
+    },
+    {
+      "title": "This Week Town Hall",
+      "year": 2012,
+      "type": "TV Special",
+      "role": "Production Designer",
+      "network": "ABC"
+    },
+    {
+      "title": "World News Tonight \u2014 Set",
+      "year": 2012,
+      "type": "Broadcast set",
+      "role": "Production Designer",
+      "network": "ABC"
+    },
+    {
+      "title": "The Fight Game with Jim Lampley",
+      "year": 2012,
+      "type": "Series",
+      "role": "Production Designer",
+      "network": "HBO"
+    },
+    {
+      "title": "Democratic National Convention Coverage",
+      "year": 2012,
+      "type": "TV Special",
+      "role": "Production Designer",
+      "network": "ABC"
+    },
+    {
+      "title": "Republican National Convention Coverage",
+      "year": 2012,
+      "type": "TV Special",
+      "role": "Production Designer",
+      "network": "ABC"
+    },
+    {
+      "title": "Good Morning America \u2014 Olympics Coverage",
+      "year": 2012,
+      "type": "TV Special",
+      "role": "Production Designer",
+      "network": "ABC"
+    },
+    {
+      "title": "Broadcast Studio Setup \u2014 US Travel Association",
+      "year": 2012,
+      "type": "Broadcast studio",
+      "role": "Production Designer"
+    },
+    {
+      "title": "Good Afternoon America",
+      "year": 2012,
+      "type": "Series",
+      "role": "Production Designer",
+      "network": "ABC"
+    },
+    {
+      "title": "Megastunts: Highwire Over Niagara Falls",
+      "year": 2012,
+      "type": "TV Special",
+      "role": "Production Designer",
+      "network": "ABC"
+    },
+    {
+      "title": "The Celebrity Apprentice Finale",
+      "year": 2012,
+      "type": "TV Special",
+      "role": "Production Designer",
+      "network": "NBC"
+    },
+    {
+      "title": "20/20",
+      "year": 2012,
+      "type": "Series (segments/specials)",
+      "role": "Production Designer",
+      "network": "ABC"
+    },
+    {
+      "title": "Carmina Burana",
+      "year": 2012,
+      "type": "Live event / performance",
+      "role": "Production Designer",
+      "company": "University of the Arts"
+    },
+    {
+      "title": "Univision Deportes",
+      "year": 2012,
+      "type": "Sports studio",
+      "role": "Production Designer",
+      "network": "Univision/UDX"
+    },
+    {
+      "title": "Good Morning America \u2014 Oscar Coverage",
+      "year": 2012,
+      "type": "TV Special",
+      "role": "Production Designer",
+      "network": "ABC"
+    },
+    {
+      "title": "New Hampshire Debates",
+      "year": 2012,
+      "type": "TV Special / debate",
+      "role": "Production Designer",
+      "network": "ABC"
+    },
+    {
+      "title": "State of the Union",
+      "year": 2011,
+      "type": "TV Special",
+      "role": "Production Designer",
+      "network": "ABC"
+    },
+    {
+      "title": "World News Tonight \u2014 Primary Coverage",
+      "year": 2011,
+      "type": "TV Special",
+      "role": "Production Designer",
+      "network": "ABC"
+    },
+    {
+      "title": "Katie Couric Year in Review",
+      "year": 2011,
+      "type": "TV Special",
+      "role": "Production Designer",
+      "network": "ABC"
+    },
+    {
+      "title": "Bill Moyers",
+      "year": 2011,
+      "type": "Series / special",
+      "role": "Production Designer",
+      "network": "PBS"
+    },
+    {
+      "title": "Republica Deportiva",
+      "year": 2011,
+      "type": "Sports / entertainment",
+      "role": "Production Designer",
+      "network": "Univision"
+    },
+    {
+      "title": "NASCAR Race Hub",
+      "year": 2010,
+      "type": "Series",
+      "role": "Production Designer",
+      "network": "SPEED"
+    },
+    {
+      "title": "Bloomberg Television Studio \u2014 Washington, DC",
+      "year": 2010,
+      "type": "Broadcast studio",
+      "role": "Production Designer",
+      "network": "Bloomberg"
+    },
+    {
+      "title": "This Week with Christiane Amanpour",
+      "year": 2010,
+      "type": "Series / relaunch",
+      "role": "Production Designer",
+      "network": "ABC News"
+    },
+    {
+      "title": "The Celebrity Apprentice \u2014 Live Season Finale",
+      "year": 2010,
+      "type": "TV Special",
+      "role": "Production Designer",
+      "company": "Al Burman / Mark Burnett"
+    },
+    {
+      "title": "Need To Know",
+      "year": 2010,
+      "type": "Series",
+      "role": "Production Designer",
+      "network": "WNET (PBS)"
+    },
+    {
+      "title": "WNET/WLIW Television Studio at Lincoln Center",
+      "year": 2010,
+      "type": "Broadcast studio",
+      "role": "Production Designer",
+      "network": "WNET/WLIW (PBS)"
+    },
+    {
+      "title": "ABC Upfront",
+      "year": 2009,
+      "type": "Network upfront",
+      "role": "Production Designer",
+      "network": "ABC Entertainment"
+    },
+    {
+      "title": "The Celebrity Apprentice \u2014 Season Finale",
+      "year": 2009,
+      "type": "TV Special",
+      "role": "Production Designer",
+      "company": "Al Burman / Mark Burnett"
+    },
+    {
+      "title": "The List",
+      "year": 2009,
+      "type": "News/feature series",
+      "role": "Production Designer",
+      "network": "ABC News"
+    },
+    {
+      "title": "We Are One: Lincoln Memorial Inauguration Concert",
+      "year": 2009,
+      "type": "TV Special",
+      "role": "Production Designer",
+      "network": "HBO Productions"
+    },
+    {
+      "title": "Worldfocus",
+      "year": 2009,
+      "type": "Series",
+      "role": "Production Designer",
+      "network": "WNET (PBS)"
+    },
+    {
+      "title": "ABC Election Coverage",
+      "year": 2008,
+      "type": "TV Special",
+      "role": "Production Designer",
+      "network": "ABC News"
+    },
+    {
+      "title": "Focus Earth with Bob Woodruff",
+      "year": 2008,
+      "type": "Series",
+      "role": "Production Designer",
+      "network": "Discovery Planet Green / ABC News"
+    },
+    {
+      "title": "Philadelphia Democratic Presidential Debate",
+      "year": 2008,
+      "type": "TV Special / debate",
+      "role": "Production Designer",
+      "network": "ABC News"
+    },
+    {
+      "title": "This Week with George Stephanopoulos",
+      "year": 2008,
+      "type": "Series",
+      "role": "Production Designer",
+      "network": "ABC News"
+    },
+    {
+      "title": "Super Tuesday Coverage",
+      "year": 2008,
+      "type": "TV Special",
+      "role": "Production Designer",
+      "network": "ABC News"
+    },
+    {
+      "title": "The Celebrity Apprentice \u2014 Live Season Finale",
+      "year": 2008,
+      "type": "TV Special",
+      "role": "Production Designer",
+      "company": "Al Burman / Mark Burnett"
+    },
+    {
+      "title": "Iowa Democratic Presidential Debate",
+      "year": 2008,
+      "type": "TV Special / debate",
+      "role": "Production Designer",
+      "network": "ABC News"
+    },
+    {
+      "title": "Close Encounter",
+      "year": 2008,
+      "type": "PBS special",
+      "role": "Production Designer",
+      "network": "PBS"
+    },
+    {
+      "title": "Iowa Republican Presidential Debate",
+      "year": 2008,
+      "type": "TV Special / debate",
+      "role": "Production Designer",
+      "network": "ABC News"
+    },
+    {
+      "title": "One Night: Two Parties (New Hampshire Presidential Debates)",
+      "year": 2008,
+      "type": "TV Special",
+      "role": "Production Designer",
+      "network": "ABC News"
+    },
+    {
+      "title": "20/20",
+      "year": 2007,
+      "type": "Series",
+      "role": "Production Designer",
+      "network": "ABC News"
+    },
+    {
+      "title": "Entertainment Tonight \u2014 Holiday Special",
+      "year": 2007,
+      "type": "TV Special",
+      "role": "Production Designer"
+    },
+    {
+      "title": "James Taylor: One Man Band (broadcast & DVD)",
+      "year": 2007,
+      "type": "TV Special / concert",
+      "role": "Production Designer",
+      "company": "Don Mischer Productions"
+    },
+    {
+      "title": "Nightline",
+      "year": 2007,
+      "type": "Series",
+      "role": "Production Designer",
+      "network": "ABC News"
+    },
+    {
+      "title": "State of the Union Address",
+      "year": 2007,
+      "type": "TV Special",
+      "role": "Production Designer",
+      "network": "ABC News"
     }
   ],
-  "awards": [
+  "art_direction_credits": [
     {
-      "name": "Primetime Emmy Award for Outstanding Art Direction for Variety or Nonfiction Programming",
-      "organization": "Television Academy",
-      "year": 2012,
-      "work": "65th Tony Awards",
+      "title": "The Tony Awards",
+      "years": [
+        "2007",
+        "2008",
+        "2009",
+        "2010",
+        "2012"
+      ],
+      "role": "Art Director",
+      "company": "White Cherry Entertainment / CBS"
+    },
+    {
+      "title": "Entertainment Tonight: The Insider",
+      "year": 2008,
       "role": "Art Director"
     },
     {
-      "name": "Primetime Emmy nomination for Outstanding Art Direction for Variety, Music or Nonfiction Programming",
-      "organization": "Television Academy",
-      "year": 2010,
-      "work": "63rd Tony Awards",
-      "role": "Art Director"
+      "title": "6 Degrees of Martina McBride",
+      "year": 2007,
+      "role": "Art Director",
+      "network": "ABC Entertainment"
     },
     {
-      "name": "Trade / industry recognition",
-      "organization": "NewscastStudio, Variety, PLSN, LDG",
-      "year": "2020–2025",
-      "work": "ABC studio overhauls, election-night environments",
-      "role": "Production Designer"
+      "title": "ABC Upfront",
+      "year": 2007,
+      "role": "Art Director",
+      "network": "ABC Entertainment"
+    },
+    {
+      "title": "World News Tonight",
+      "year": 2008,
+      "role": "Associate Designer",
+      "network": "ABC News"
+    },
+    {
+      "title": "Good Morning America",
+      "year": 2006,
+      "role": "Associate Designer",
+      "network": "ABC News"
     }
   ],
   "style_and_approach": [
@@ -259,7 +663,7 @@
   "future_alignment": [
     {
       "target_role": "Head of Creative / Events & Experiential (brand / tech / media)",
-      "why": "Portfolio shows delivery of large, LED-based, high-visibility environments on non-negotiable timelines; directly parallels 2025 Apple Events & Experiential posting."
+      "why": "Portfolio shows delivery of large, LED-based, high-visibility environments on non-negotiable timelines."
     },
     {
       "target_role": "VP / Senior Creative Director, Broadcast or Studio",
@@ -268,16 +672,12 @@
   ],
   "sources": [
     {
-      "label": "IMDb — Seth Easter",
+      "label": "IMDb \u2014 Seth Easter",
       "url": "https://www.imdb.com/name/nm3267837/"
     },
     {
-      "label": "Television Academy — Seth Easter",
+      "label": "Television Academy \u2014 Seth Easter",
       "url": "https://www.televisionacademy.com/bios/seth-easter"
-    },
-    {
-      "label": "NewscastStudio — Seth Easter Design",
-      "url": "https://www.newscaststudio.com/designers/seth-easter-design/"
     }
   ]
 }
