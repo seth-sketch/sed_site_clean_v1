@@ -6,10 +6,10 @@
   <title>Press & Awards — Seth Easter Design</title>
   <link rel="stylesheet" href="/assets/styles.css?v=v2"/>
 </head>
-<body>
+<body id="press-page">
   <header class="header">
     <div class="container nav">
-      <a href="/" class="brand"><img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="SED"></a>
+      <a href="/" class="brand"><img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="SED"/></a>
       <ul class="nav-links" id="topNav">
         <li><a href="/work/">Work</a></li>
         <li><a href="/press/">Press &amp; Awards</a></li>
@@ -19,12 +19,18 @@
   </header>
 
   <main class="container">
-    <section class="section"><h2>Press</h2><ul id="pressList" class="list"></ul></section>
-    <section class="section"><h2>Awards</h2><ul id="awardsList" class="list"></ul></section>
+    <section class="section">
+      <h2>Press</h2>
+      <ul id="pressList" class="list"><li class="subtle">Loading…</li></ul>
+    </section>
+    <section class="section">
+      <h2>Awards</h2>
+      <ul id="awardsList" class="list"><li class="subtle">Loading…</li></ul>
+    </section>
   </main>
 
   <footer class="footer-site">© Seth Easter.</footer>
 
-  <script src="/js/press.js?v=fix21" defer></script>
+  <script src="/js/press.js?v=fix23" defer></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 (function(){
   const qp = new URLSearchParams(location.search);
   const slug = qp.get('slug') || '';
+
   const titleEl = document.getElementById('projTitle');
   const metaEl  = document.getElementById('projMeta');
   const descEl  = document.getElementById('projDesc');
@@ -31,7 +32,7 @@
       description: raw.description || ''
     };
   }
-  function h(t,a={},...k){const e=document.createElement(t);Object.entries(a).forEach(([k2,v])=>k2==='class'?e.className=v:k2==='html'?e.innerHTML=v:e.setAttribute(k2,v));k.flat().forEach(c=>{if(c==null)return;typeof c==='string'?e.appendChild(document.createTextNode(c)):e.appendChild(c)});return e;}
+  function h(t,a={},...k){const e=document.createElement(t);Object.entries(a).forEach(([kk,v])=>kk==='class'?e.className=v:kk==='html'?e.innerHTML=v:e.setAttribute(kk,v));k.flat().forEach(c=>{if(c==null)return;typeof c==='string'?e.appendChild(document.createTextNode(c)):e.appendChild(c)});return e;}
   async function loadJSON(u){ const r=await fetch(u+(u.includes('?')?'&':'?')+'v='+Date.now()); if(!r.ok) throw new Error(r.status); return r.json(); }
 
   function renderMain(item){
@@ -40,34 +41,35 @@
     metaEl.textContent = meta;
     descEl.textContent = item.description || '';
 
-    // primary viewer -> first media
-    viewer.innerHTML='';
+    // show first media IN-PAGE (no lightbox yet)
     openInViewer(item, 0);
 
-    // strip of all media images (videos appear with a play icon)
+    // thumbs strip (scrollable)
     strip.innerHTML='';
     item.media.forEach((m,i)=>{
       const thumbSrc = m.type==='image' ? m.src :
         'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80"><rect width="120" height="80" fill="%23000"/><polygon points="45,25 45,55 75,40" fill="%23fff"/></svg>';
       const t = h('img',{src:thumbSrc,alt:m.alt||('Item '+(i+1))});
       if(i===0) t.classList.add('active');
-      t.addEventListener('click',()=>{ openInViewer(item,i); });
+      t.addEventListener('click',()=> openInViewer(item,i));
       strip.appendChild(t);
     });
   }
+
   function openInViewer(item, idx){
     const m = item.media[idx];
     if(!m) return;
     current.item=item; current.index=idx;
     viewer.innerHTML='';
     Array.from(strip.children).forEach((img,i)=> img.classList.toggle('active', i===idx));
+
     if(m.type==='video'){
       const v=h('video',{src:m.src,controls:true,playsinline:true}); v.style.maxHeight='70vh'; viewer.appendChild(v);
     } else {
-      const img=h('img',{src:m.src,alt:m.alt||item.title}); viewer.appendChild(img);
+      viewer.appendChild(h('img',{src:m.src,alt:m.alt||item.title}));
     }
-    // click viewer to open lightbox
-    viewer.onclick=()=>openLB(item, idx);
+    // Only when the user taps the main viewer do we open the full-screen lightbox
+    viewer.onclick=()=> openLB(item, idx);
   }
 
   function openLB(item, idx){ current.item=item; current.index=idx; renderLB(); lb.classList.add('open'); document.body.style.overflow='hidden'; }
