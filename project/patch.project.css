@@ -25,3 +25,26 @@
 #proj-lightbox .lb-prev,#proj-lightbox .lb-next{top:50%;transform:translateY(-50%)}
 #proj-lightbox .lb-prev{left:16px}
 #proj-lightbox .lb-next{right:16px}
+/* === Full-bleed hero on project page === */
+#project-page .viewer {
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: #000;
+}
+
+/* Break out of .container and span the full viewport width */
+#project-page .viewer.full-bleed {
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Make media fill width while preserving aspect */
+#project-page .viewer img,
+#project-page .viewer video {
+  width: 100%;
+  height: auto;
+  max-height: none;
+  display: block;
+}
