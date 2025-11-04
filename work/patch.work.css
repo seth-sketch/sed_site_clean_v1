@@ -2,7 +2,17 @@
 #work-page { --work-accent:#3abff8; }
 .work-card{border:1px solid #2a2a2a;border-radius:16px;overflow:hidden;background:#111216}
 .thumbs{display:grid;gap:2px;grid-template-columns:repeat(3,1fr)}
-.thumb{aspect-ratio:16/9;width:100%;object-fit:cover;display:block;background:#0e0f12;cursor:pointer}
+/* Show the whole image inside the 16:9 tile (letterboxes if needed) */
+.thumb{
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  object-fit: contain;   /* << no crop */
+  object-position: center center;
+  display: block;
+  background: #000;      /* gives a clean letterbox */
+  cursor: pointer;
+}
 .body{padding:14px}
 .meta{color:#9aa0a6;font-size:13px;margin-top:4px}
 .extra-thumbs{display:flex;gap:6px;overflow:auto;padding:8px;border-top:1px dashed #2a2a2a}
