@@ -1,16 +1,24 @@
 
 #work-page { --work-accent:#3abff8; }
-.work-card{border:1px solid #2a2a2a;border-radius:16px;overflow:hidden;background:#111216}
-.thumbs{display:grid;gap:2px;grid-template-columns:repeat(3,1fr)}
-/* Show the whole image inside the 16:9 tile (letterboxes if needed) */
-.thumb{
+
+.work-card{ border:1px solid #2a2a2a; border-radius:16px; overflow:hidden; background:#111216; }
+.thumbs{ display:grid; gap:2px; grid-template-columns:repeat(3,1fr); }
+
+/* Show the whole image inside the 16:9 tile (no crop) */
+.extra-thumbs img{
+  height: 64px;
+  width: auto;
+  object-fit: contain;
+  background:#000;
+  border-radius:8px;
+}
   aspect-ratio: 16 / 9;
   width: 100%;
   height: auto;
-  object-fit: contain;   /* << no crop */
-  object-position: center center;
   display: block;
-  background: #000;      /* gives a clean letterbox */
+  background: #000;               /* clean letterbox */
+  object-fit: contain;            /* no crop */
+  object-position: center center;
   cursor: pointer;
 }
 .body{padding:14px}
