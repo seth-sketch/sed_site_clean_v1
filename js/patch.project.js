@@ -28,6 +28,7 @@
   const metaEl  = byId('projMeta')  || h('div',{id:'projMeta',class:'subtle'});
   const descEl  = byId('projDesc')  || h('div',{id:'projDesc',class:'meta'});
   let viewer    = byId('projViewer'); if(!viewer){ viewer=h('div',{id:'projViewer',class:'viewer'}); (document.querySelector('main')||document.body).appendChild(viewer); }
+viewer.classList.add('full-bleed');  
   let strip     = byId('projStrip');  if(!strip){ strip = h('div',{id:'projStrip',class:'strip'}); (document.querySelector('main')||document.body).appendChild(strip); }
 
   // Lightbox (add-only)
