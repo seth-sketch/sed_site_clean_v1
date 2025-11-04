@@ -21,7 +21,16 @@
     };
   }
 
-  // mount lightbox (add-only)
+  const main = $('main') || document.body;
+  let container = byId('workGrid') || $('.work-grid', main);
+  if (!container) {
+    const section = byId('work') || $('.section', main) || main;
+    const host = $('.container', main) || section;
+    container = h('div',{id:'workGrid',class:'work-grid'});
+    host.appendChild(container);
+  }
+
+  // Lightbox
   let lb = byId('work-lightbox');
   if(!lb){
     lb = h('div',{id:'work-lightbox',class:'lb','aria-hidden':'true'}, h('div',{class:'lb-main'},
@@ -93,8 +102,6 @@
   }
 
   (async function(){
-    const container = byId('workGrid') || ($('#homeScroller .grid') || $('.grid'));
-    if(!container) return;
     let list = await fetchJSON('/assets/work.json').catch(()=>[]);
     list = (Array.isArray(list)?list:[]).map(normalizeItem);
     container.innerHTML='';
