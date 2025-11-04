@@ -1,60 +1,41 @@
-/* CSS Docu/* Scope EVERYTHING under #work-page to avoid leaking styles site-wide */
-#work-page :root { --work-accent: #3abff8; } /* set to your exact blue if needed */
+/* Only affects the Work page */
+#work-page { --work-accent:#3abff8; }
 
-#work-page .work-wrap { max-width: 1200px; margin: 0 auto; padding: 24px; }
-#work-page .work-header { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom: 12px; }
-#work-page .work-title { font-size: 28px; margin: 0; }
-#work-page .work-footer { margin-top:24px; border-top:1px solid #2a2a2a; padding-top:16px; }
+#work-page .work-wrap{padding-top:12px}
+#work-page .work-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+#work-page .work-card{border:1px solid #2a2a2a;border-radius:16px;overflow:hidden;background:#111216}
+#work-page .thumbs{display:grid;gap:2px;grid-template-columns:repeat(3,1fr)}
+#work-page .thumb{aspect-ratio:16/9;width:100%;object-fit:cover;display:block;background:#0e0f12;cursor:pointer}
+#work-page .body{padding:14px}
+#work-page .meta{color:#9aa0a6;font-size:13px;margin-top:4px}
 
-#work-page .work-grid { display:grid; gap:16px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
-#work-page .work-card { border:1px solid #2a2a2a; border-radius:16px; overflow:hidden; background:#111216; }
-#work-page .work-card .thumbs { display:grid; grid-template-columns: repeat(3, 1fr); gap:2px; }
-#work-page .work-card .thumbs .thumb { aspect-ratio: 16/9; width:100%; object-fit:cover; display:block; background:#0e0f12; cursor:pointer; }
-#work-page .work-card .body { padding:14px; }
-#work-page .work-card .meta { color:#9aa0a6; font-size: 13px; margin-top: 4px; }
+#work-page .extra-thumbs{display:flex;gap:6px;overflow:auto;padding:8px;border-top:1px dashed #2a2a2a}
+#work-page .extra-thumbs img{height:64px;width:auto;border-radius:8px;cursor:pointer;opacity:.9}
+#work-page .extra-thumbs img:hover{opacity:1;transform:translateY(-1px)}
 
-#work-page .extra-thumbs { display:flex; gap:6px; overflow:auto; padding:8px; border-top:1px dashed #2a2a2a; }
-#work-page .extra-thumbs img { height:64px; width:auto; border-radius:8px; cursor:pointer; opacity:.9; }
-#work-page .extra-thumbs img:hover { opacity:1; transform: translateY(-1px); }
+/* Lightbox */
+#work-lightbox.lb{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;z-index:1000}
+#work-lightbox.lb.open{display:grid;grid-template-rows:1fr auto}
+#work-lightbox .lb-main{position:relative;display:flex;align-items:center;justify-content:center;padding:20px}
+#work-lightbox .lb-main img,#work-lightbox .lb-main video{max-width:100%;max-height:100%;border-radius:12px;box-shadow:0 0 0 1px rgba(255,255,255,.08)}
+#work-lightbox .lb-strip{display:flex;gap:8px;overflow:auto;padding:10px 16px 16px;border-top:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.4)}
+#work-lightbox .lb-strip img{height:64px;border-radius:8px;cursor:pointer;opacity:.7}
+#work-lightbox .lb-strip img.active{opacity:1;outline:2px solid var(--work-accent)}
 
-/* Lightbox – scope by ID */
-#work-lightbox.lb { position: fixed; inset: 0; background: rgba(0,0,0,.9); display: none; z-index: 1000; }
-#work-lightbox.lb.open { display: grid; grid-template-rows: 1fr auto; }
-
-#work-lightbox .lb-main { position: relative; display:flex; align-items:center; justify-content:center; padding: 20px; }
-#work-lightbox .lb-main img,
-#work-lightbox .lb-main video { max-width: 100%; max-height: 100%; border-radius: 12px; box-shadow: 0 0 0 1px rgba(255,255,255,.08) }
-
-#work-lightbox .lb-strip { display:flex; gap:8px; overflow:auto; padding: 10px 16px 16px; border-top: 1px solid rgba(255,255,255,.08); background: rgba(0,0,0,.4); }
-#work-lightbox .lb-strip img { height: 64px; border-radius:8px; cursor:pointer; opacity:.7; }
-#work-lightbox .lb-strip img.active { opacity:1; outline: 2px solid var(--work-accent); }
-
-#work-lightbox .lb-close,
-#work-lightbox .lb-prev,
-#work-lightbox .lb-next { position: absolute; top: 16px; background: rgba(0,0,0,.6);
-  border: 1px solid rgba(255,255,255,.2); color: #eaeaea; border-radius: 999px; padding: 10px 12px; cursor:pointer; }
-#work-lightbox .lb-close { right: 16px; }
-#work-lightbox .lb-prev, #work-lightbox .lb-next { top: 50%; transform: translateY(-50%); }
-#work-lightbox .lb-prev { left: 16px; }
-#work-lightbox .lb-next { right: 16px; }
-
-/* Big BLUE scrollbar on thumb strips ONLY (not global) */
-#work-page .extra-thumbs,
-#work-lightbox .lb-strip {
-  scrollbar-width: auto;
-  scrollbar-color: var(--work-accent) #111216;
+#work-lightbox .lb-close,#work-lightbox .lb-prev,#work-lightbox .lb-next{
+  position:absolute;top:16px;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.2);color:#eaeaea;border-radius:999px;padding:10px 12px;cursor:pointer
 }
-#work-page .extra-thumbs::-webkit-scrollbar,
-#work-lightbox .lb-strip::-webkit-scrollbar { height: 12px; }
-#work-page .extra-thumbs::-webkit-scrollbar-track,
-#work-lightbox .lb-strip::-webkit-scrollbar-track { background: #111216; }
-#work-page .extra-thumbs::-webkit-scrollbar-thumb,
-#work-lightbox .lb-strip::-webkit-scrollbar-thumb {
-  background-color: var(--work-accent); border-radius: 10px; border: 2px solid #0f1012;
+#work-lightbox .lb-close{right:16px}
+#work-lightbox .lb-prev,#work-lightbox .lb-next{top:50%;transform:translateY(-50%)}
+#work-lightbox .lb-prev{left:16px}
+#work-lightbox .lb-next{right:16px}
+
+/* BLUE scrollbar on strips (not global) */
+#work-page .extra-thumbs,#work-lightbox .lb-strip{scrollbar-width:auto;scrollbar-color:var(--work-accent)#111216}
+#work-page .extra-thumbs::-webkit-scrollbar,#work-lightbox .lb-strip::-webkit-scrollbar{height:12px}
+#work-page .extra-thumbs::-webkit-scrollbar-track,#work-lightbox .lb-strip::-webkit-scrollbar-track{background:#111216}
+#work-page .extra-thumbs::-webkit-scrollbar-thumb,#work-lightbox .lb-strip::-webkit-scrollbar-thumb{background-color:var(--work-accent);border-radius:10px;border:2px solid #0f1012}
+
+@media (max-width:640px){
+  #work-lightbox .lb-strip img,#work-page .extra-thumbs img{height:56px}
 }
-
-@media (max-width: 640px) {
-  #work-page .work-title { font-size: 22px; }
-  #work-lightbox .lb-strip img, #work-page .extra-thumbs img { height: 56px; }
-}ment */
-

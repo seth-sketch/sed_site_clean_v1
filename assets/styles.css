@@ -85,5 +85,10 @@ body {
   img, video, iframe {
     max-width: 100%;
     height: auto;
-  }
+  }/* Optional: global blue scrollbar */
+:root { --accent-blue: #3abff8; }
+* { scrollbar-width: auto; scrollbar-color: var(--accent-blue) #111216; }
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: #111216; }
+::-webkit-scrollbar-thumb { background-color: var(--accent-blue); border-radius: 10px; border: 2px solid #0f1012; }
 }
