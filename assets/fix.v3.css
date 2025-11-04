@@ -1,0 +1,110 @@
+/* ===== Shared page-safe fixes ===== */
+
+/* ---- Project page: hero within container, no crop ---- */
+#projViewer{
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  background: #000;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh; /* nice stage before first image loads */
+}
+#projViewer img,
+#projViewer video{
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;   /* show entire image/video */
+  display: block;
+}
+#projStrip{
+  display: flex;
+  gap: 8px;
+  overflow: auto;
+  margin-top: 10px;
+  padding-bottom: 4px;
+}
+#projStrip img{
+  width: auto;
+  height: 80px;
+  object-fit: contain;
+  background: #000;
+  border-radius: 8px;
+  opacity: .9;
+  cursor: pointer;
+}
+#projStrip img.active{ outline: 2px solid #3abff8; opacity: 1; }
+
+/* Optional lightbox (project) */
+#lbV3{ position:fixed; inset:0; background:rgba(0,0,0,.92); display:none; z-index:1000; }
+#lbV3.open{ display:grid; grid-template-rows:1fr auto; }
+#lbV3 .main{ position:relative; display:flex; align-items:center; justify-content:center; padding:20px; }
+#lbV3 img, #lbV3 video{ max-width:100%; max-height:100%; object-fit:contain; border-radius:12px; box-shadow:0 0 0 1px rgba(255,255,255,.08); background:#000; }
+#lbV3 .strip{ display:flex; gap:8px; overflow:auto; padding:10px 16px 16px; border-top:1px solid rgba(255,255,255,.08); background:rgba(0,0,0,.35); }
+#lbV3 .strip img{ height:64px; border-radius:8px; cursor:pointer; opacity:.7; background:#000; object-fit:contain; }
+#lbV3 .strip img.active{ opacity:1; outline:2px solid #3abff8; }
+#lbV3 .x, #lbV3 .prev, #lbV3 .next{
+  position:absolute; top:16px; background:rgba(0,0,0,.6);
+  border:1px solid rgba(255,255,255,.25); color:#eee;
+  border-radius:999px; padding:10px 12px; cursor:pointer;
+}
+#lbV3 .x{ right:16px; }
+#lbV3 .prev, #lbV3 .next{ top:50%; transform:translateY(-50%); }
+#lbV3 .prev{ left:16px; }  #lbV3 .next{ right:16px; }
+
+/* ---- Work page: grid with no-crop cards ---- */
+#work { --work-accent:#3abff8; }
+
+#work #workGrid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap:16px;
+}
+
+#work .work-card{
+  border:1px solid #2a2a2a;
+  border-radius:16px;
+  overflow:hidden;
+  background:#111216;
+}
+
+#work .thumbs{
+  display:grid;
+  gap:2px;
+  grid-template-columns:repeat(3, 1fr);
+}
+
+/* Show the WHOLE image inside tiles (letterbox on black) */
+#work .work-card img.thumb{
+  aspect-ratio:16/9;
+  width:100%;
+  height:auto;
+  object-fit:contain !important;
+  object-position:center;
+  display:block;
+  background:#000;
+  cursor:pointer;
+}
+
+/* Meta */
+#work .work-card .body{ padding:14px; }
+#work .work-card .meta{ color:#9aa0a6; font-size:13px; margin-top:4px; }
+
+/* Optional extra thumbs row per card */
+#work .extra-thumbs{
+  display:flex; gap:6px; overflow:auto; padding:8px; border-top:1px dashed #2a2a2a;
+  scrollbar-width:auto; scrollbar-color:var(--work-accent) #111216;
+}
+#work .extra-thumbs::-webkit-scrollbar{ height:12px }
+#work .extra-thumbs::-webkit-scrollbar-track{ background:#111216 }
+#work .extra-thumbs::-webkit-scrollbar-thumb{
+  background-color:var(--work-accent); border-radius:10px; border:2px solid #0f1012;
+}
+#work .extra-thumbs img{
+  height:64px; width:auto; border-radius:8px;
+  object-fit:contain; background:#000; cursor:pointer;
+}/* CSS Document */
+
