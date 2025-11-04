@@ -23,14 +23,25 @@
     };
   }
 
-  // hook into existing containers or create them
-  const titleEl = byId('projTitle') || $('h2') || h('h2',{id:'projTitle'});
+  // find container
+  const main = $('main') || document.body;
+  const container = $('.container', main) || main;
+
+  // title/meta/desc
+  const titleEl = byId('projTitle') || $('h2', container) || h('h2',{id:'projTitle'});
   const metaEl  = byId('projMeta')  || h('div',{id:'projMeta',class:'subtle'});
   const descEl  = byId('projDesc')  || h('div',{id:'projDesc',class:'meta'});
-  let viewer    = byId('projViewer'); if(!viewer){ viewer=h('div',{id:'projViewer',class:'viewer'}); (document.querySelector('main')||document.body).appendChild(viewer); }
-  let strip     = byId('projStrip');  if(!strip){ strip = h('div',{id:'projStrip',class:'strip'}); (document.querySelector('main')||document.body).appendChild(strip); }
+  if (!titleEl.parentNode) container.prepend(titleEl);
+  if (!metaEl.parentNode)  titleEl.insertAdjacentElement('afterend', metaEl);
+  if (!descEl.parentNode)  metaEl.insertAdjacentElement('afterend', descEl);
 
-  // Lightbox (add-only)
+  // viewer/strip inside same container so width matches site bounds
+  let viewer = byId('projViewer');
+  if (!viewer){ viewer = h('div',{id:'projViewer', class:'viewer'}); container.appendChild(viewer); }
+  let strip  = byId('projStrip');
+  if (!strip){ strip = h('div',{id:'projStrip', class:'strip', 'aria-label':'Thumbnails'}); container.appendChild(strip); }
+
+  // Lightbox
   let lb = byId('proj-lightbox');
   if(!lb){
     lb = h('div',{id:'proj-lightbox',class:'lb','aria-hidden':'true'}, h('div',{class:'lb-main'},
@@ -79,7 +90,7 @@
     current.item=item; current.index=idx;
     viewer.innerHTML='';
     Array.from(strip.children).forEach((img,i)=> img.classList.toggle('active', i===idx));
-    if(m.type==='video'){ const v=h('video',{src:m.src,controls:true,playsinline:true}); v.style.maxHeight='70vh'; viewer.appendChild(v); }
+    if(m.type==='video'){ const v=h('video',{src:m.src,controls:true,playsinline:true}); viewer.appendChild(v); }
     else { viewer.appendChild(h('img',{src:m.src,alt:m.alt||item.title})); }
     viewer.onclick=()=> openLB(item, idx);
   }
@@ -90,13 +101,10 @@
     const item = list.find(d => (d.id===slug || d.slug===slug || d.id===decodeURIComponent(slug))) || list[0];
     if(!item){ return; }
 
-    // Put basic meta
-    if(titleEl && !titleEl.parentNode) (document.querySelector('main')||document.body).prepend(titleEl);
-    if(metaEl && !metaEl.parentNode) titleEl.insertAdjacentElement('afterend', metaEl);
-    if(descEl && !descEl.parentNode) metaEl.insertAdjacentElement('afterend', descEl);
-    titleEl.textContent = item.title || 'Project';
+    // Meta
     const meta = [item.role, item.client, item.year||''].filter(Boolean).join(' • ');
-    metaEl.textContent = meta;
+    titleEl.textContent = item.title || 'Project';
+    metaEl.textContent  = meta;
     descEl.textContent  = item.description || '';
 
     // Thumbs

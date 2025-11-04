@@ -10,7 +10,7 @@
   const pressEl  = byId('pressList') || byId('press-List') || $('#pressLinks') || $('.press-links') || $('.press-list');
   const awardsEl = byId('awardsList') || $('#awardsList') || $('#awards') || $('.awards-list');
 
-  if (!pressEl && !awardsEl) return; // nothing to render into
+  if (!pressEl && !awardsEl) return;
 
   (async function(){
     const press  = await loadFirst(['/assets/press.json','/assets/press-home.json','/assets/data/press.json']);
