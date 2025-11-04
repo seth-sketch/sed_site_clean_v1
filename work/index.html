@@ -1,14 +1,12 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Favicon (tab / some search surfaces) -->
+  <!-- Favicon -->
   <link rel="icon" href="/assets/icons/favicon-32.png" sizes="32x32">
   <link rel="icon" href="/assets/icons/favicon-192.png" sizes="192x192">
-
-  <!-- Apple / iPhone icon (home screen, some previews) -->
+  <!-- Apple -->
   <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" sizes="180x180">
-
-  <!-- Social / link previews -->
+  <!-- Social -->
   <meta property="og:image" content="https://setheasterdesign.com/assets/icons/social-card.png">
   <meta property="og:title" content="Seth Easter Design">
   <meta property="og:site_name" content="Seth Easter Design">
@@ -17,14 +15,11 @@
   <meta name="viewport" content="width=device-width,initial-scale=1, viewport-fit=cover"/>
   <title>Work — Seth Easter Design</title>
 
-  <!-- your global styles -->
   <link rel="stylesheet" href="/assets/styles.css?v=v2"/>
-
-  <!-- scoped styles just for the Work page -->
-  <link rel="stylesheet" href="/assets/work.css?v=v1"/>
+  <!-- Scoped page CSS -->
+  <link rel="stylesheet" href="/assets/work.css?v=recover1"/>
 </head>
 <body id="work-page">
-  <!-- keep your splash -->
   <div id="splash" class="splash"><img src="/assets/sed-logo-tight.svg" alt="Loading"/></div>
 
   <header class="header">
@@ -41,21 +36,15 @@
   <main class="container work-wrap">
     <section class="section" id="work">
       <h2>Selected Work</h2>
-
-      <!-- grid renders from /assets/work.json -->
       <div class="scroller" id="homeScroller">
-        <div id="workGrid" class="work-grid"></div>
-        <div id="gridSentinel" style="height:1px"></div>
+        <div id="workGrid" class="work-grid">
+          <noscript>Please enable JavaScript to view the gallery.</noscript>
+        </div>
       </div>
-    </section>
-
-    <!-- socials placeholder; we’ll wire IG/LinkedIn later -->
-    <section class="section">
-      <div id="social" class="row subtle">Social links coming soon…</div>
     </section>
   </main>
 
-  <!-- fullscreen lightbox (scoped) -->
+  <!-- Fullscreen lightbox (scoped, inert until opened) -->
   <div id="work-lightbox" class="lb" aria-hidden="true" role="dialog" aria-label="Fullscreen viewer">
     <div class="lb-main">
       <button id="work-lb-prev" class="lb-prev" aria-label="Previous">‹</button>
@@ -66,10 +55,9 @@
     <div id="work-lb-strip" class="lb-strip" aria-label="Thumbnails"></div>
   </div>
 
-  <!-- keep your splash logic -->
+  <!-- Your splash script stays -->
   <script src="/js/splash.js?v=fix16" defer></script>
-
-  <!-- work page logic (renders JSON, lightbox, swipe) -->
-  <script src="/js/work.js?v=v2" defer></script>
+  <!-- Work page logic -->
+  <script src="/js/work.js?v=recover1" defer></script>
 </body>
 </html>
