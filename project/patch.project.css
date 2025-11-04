@@ -47,4 +47,35 @@
   height: auto;
   max-height: none;
   display: block;
+	
+}
+/* === Project hero: contained to page bounds, centered, no crop === */
+#project-page .viewer {
+  width: 100%;
+  max-width: 100%;            /* respect your .container width */
+  margin: 0 auto;
+  background: #000;
+  border: none;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;           /* keeps a nice stage on load */
+}
+
+#project-page .viewer img,
+#project-page .viewer video {
+  width: 100%;
+  height: auto;               /* preserves aspect ratio */
+  max-height: 80vh;           /* good on laptops/phones */
+  object-fit: contain;        /* show the WHOLE image, no cropping */
+  display: block;
+}
+
+/* Thumbs under the hero should also avoid cropping */
+#project-page .strip img {
+  width: auto;
+  height: 80px;
+  object-fit: contain;        /* avoid cutting edges on tall/wide thumbs */
+  background: #000;
 }
