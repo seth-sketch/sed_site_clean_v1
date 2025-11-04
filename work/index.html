@@ -4,44 +4,57 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Work</title>
+
+  <!-- your existing site styles -->
   <link rel="stylesheet" href="/assets/styles.css?v=v2"/>
+
+  <!-- new, scoped styles for the work page (scrollbar, cards, lightbox) -->
   <link rel="stylesheet" href="/assets/work.css?v=v1"/>
+  <meta name="robots" content="index,follow"/>
 </head>
 <body>
-<header class="header">
-  <div class="container nav">
-    <a href="/" class="brand"><img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="SED"/></a>
-    <ul class="nav-links" id="topNav">
-      <li><a href="/work/">Work</a></li>
-      <li><a href="/press/">Press &amp; Awards</a></li>
-      <li><a href="/cv/">CV</a></li>
-      <li><a href="/contact/">Contact</a></li>
-    </ul>
+  <!-- header mirrors your current structure -->
+  <header class="header">
+    <div class="container nav">
+      <a href="/" class="brand">
+        <img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="SED"/>
+      </a>
+      <ul class="nav-links" id="topNav">
+        <li><a href="/work/">Work</a></li>
+        <li><a href="/press/">Press &amp; Awards</a></li>
+        <li><a href="/cv/">CV</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="work-wrap">
+    <div class="work-header">
+      <h1 class="work-title">Selected Work</h1>
+      <div class="subtle">Tap any thumbnail for fullscreen • Swipe / ← → to navigate</div>
+    </div>
+
+    <!-- grid renders from /assets/work.json via /js/work.js -->
+    <section id="workGrid" class="work-grid" aria-live="polite"></section>
+
+    <!-- socials placeholder; we’ll wire these once your IG/LinkedIn are ready -->
+    <footer style="margin-top:24px; border-top:1px solid #2a2a2a; padding-top:16px;">
+      <div id="social" class="row subtle">Social links coming soon…</div>
+    </footer>
+  </main>
+
+  <!-- fullscreen lightbox -->
+  <div id="lightbox" class="lb" aria-hidden="true" role="dialog" aria-label="Fullscreen viewer">
+    <div class="lb-main">
+      <button class="lb-prev" aria-label="Previous">‹</button>
+      <div id="lbContent"></div>
+      <button class="lb-next" aria-label="Next">›</button>
+      <button class="lb-close" aria-label="Close">✕</button>
+    </div>
+    <div id="lbStrip" class="lb-strip" aria-label="Thumbnails"></div>
   </div>
-</header>
 
-<main class="work-wrap">
-  <div class="work-header">
-    <h1 class="work-title">Selected Work</h1>
-    <div class="subtle">Click any thumbnail for fullscreen</div>
-  </div>
-  <section id="workGrid" class="work-grid" aria-live="polite"></section>
-
-  <footer style="margin-top:24px; border-top:1px solid #2a2a2a; padding-top:16px;">
-    <div id="social" class="row subtle">Social links coming soon…</div>
-  </footer>
-</main>
-
-<div id="lightbox" class="lb" aria-hidden="true" role="dialog">
-  <div class="lb-main">
-    <button class="lb-prev" aria-label="Previous">‹</button>
-    <div id="lbContent"></div>
-    <button class="lb-next" aria-label="Next">›</button>
-    <button class="lb-close" aria-label="Close">✕</button>
-  </div>
-  <div id="lbStrip" class="lb-strip" aria-label="Thumbnails"></div>
-</div>
-
-<script src="/js/work.js?v=v1" defer></script>
+  <!-- work page logic (renders from /assets/work.json, handles lightbox/swipe) -->
+  <script src="/js/work.js?v=v1" defer></script>
 </body>
 </html>
