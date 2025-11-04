@@ -1,69 +1,98 @@
-
 (function(){
   'use strict';
+
+  // Guard: don't run twice if accidentally included twice
+  if (window.__WORK_PATCH_LOADED__) return; window.__WORK_PATCH_LOADED__ = true;
+
   function $(sel,scope){ return (scope||document).querySelector(sel); }
-  function byId(id){ return document.getElementById(id); }
-  function h(t,a={},...k){const e=document.createElement(t);Object.entries(a).forEach(([kk,v])=>kk==='class'?e.className=v:kk==='html'?e.innerHTML=v:e.setAttribute(kk,v));k.flat().forEach(c=>{if(c==null)return;typeof c==='string'?e.appendChild(document.createTextNode(c)):e.appendChild(c)});return e;}
-  function fetchJSON(u){ return fetch(u+(u.includes('?')?'&':'?')+'v='+Date.now(),{cache:'no-store'}).then(r=>r.json()); }
-  function fixPath(p){ if(!p) return p; if(/^https?:\/\//i.test(p)||p.startsWith('/')) return p; return '/' + p.replace(/^\/+/, ''); }
-  function normalizeItem(raw, idx){
+  function h(t,a={},...kids){
+    const el=document.createElement(t);
+    Object.entries(a).forEach(([k,v])=> k==='class'? (el.className=v) : k==='html'? (el.innerHTML=v) : el.setAttribute(k,v));
+    kids.flat().forEach(c=> c==null ? 0 : (typeof c==='string' ? el.appendChild(document.createTextNode(c)) : el.appendChild(c)));
+    return el;
+  }
+  const qs = (sel,root=document)=> Array.from(root.querySelectorAll(sel));
+  const fix = p => (!p? p : (/^https?:\/\//i.test(p)||p.startsWith('/') ? p : '/'+p.replace(/^\/+/,'')));
+
+  async function fetchJSON(u){
+    const r = await fetch(u+(u.includes('?')?'&':'?')+'v='+Date.now(), {cache:'no-store'});
+    return r.json();
+  }
+
+  function normalize(raw, i){
+    const gallery = Array.isArray(raw.gallery) ? raw.gallery.map(fix) : [];
+    const media = Array.isArray(raw.media) && raw.media.length
+      ? raw.media.map(m => m && m.type ? ({...m, src:fix(m.src)}) : ({type:'image', src:fix(m)}))
+      : gallery.map(src => ({type:'image', src}));
     return {
-      id: raw.id || raw.slug || `item-${idx+1}`,
+      id: raw.id || raw.slug || `item-${i+1}`,
       title: raw.title || '',
       client: raw.client || '',
       role: raw.role || '',
       year: Number(raw.year || 0),
-      cover: fixPath(raw.cover),
-      thumbs: (raw.thumbs?.length ? raw.thumbs : (raw.gallery||[])).map(fixPath),
-      media: (raw.media?.length ? raw.media.map(m => (m.type? {...m,src:fixPath(m.src)} : {type:'image',src:fixPath(m)}))
-                                 : (raw.gallery||[]).map(src=>({type:'image',src:fixPath(src)}))),
+      cover: fix(raw.cover),
+      thumbs: Array.isArray(raw.thumbs) && raw.thumbs.length ? raw.thumbs.map(fix) : gallery,
+      media,
       description: raw.description || ''
     };
   }
 
+  // Choose a container that exists on /work/
   const main = $('main') || document.body;
-  let container = byId('workGrid') || $('.work-grid', main);
-  if (!container) {
-    const section = byId('work') || $('.section', main) || main;
-    const host = $('.container', main) || section;
-    container = h('div',{id:'workGrid',class:'work-grid'});
-    host.appendChild(container);
+  const section = $('#work') || main;
+  let grid = $('#workGrid') || $('.work-grid', section) || $('.grid', section);
+  if (!grid){
+    const host = $('.container', section) || section;
+    grid = h('div',{id:'workGrid', class:'work-grid'});
+    host.appendChild(grid);
   }
 
-  // Lightbox
-  let lb = byId('work-lightbox');
-  if(!lb){
-    lb = h('div',{id:'work-lightbox',class:'lb','aria-hidden':'true'}, h('div',{class:'lb-main'},
-      h('button',{id:'work-lb-prev',class:'lb-prev','aria-label':'Previous'},'‹'),
-      h('div',{id:'work-lb-content'}),
-      h('button',{id:'work-lb-next',class:'lb-next','aria-label':'Next'},'›'),
-      h('button',{id:'work-lb-close',class:'lb-close','aria-label':'Close'},'✕')
-    ), h('div',{id:'work-lb-strip',class:'lb-strip'}));
+  // Lightbox (single instance)
+  let lb = $('#work-lightbox');
+  if (!lb){
+    lb = h('div',{id:'work-lightbox', class:'lb', 'aria-hidden':'true'},
+      h('div',{class:'lb-main'},
+        h('button',{id:'work-lb-prev',class:'lb-prev','aria-label':'Previous'},'‹'),
+        h('div',{id:'work-lb-content'}),
+        h('button',{id:'work-lb-next',class:'lb-next','aria-label':'Next'},'›'),
+        h('button',{id:'work-lb-close',class:'lb-close','aria-label':'Close'},'✕')
+      ),
+      h('div',{id:'work-lb-strip',class:'lb-strip'})
+    );
     document.body.appendChild(lb);
   }
-  const ctn   = byId('work-lb-content');
-  const strip = byId('work-lb-strip');
-  const btnX  = byId('work-lb-close');
-  const btnP  = byId('work-lb-prev');
-  const btnN  = byId('work-lb-next');
+  const lbc = $('#work-lb-content'),
+        lbs = $('#work-lb-strip'),
+        btnX= $('#work-lb-close'),
+        btnP= $('#work-lb-prev'),
+        btnN= $('#work-lb-next');
+
   let current = { item:null, index:0 };
 
   function openLB(item, idx){ current.item=item; current.index=idx; renderLB(); lb.classList.add('open'); document.body.style.overflow='hidden'; }
-  function closeLB(){ lb.classList.remove('open'); ctn.innerHTML=''; strip.innerHTML=''; document.body.style.overflow=''; }
-  function prev(){ if(!current.item) return; current.index=(current.index-1+current.item.media.length)%current.item.media.length; renderLB(); }
-  function next(){ if(!current.item) return; current.index=(current.index+1)%current.item.media.length; renderLB(); }
+  function closeLB(){ lb.classList.remove('open'); lbc.innerHTML=''; lbs.innerHTML=''; document.body.style.overflow=''; }
+  function prev(){ if(!current.item) return; current.index = (current.index - 1 + current.item.media.length) % current.item.media.length; renderLB(); }
+  function next(){ if(!current.item) return; current.index = (current.index + 1) % current.item.media.length; renderLB(); }
+
   function renderLB(){
-    const media=current.item.media||[]; const m=media[current.index];
-    ctn.innerHTML='';
-    if(!m){ ctn.textContent='No media'; return; }
-    if(m.type==='video'){ const v=h('video',{src:m.src,controls:true,playsinline:true}); v.style.maxHeight='80vh'; ctn.appendChild(v); }
-    else { ctn.appendChild(h('img',{src:m.src,alt:m.alt||current.item.title})); }
-    strip.innerHTML='';
+    const media = current.item.media || [];
+    const m = media[current.index];
+    lbc.innerHTML = '';
+    if (!m){ lbc.textContent = 'No media'; return; }
+    if (m.type === 'video'){
+      const v = h('video',{src:m.src,controls:true,playsinline:true});
+      lbc.appendChild(v);
+    } else {
+      lbc.appendChild(h('img',{src:m.src,alt:m.alt||current.item.title}));
+    }
+    lbs.innerHTML = '';
     media.forEach((it,i)=>{
-      const thumbSrc = it.type==='image'? it.src :
+      const thumbSrc = it.type==='image' ? it.src :
         'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80"><rect width="120" height="80" fill="%23000"/><polygon points="45,25 45,55 75,40" fill="%23fff"/></svg>';
-      const t=h('img',{src:thumbSrc,alt:it.alt||('Item '+(i+1))}); if(i===current.index) t.classList.add('active');
-      t.addEventListener('click',()=>{ current.index=i; renderLB(); }); strip.appendChild(t);
+      const t = h('img',{src:thumbSrc,alt:it.alt||('Item '+(i+1))});
+      if (i===current.index) t.classList.add('active');
+      t.addEventListener('click',()=>{ current.index=i; renderLB(); });
+      lbs.appendChild(t);
     });
   }
   btnX.addEventListener('click', closeLB);
@@ -71,40 +100,44 @@
   btnN.addEventListener('click', next);
   lb.addEventListener('click', e=>{ if(e.target===lb) closeLB(); });
 
-  function createThumb(src, alt, onClick){
+  function cardThumb(src, alt, onClick){
     const img = h('img',{src,alt:alt||'thumb',class:'thumb',loading:'lazy'});
     img.addEventListener('click', onClick);
-    img.addEventListener('error', ()=> img.style.opacity = 0.2);
+    img.addEventListener('error', ()=> img.style.opacity = 0.25);
     return img;
   }
-  function renderCard(item, openLightbox){
+
+  function renderCard(item){
     const card = h('article',{class:'work-card'});
-    const imgList = (item.thumbs && item.thumbs.length) ? item.thumbs : (item.media||[]).filter(m=>m.type==='image').map(m=>m.src);
-    const first3 = imgList.slice(0,3);
-    const rest   = imgList.slice(3);
+    const allImgs = (item.thumbs && item.thumbs.length) ? item.thumbs : item.media.filter(m=>m.type==='image').map(m=>m.src);
+    const first3 = allImgs.slice(0,3);
+    const rest   = allImgs.slice(3);
 
     const grid3 = h('div',{class:'thumbs'});
-    first3.forEach((src, idx)=> grid3.appendChild(createThumb(src, item.title+' '+(idx+1), ()=> openLightbox(item, idx))));
+    first3.forEach((src, i)=> grid3.appendChild(cardThumb(src, `${item.title} ${i+1}`, ()=> openLB(item, i))));
     card.appendChild(grid3);
-    if(rest.length){
+
+    if (rest.length){
       const extra = h('div',{class:'extra-thumbs'});
-      rest.forEach((src, idx)=> extra.appendChild(createThumb(src, item.title+' '+(idx+4), ()=> openLightbox(item, idx+3))));
+      rest.forEach((src, i)=> extra.appendChild(cardThumb(src, `${item.title} ${i+4}`, ()=> openLB(item, i+3))));
       card.appendChild(extra);
     }
-    const metaLine = [item.role, item.client, item.year || ''].filter(Boolean).join(' • ');
+
+    const meta = [item.role, item.client, item.year || ''].filter(Boolean).join(' • ');
     const body = h('div',{class:'body'},
-      metaLine ? h('div',{class:'kicker'}, metaLine) : null,
+      meta ? h('div',{class:'kicker'}, meta) : null,
       h('h3',{}, item.title || ''),
       item.description ? h('div',{class:'meta'}, item.description) : null
     );
     card.appendChild(body);
+
     return card;
   }
 
   (async function(){
     let list = await fetchJSON('/assets/work.json').catch(()=>[]);
-    list = (Array.isArray(list)?list:[]).map(normalizeItem);
-    container.innerHTML='';
-    list.forEach(item => container.appendChild(renderCard(item, (it, idx)=> openLB(it, idx))));
+    list = Array.isArray(list) ? list.map(normalize) : [];
+    grid.innerHTML='';
+    list.forEach(item => grid.appendChild(renderCard(item)));
   })();
 })();
