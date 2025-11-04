@@ -1,33 +1,75 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- Favicon (tab / some search surfaces) -->
+  <link rel="icon" href="/assets/icons/favicon-32.png" sizes="32x32">
+  <link rel="icon" href="/assets/icons/favicon-192.png" sizes="192x192">
+
+  <!-- Apple / iPhone icon (home screen, some previews) -->
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" sizes="180x180">
+
+  <!-- Social / link previews -->
+  <meta property="og:image" content="https://setheasterdesign.com/assets/icons/social-card.png">
+  <meta property="og:title" content="Seth Easter Design">
+  <meta property="og:site_name" content="Seth Easter Design">
+
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1, viewport-fit=cover"/>
   <title>Work — Seth Easter Design</title>
-  <link rel="stylesheet" href="/assets/styles.css?v=fix16"/>
+
+  <!-- your global styles -->
+  <link rel="stylesheet" href="/assets/styles.css?v=v2"/>
+
+  <!-- scoped styles just for the Work page -->
+  <link rel="stylesheet" href="/assets/work.css?v=v1"/>
 </head>
-<body>
+<body id="work-page">
+  <!-- keep your splash -->
+  <div id="splash" class="splash"><img src="/assets/sed-logo-tight.svg" alt="Loading"/></div>
+
   <header class="header">
     <div class="container nav">
-      <a href="/" class="brand"><img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="SED"></a>
-      <ul class="nav-links">
-        <li><a class="active" href="/work/">Work</a></li>
+      <a href="/" class="brand"><img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="SED"/></a>
+      <ul class="nav-links" id="topNav">
+        <li><a href="/work/">Work</a></li>
         <li><a href="/press/">Press &amp; Awards</a></li>
+        <li><a href="/cv.html">CV</a></li>
       </ul>
     </div>
   </header>
 
-  <main class="container">
-    <section class="section">
-      <h2>All Work</h2>
-      <div class="scroller" id="workScroller">
-        <div id="workGrid" class="grid"></div>
+  <main class="container work-wrap">
+    <section class="section" id="work">
+      <h2>Selected Work</h2>
+
+      <!-- grid renders from /assets/work.json -->
+      <div class="scroller" id="homeScroller">
+        <div id="workGrid" class="work-grid"></div>
         <div id="gridSentinel" style="height:1px"></div>
       </div>
     </section>
+
+    <!-- socials placeholder; we’ll wire IG/LinkedIn later -->
+    <section class="section">
+      <div id="social" class="row subtle">Social links coming soon…</div>
+    </section>
   </main>
 
-  <footer class="footer-site">© Seth Easter.</footer>
-  <script src="/js/home-grid.js?v=fix16" defer></script>
+  <!-- fullscreen lightbox (scoped) -->
+  <div id="work-lightbox" class="lb" aria-hidden="true" role="dialog" aria-label="Fullscreen viewer">
+    <div class="lb-main">
+      <button id="work-lb-prev" class="lb-prev" aria-label="Previous">‹</button>
+      <div id="work-lb-content"></div>
+      <button id="work-lb-next" class="lb-next" aria-label="Next">›</button>
+      <button id="work-lb-close" class="lb-close" aria-label="Close">✕</button>
+    </div>
+    <div id="work-lb-strip" class="lb-strip" aria-label="Thumbnails"></div>
+  </div>
+
+  <!-- keep your splash logic -->
+  <script src="/js/splash.js?v=fix16" defer></script>
+
+  <!-- work page logic (renders JSON, lightbox, swipe) -->
+  <script src="/js/work.js?v=v2" defer></script>
 </body>
 </html>
