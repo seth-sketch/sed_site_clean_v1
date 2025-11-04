@@ -1,12 +1,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Favicon -->
+  <!-- Favicons / social (yours) -->
   <link rel="icon" href="/assets/icons/favicon-32.png" sizes="32x32">
   <link rel="icon" href="/assets/icons/favicon-192.png" sizes="192x192">
-  <!-- Apple -->
   <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" sizes="180x180">
-  <!-- Social -->
   <meta property="og:image" content="https://setheasterdesign.com/assets/icons/social-card.png">
   <meta property="og:title" content="Seth Easter Design">
   <meta property="og:site_name" content="Seth Easter Design">
@@ -16,15 +14,17 @@
   <title>Work — Seth Easter Design</title>
 
   <link rel="stylesheet" href="/assets/styles.css?v=v2"/>
-  <!-- Scoped page CSS -->
-  <link rel="stylesheet" href="/assets/work.css?v=recover1"/>
+  <!-- Work-only CSS -->
+  <link rel="stylesheet" href="/assets/work.css?v=fix21"/>
+  <!-- Fallback so overlay is hidden even if CSS doesn’t load -->
+  <style>#work-lightbox.lb{display:none}</style>
 </head>
 <body id="work-page">
-  <div id="splash" class="splash"><img src="/assets/sed-logo-tight.svg" alt="Loading"/></div>
+  <div id="splash" class="splash"><img src="/assets/sed-logo-tight.svg" alt="Loading"></div>
 
   <header class="header">
     <div class="container nav">
-      <a href="/" class="brand"><img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="SED"/></a>
+      <a href="/" class="brand"><img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="SED"></a>
       <ul class="nav-links" id="topNav">
         <li><a href="/work/">Work</a></li>
         <li><a href="/press/">Press &amp; Awards</a></li>
@@ -37,14 +37,13 @@
     <section class="section" id="work">
       <h2>Selected Work</h2>
       <div class="scroller" id="homeScroller">
-        <div id="workGrid" class="work-grid">
-          <noscript>Please enable JavaScript to view the gallery.</noscript>
-        </div>
+        <div id="workGrid" class="work-grid"></div>
+        <div id="gridSentinel" style="height:1px"></div>
       </div>
     </section>
   </main>
 
-  <!-- Fullscreen lightbox (scoped, inert until opened) -->
+  <!-- Lightbox -->
   <div id="work-lightbox" class="lb" aria-hidden="true" role="dialog" aria-label="Fullscreen viewer">
     <div class="lb-main">
       <button id="work-lb-prev" class="lb-prev" aria-label="Previous">‹</button>
@@ -55,9 +54,7 @@
     <div id="work-lb-strip" class="lb-strip" aria-label="Thumbnails"></div>
   </div>
 
-  <!-- Your splash script stays -->
   <script src="/js/splash.js?v=fix16" defer></script>
-  <!-- Work page logic -->
-  <script src="/js/work.js?v=recover1" defer></script>
+  <script src="/js/work.js?v=fix21" defer></script>
 </body>
 </html>

@@ -1,52 +1,44 @@
 (async function(){
-  const awardsEl = document.getElementById('awardsList');
-  const pressEl  = document.getElementById('pressList');
+  const pressEl = document.getElementById('pressList');
+  const awardsEl= document.getElementById('awardsList');
 
   async function loadJSON(url){
-    try{
-      const r = await fetch(url + (url.includes('?')?'&':'?') + 'v=' + Date.now());
-      if(!r.ok) throw new Error(r.status + ' ' + r.statusText);
-      return await r.json();
-    }catch(e){
-      console.warn('load fail', url, e);
-      return [];
+    const r = await fetch(url + (url.includes('?')?'&':'?') + 'v=' + Date.now());
+    if(!r.ok) throw new Error(r.status + ' ' + r.statusText);
+    return r.json();
+  }
+  function li(html){ const li=document.createElement('li'); li.innerHTML=html; return li; }
+
+  try {
+    // adjust filenames if yours differ
+    const press   = await loadJSON('/assets/press.json').catch(()=>[]);
+    const awards  = await loadJSON('/assets/awards.json').catch(()=>[]);
+
+    // Press items: {title, source, url, date}
+    if(Array.isArray(press) && press.length){
+      pressEl.innerHTML='';
+      press.forEach(p=>{
+        const d = p.date ? ` <span class="subtle">(${p.date})</span>` : '';
+        const s = p.source ? ` — <span class="subtle">${p.source}</span>` : '';
+        pressEl.appendChild(li(`<a href="${p.url}" target="_blank" rel="noopener">${p.title||'Article'}</a>${s}${d}`));
+      });
+    } else {
+      pressEl.innerHTML = '<li class="subtle">No press items found.</li>';
     }
-  }
 
-  function li(html){ const li = document.createElement('li'); li.innerHTML = html; return li; }
-
-  // Awards: allow ["Title (Year)"] or [{title, year, link}]
-  const awards = await loadJSON('/assets/awards.json');
-  if (Array.isArray(awards) && awards.length){
-    awards.forEach(a=>{
-      if (typeof a === 'string'){
-        awardsEl.appendChild(li(a));
-      } else {
-        const t = [a.title, a.year].filter(Boolean).join(' • ');
-        const html = a.link ? `<a href="${a.link}" target="_blank" rel="noopener">${t}</a>` : t;
-        awardsEl.appendChild(li(html));
-      }
-    });
-  } else {
-    awardsEl.appendChild(li('<span class="meta">No awards found.</span>'));
-  }
-
-  // Press: allow [{title, outlet/source, date, url/link}] or ["..."]
-  const press = await loadJSON('/assets/press.json');
-  if (Array.isArray(press) && press.length){
-    press.forEach(p=>{
-      if (typeof p === 'string'){
-        pressEl.appendChild(li(p));
-      } else {
-        const outlet = p.outlet || p.source || '';
-        const date = p.date ? ` • ${p.date}` : '';
-        const label = [p.title, outlet].filter(Boolean).join(' — ') + date;
-        const url = p.url || p.link;
-        const html = url ? `<a href="${url}" target="_blank" rel="noopener">${label}</a>` : label;
-        pressEl.appendChild(li(html));
-      }
-    });
-  } else {
-    pressEl.appendChild(li('<span class="meta">No press found.</span>'));
+    // Awards: {year, title, organization}
+    if(Array.isArray(awards) && awards.length){
+      awardsEl.innerHTML='';
+      awards.forEach(a=>{
+        const org = a.organization ? ` — <span class="subtle">${a.organization}</span>` : '';
+        awardsEl.appendChild(li(`<strong>${a.year||''}</strong> ${a.title||''}${org}`));
+      });
+    } else {
+      awardsEl.innerHTML = '<li class="subtle">No awards listed.</li>';
+    }
+  } catch (e) {
+    pressEl.innerHTML  = '<li>Could not load press.json</li>';
+    awardsEl.innerHTML = '<li>Could not load awards.json</li>';
+    console.error(e);
   }
 })();

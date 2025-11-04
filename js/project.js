@@ -1,114 +1,106 @@
-(function () {
-  "use strict";
-  var PH="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'><rect width='16' height='9' fill='%23f0f0f0'/></svg>";
+(function(){
+  const qp = new URLSearchParams(location.search);
+  const slug = qp.get('slug') || '';
+  const titleEl = document.getElementById('projTitle');
+  const metaEl  = document.getElementById('projMeta');
+  const descEl  = document.getElementById('projDesc');
+  const viewer  = document.getElementById('projViewer');
+  const strip   = document.getElementById('projStrip');
 
-  function $(s){ return document.querySelector(s); }
-  function pick(a){ for (var i=0;i<a.length;i++){ var el=$(a[i]); if(el) return el; } return null; }
+  const lb     = document.getElementById('proj-lightbox');
+  const lbc    = document.getElementById('proj-lb-content');
+  const lbs    = document.getElementById('proj-lb-strip');
+  const btnX   = document.getElementById('proj-lb-close');
+  const btnP   = document.getElementById('proj-lb-prev');
+  const btnN   = document.getElementById('proj-lb-next');
 
-  function getSlug(){
-    var s=null;
-    if(location.search.indexOf("slug=")!==-1){
-      var q=location.search.slice(1).split("&");
-      for(var i=0;i<q.length;i++){
-        var kv=q[i].split("=");
-        if(decodeURIComponent(kv[0])==="slug"){
-          s=decodeURIComponent(kv[1]||"").trim(); break;
-        }
-      }
-    }
-    if(!s){
-      var m = location.pathname.match(/\/work\/([^\/]+)\.html$/);
-      s = m? m[1] : null;
-    }
-    return s;
+  let current = { item:null, index:0 };
+
+  function fixPath(p){ if(!p) return p; if(/^https?:\/\//i.test(p)||p.startsWith('/')) return p; return '/' + p.replace(/^\/+/, ''); }
+  function normalizeItem(raw, idx){
+    return {
+      id: raw.id || raw.slug || `item-${idx+1}`,
+      title: raw.title || '',
+      client: raw.client || '',
+      role: raw.role || '',
+      year: Number(raw.year || 0),
+      cover: fixPath(raw.cover),
+      thumbs: (raw.thumbs?.length ? raw.thumbs : (raw.gallery||[])).map(fixPath),
+      media: (raw.media?.length ? raw.media.map(m => (m.type? {...m,src:fixPath(m.src)} : {type:'image',src:fixPath(m)}))
+                                 : (raw.gallery||[]).map(src=>({type:'image',src:fixPath(src)}))),
+      description: raw.description || ''
+    };
   }
+  function h(t,a={},...k){const e=document.createElement(t);Object.entries(a).forEach(([k2,v])=>k2==='class'?e.className=v:k2==='html'?e.innerHTML=v:e.setAttribute(k2,v));k.flat().forEach(c=>{if(c==null)return;typeof c==='string'?e.appendChild(document.createTextNode(c)):e.appendChild(c)});return e;}
+  async function loadJSON(u){ const r=await fetch(u+(u.includes('?')?'&':'?')+'v='+Date.now()); if(!r.ok) throw new Error(r.status); return r.json(); }
 
-  function slugify(x){
-    return String(x||"").toLowerCase()
-      .replace(/[\u2013\u2014]/g,"-")
-      .replace(/[^a-z0-9]+/g,"-")
-      .replace(/^-+|-+$/g,"");
-  }
+  function renderMain(item){
+    titleEl.textContent = item.title || 'Project';
+    const meta = [item.role, item.client, item.year||''].filter(Boolean).join(' • ');
+    metaEl.textContent = meta;
+    descEl.textContent = item.description || '';
 
-  function j(u){ return fetch(u,{cache:"no-store"}).then(function(r){ if(!r.ok) throw 0; return r.json(); }); }
-  function load(cb){
-    var bases=["/assets/work.json","./assets/work.json","../assets/work.json"];
-    (function next(i){ if(i>=bases.length) return cb([]); j(bases[i]+"?v="+Date.now()).then(function(d){ cb(Array.isArray(d)?d:[]); }).catch(function(){ next(i+1); }); })(0);
-  }
+    // primary viewer -> first media
+    viewer.innerHTML='';
+    openInViewer(item, 0);
 
-  function ratio(src){ return '<span class="ratio-169"><img src="'+(src||PH)+'" alt=""></span>'; }
-  function findThumb(el){ while(el && el!==document.body){ if(el.classList && el.classList.contains("thumb")) return el; el=el.parentNode; } return null; }
-
-  function normalize(list){
-    for (var i=0;i<list.length;i++){
-      var it=list[i];
-      if (it.cover && it.cover.charAt(0)!="/") it.cover="/"+it.cover.replace(/^\/+/,"");
-      if (it.gallery && it.gallery.length){
-        for (var g=0; g<it.gallery.length; g++){
-          var p=it.gallery[g];
-          it.gallery[g] = (p.charAt(0)==="/" ? p : "/"+p.replace(/^\/+/,""));
-        }
-      }
-    }
-    return list;
-  }
-
-  function pickItem(list, want){
-    if(!list || !list.length) return { item:null, idx:0 };
-    var q = slugify(want||"");
-    for (var i=0;i<list.length;i++){
-      if (slugify(list[i].slug)===q || slugify(list[i].title)===q) return { item:list[i], idx:i };
-    }
-    return { item:list[0], idx:0 }; // fallback
-  }
-
-  function render(item, idx, list){
-    var hero   = pick(['[data-project="hero"]','#projectHero','.project-hero']);
-    var title  = pick(['[data-project="title"]','h1','.project-title']);
-    var meta   = pick(['[data-project="meta"]','.project-meta']);
-    var thumbs = pick(['[data-project="thumbs"]','#projectThumbs','.project-thumbs']);
-
-    if (title) title.textContent = (item && item.title) || "Project";
-    if (meta)  meta.textContent  = item ? [item.client,item.year,item.role].filter(Boolean).join(" · ") : "";
-
-    var firstSrc = item && (item.cover || (item.gallery && item.gallery[0]));
-    if (hero)  hero.innerHTML    = ratio(firstSrc);
-
-    if (thumbs && item && item.gallery && item.gallery.length){
-      var t=""; for (var g=0; g<item.gallery.length; g++)
-        t+='<button class="thumb" data-src="'+item.gallery[g]+'"><img loading="lazy" src="'+item.gallery[g]+'" alt=""></button>';
-      thumbs.innerHTML = t;
-      thumbs.addEventListener("click", function(e){
-        var btn = findThumb(e.target); if(!btn) return;
-        var src = btn.getAttribute("data-src");
-        if (hero) hero.innerHTML = ratio(src);
-        try { window.scrollTo({ top: 0, behavior: "smooth" }); } catch(_) { window.scrollTo(0,0); }
-      });
-    } else if (thumbs){ thumbs.innerHTML=""; }
-
-    var back = pick(['[data-project="back"]','.project-back']); if (back) back.href="/work/";
-
-    var next = pick(['[data-project="next"]','.project-next']);
-    if (next && list && list.length){
-      var n = list[(idx+1)%list.length];
-      next.href = n.slug ? ("/project.html?slug="+encodeURIComponent(n.slug)) : "/work/";
-      var s = next.querySelector("span"); if (s) s.textContent = n.title || "Next project";
-    }
-
-    document.addEventListener("error", function(e){
-      var img=e.target && e.target.tagName==="IMG" ? e.target : null;
-      if (!img) return; img.src = PH; img.setAttribute("data-ph","1");
-    }, true);
-  }
-
-  function init(){
-    var want = getSlug(); if(!want) return;
-    load(function(list){
-      list = normalize(Array.isArray(list)?list:[]);
-      var sel = pickItem(list, want);
-      render(sel.item, sel.idx, list);
+    // strip of all media images (videos appear with a play icon)
+    strip.innerHTML='';
+    item.media.forEach((m,i)=>{
+      const thumbSrc = m.type==='image' ? m.src :
+        'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80"><rect width="120" height="80" fill="%23000"/><polygon points="45,25 45,55 75,40" fill="%23fff"/></svg>';
+      const t = h('img',{src:thumbSrc,alt:m.alt||('Item '+(i+1))});
+      if(i===0) t.classList.add('active');
+      t.addEventListener('click',()=>{ openInViewer(item,i); });
+      strip.appendChild(t);
     });
   }
+  function openInViewer(item, idx){
+    const m = item.media[idx];
+    if(!m) return;
+    current.item=item; current.index=idx;
+    viewer.innerHTML='';
+    Array.from(strip.children).forEach((img,i)=> img.classList.toggle('active', i===idx));
+    if(m.type==='video'){
+      const v=h('video',{src:m.src,controls:true,playsinline:true}); v.style.maxHeight='70vh'; viewer.appendChild(v);
+    } else {
+      const img=h('img',{src:m.src,alt:m.alt||item.title}); viewer.appendChild(img);
+    }
+    // click viewer to open lightbox
+    viewer.onclick=()=>openLB(item, idx);
+  }
 
-  (document.readyState==="loading") ? document.addEventListener("DOMContentLoaded", init) : init();
+  function openLB(item, idx){ current.item=item; current.index=idx; renderLB(); lb.classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeLB(){ lb.classList.remove('open'); lbc.innerHTML=''; lbs.innerHTML=''; document.body.style.overflow=''; }
+  function renderLB(){
+    const media=current.item.media||[]; const m=media[current.index];
+    lbc.innerHTML='';
+    if(!m){ lbc.textContent='No media'; return; }
+    if(m.type==='video'){ const v=h('video',{src:m.src,controls:true,playsinline:true}); v.style.maxHeight='80vh'; lbc.appendChild(v); }
+    else { lbc.appendChild(h('img',{src:m.src,alt:m.alt||current.item.title})); }
+    lbs.innerHTML='';
+    media.forEach((it,i)=>{
+      const thumbSrc = it.type==='image'? it.src :
+        'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80"><rect width="120" height="80" fill="%23000"/><polygon points="45,25 45,55 75,40" fill="%23fff"/></svg>';
+      const t=h('img',{src:thumbSrc,alt:it.alt||('Item '+(i+1))}); if(i===current.index) t.classList.add('active');
+      t.addEventListener('click',()=>{ current.index=i; renderLB(); }); lbs.appendChild(t);
+    });
+  }
+  function prev(){ if(!current.item) return; current.index=(current.index-1+current.item.media.length)%current.item.media.length; renderLB(); }
+  function next(){ if(!current.item) return; current.index=(current.index+1)%current.item.media.length; renderLB(); }
+
+  btnX.addEventListener('click', closeLB);
+  btnP.addEventListener('click', prev);
+  btnN.addEventListener('click', next);
+  lb.addEventListener('click', e=>{ if(e.target===lb) closeLB(); });
+  document.addEventListener('keydown', e=>{ if(!lb.classList.contains('open')) return; if(e.key==='Escape') closeLB(); if(e.key==='ArrowLeft') prev(); if(e.key==='ArrowRight') next(); });
+  window.addEventListener('pageshow', closeLB);
+
+  document.addEventListener('DOMContentLoaded', async ()=>{
+    let data = await loadJSON('/assets/work.json');
+    data = (Array.isArray(data) ? data : []).map(normalizeItem);
+    const item = data.find(d => (d.id===slug || d.id===decodeURIComponent(slug))) || data[0];
+    if(!item){ titleEl.textContent='Project not found'; return; }
+    renderMain(item);
+  });
 })();
