@@ -5,20 +5,16 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Work</title>
 
-  <!-- your existing site styles -->
-  <link rel="stylesheet" href="/assets/styles.css?v=v2"/>
+  <!-- match your deployed CSS version to be safe -->
+  <link rel="stylesheet" href="/assets/styles.css?v=fix16"/>
 
-  <!-- new, scoped styles for the work page (scrollbar, cards, lightbox) -->
+  <!-- new, scoped styles for this page -->
   <link rel="stylesheet" href="/assets/work.css?v=v1"/>
-  <meta name="robots" content="index,follow"/>
 </head>
 <body>
-  <!-- header mirrors your current structure -->
   <header class="header">
     <div class="container nav">
-      <a href="/" class="brand">
-        <img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="SED"/>
-      </a>
+      <a href="/" class="brand"><img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="SED"/></a>
       <ul class="nav-links" id="topNav">
         <li><a href="/work/">Work</a></li>
         <li><a href="/press/">Press &amp; Awards</a></li>
@@ -31,20 +27,20 @@
   <main class="work-wrap">
     <div class="work-header">
       <h1 class="work-title">Selected Work</h1>
-      <div class="subtle">Tap any thumbnail for fullscreen • Swipe / ← → to navigate</div>
+      <div class="subtle">Click any thumbnail for fullscreen</div>
     </div>
 
-    <!-- grid renders from /assets/work.json via /js/work.js -->
-    <section id="workGrid" class="work-grid" aria-live="polite"></section>
+    <section id="workGrid" class="work-grid" aria-live="polite">
+      <noscript>Please enable JavaScript to view the gallery.</noscript>
+    </section>
 
-    <!-- socials placeholder; we’ll wire these once your IG/LinkedIn are ready -->
     <footer style="margin-top:24px; border-top:1px solid #2a2a2a; padding-top:16px;">
       <div id="social" class="row subtle">Social links coming soon…</div>
     </footer>
   </main>
 
   <!-- fullscreen lightbox -->
-  <div id="lightbox" class="lb" aria-hidden="true" role="dialog" aria-label="Fullscreen viewer">
+  <div id="lightbox" class="lb" aria-hidden="true" role="dialog">
     <div class="lb-main">
       <button class="lb-prev" aria-label="Previous">‹</button>
       <div id="lbContent"></div>
@@ -54,7 +50,7 @@
     <div id="lbStrip" class="lb-strip" aria-label="Thumbnails"></div>
   </div>
 
-  <!-- work page logic (renders from /assets/work.json, handles lightbox/swipe) -->
-  <script src="/js/work.js?v=v1" defer></script>
+  <!-- work logic -->
+  <script src="/js/work.js?v=v2" defer></script>
 </body>
 </html>
