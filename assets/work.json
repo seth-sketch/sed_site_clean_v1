@@ -209,4 +209,40 @@
     ],
     "description": "Live TED discussion format with audience participation."
   }
-]
+]{
+  "slug": "beyonce-4th-of-july-satue-of-liberty",
+  "title": "Beyonce 4th of July Satue of Liberty",
+  "client": "NBC",
+  "year": "2011",
+  "role": "Production Designer",
+  "cover": "assets/work/beyonce-4th-of-july-satue-of-liberty/cover.jpg",
+  "gallery": [
+    "assets/work/beyonce-4th-of-july-satue-of-liberty/1.jpg",
+    "assets/work/beyonce-4th-of-july-satue-of-liberty/2.jpg",
+    "assets/work/beyonce-4th-of-july-satue-of-liberty/3.jpg",
+    "assets/work/beyonce-4th-of-july-satue-of-liberty/4.jpg"
+  ],
+  "description": "Taped performance on a barge built in front of the statue of liberty",
+  "media": [
+    {
+      "type": "image",
+      "src": "assets/work/beyonce-4th-of-july-satue-of-liberty/cover.jpg"
+    },
+    {
+      "type": "image",
+      "src": "assets/work/beyonce-4th-of-july-satue-of-liberty/1.jpg"
+    },
+    {
+      "type": "image",
+      "src": "assets/work/beyonce-4th-of-july-satue-of-liberty/2.jpg"
+    },
+    {
+      "type": "image",
+      "src": "assets/work/beyonce-4th-of-july-satue-of-liberty/3.jpg"
+    },
+    {
+      "type": "image",
+      "src": "assets/work/beyonce-4th-of-july-satue-of-liberty/4.jpg"
+    }
+  ]
+}
