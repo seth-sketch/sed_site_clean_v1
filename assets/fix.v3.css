@@ -1,4 +1,4 @@
-/* ---- PROJECT: keep hero inside page bounds, no crop ---- */
+/* ---- PROJECT (kept from before) ---- */
 #projViewer{
   width:100%; max-width:100%; margin:0 auto;
   background:#000; border-radius:12px;
@@ -18,7 +18,7 @@
 }
 #projStrip img.active{ outline:2px solid #3abff8; opacity:1; }
 
-/* ---- WORK: grid + no-crop thumbs ---- */
+/* ---- WORK ---- */
 #work #workGrid{
   display:grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -27,10 +27,17 @@
 #work .work-card{
   border:1px solid #2a2a2a; border-radius:16px; overflow:hidden; background:#111216;
 }
-#work .thumbs{ display:grid; gap:2px; grid-template-columns:repeat(1,1fr); }
+#work .thumbs{
+  display:grid; gap:2px; grid-template-columns:1fr;
+  position:relative; z-index:1; pointer-events:auto;
+}
+#work .thumbs a{
+  display:block; position:relative; z-index:2; pointer-events:auto; text-decoration:none;
+}
 #work .work-card img.thumb{
   aspect-ratio:16/9; width:100%; height:auto; display:block;
   background:#000; object-fit:contain !important; object-position:center;
+  pointer-events:auto; position:relative; z-index:2;
 }
 #work .work-card .body{ padding:14px; }
 #work .work-card .meta{ color:#9aa0a6; font-size:13px; margin-top:4px; }
