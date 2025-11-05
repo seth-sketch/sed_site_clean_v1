@@ -1,7 +1,7 @@
 /* ---- PROJECT (kept from before) ---- */
 #projViewer{
   width:100%; max-width:100%; margin:0 auto;
-  background:#000; border-radius:12px;
+  background:#000; border-radius:0!important ;
   display:flex; align-items:center; justify-content:center;
   min-height:40vh;
 }
@@ -14,7 +14,7 @@
 }
 #projStrip img{
   height:80px; width:auto; object-fit:contain;
-  background:#000; border-radius:8px; opacity:.9; cursor:pointer;
+  background:#000; border-radius:0!important; opacity:.9; cursor:pointer;
 }
 #projStrip img.active{ outline:2px solid #3abff8; opacity:1; }
 
@@ -25,7 +25,7 @@
   gap:16px;
 }
 #work .work-card{
-  border:1px solid #2a2a2a; border-radius:16px; overflow:hidden; background:#111216;
+  border:1px solid #2a2a2a; border-radius:0!important; overflow:hidden; background:#111216;
 }
 #work .thumbs{
   display:grid; gap:2px; grid-template-columns:1fr;
@@ -94,7 +94,7 @@
 #work .scroller::-webkit-scrollbar-thumb,
 #projStrip::-webkit-scrollbar-thumb {
   background:var(--scroll-thumb);
-  border-radius:10px;
+  border-radius:0!important;
   border:2px solid var(--scroll-track);
 	/* ==== HOME PAGE FIXES (square tops, grey track) ==== */
 
@@ -123,7 +123,112 @@
 #homeScroller::-webkit-scrollbar-track { background: var(--scroll-track) !important; }
 #homeScroller::-webkit-scrollbar-thumb {
   background-color: var(--scroll-thumb) !important;
-  border-radius: 10px;
+  border-radius: 0 !important;
   border: 2px solid var(--scroll-track);
+	/* ===== HOME PAGE: square corners + blue on grey scrollbar ===== */
+
+/* Kill any rounded corners in the home grid */
+#homeGrid .tile,
+#homeGrid .tile * ,
+#homeGrid a.tile,
+#homeGrid .card,
+#homeGrid .card * ,
+#homeGrid .ratio-169,
+#homeGrid .ratio-169 * ,
+#homeGrid img {
+  border-radius: 0 !important;
 }
+
+/* Remove dark backplates behind tiles/media on home */
+#homeScroller,
+#homeGrid,
+#homeGrid .tile,
+#homeGrid .card,
+#homeGrid .media,
+#homeGrid .ratio-169 {
+  background: #fff !important;   /* page white */
+}
+#homeGrid img { background: transparent !important; }
+
+/* Blue scrollbar thumb on GREY track for the home scroller */
+:root { --scroll-thumb:#3abff8; --scroll-track:#e5e7eb; } /* grey-200 */
+
+#homeScroller {
+  background: transparent !important;        /* no black bar behind track */
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+}
+#homeScroller::-webkit-scrollbar { height: 12px; }
+#homeScroller::-webkit-scrollbar-track { background: var(--scroll-track) !important; }
+#homeScroller::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-thumb) !important;
+  border-radius: 0 !important;
+  border: 2px solid var(--scroll-track);
+	/* ===== HOME PAGE — square corners + blue on grey scrollbar ===== */
+
+/* Kill rounded corners on the *images themselves* in the home grid */
+#homeGrid img,
+#homeGrid .tile img,
+#homeGrid .media img,
+#homeGrid .ratio-169 img {
+  border-radius: 0 !important;
+  -webkit-mask: none !important;
+  mask: none !important;
+  clip-path: none !important;
+}
+
+/* Ensure the home scroller shows blue thumb on GREY track (not black) */
+#homeScroller {
+  background: transparent !important;            /* no dark plate behind track */
+  scrollbar-width: thin;
+  scrollbar-color: #3abff8 #e5e7eb;             /* thumb / track for Firefox */
+}
+#homeScroller::-webkit-scrollbar { height: 12px; }
+#homeScroller::-webkit-scrollbar-track { background: #e5e7eb !important; }
+#homeScroller::-webkit-scrollbar-thumb {
+  background-color: #3abff8 !important;
+  border-radius: 0 !important;
+  border: 2px solid #e5e7eb;
+	/* ===== HOME — force square corners on tiles AND images ===== */
+#homeGrid {
+  --radius: 0px;            /* in case your CSS uses a var */
+  --tile-radius: 0px;
+}
+/* Zero radius on every home tile wrapper + overlays + media */
+#homeGrid .tile,
+#homeGrid .tile::before,
+#homeGrid .tile::after,
+#homeGrid a.tile,
+#homeGrid a.tile::before,
+#homeGrid a.tile::after,
+#homeGrid .card,
+#homeGrid .card::before,
+#homeGrid .card::after,
+#homeGrid .media,
+#homeGrid .media::before,
+#homeGrid .media::after,
+#homeGrid .ratio-169,
+#homeGrid .ratio-169::before,
+#homeGrid .ratio-169::after,
+#homeGrid img {
+  border-radius: 0 !important;
+}
+
+/* Make sure no mask/clip keeps the corners rounded */
+#homeGrid .tile,
+#homeGrid .card,
+#homeGrid .media,
+#homeGrid .ratio-169,
+#homeGrid img {
+  -webkit-mask: none !important;
+  mask: none !important;
+  clip-path: none !important;
+}
+
+/* If a wrapper was clipping the image into rounded corners */
+#homeGrid .tile,
+#homeGrid .card,
+#homeGrid .media,
+#homeGrid .ratio-169 {
+  overflow: visible !important;
 }
