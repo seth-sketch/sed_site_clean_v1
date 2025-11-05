@@ -96,4 +96,34 @@
   background:var(--scroll-thumb);
   border-radius:10px;
   border:2px solid var(--scroll-track);
+	/* ==== HOME PAGE FIXES (square tops, grey track) ==== */
+
+/* Make home tiles perfectly square-cornered */
+#homeGrid .tile,
+#homeGrid .tile img,
+#homeGrid a.tile,
+#homeGrid .tile .media,
+#homeGrid .tile::before,
+#homeGrid .tile::after {
+  border-radius: 0 !important;
+}
+
+/* Ensure tile background is white (no dark bleed) */
+#homeGrid .tile { background: #fff !important; }
+
+/* Blue scrollbar thumb on GREY track for the home scroller */
+:root { --scroll-thumb:#3abff8; --scroll-track:#e5e7eb; } /* grey-200 */
+
+#homeScroller {
+  background: transparent !important;  /* kill any dark backdrop */
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+}
+#homeScroller::-webkit-scrollbar { height: 12px; }
+#homeScroller::-webkit-scrollbar-track { background: var(--scroll-track) !important; }
+#homeScroller::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-thumb) !important;
+  border-radius: 10px;
+  border: 2px solid var(--scroll-track);
+}
 }
