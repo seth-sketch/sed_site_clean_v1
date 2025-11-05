@@ -41,3 +41,59 @@
 }
 #work .work-card .body{ padding:14px; }
 #work .work-card .meta{ color:#9aa0a6; font-size:13px; margin-top:4px; }
+/* ===== Seth style hotfix — 2025-11-05 ===== */
+/* Square corners everywhere relevant */
+#homeGrid img,
+#projViewer img, #projViewer video,
+#projStrip img,
+#work .work-card,
+#work .work-card img.thumb { border-radius:0 !important; }
+
+/* Project page: no black surround; use page background */
+#projViewer { background:transparent !important; min-height:0; }
+#projViewer img, #projViewer video {
+  width:100%; height:auto; max-height:80vh;
+  object-fit:contain; background:transparent !important;
+}
+#projStrip img { background:transparent !important; }
+
+/* Work page: white cards, colored type, no black under images */
+#work #workGrid{ gap:16px; }
+#work .work-card{
+  background:#fff !important;
+  border:1px solid #e6e6e6;
+}
+#work .work-card img.thumb{
+  width:100%; height:auto;
+  object-fit:contain;
+  background:transparent !important;   /* kill black tile */
+}
+#work .work-card .body{ color:#111; }
+#work .work-card .kicker{ color:#3abff8; } /* your accent blue */
+
+/* Home tiles: square and on white (removes curved tops) */
+#homeGrid .tile, .tile img { border-radius:0 !important; }
+#homeGrid .tile{ background:#fff; }
+
+/* Scrollbars: blue thumb on light grey track (home + work + project) */
+:root { --scroll-thumb:#3abff8; --scroll-track:#e5e7eb; } /* grey-200 */
+#homeScroller, .scroller, #work .scroller, #projStrip{
+  scrollbar-width:thin;
+  scrollbar-color:var(--scroll-thumb) var(--scroll-track);
+}
+#homeScroller::-webkit-scrollbar,
+.scroller::-webkit-scrollbar,
+#work .scroller::-webkit-scrollbar,
+#projStrip::-webkit-scrollbar { height:12px; }
+#homeScroller::-webkit-scrollbar-track,
+.scroller::-webkit-scrollbar-track,
+#work .scroller::-webkit-scrollbar-track,
+#projStrip::-webkit-scrollbar-track { background:var(--scroll-track); }
+#homeScroller::-webkit-scrollbar-thumb,
+.scroller::-webkit-scrollbar-thumb,
+#work .scroller::-webkit-scrollbar-thumb,
+#projStrip::-webkit-scrollbar-thumb {
+  background:var(--scroll-thumb);
+  border-radius:10px;
+  border:2px solid var(--scroll-track);
+}
