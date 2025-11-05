@@ -15,7 +15,7 @@
   },
   {
     "slug": "this-week-4e",
-    "title": "This Week \u2014 NYC Studio (4E)",
+    "title": "This Week — NYC Studio (4E)",
     "client": "ABC News",
     "year": "2025",
     "role": "Production Designer",
@@ -99,7 +99,7 @@
   },
   {
     "slug": "abc-news-live",
-    "title": "ABC News Live News live",
+    "title": "ABC News Live",
     "client": "ABC News",
     "year": "2024",
     "role": "Production Designer",
@@ -109,7 +109,7 @@
       "assets/work/abc-news-live/2.jpg",
       "assets/work/abc-news-live/3.jpg"
     ],
-    "description": "Abc News live studios."
+    "description": "ABC News Live studios."
   },
   {
     "slug": "dan-abrams-live-newsnation",
@@ -155,7 +155,7 @@
   },
   {
     "slug": "oscars-red-carpet-abc",
-    "title": "Oscars Red Carpet \u2014 ABC",
+    "title": "Oscars Red Carpet — ABC",
     "client": "ABC",
     "year": "2019",
     "role": "Production Designer",
@@ -208,7 +208,7 @@
       "assets/work/ted-live-town-hall/3.jpg"
     ],
     "description": "Live TED discussion format with audience participation."
-   },
+  },
   {
     "slug": "beyonce-4th-of-july-statue-of-liberty-2011",
     "title": "Beyonce 4th of July at the Statue of Liberty",
@@ -223,19 +223,19 @@
       "assets/work/beyonce-4th-of-july-statue-of-liberty-2011/4.jpg"
     ],
     "description": "Taped performance on a barge in front of the Statue of Liberty."
-   },
+  },
   {
-   "slug": "gma-taylor-swift-1989",
-   "title": "Taylor Swift concert for GMA on broadway for GMA",
-   "client": "ABC",
-   "year": "2014",
-   "role": "Production Designer",
-   "cover": "assets/work/gma-taylor-swift-1989/cover.jpg",
-   "gallery": [
-    "assets/work/gma-taylor-swift-1989/1.jpg",
-    "assets/work/gma-taylor-swift-1989/2.jpg",
-    "assets/work/gma-taylor-swift-1989/3.jpg"
-  ],
-  "description": "Good morning America taking over Broadway for a special Taylor Swift show."
- },
-  ], 
+    "slug": "gma-taylor-swift-1989",
+    "title": "Taylor Swift concert for GMA on Broadway",
+    "client": "ABC",
+    "year": "2014",
+    "role": "Production Designer",
+    "cover": "assets/work/gma-taylor-swift-1989/cover.jpg",
+    "gallery": [
+      "assets/work/gma-taylor-swift-1989/1.jpg",
+      "assets/work/gma-taylor-swift-1989/2.jpg",
+      "assets/work/gma-taylor-swift-1989/3.jpg"
+    ],
+    "description": "Good Morning America taking over Broadway for a special Taylor Swift show."
+  }
+]
