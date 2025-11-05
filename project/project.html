@@ -5,39 +5,12 @@
   <meta name="viewport" content="width=device-width,initial-scale=1, viewport-fit=cover"/>
   <title>Project — Seth Easter Design</title>
 
-  <!-- Icons -->
   <link rel="icon" href="/assets/icons/favicon-32.png" sizes="32x32">
   <link rel="icon" href="/assets/icons/favicon-192.png" sizes="192x192">
   <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" sizes="180x180">
 
-  <!-- Your site CSS -->
   <link rel="stylesheet" href="/assets/styles.css?v=v2"/>
-
-  <!-- Minimal project-only CSS (contained hero + thumbs) -->
-  <style>
-    /* keep hero inside page bounds and show whole image/video */
-    #projViewer{
-      width:100%; max-width:100%; margin:0 auto;
-      background:#000; border-radius:12px;
-      display:flex; align-items:center; justify-content:center;
-      min-height:40vh;
-    }
-    #projViewer img, #projViewer video{
-      width:100%; height:auto; max-height:80vh;
-      object-fit:contain; display:block; background:#000;
-    }
-    #projStrip{
-      display:flex; gap:8px; overflow:auto; margin-top:10px; padding-bottom:4px;
-    }
-    #projStrip img{
-      height:80px; width:auto; object-fit:contain;
-      background:#000; border-radius:8px; opacity:.9; cursor:pointer;
-    }
-    #projStrip img.active{ outline:2px solid #3abff8; opacity:1; }
-
-    /* optional: hide any legacy lightbox if it exists in CSS elsewhere */
-    #proj-lightbox.lb{ display:none; }
-  </style>
+  <link rel="stylesheet" href="/assets/fix.v3.css?v=3"/>
 </head>
 <body id="project-page">
   <header class="header">
@@ -51,7 +24,6 @@
     </div>
   </header>
 
-  <!-- SINGLE container with SINGLE set of IDs -->
   <main class="container proj-wrap">
     <section class="section" id="project-shell">
       <h2 id="projTitle">Project</h2>
@@ -61,24 +33,45 @@
       <div id="projStrip" class="strip" aria-label="Thumbnails"></div>
 
       <div id="projDesc" class="meta" style="margin-top:8px"></div>
+
+      <div id="projNotice" class="meta" style="margin-top:12px;color:#9aa0a6;"></div>
     </section>
   </main>
 
-  <!-- Project page logic (inline, no external conflicts) -->
   <script>
   (function(){
     'use strict';
-    if (window.__PROJ_CLEAN__) return; window.__PROJ_CLEAN__ = true;
-
-    const qp=new URLSearchParams(location.search); const slug=qp.get('slug')||'';
+    const qp=new URLSearchParams(location.search);
+    const slug=(qp.get('slug')||'').trim();
     const t=document.getElementById('projTitle'),
           m=document.getElementById('projMeta'),
           v=document.getElementById('projViewer'),
           s=document.getElementById('projStrip'),
-          d=document.getElementById('projDesc');
+          d=document.getElementById('projDesc'),
+          n=document.getElementById('projNotice');
 
     const fix=p=>!p?p:(/^https?:\/\//i.test(p)||p.startsWith('/'))?p:'/'+p.replace(/^\/+/,'');
-    async function getJSON(u){ const r=await fetch(u+(u.includes('?')?'&':'?')+'v='+Date.now(),{cache:'no-store'}); return r.json(); }
+    async function getJSON(u){ const r=await fetch(u+(u.includes('?')?'&':'?')+'v='+Date.now(),{cache:'no-store'}); if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); }
+
+    function openLB(item,idx){
+      const mm=item.media[idx]; if(!mm) return;
+      const wrap=document.createElement('div'); wrap.id='lbV3'; wrap.className='open';
+      wrap.innerHTML='<div class="main"><button class="prev" aria-label="Previous">‹</button><div id="lbV3c"></div><button class="next" aria-label="Next">›</button><button class="x" aria-label="Close">✕</button></div><div class="strip" id="lbV3s"></div>';
+      document.body.appendChild(wrap);
+      const lbc=document.getElementById('lbV3c'), lbs=document.getElementById('lbV3s');
+      function render(i){
+        const m=item.media[i]; lbc.innerHTML='';
+        lbc.appendChild(m.type==='video' ? Object.assign(document.createElement('video'),{src:m.src,controls:true,playsinline:true}) : Object.assign(document.createElement('img'),{src:m.src,alt:item.title||''}));
+        lbs.innerHTML='';
+        item.media.forEach((mm,j)=>{ const ts=mm.type==='image'?mm.src:'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80"><rect width="120" height="80" fill="%23000"/><polygon points="45,25 45,55 75,40" fill="%23fff"/></svg>'; const im=Object.assign(document.createElement('img'),{src:ts}); if(j===i) im.classList.add('active'); im.onclick=()=>render(j); lbs.appendChild(im); });
+        idx=i;
+      }
+      render(idx);
+      wrap.querySelector('.x').onclick=()=>wrap.remove();
+      wrap.querySelector('.prev').onclick=()=>render((idx-1+item.media.length)%item.media.length);
+      wrap.querySelector('.next').onclick=()=>render((idx+1)%item.media.length);
+      wrap.onclick=e=>{ if(e.target===wrap) wrap.remove(); };
+    }
 
     function openInViewer(item, idx){
       const mm=item.media[idx]; if(!mm) return;
@@ -88,28 +81,37 @@
         : Object.assign(document.createElement('img'),  {src:mm.src,alt:item.title||''});
       v.appendChild(el);
       Array.from(s.children).forEach((im,i)=> im.classList.toggle('active', i===idx));
+      v.onclick = ()=> openLB(item, idx);
     }
 
     (async function(){
-      let list = await getJSON('/assets/work.json').catch(()=>[]);
-      if(!Array.isArray(list)) return;
+      let list=[];
+      try { list = await getJSON('/assets/work.json'); } catch(e){
+        n.textContent = 'Could not load /assets/work.json';
+        return;
+      }
+      if(!Array.isArray(list)){ n.textContent='Invalid work.json'; return; }
 
-      // normalize
       const items = list.map((raw,i)=>{
         const gallery = Array.isArray(raw.gallery)? raw.gallery.map(fix) : [];
-        const media = Array.isArray(raw.media)&&raw.media.length
+        const media   = Array.isArray(raw.media)&&raw.media.length
           ? raw.media.map(m=> m&&m.type ? ({...m,src:fix(m.src)}) : ({type:'image',src:fix(m)}))
           : gallery.map(src=>({type:'image',src}));
         return {
           id: raw.id || raw.slug || `item-${i+1}`,
-          slug: raw.slug || raw.id || `item-${i+1}`,
+          slug: (raw.slug||raw.id||'').trim(),
           title: raw.title || '', client: raw.client || '', role: raw.role || '', year: raw.year || '',
           description: raw.description || '', media
         };
       });
 
-      const item = items.find(x=> x.slug===slug || x.id===slug) || items[0];
-      if(!item) return;
+      let item = items.find(x=> x.slug===slug || x.id===slug);
+      if(!item){
+        // Stay on page, tell the user, and offer first item as a default view
+        n.textContent = slug ? `Project “${slug}” not found. Showing first project.` : 'No project specified.';
+        item = items[0];
+        if(!item) return;
+      }
 
       t.textContent = item.title || 'Project';
       m.textContent = [item.role, item.client, item.year].filter(Boolean).join(' • ');
