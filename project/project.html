@@ -4,12 +4,40 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1, viewport-fit=cover"/>
   <title>Project — Seth Easter Design</title>
+
+  <!-- Icons -->
   <link rel="icon" href="/assets/icons/favicon-32.png" sizes="32x32">
   <link rel="icon" href="/assets/icons/favicon-192.png" sizes="192x192">
   <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" sizes="180x180">
+
+  <!-- Your site CSS -->
   <link rel="stylesheet" href="/assets/styles.css?v=v2"/>
-  <link rel="stylesheet" href="/assets/project.css?v=fix23"/>
-  <style>#proj-lightbox.lb{display:none}</style>
+
+  <!-- Minimal project-only CSS (contained hero + thumbs) -->
+  <style>
+    /* keep hero inside page bounds and show whole image/video */
+    #projViewer{
+      width:100%; max-width:100%; margin:0 auto;
+      background:#000; border-radius:12px;
+      display:flex; align-items:center; justify-content:center;
+      min-height:40vh;
+    }
+    #projViewer img, #projViewer video{
+      width:100%; height:auto; max-height:80vh;
+      object-fit:contain; display:block; background:#000;
+    }
+    #projStrip{
+      display:flex; gap:8px; overflow:auto; margin-top:10px; padding-bottom:4px;
+    }
+    #projStrip img{
+      height:80px; width:auto; object-fit:contain;
+      background:#000; border-radius:8px; opacity:.9; cursor:pointer;
+    }
+    #projStrip img.active{ outline:2px solid #3abff8; opacity:1; }
+
+    /* optional: hide any legacy lightbox if it exists in CSS elsewhere */
+    #proj-lightbox.lb{ display:none; }
+  </style>
 </head>
 <body id="project-page">
   <header class="header">
@@ -22,45 +50,83 @@
       </ul>
     </div>
   </header>
-<section class="section" id="project-shell">
-  <h2 id="projTitle"></h2>
-  <div id="projMeta" class="subtle"></div>
-  <div id="projViewer"></div>
-  <div id="projStrip" aria-label="Thumbnails"></div>
-  <div id="projDesc" class="meta"></div>
-</section>
 
-<link rel="stylesheet" href="/assets/fix.v3.css?v=1">
-<script src="/js/project.v3.js?v=1" defer></script>
+  <!-- SINGLE container with SINGLE set of IDs -->
   <main class="container proj-wrap">
-    <section class="section">
+    <section class="section" id="project-shell">
       <h2 id="projTitle">Project</h2>
       <div id="projMeta" class="subtle"></div>
-      <div id="projDesc" class="meta" style="margin-top:8px"></div>
-    </section>
 
-    <section class="section">
       <div id="projViewer" class="viewer"></div>
       <div id="projStrip" class="strip" aria-label="Thumbnails"></div>
+
+      <div id="projDesc" class="meta" style="margin-top:8px"></div>
     </section>
   </main>
 
-  <!-- Lightbox (opens only when you tap the main viewer) -->
-  <div id="proj-lightbox" class="lb" aria-hidden="true">
-    <div class="lb-main">
-      <button id="proj-lb-prev" class="lb-prev" aria-label="Previous">‹</button>
-      <div id="proj-lb-content"></div>
-      <button id="proj-lb-next" class="lb-next" aria-label="Next">›</button>
-      <button id="proj-lb-close" class="lb-close" aria-label="Close">✕</button>
-    </div>
-    <div id="proj-lb-strip" class="lb-strip"></div>
-  </div>
+  <!-- Project page logic (inline, no external conflicts) -->
+  <script>
+  (function(){
+    'use strict';
+    if (window.__PROJ_CLEAN__) return; window.__PROJ_CLEAN__ = true;
 
-  <script src="/js/project.js?v=fix23" defer></script>
-	<link rel="stylesheet" href="/assets/patch.work.css?v=1">
-<script src="/js/patch.work.js?v=1" defer></script>
-	<link rel="stylesheet" href="/assets/patch.scrollbar.css?v=1">
-	<link rel="stylesheet" href="/assets/patch.project.css?v=2">
-<script src="/js/patch.project.js?v=2" defer></script>
+    const qp=new URLSearchParams(location.search); const slug=qp.get('slug')||'';
+    const t=document.getElementById('projTitle'),
+          m=document.getElementById('projMeta'),
+          v=document.getElementById('projViewer'),
+          s=document.getElementById('projStrip'),
+          d=document.getElementById('projDesc');
+
+    const fix=p=>!p?p:(/^https?:\/\//i.test(p)||p.startsWith('/'))?p:'/'+p.replace(/^\/+/,'');
+    async function getJSON(u){ const r=await fetch(u+(u.includes('?')?'&':'?')+'v='+Date.now(),{cache:'no-store'}); return r.json(); }
+
+    function openInViewer(item, idx){
+      const mm=item.media[idx]; if(!mm) return;
+      v.innerHTML='';
+      const el = (mm.type==='video')
+        ? Object.assign(document.createElement('video'),{src:mm.src,controls:true,playsinline:true})
+        : Object.assign(document.createElement('img'),  {src:mm.src,alt:item.title||''});
+      v.appendChild(el);
+      Array.from(s.children).forEach((im,i)=> im.classList.toggle('active', i===idx));
+    }
+
+    (async function(){
+      let list = await getJSON('/assets/work.json').catch(()=>[]);
+      if(!Array.isArray(list)) return;
+
+      // normalize
+      const items = list.map((raw,i)=>{
+        const gallery = Array.isArray(raw.gallery)? raw.gallery.map(fix) : [];
+        const media = Array.isArray(raw.media)&&raw.media.length
+          ? raw.media.map(m=> m&&m.type ? ({...m,src:fix(m.src)}) : ({type:'image',src:fix(m)}))
+          : gallery.map(src=>({type:'image',src}));
+        return {
+          id: raw.id || raw.slug || `item-${i+1}`,
+          slug: raw.slug || raw.id || `item-${i+1}`,
+          title: raw.title || '', client: raw.client || '', role: raw.role || '', year: raw.year || '',
+          description: raw.description || '', media
+        };
+      });
+
+      const item = items.find(x=> x.slug===slug || x.id===slug) || items[0];
+      if(!item) return;
+
+      t.textContent = item.title || 'Project';
+      m.textContent = [item.role, item.client, item.year].filter(Boolean).join(' • ');
+      d.textContent = item.description || '';
+
+      s.innerHTML='';
+      item.media.forEach((mm,i)=>{
+        const ts = mm.type==='image'? mm.src :
+          'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80"><rect width="120" height="80" fill="%23000"/><polygon points="45,25 45,55 75,40" fill="%23fff"/></svg>';
+        const im = Object.assign(document.createElement('img'),{src:ts,alt:'thumb'});
+        if(i===0) im.classList.add('active');
+        im.addEventListener('click',()=> openInViewer(item,i));
+        s.appendChild(im);
+      });
+      openInViewer(item,0);
+    })();
+  })();
+  </script>
 </body>
 </html>
