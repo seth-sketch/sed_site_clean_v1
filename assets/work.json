@@ -222,26 +222,6 @@
     "assets/work/beyonce-4th-of-july-satue-of-liberty/3.jpg",
     "assets/work/beyonce-4th-of-july-satue-of-liberty/4.jpg"
   ],
-  "description": "Taped performance on a barge built in front of the statue of liberty",
-  "media": [
-    {
-      "type": "image",
-      "src": "assets/work/beyonce-4th-of-july-satue-of-liberty/cover.jpg"
-    },
-    {
-      "type": "image",
-      "src": "assets/work/beyonce-4th-of-july-satue-of-liberty/1.jpg"
-    },
-    {
-      "type": "image",
-      "src": "assets/work/beyonce-4th-of-july-satue-of-liberty/2.jpg"
-    },
-    {
-      "type": "image",
-      "src": "assets/work/beyonce-4th-of-july-satue-of-liberty/3.jpg"
-    },
-    {
-      "type": "image",
-      "src": "assets/work/beyonce-4th-of-july-satue-of-liberty/4.jpg"
+  "description": "Taped performance on a barge built in front of the statue of liberty"
     }
   ]
