@@ -223,6 +223,19 @@
       "assets/work/beyonce-4th-of-july-statue-of-liberty-2011/4.jpg"
     ],
     "description": "Taped performance on a barge in front of the Statue of Liberty."
-   }
- ]
-  
+   },
+  {
+   "slug": "gma-taylor-swift-1989",
+   "title": "Taylor Swift concert for GMA on broadway for GMA",
+   "client": "ABC",
+   "year": "2014",
+   "role": "Production Designer",
+   "cover": "assets/work/gma-taylor-swift-1989/cover.jpg",
+   "gallery": [
+    "assets/work/gma-taylor-swift-1989/1.jpg",
+    "assets/work/gma-taylor-swift-1989/2.jpg",
+    "assets/work/gma-taylor-swift-1989/3.jpg"
+  ],
+  "description": "Good morning America taking over Broadway for a special Taylor Swift show."
+ },
+  ], 
