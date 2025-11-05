@@ -92,4 +92,68 @@ body {
 ::-webkit-scrollbar-track { background: #111216; }
 ::-webkit-scrollbar-thumb { background-color: var(--accent-blue); border-radius: 10px; border: 2px solid #0f1012; }
 	.work-card img.thumb{ object-fit: contain !important; }
+	/* === SAFETY: don't crop project hero, keep it inside page bounds === */
+#projViewer img,
+#projViewer video,
+#project-shell .viewer img,
+#project-shell .viewer video,
+#project-page .viewer img,
+#project-page .viewer video {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;   /* show the whole image/video */
+  display: block;
+  background: #000;      /* clean letterbox for tall/wide */
+}
+
+/* Thumbs under the hero should never crop */
+#projStrip img {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+  background: #000;
+  border-radius: 8px;
+}
+
+/* === SAFETY: Work grid thumbs show the whole image (no side-crop) === */
+#work img.thumb,
+#work .grid img.thumb,
+#work #workGrid img,
+.work-card img.thumb {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  object-fit: contain !important;
+  object-position: center center;
+  display: block;
+  background: #000;
+}
+
+/* Optional: make the work grid breathe a bit (only if your grid feels cramped) */
+#work #workGrid,
+#work .work-grid,
+#work .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+/* Optional: blue scrollbar for image strips on desktop */
+#work .extra-thumbs,
+#projStrip,
+#lbV3 .strip {
+  scrollbar-width: auto;
+  scrollbar-color: #3abff8 #111216;
+}
+#work .extra-thumbs::-webkit-scrollbar,
+#projStrip::-webkit-scrollbar { height: 12px; }
+#work .extra-thumbs::-webkit-scrollbar-track,
+#projStrip::-webkit-scrollbar-track { background: #111216; }
+#work .extra-thumbs::-webkit-scrollbar-thumb,
+#projStrip::-webkit-scrollbar-thumb {
+  background-color: #3abff8;
+  border-radius: 10px;
+  border: 2px solid #0f1012;
+}
 }
