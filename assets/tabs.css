@@ -1,0 +1,18 @@
+/* Tabs bar */
+#projTabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+#projTabs .tab{padding:8px 12px;border:1px solid #e6e6e6;border-radius:8px;background:#fff;color:#111;cursor:pointer}
+#projTabs .tab.active{border-color:#3abff8;box-shadow:0 0 0 2px rgba(58,191,248,.15)}
+/* Panels */
+#projPanel .panel{display:none}
+#projPanel .panel.active{display:block}
+/* Lists in files/materials tabs */
+.files-list{display:grid;gap:8px}
+.files-list a{display:flex;align-items:center;gap:8px;padding:10px 12px;border:1px solid #e6e6e6;border-radius:8px;background:#fff;text-decoration:none;color:#111}
+.files-list small{color:#6b7280}
+/* Keep your existing hero + thumbs look */
+#projViewer{width:100%;max-width:100%;margin:0 auto;background:transparent;border-radius:0;display:flex;align-items:center;justify-content:center}
+#projViewer img,#projViewer video{width:100%;height:auto;max-height:80vh;object-fit:contain;background:transparent}
+#projStrip{display:flex;gap:8px;overflow:auto;margin-top:10px;padding-bottom:4px}
+#projStrip img{height:80px;width:auto;object-fit:contain;background:transparent;border-radius:0;opacity:.95;cursor:pointer}
+#projStrip img.active{outline:2px solid #3abff8;opacity:1}/* CSS Document */
+
