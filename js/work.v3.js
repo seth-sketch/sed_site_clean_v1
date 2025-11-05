@@ -29,10 +29,10 @@
   (async function(){
     let items;
     try{ items = await getJSON('/assets/work.json'); }catch(e){
-      grid.innerHTML='<div style="padding:12px;border:1px solid #833;border-radius:8px;background:#220;"><strong>Could not load /assets/work.json</strong></div>';
+      grid.innerHTML='<div style="padding:12px;border:1px solid #833;border-radius:0!important;background:#220;"><strong>Could not load /assets/work.json</strong></div>';
       return;
     }
-    if(!Array.isArray(items)||!items.length){ grid.innerHTML='<div style="padding:12px;border:1px solid #444;border-radius:8px;background:#151515;">No projects found.</div>'; return; }
+    if(!Array.isArray(items)||!items.length){ grid.innerHTML='<div style="padding:12px;border:1px solid #444;border-radius:0! important;background:#151515;">No projects found.</div>'; return; }
 
     grid.innerHTML='';
     items.forEach((raw,i)=>{
