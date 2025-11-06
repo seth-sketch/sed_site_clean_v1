@@ -118,6 +118,24 @@
       t.textContent = item.title || 'Project';
       m.textContent = [item.role, item.client, item.year].filter(Boolean).join(' • ');
       d.textContent = item.description || '';
+		// --- PDF LINKS ---
+const pdfEl = document.getElementById('projPdfs');
+pdfEl.innerHTML = '';
+
+const pdfList = [];
+if (typeof item.pdf === 'string') pdfList.push(item.pdf);
+if (Array.isArray(item.draftings)) pdfList.push(...item.draftings);
+
+if (pdfList.length) {
+  pdfList.forEach((href, i) => {
+    const a = document.createElement('a');
+    a.href = href.startsWith('/') ? href : '/' + href;
+    a.target = '_blank';
+    a.textContent = pdfList.length > 1 ? `View PDF ${i + 1}` : 'View PDF';
+    a.className = 'pdf-link';
+    pdfEl.appendChild(a);
+  });
+}
 
       s.innerHTML='';
       item.media.forEach((mm,i)=>{
