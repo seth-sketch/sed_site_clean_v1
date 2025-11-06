@@ -165,7 +165,9 @@
       "/assets/work/oscars-red-carpet-abc/2.jpg",
       "/assets/work/oscars-red-carpet-abc/3.jpg"
     ],
-    "description": "Lively red-carpet broadcast positions and elegant scenic."
+    "description": "Lively red-carpet broadcast positions and elegant scenic.",
+	"draftings": [
+      "/assets/work/oscars-red-carpet-abc/oscars-groundplan.pdf"
   },
   {
     "slug": "tamron-hall",
