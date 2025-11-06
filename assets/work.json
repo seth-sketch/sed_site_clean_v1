@@ -5,11 +5,11 @@
     "client": "ABC News",
     "year": "2025",
     "role": "Production Designer",
-    "cover": "assets/work/gma-2025/cover.jpg",
+    "cover": "/assets/work/gma-2025/cover.jpg",
     "gallery": [
-      "assets/work/gma-2025/1.jpg",
-      "assets/work/gma-2025/2.jpg",
-      "assets/work/gma-2025/3.jpg"
+      "/assets/work/gma-2025/1.jpg",
+      "/assets/work/gma-2025/2.jpg",
+      "/assets/work/gma-2025/3.jpg"
     ],
     "description": "Studio revamp with broadcast and audience flows."
   },
@@ -19,11 +19,11 @@
     "client": "ABC News",
     "year": "2025",
     "role": "Production Designer",
-    "cover": "assets/work/this-week-4e/cover.jpg",
+    "cover": "/assets/work/this-week-4e/cover.jpg",
     "gallery": [
-      "assets/work/this-week-4e/1.jpg",
-      "assets/work/this-week-4e/2.jpg",
-      "assets/work/this-week-4e/3.jpg"
+      "/assets/work/this-week-4e/1.jpg",
+      "/assets/work/this-week-4e/2.jpg",
+      "/assets/work/this-week-4e/3.jpg"
     ],
     "description": "Political format with dynamic on-air zones and LED features."
   },
@@ -33,11 +33,11 @@
     "client": "ABC News",
     "year": "2024",
     "role": "Production Designer",
-    "cover": "assets/work/election-2024/cover.jpg",
+    "cover": "/assets/work/election-2024/cover.jpg",
     "gallery": [
-      "assets/work/election-2024/1.jpg",
-      "assets/work/election-2024/2.jpg",
-      "assets/work/election-2024/3.jpg"
+      "/assets/work/election-2024/1.jpg",
+      "/assets/work/election-2024/2.jpg",
+      "/assets/work/election-2024/3.jpg"
     ],
     "description": "High-clarity graphics and spatial UX for live returns."
   },
@@ -47,11 +47,11 @@
     "client": "ABC News",
     "year": "2024",
     "role": "Production Designer",
-    "cover": "assets/work/abc-debate-stage/cover.jpg",
+    "cover": "/assets/work/abc-debate-stage/cover.jpg",
     "gallery": [
-      "assets/work/abc-debate-stage/1.jpg",
-      "assets/work/abc-debate-stage/2.jpg",
-      "assets/work/abc-debate-stage/3.jpg"
+      "/assets/work/abc-debate-stage/1.jpg",
+      "/assets/work/abc-debate-stage/2.jpg",
+      "/assets/work/abc-debate-stage/3.jpg"
     ],
     "description": "Debate lecterns, audience layout, and network-level scenic package."
   },
@@ -61,11 +61,11 @@
     "client": "ABC News",
     "year": "2024",
     "role": "Production Designer",
-    "cover": "assets/work/election-roadset/cover.jpg",
+    "cover": "/assets/work/election-roadset/cover.jpg",
     "gallery": [
-      "assets/work/election-roadset/1.jpg",
-      "assets/work/election-roadset/2.jpg",
-      "assets/work/election-roadset/3.jpg"
+      "/assets/work/election-roadset/1.jpg",
+      "/assets/work/election-roadset/2.jpg",
+      "/assets/work/election-roadset/3.jpg"
     ],
     "description": "Portable set with fast load-in for remote election coverage."
   },
@@ -75,11 +75,11 @@
     "client": "ABC News",
     "year": "2024",
     "role": "Production Designer",
-    "cover": "assets/work/world-news-tonight/cover.jpg",
+    "cover": "/assets/work/world-news-tonight/cover.jpg",
     "gallery": [
-      "assets/work/world-news-tonight/1.jpg",
-      "assets/work/world-news-tonight/2.jpg",
-      "assets/work/world-news-tonight/3.jpg"
+      "/assets/work/world-news-tonight/1.jpg",
+      "/assets/work/world-news-tonight/2.jpg",
+      "/assets/work/world-news-tonight/3.jpg"
     ],
     "description": "Primary news environment with deep video integration."
   },
@@ -89,11 +89,11 @@
     "client": "ABC",
     "year": "2024",
     "role": "Production Designer",
-    "cover": "assets/work/the-view-refresh/cover.jpg",
+    "cover": "/assets/work/the-view-refresh/cover.jpg",
     "gallery": [
-      "assets/work/the-view-refresh/1.jpg",
-      "assets/work/the-view-refresh/2.jpg",
-      "assets/work/the-view-refresh/3.jpg"
+      "/assets/work/the-view-refresh/1.jpg",
+      "/assets/work/the-view-refresh/2.jpg",
+      "/assets/work/the-view-refresh/3.jpg"
     ],
     "description": "Audience-forward refresh with updated finishes and LED."
   },
@@ -103,11 +103,11 @@
     "client": "ABC News",
     "year": "2024",
     "role": "Production Designer",
-    "cover": "assets/work/abc-news-live/cover.jpg",
+    "cover": "/assets/work/abc-news-live/cover.jpg",
     "gallery": [
-      "assets/work/abc-news-live/1.jpg",
-      "assets/work/abc-news-live/2.jpg",
-      "assets/work/abc-news-live/3.jpg"
+      "/assets/work/abc-news-live/1.jpg",
+      "/assets/work/abc-news-live/2.jpg",
+      "/assets/work/abc-news-live/3.jpg"
     ],
     "description": "ABC News Live studios."
   },
@@ -117,11 +117,11 @@
     "client": "NewsNation",
     "year": "2023",
     "role": "Production Designer",
-    "cover": "assets/work/dan-abrams-live-newsnation/cover.jpg",
+    "cover": "/assets/work/dan-abrams-live-newsnation/cover.jpg",
     "gallery": [
-      "assets/work/dan-abrams-live-newsnation/1.jpg",
-      "assets/work/dan-abrams-live-newsnation/2.jpg",
-      "assets/work/dan-abrams-live-newsnation/3.jpg"
+      "/assets/work/dan-abrams-live-newsnation/1.jpg",
+      "/assets/work/dan-abrams-live-newsnation/2.jpg",
+      "/assets/work/dan-abrams-live-newsnation/3.jpg"
     ],
     "description": "Immersive storytelling positions with flexible stand-ups."
   },
@@ -131,11 +131,11 @@
     "client": "HBO",
     "year": "2016",
     "role": "Production Designer",
-    "cover": "assets/work/fight-game-lampley/cover.jpg",
+    "cover": "/assets/work/fight-game-lampley/cover.jpg",
     "gallery": [
-      "assets/work/fight-game-lampley/1.jpg",
-      "assets/work/fight-game-lampley/2.jpg",
-      "assets/work/fight-game-lampley/3.jpg"
+      "/assets/work/fight-game-lampley/1.jpg",
+      "/assets/work/fight-game-lampley/2.jpg",
+      "/assets/work/fight-game-lampley/3.jpg"
     ],
     "description": "Boxing analysis set with intimate on-camera positions."
   },
@@ -145,11 +145,11 @@
     "client": "Reelz",
     "year": "2022",
     "role": "Production Designer",
-    "cover": "assets/work/on-patrol-live/cover.jpg",
+    "cover": "/assets/work/on-patrol-live/cover.jpg",
     "gallery": [
-      "assets/work/on-patrol-live/1.jpg",
-      "assets/work/on-patrol-live/2.jpg",
-      "assets/work/on-patrol-live/3.jpg"
+      "/assets/work/on-patrol-live/1.jpg",
+      "/assets/work/on-patrol-live/2.jpg",
+      "/assets/work/on-patrol-live/3.jpg"
     ],
     "description": "Multi-desk live control zone with high telemetry visibility."
   },
@@ -159,11 +159,11 @@
     "client": "ABC",
     "year": "2019",
     "role": "Production Designer",
-    "cover": "assets/work/oscars-red-carpet-abc/cover.jpg",
+    "cover": "/assets/work/oscars-red-carpet-abc/cover.jpg",
     "gallery": [
-      "assets/work/oscars-red-carpet-abc/1.jpg",
-      "assets/work/oscars-red-carpet-abc/2.jpg",
-      "assets/work/oscars-red-carpet-abc/3.jpg"
+      "/assets/work/oscars-red-carpet-abc/1.jpg",
+      "/assets/work/oscars-red-carpet-abc/2.jpg",
+      "/assets/work/oscars-red-carpet-abc/3.jpg"
     ],
     "description": "Lively red-carpet broadcast positions and elegant scenic."
   },
@@ -173,11 +173,11 @@
     "client": "ABC",
     "year": "2024",
     "role": "Production Designer",
-    "cover": "assets/work/tamron-hall/cover.jpg",
+    "cover": "/assets/work/tamron-hall/cover.jpg",
     "gallery": [
-      "assets/work/tamron-hall/1.jpg",
-      "assets/work/tamron-hall/2.jpg",
-      "assets/work/tamron-hall/3.jpg"
+      "/assets/work/tamron-hall/1.jpg",
+      "/assets/work/tamron-hall/2.jpg",
+      "/assets/work/tamron-hall/3.jpg"
     ],
     "description": "Daytime talk show environment with warm textures."
   },
@@ -187,11 +187,11 @@
     "client": "TED",
     "year": "2016",
     "role": "Production Designer",
-    "cover": "assets/work/ted-ed-bam/cover.jpg",
+    "cover": "/assets/work/ted-ed-bam/cover.jpg",
     "gallery": [
-      "assets/work/ted-ed-bam/1.jpg",
-      "assets/work/ted-ed-bam/2.jpg",
-      "assets/work/ted-ed-bam/3.jpg"
+      "/assets/work/ted-ed-bam/1.jpg",
+      "/assets/work/ted-ed-bam/2.jpg",
+      "/assets/work/ted-ed-bam/3.jpg"
     ],
     "description": "Educational live show design at BAM."
   },
@@ -201,11 +201,11 @@
     "client": "TED",
     "year": "2016",
     "role": "Production Designer",
-    "cover": "assets/work/ted-live-town-hall/cover.jpg",
+    "cover": "/assets/work/ted-live-town-hall/cover.jpg",
     "gallery": [
-      "assets/work/ted-live-town-hall/1.jpg",
-      "assets/work/ted-live-town-hall/2.jpg",
-      "assets/work/ted-live-town-hall/3.jpg"
+      "/assets/work/ted-live-town-hall/1.jpg",
+      "/assets/work/ted-live-town-hall/2.jpg",
+      "/assets/work/ted-live-town-hall/3.jpg"
     ],
     "description": "Live TED discussion format with audience participation."
   },
@@ -215,12 +215,12 @@
     "client": "NBC",
     "year": "2011",
     "role": "Production Designer",
-    "cover": "assets/work/beyonce-4th-of-july-statue-of-liberty-2011/cover.jpg",
+    "cover": "/assets/work/beyonce-4th-of-july-statue-of-liberty-2011/cover.jpg",
     "gallery": [
-      "assets/work/beyonce-4th-of-july-statue-of-liberty-2011/1.jpg",
-      "assets/work/beyonce-4th-of-july-statue-of-liberty-2011/2.jpg",
-      "assets/work/beyonce-4th-of-july-statue-of-liberty-2011/3.jpg",
-      "assets/work/beyonce-4th-of-july-statue-of-liberty-2011/4.jpg"
+      "/assets/work/beyonce-4th-of-july-statue-of-liberty-2011/1.jpg",
+      "/assets/work/beyonce-4th-of-july-statue-of-liberty-2011/2.jpg",
+      "/assets/work/beyonce-4th-of-july-statue-of-liberty-2011/3.jpg",
+      "/assets/work/beyonce-4th-of-july-statue-of-liberty-2011/4.jpg"
     ],
     "description": "Taped performance on a barge in front of the Statue of Liberty."
   },
@@ -230,15 +230,15 @@
     "client": "ABC",
     "year": "2014",
     "role": "Production Designer",
-    "cover": "assets/work/gma-taylor-swift-1989/cover.jpg",
+    "cover": "/assets/work/gma-taylor-swift-1989/cover.jpg",
     "gallery": [
-      "assets/work/gma-taylor-swift-1989/1.jpg",
-      "assets/work/gma-taylor-swift-1989/2.jpg",
-      "assets/work/gma-taylor-swift-1989/3.jpg"
+      "/assets/work/gma-taylor-swift-1989/1.jpg",
+      "/assets/work/gma-taylor-swift-1989/2.jpg",
+      "/assets/work/gma-taylor-swift-1989/3.jpg"
     ],
     "description": "Good Morning America taking over Broadway for a special Taylor Swift show.",
     "draftings": [
-      "assets/work/gma-taylor-swift-1989/taylor-groundplan3.pdf"
+      "/assets/work/gma-taylor-swift-1989/taylor-groundplan3.pdf"
     ]
   }
 ]
