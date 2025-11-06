@@ -225,7 +225,7 @@
     "description": "Taped performance on a barge in front of the Statue of Liberty."
   },
   {
-    "slug": "gma-taylor-swift-1989",
+   "slug": "gma-taylor-swift-1989",
     "title": "Taylor Swift concert for GMA on Broadway",
     "client": "ABC",
     "year": "2014",
@@ -237,7 +237,8 @@
       "assets/work/gma-taylor-swift-1989/3.jpg"
     ],
     "description": "Good Morning America taking over Broadway for a special Taylor Swift show.",
-	"draftings": [
-    "assets/work/gma-taylor-swift-1989/taylor groundplan3.pdf"
+    "draftings": [
+      "assets/work/gma-taylor-swift-1989/taylor-groundplan3.pdf"
+    ]
   }
 ]
