@@ -10,18 +10,25 @@
   function fetchJSON(u){ return fetch(u+(u.includes('?')?'&':'?')+'v='+Date.now(),{cache:'no-store'}).then(r=>r.json()); }
   function fixPath(p){ if(!p) return p; if(/^https?:\/\//i.test(p)||p.startsWith('/')) return p; return '/' + p.replace(/^\/+/, ''); }
   function normalizeItem(raw, idx){
-    return {
-      id: raw.id || raw.slug || `item-${idx+1}`,
-      title: raw.title || '',
-      client: raw.client || '',
-      role: raw.role || '',
-      year: Number(raw.year || 0),
-      cover: fixPath(raw.cover),
-      media: (raw.media?.length ? raw.media.map(m => (m.type? {...m,src:fixPath(m.src)} : {type:'image',src:fixPath(m)}))
-                                 : (raw.gallery||[]).map(src=>({type:'image',src:fixPath(src)}))),
-      description: raw.description || ''
-    };
-  }
+  const draftings = Array.isArray(raw.draftings) ? raw.draftings : (raw.draftings ? [raw.draftings] : []);
+  const pdfs = [];
+  if (typeof raw.pdf === 'string' && raw.pdf.trim()) pdfs.push(raw.pdf);
+  if (draftings.length) pdfs.push(...draftings);
+
+  return {
+    id: raw.id || raw.slug || `item-${idx+1}`,
+    title: raw.title || '',
+    client: raw.client || '',
+    role: raw.role || '',
+    year: Number(raw.year || 0),
+    cover: fixPath(raw.cover),
+    media: (raw.media?.length
+              ? raw.media.map(m => (m.type ? {...m, src: fixPath(m.src)} : {type:'image', src: fixPath(m)}))
+              : (raw.gallery||[]).map(src => ({type:'image', src: fixPath(src)}))),
+    description: raw.description || '',
+    pdfs: pdfs.map(p => fixPath(p)) // <-- normalized list of PDF URLs
+  };
+}
 
   // find container
   const main = $('main') || document.body;
@@ -34,6 +41,9 @@
   if (!titleEl.parentNode) container.prepend(titleEl);
   if (!metaEl.parentNode)  titleEl.insertAdjacentElement('afterend', metaEl);
   if (!descEl.parentNode)  metaEl.insertAdjacentElement('afterend', descEl);
+// PDF container (links/buttons go here)
+let pdfEl = byId('projPdfs') || h('div', { id:'projPdfs', class:'pdf-container' });
+if (!pdfEl.parentNode) descEl.insertAdjacentElement('afterend', pdfEl);
 
   // viewer/strip inside same container so width matches site bounds
   let viewer = byId('projViewer');
@@ -106,6 +116,15 @@
     titleEl.textContent = item.title || 'Project';
     metaEl.textContent  = meta;
     descEl.textContent  = item.description || '';
+	  // Render PDFs (supports `pdf` and `draftings` via item.pdfs)
+pdfEl.innerHTML = '';
+if (Array.isArray(item.pdfs) && item.pdfs.length) {
+  const labelMany = item.pdfs.length > 1;
+  item.pdfs.forEach((href, i) => {
+    const a = h('a', { href, target:'_blank', rel:'noopener', class:'pdf-link' }, labelMany ? `View PDF ${i+1}` : 'View PDF');
+    pdfEl.appendChild(a);
+  });
+}
 
     // Thumbs
     strip.innerHTML='';
