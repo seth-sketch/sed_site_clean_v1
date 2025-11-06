@@ -34,6 +34,7 @@
       <div id="projStrip" class="strip" aria-label="Thumbnails"></div>
 
       <div id="projDesc" class="meta" style="margin-top:8px"></div>
+	  <div id="projPdfs" class="pdf-container"></div>
 
       <div id="projNotice" class="meta" style="margin-top:12px;color:#9aa0a6;"></div>
     </section>
@@ -103,7 +104,6 @@
           slug: (raw.slug||raw.id||'').trim(),
           title: raw.title || '', client: raw.client || '', role: raw.role || '', year: raw.year || '',
           description: raw.description || '', media
-			<div class="pdf-container"></div>
         };
       });
 
