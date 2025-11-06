@@ -95,17 +95,30 @@
       if(!Array.isArray(list)){ n.textContent='Invalid work.json'; return; }
 
       const items = list.map((raw,i)=>{
-        const gallery = Array.isArray(raw.gallery)? raw.gallery.map(fix) : [];
-        const media   = Array.isArray(raw.media)&&raw.media.length
-          ? raw.media.map(m=> m&&m.type ? ({...m,src:fix(m.src)}) : ({type:'image',src:fix(m)}))
-          : gallery.map(src=>({type:'image',src}));
-        return {
-          id: raw.id || raw.slug || `item-${i+1}`,
-          slug: (raw.slug||raw.id||'').trim(),
-          title: raw.title || '', client: raw.client || '', role: raw.role || '', year: raw.year || '',
-          description: raw.description || '', media
-        };
-      });
+  const gallery = Array.isArray(raw.gallery) ? raw.gallery.map(fix) : [];
+  const media   = Array.isArray(raw.media) && raw.media.length
+    ? raw.media.map(m => m && m.type ? ({ ...m, src: fix(m.src) }) : ({ type:'image', src: fix(m) }))
+    : gallery.map(src => ({ type:'image', src }));
+
+  const draftings = Array.isArray(raw.draftings)
+    ? raw.draftings.map(fix)
+    : (raw.draftings ? [fix(raw.draftings)] : []);
+
+  const pdf = typeof raw.pdf === 'string' && raw.pdf.trim() ? fix(raw.pdf) : null;
+
+  return {
+    id: raw.id || raw.slug || `item-${i+1}`,
+    slug: (raw.slug||raw.id||'').trim(),
+    title: raw.title || '',
+    client: raw.client || '',
+    role: raw.role || '',
+    year: raw.year || '',
+    description: raw.description || '',
+    media,
+    pdf,
+    draftings
+  };
+});
 
       let item = items.find(x=> x.slug===slug || x.id===slug);
       if(!item){
@@ -118,20 +131,21 @@
       t.textContent = item.title || 'Project';
       m.textContent = [item.role, item.client, item.year].filter(Boolean).join(' • ');
       d.textContent = item.description || '';
-		// --- PDF LINKS ---
+// Render PDF links
 const pdfEl = document.getElementById('projPdfs');
 pdfEl.innerHTML = '';
 
 const pdfList = [];
-if (typeof item.pdf === 'string') pdfList.push(item.pdf);
-if (Array.isArray(item.draftings)) pdfList.push(...item.draftings);
+if (item.pdf) pdfList.push(item.pdf);
+if (Array.isArray(item.draftings) && item.draftings.length) pdfList.push(...item.draftings);
 
 if (pdfList.length) {
   pdfList.forEach((href, i) => {
     const a = document.createElement('a');
-    a.href = href.startsWith('/') ? href : '/' + href;
+    a.href = href;
     a.target = '_blank';
-    a.textContent = pdfList.length > 1 ? `View PDF ${i + 1}` : 'View PDF';
+    a.rel = 'noopener';
+    a.textContent = pdfList.length > 1 ? `View PDF ${i+1}` : 'View PDF';
     a.className = 'pdf-link';
     pdfEl.appendChild(a);
   });
