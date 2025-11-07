@@ -11,7 +11,8 @@
       "/assets/work/gma-2025/2.jpg",
       "/assets/work/gma-2025/3.jpg"
     ],
-    "description": "Studio revamp with broadcast and audience flows."
+    "description": "Studio revamp with broadcast and audience flows.",
+    "draftings": []
   },
   {
     "slug": "this-week-4e",
@@ -25,7 +26,8 @@
       "/assets/work/this-week-4e/2.jpg",
       "/assets/work/this-week-4e/3.jpg"
     ],
-    "description": "Political format with dynamic on-air zones and LED features."
+    "description": "Political format with dynamic on-air zones and LED features.",
+    "draftings": []
   },
   {
     "slug": "election-2024",
@@ -39,7 +41,8 @@
       "/assets/work/election-2024/2.jpg",
       "/assets/work/election-2024/3.jpg"
     ],
-    "description": "High-clarity graphics and spatial UX for live returns."
+    "description": "High-clarity graphics and spatial UX for live returns.",
+    "draftings": []
   },
   {
     "slug": "abc-debate-stage",
@@ -53,7 +56,8 @@
       "/assets/work/abc-debate-stage/2.jpg",
       "/assets/work/abc-debate-stage/3.jpg"
     ],
-    "description": "Debate lecterns, audience layout, and network-level scenic package."
+    "description": "Debate lecterns, audience layout, and network-level scenic package.",
+    "draftings": []
   },
   {
     "slug": "election-roadset",
@@ -67,7 +71,8 @@
       "/assets/work/election-roadset/2.jpg",
       "/assets/work/election-roadset/3.jpg"
     ],
-    "description": "Portable set with fast load-in for remote election coverage."
+    "description": "Portable set with fast load-in for remote election coverage.",
+    "draftings": []
   },
   {
     "slug": "world-news-tonight",
@@ -81,7 +86,8 @@
       "/assets/work/world-news-tonight/2.jpg",
       "/assets/work/world-news-tonight/3.jpg"
     ],
-    "description": "Primary news environment with deep video integration."
+    "description": "Primary news environment with deep video integration.",
+    "draftings": []
   },
   {
     "slug": "the-view-refresh",
@@ -95,7 +101,8 @@
       "/assets/work/the-view-refresh/2.jpg",
       "/assets/work/the-view-refresh/3.jpg"
     ],
-    "description": "Audience-forward refresh with updated finishes and LED."
+    "description": "Audience-forward refresh with updated finishes and LED.",
+    "draftings": []
   },
   {
     "slug": "abc-news-live",
@@ -109,7 +116,8 @@
       "/assets/work/abc-news-live/2.jpg",
       "/assets/work/abc-news-live/3.jpg"
     ],
-    "description": "ABC News Live studios."
+    "description": "ABC News Live studios.",
+    "draftings": []
   },
   {
     "slug": "dan-abrams-live-newsnation",
@@ -123,7 +131,8 @@
       "/assets/work/dan-abrams-live-newsnation/2.jpg",
       "/assets/work/dan-abrams-live-newsnation/3.jpg"
     ],
-    "description": "Immersive storytelling positions with flexible stand-ups."
+    "description": "Immersive storytelling positions with flexible stand-ups.",
+    "draftings": []
   },
   {
     "slug": "fight-game-lampley",
@@ -137,7 +146,8 @@
       "/assets/work/fight-game-lampley/2.jpg",
       "/assets/work/fight-game-lampley/3.jpg"
     ],
-    "description": "Boxing analysis set with intimate on-camera positions."
+    "description": "Boxing analysis set with intimate on-camera positions.",
+    "draftings": []
   },
   {
     "slug": "on-patrol-live",
@@ -151,7 +161,8 @@
       "/assets/work/on-patrol-live/2.jpg",
       "/assets/work/on-patrol-live/3.jpg"
     ],
-    "description": "Multi-desk live control zone with high telemetry visibility."
+    "description": "Multi-desk live control zone with high telemetry visibility.",
+    "draftings": []
   },
   {
     "slug": "oscars-red-carpet-abc",
@@ -166,7 +177,7 @@
       "/assets/work/oscars-red-carpet-abc/3.jpg"
     ],
     "description": "Lively red-carpet broadcast positions and elegant scenic.",
-	"draftings": [
+    "draftings": [
       "/assets/work/oscars-red-carpet-abc/oscars-groundplan.pdf"
     ]
   },
@@ -182,7 +193,8 @@
       "/assets/work/tamron-hall/2.jpg",
       "/assets/work/tamron-hall/3.jpg"
     ],
-    "description": "Daytime talk show environment with warm textures."
+    "description": "Daytime talk show environment with warm textures.",
+    "draftings": []
   },
   {
     "slug": "ted-ed-bam",
@@ -196,7 +208,8 @@
       "/assets/work/ted-ed-bam/2.jpg",
       "/assets/work/ted-ed-bam/3.jpg"
     ],
-    "description": "Educational live show design at BAM."
+    "description": "Educational live show design at BAM.",
+    "draftings": []
   },
   {
     "slug": "ted-live-town-hall",
@@ -210,7 +223,8 @@
       "/assets/work/ted-live-town-hall/2.jpg",
       "/assets/work/ted-live-town-hall/3.jpg"
     ],
-    "description": "Live TED discussion format with audience participation."
+    "description": "Live TED discussion format with audience participation.",
+    "draftings": []
   },
   {
     "slug": "beyonce-4th-of-july-statue-of-liberty-2011",
@@ -225,9 +239,10 @@
       "/assets/work/beyonce-4th-of-july-statue-of-liberty-2011/3.jpg",
       "/assets/work/beyonce-4th-of-july-statue-of-liberty-2011/4.jpg"
     ],
-    "description": "Taped performance on a barge in front of the Statue of Liberty."
+    "description": "Taped performance on a barge in front of the Statue of Liberty.",
+    "draftings": []
   },
- {
+  {
     "slug": "gma-taylor-swift-1989",
     "title": "Taylor Swift concert for GMA on Broadway",
     "client": "ABC",
@@ -244,7 +259,7 @@
       "/assets/work/gma-taylor-swift-1989/taylor-groundplan3.pdf"
     ]
   },
-{
+  {
   "slug": "gma-alicia-keys-drive-in",
   "title": "Alicia Keys performs for essential workers!",
   "client": "ABC",
@@ -256,8 +271,14 @@
     "/assets/work/gma-alicia-keys-drive-in/1.png",
     "/assets/work/gma-alicia-keys-drive-in/2.png"
   ],
+  "media": [
+    { "type": "video", "src": "/assets/work/gma-alicia-keys-drive-in/video.mp4" },
+    { "type": "image", "src": "/assets/work/gma-alicia-keys-drive-in/1.png" },
+    { "type": "image", "src": "/assets/work/gma-alicia-keys-drive-in/2.png" }
+  ],
   "description": "I designed a drive-in style concert during COVID for Good Morning America featuring Alicia Keys performing with the Empire State Building directly behind her.",
   "draftings": [
     "/assets/work/gma-alicia-keys-drive-in/drive-in-plan.pdf"
   ]
 }
+]
