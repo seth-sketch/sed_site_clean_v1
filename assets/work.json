@@ -240,7 +240,9 @@
       "/assets/work/beyonce-4th-of-july-statue-of-liberty-2011/4.jpg"
     ],
     "description": "Taped performance on a barge in front of the Statue of Liberty.",
-    "draftings": []
+    "draftings": [
+		"/assests/work/beyonce-4th-of-july-statue-of-liberty-2011/beyonce-stage-and-barge.pdf"
+	] 
   },
   {
     "slug": "gma-taylor-swift-1989",
