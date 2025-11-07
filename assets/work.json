@@ -245,20 +245,19 @@
     ]
   },
 {
-	{
   "slug": "gma-alicia-keys-drive-in",
   "title": "Alicia Keys performs for essential workers!",
   "client": "ABC",
   "year": "2020",
   "role": "Production Designer",
-  "cover": "assets/work/gma-alicia-keys-drive-in/cover.png",
+  "cover": "/assets/work/gma-alicia-keys-drive-in/cover.png",
   "gallery": [
-    "assets/work/gma-alicia-keys-drive-in/cover.png",
-    "assets/work/gma-alicia-keys-drive-in/1.png",
-    "assets/work/gma-alicia-keys-drive-in/2.png"
+    "/assets/work/gma-alicia-keys-drive-in/cover.png",
+    "/assets/work/gma-alicia-keys-drive-in/1.png",
+    "/assets/work/gma-alicia-keys-drive-in/2.png"
   ],
-  "description": "I dsigned a drie in style concert due to covid for Good morning America featuring th surprise guest of Alicia keys with the empire state building directly behind her",
+  "description": "I designed a drive-in style concert during COVID for Good Morning America featuring Alicia Keys performing with the Empire State Building directly behind her.",
   "draftings": [
-    "assets/work/gma-alicia-keys-drive-in/drive in plan.pdf"
+    "/assets/work/gma-alicia-keys-drive-in/drive-in-plan.pdf"
   ]
 }
