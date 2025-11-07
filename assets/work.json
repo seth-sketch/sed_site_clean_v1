@@ -72,7 +72,9 @@
       "/assets/work/election-roadset/3.jpg"
     ],
     "description": "Portable set with fast load-in for remote election coverage.",
-    "draftings": []
+    "draftings": [
+		"/assets/work/election-roadset/1.0-plan.pdf"
+	]
   },
   {
     "slug": "world-news-tonight",
