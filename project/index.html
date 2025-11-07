@@ -132,6 +132,7 @@
       m.textContent = [item.role, item.client, item.year].filter(Boolean).join(' • ');
       d.textContent = item.description || '';
 // Render PDF links
+// Render PDF buttons (open inline overlay)
 const pdfEl = document.getElementById('projPdfs');
 pdfEl.innerHTML = '';
 
@@ -141,13 +142,15 @@ if (Array.isArray(item.draftings) && item.draftings.length) pdfList.push(...item
 
 if (pdfList.length) {
   pdfList.forEach((href, i) => {
-    const a = document.createElement('a');
-    a.href = href;
-    a.target = '_blank';
-    a.rel = 'noopener';
-    a.textContent = pdfList.length > 1 ? `View PDF ${i+1}` : 'View PDF';
-    a.className = 'pdf-link';
-    pdfEl.appendChild(a);
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn pdf-btn';
+    btn.textContent = pdfList.length > 1 ? `View PDF ${i+1}` : 'View PDF';
+    btn.addEventListener('click', () => {
+      // Open PDF inside the asset overlay
+      window.SEDOpenAsset({ type: 'pdf', url: href });
+    });
+    pdfEl.appendChild(btn);
   });
 }
 
@@ -165,47 +168,119 @@ if (pdfList.length) {
   })();
   </script>
 	<script src="/js/project.tabs.js?v=1" defer></script>
-	<!-- PDF Overlay -->
-<div id="pdfOverlay" class="pdf-overlay">
-  <div class="pdf-overlay-inner">
-    <button class="close-btn" onclick="closePDF()">×</button>
-    <iframe id="pdfFrame" src="" frameborder="0"></iframe>
+<!-- Asset Overlay (PDFs & 3D models) -->
+<div id="assetOverlay" class="asset-overlay" aria-hidden="true">
+  <div class="asset-inner" role="dialog" aria-modal="true" aria-label="Document viewer">
+    <button class="asset-close" id="assetCloseBtn" aria-label="Close viewer">×</button>
+
+    <!-- PDF frame (2D PDFs) -->
+    <iframe id="pdfFrame" class="asset-frame" src="" hidden></iframe>
+
+    <!-- 3D Model viewer -->
+    <model-viewer id="modelViewer" class="asset-model" camera-controls auto-rotate ar shadow-intensity="1" hidden></model-viewer>
+
+    <!-- Fallback / messages -->
+    <div id="assetMessage" class="asset-message" hidden></div>
   </div>
 </div>
 
-<style>
-  .pdf-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.85);
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  }
-  .pdf-overlay.visible { display: flex; animation: fadeIn 0.3s ease; }
-  .pdf-overlay-inner {
-    position: relative;
-    width: 90%;
-    height: 90%;
-    max-width: 1200px;
-    background: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  #pdfFrame { width: 100%; height: 100%; border: none; }
-  .close-btn {
-    position: absolute;
-    top: 10px; right: 10px;
-    background: #000; color: #fff;
-    border: none; font-size: 24px;
-    width: 36px; height: 36px;
-    border-radius: 50%; cursor: pointer;
-    opacity: 0.8;
-  }
-  .close-btn:hover { opacity: 1; }
-  @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
-</style>
+<!-- model-viewer (for .glb/.gltf/.usdz/.obj) -->
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
+<style>
+  .asset-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;justify-content:center;align-items:center}
+  .asset-overlay.visible{display:flex;animation:fadeIn .25s ease}
+  .asset-inner{position:relative;width:92vw;max-width:1280px;height:88vh;background:#111;border-radius:12px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+  .asset-close{position:absolute;top:10px;right:10px;width:40px;height:40px;border:none;border-radius:20px;background:#000;color:#fff;font-size:24px;cursor:pointer;opacity:.9;z-index:10}
+  .asset-close:hover{opacity:1}
+  .asset-frame,.asset-model{width:100%;height:100%;border:0;background:#fff}
+  .asset-message{display:flex;align-items:center;justify-content:center;color:#eee;height:100%;padding:24px;text-align:center}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+</style>
+	<script>
+(function(){
+  const overlay      = document.getElementById('assetOverlay');
+  const pdfFrame     = document.getElementById('pdfFrame');    // single frame – from Asset Overlay
+  const modelViewer  = document.getElementById('modelViewer');
+  const msg          = document.getElementById('assetMessage');
+  const closeBtn     = document.getElementById('assetCloseBtn');
+
+  function show(el){ el.hidden = false; }
+  function hide(el){ el.hidden = true; }
+  function openOverlay(){
+    overlay.classList.add('visible');
+    overlay.setAttribute('aria-hidden','false');
+  }
+  function closeOverlay(){
+    // reset sources
+    if (pdfFrame)     { pdfFrame.src = ''; }
+    if (modelViewer)  { modelViewer.src = ''; modelViewer.removeAttribute('poster'); }
+    // hide panes
+    if (pdfFrame)     hide(pdfFrame);
+    if (modelViewer)  hide(modelViewer);
+    if (msg)          hide(msg);
+    overlay.classList.remove('visible');
+    overlay.setAttribute('aria-hidden','true');
+  }
+
+  if (closeBtn) closeBtn.addEventListener('click', closeOverlay);
+  overlay?.addEventListener('click', (e)=>{ if(e.target === overlay) closeOverlay(); });
+  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeOverlay(); });
+
+  // Public API
+  window.SEDOpenAsset = function({type, url, poster}){
+    const t = (type || 'pdf').toLowerCase();
+
+    // Inline 2D PDFs
+    if (t === 'pdf') {
+      if (!pdfFrame) return;
+      hide(modelViewer); hide(msg);
+      show(pdfFrame);
+      // nice default fit
+      pdfFrame.src = url + (url.includes('#') ? '' : '#view=FitH');
+      openOverlay();
+      return;
+    }
+
+    // 3D PDFs – cannot render 3D part inline
+    if (t === 'pdf3d') {
+      hide(pdfFrame); hide(modelViewer);
+      if (msg) {
+        msg.innerHTML = `
+          <div>
+            ${poster ? `<img src="${poster}" alt="3D PDF preview" style="max-height:40vh;margin-bottom:16px;border-radius:8px;"/>` : ''}
+            <h2 style="margin:0 0 8px">Open in Adobe Acrobat for 3D</h2>
+            <p style="opacity:.9;max-width:60ch;margin:0 auto 16px">
+              Web browsers can’t display interactive 3D in PDFs. Use Acrobat for full 3D controls.
+            </p>
+            <p><a href="${url}" class="btn" style="background:#fff;color:#000;padding:10px 14px;border-radius:6px;display:inline-block">Open / Download 3D PDF</a></p>
+          </div>`;
+        show(msg);
+      }
+      openOverlay();
+      return;
+    }
+
+    // 3D models (.glb/.gltf/.usdz/.obj)
+    if (t === 'model' || t === 'glb' || t === 'gltf' || t === 'usdz' || t === 'obj') {
+      if (!modelViewer) return;
+      hide(pdfFrame); hide(msg);
+      if (poster) modelViewer.setAttribute('poster', poster); else modelViewer.removeAttribute('poster');
+      modelViewer.src = url;
+      show(modelViewer);
+      openOverlay();
+      return;
+    }
+
+    // default: treat as PDF
+    if (pdfFrame) {
+      hide(modelViewer); hide(msg);
+      show(pdfFrame);
+      pdfFrame.src = url + (url.includes('#') ? '' : '#view=FitH');
+      openOverlay();
+    }
+  };
+})();
+</script>
 </body>
 </html>
