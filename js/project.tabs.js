@@ -147,23 +147,58 @@
 });
             panel.appendChild(list);
           });
-        } else if (type==='link' || type==='sheet' || type==='file'){
-          addTab(tab.label||'Link', (panel)=>{
-            viewer.style.display='none'; strip.style.display='none';
-            panel.innerHTML='';
-            const a=document.createElement('a'); a.href=fix(tab.href||''); a.target='_blank'; a.rel='noopener';
-            a.className='btn btn-secondary'; a.textContent=tab.cta||'Open';
-            panel.appendChild(a);
-          });
-        } else {
-          // default
-          addTab(tab.label||'Details', (panel)=>{ viewer.style.display='none'; strip.style.display='none'; panel.textContent=''; });
-        }
+       } else if (type==='files'){
+  const files = Array.isArray(tab.files)? tab.files : [];
+  addTab(tab.label||'Files', (panel)=>{
+    viewer.style.display='none'; strip.style.display='none';
+    panel.innerHTML='';
+    const list=document.createElement('div'); list.className='files-list';
+    files.forEach(f=>{
+      const a=document.createElement('a');
+      const href = fix(f.href || '');
+      a.href = "#";
+      a.innerHTML = `<strong>${f.label || 'View File'}</strong> <small>${(f.note || '')}</small>`;
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        openAssetOverlay(href);
       });
+      list.appendChild(a);
+    });
+    panel.appendChild(list);
+  });
     } else {
       // No tabs provided → classic single "Renderings" view
       viewer.style.display=''; strip.style.display='';
       mountMedia(item, item.media);
     }
+		  function openAssetOverlay(href) {
+  const overlay = document.getElementById('assetOverlay');
+  const pdfFrame = document.getElementById('pdfFrame');
+  const modelViewer = document.getElementById('modelViewer');
+  const msg = document.getElementById('assetMessage');
+
+  overlay.classList.add('visible');
+  pdfFrame.hidden = modelViewer.hidden = msg.hidden = true;
+
+  if (href.match(/\.(pdf)$/i)) {
+    pdfFrame.src = href;
+    pdfFrame.hidden = false;
+  } else if (href.match(/\.(glb|gltf|obj|usdz)$/i)) {
+    modelViewer.src = href;
+    modelViewer.hidden = false;
+  } else {
+    msg.textContent = "Unsupported format";
+    msg.hidden = false;
+  }
+}
+
+document.getElementById('assetCloseBtn').onclick = () => {
+  const overlay = document.getElementById('assetOverlay');
+  const pdfFrame = document.getElementById('pdfFrame');
+  const modelViewer = document.getElementById('modelViewer');
+  pdfFrame.src = "";
+  modelViewer.src = "";
+  overlay.classList.remove('visible');
+};
   })();
 })();// JavaScript Document
