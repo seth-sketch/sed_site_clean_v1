@@ -135,11 +135,16 @@
             panel.innerHTML='';
             const list=document.createElement('div'); list.className='files-list';
             files.forEach(f=>{
-              const a=document.createElement('a');
-              a.href=fix(f.href||''); a.target='_blank'; a.rel='noopener';
-              a.innerHTML = `<strong>${f.label||'Download'}</strong> <small>${(f.note||'')}</small>`;
-              list.appendChild(a);
-            });
+  const a=document.createElement('a');
+  const href = fix(f.href || '');
+  a.href = "#";
+  a.innerHTML = `<strong>${f.label || 'View File'}</strong> <small>${(f.note || '')}</small>`;
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    openAssetOverlay(href);
+  });
+  list.appendChild(a);
+});
             panel.appendChild(list);
           });
         } else if (type==='link' || type==='sheet' || type==='file'){
