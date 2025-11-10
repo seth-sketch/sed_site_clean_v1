@@ -44,38 +44,39 @@
     "description": "High-clarity graphics and spatial UX for live returns.",
     "draftings": []
   },
- {
-  "slug": "abc-debate-stage",
-  "title": "ABC Presidential Debate Stage Design",
-  "client": "ABC News",
-  "year": "2024",
-  "role": "Production Designer",
-  "cover": "/assets/work/abc-debate-stage/cover.jpg",
-  "gallery": [
-    "/assets/work/abc-debate-stage/1.jpg",
-    "/assets/work/abc-debate-stage/2.jpg",
-    "/assets/work/abc-debate-stage/3.jpg"
-  ],
-  "description": "Debate lecterns, audience layout, and network-level scenic package.",
-  "tabs": [
-    {
-      "type": "media",
-      "label": "Renderings"
-    },
-    {
-      "type": "files",
-      "label": "Draftings",
-      "files": [
-        { "label": "Event Plan", "href": "/assets/work/abc-debate-stage/2024-Debate_1.0-EVENT-PLAN-20240905.pdf" },
-        { "label": "Lobby BOH Plan", "href": "/assets/work/abc-debate-stage/2024-Debate_1.1-LOBBY-BOH-PLAN-20240905.pdf" },
-        { "label": "Upper Lobby", "href": "/assets/work/abc-debate-stage/2024-Debate_1.5-UPPER-LOBBY-20240905.pdf" },
-        { "label": "Lower Lobby", "href": "/assets/work/abc-debate-stage/2024-Debate_1.6-LOWER-LOBBY-20240905.pdf" },
-        { "label": "LED One Sheet", "href": "/assets/work/abc-debate-stage/2024-Debate_7.0-LED-ONE-SHEET-20240905.pdf" },
-        { "label": "Site Plan", "href": "/assets/work/abc-debate-stage/ANCHOR-ROW_1.1-SITE-PLAN_NCC-PLAZA_20240906-compressed.pdf" },
-        { "label": "News Platform", "href": "/assets/work/abc-debate-stage/ANCHOR-ROW_A1.1-NEWS-PLATFORM-PLAN-STAND-UP_20240907.pdf" }
-      ]
-    }
-  ,
+  {
+    "slug": "abc-debate-stage",
+    "title": "ABC Presidential Debate Stage Design",
+    "client": "ABC News",
+    "year": "2024",
+    "role": "Production Designer",
+    "cover": "/assets/work/abc-debate-stage/cover.jpg",
+    "gallery": [
+      "/assets/work/abc-debate-stage/1.jpg",
+      "/assets/work/abc-debate-stage/2.jpg",
+      "/assets/work/abc-debate-stage/3.jpg"
+    ],
+    "description": "Debate lecterns, audience layout, and network-level scenic package.",
+    "tabs": [
+      {
+        "type": "media",
+        "label": "Renderings"
+      },
+      {
+        "type": "files",
+        "label": "Draftings",
+        "files": [
+          { "label": "Event Plan", "href": "/assets/work/abc-debate-stage/2024-Debate_1.0-EVENT-PLAN-20240905.pdf" },
+          { "label": "Lobby BOH Plan", "href": "/assets/work/abc-debate-stage/2024-Debate_1.1-LOBBY-BOH-PLAN-20240905.pdf" },
+          { "label": "Upper Lobby", "href": "/assets/work/abc-debate-stage/2024-Debate_1.5-UPPER-LOBBY-20240905.pdf" },
+          { "label": "Lower Lobby", "href": "/assets/work/abc-debate-stage/2024-Debate_1.6-LOWER-LOBBY-20240905.pdf" },
+          { "label": "LED One Sheet", "href": "/assets/work/abc-debate-stage/2024-Debate_7.0-LED-ONE-SHEET-20240905.pdf" },
+          { "label": "Site Plan", "href": "/assets/work/abc-debate-stage/ANCHOR-ROW_1.1-SITE-PLAN_NCC-PLAZA_20240906-compressed.pdf" },
+          { "label": "News Platform", "href": "/assets/work/abc-debate-stage/ANCHOR-ROW_A1.1-NEWS-PLATFORM-PLAN-STAND-UP_20240907.pdf" }
+        ]
+      }
+    ]
+  },
   {
     "slug": "election-roadset",
     "title": "Election Coverage Roadset",
@@ -89,46 +90,44 @@
       "/assets/work/election-roadset/3.jpg"
     ],
     "description": "Portable set with fast load-in for remote election coverage.",
-    "draftings": [
-		"/assets/work/election-roadset/1.0-plan.pdf"
-	]
+    "draftings": ["/assets/work/election-roadset/1.0-plan.pdf"]
   },
   {
-  "slug": "world-news-tonight",
-  "title": "World News Tonight Studio",
-  "client": "ABC News",
-  "year": "2024",
-  "role": "Production Designer",
-  "cover": "/assets/work/world-news-tonight/cover.jpg",
-  "gallery": [
-    "/assets/work/world-news-tonight/1.jpg",
-    "/assets/work/world-news-tonight/2.jpg",
-    "/assets/work/world-news-tonight/3.jpg"
-  ],
-  "description": "Primary news environment with deep video integration.",
-  "tabs": [
-    {
-      "type": "media",
-      "label": "Renderings"
-    },
-    {
-      "type": "files",
-      "label": "Draftings",
-      "files": [
-        { "label": "Studio Plan", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_100-STUDIO-PLAN_WNT_20250404.pdf" },
-        { "label": "Camera Plan", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_111-CAMERA-PLAN_WNT_20250327.pdf" },
-        { "label": "North & South Sections", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_200-N+S-SECTION_4E_20250204.pdf" },
-        { "label": "East & West Sections", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_201-E+W-SECTION_4E_20250204.pdf" },
-        { "label": "Bottom Perspective", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_202-BOTTOM-PERSPECTIVE_20250204.pdf" },
-        { "label": "Bottom Perspective (No Venue)", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_203-BOTTOM-PERSPECTIVE-NO-VENUE_20250204.pdf" },
-        { "label": "Video One Sheet 1 of 3", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_701-VIDEO-ONE-SHEET-1-OF-3_20250220.pdf" },
-        { "label": "Video One Sheet 2 of 3", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_702-VIDEO-ONE-SHEET-2-OF-3_20250204.pdf" },
-        { "label": "Video One Sheet 3 of 3", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_703-VIDEO-ONE-SHEET-3-OF-3_20250204.pdf" }
-      ]
-    }
-  ]
-},
- {
+    "slug": "world-news-tonight",
+    "title": "World News Tonight Studio",
+    "client": "ABC News",
+    "year": "2024",
+    "role": "Production Designer",
+    "cover": "/assets/work/world-news-tonight/cover.jpg",
+    "gallery": [
+      "/assets/work/world-news-tonight/1.jpg",
+      "/assets/work/world-news-tonight/2.jpg",
+      "/assets/work/world-news-tonight/3.jpg"
+    ],
+    "description": "Primary news environment with deep video integration.",
+    "tabs": [
+      {
+        "type": "media",
+        "label": "Renderings"
+      },
+      {
+        "type": "files",
+        "label": "Draftings",
+        "files": [
+          { "label": "Studio Plan", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_100-STUDIO-PLAN_WNT_20250404.pdf" },
+          { "label": "Camera Plan", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_111-CAMERA-PLAN_WNT_20250327.pdf" },
+          { "label": "North & South Sections", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_200-N+S-SECTION_4E_20250204.pdf" },
+          { "label": "East & West Sections", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_201-E+W-SECTION_4E_20250204.pdf" },
+          { "label": "Bottom Perspective", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_202-BOTTOM-PERSPECTIVE_20250204.pdf" },
+          { "label": "Bottom Perspective (No Venue)", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_203-BOTTOM-PERSPECTIVE-NO-VENUE_20250204.pdf" },
+          { "label": "Video One Sheet 1 of 3", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_701-VIDEO-ONE-SHEET-1-OF-3_20250220.pdf" },
+          { "label": "Video One Sheet 2 of 3", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_702-VIDEO-ONE-SHEET-2-OF-3_20250204.pdf" },
+          { "label": "Video One Sheet 3 of 3", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_703-VIDEO-ONE-SHEET-3-OF-3_20250204.pdf" }
+        ]
+      }
+    ]
+  },
+  {
     "slug": "the-view-refresh",
     "title": "The View Studio Refresh",
     "client": "ABC",
@@ -201,9 +200,7 @@
       "/assets/work/on-patrol-live/3.jpg"
     ],
     "description": "Multi-desk live control zone with high telemetry visibility.",
-    "draftings": [
-		"/assets/work/on-patrol-live/1.0-studio-plan.pdf"
-	]
+    "draftings": ["/assets/work/on-patrol-live/1.0-studio-plan.pdf"]
   },
   {
     "slug": "oscars-red-carpet-abc",
@@ -218,9 +215,7 @@
       "/assets/work/oscars-red-carpet-abc/3.jpg"
     ],
     "description": "Lively red-carpet broadcast positions and elegant scenic.",
-    "draftings": [
-      "/assets/work/oscars-red-carpet-abc/oscars-groundplan.pdf"
-    ]
+    "draftings": ["/assets/work/oscars-red-carpet-abc/oscars-groundplan.pdf"]
   },
   {
     "slug": "tamron-hall",
@@ -281,9 +276,7 @@
       "/assets/work/beyonce-4th-of-july-statue-of-liberty-2011/4.jpg"
     ],
     "description": "Taped performance on a barge in front of the Statue of Liberty.",
-    "draftings": [
-	  "/assets/work/beyonce-4th-of-july-statue-of-liberty-2011/beyonce-stage-and-barge.pdf"
-	] 
+    "draftings": ["/assets/work/beyonce-4th-of-july-statue-of-liberty-2011/beyonce-stage-and-barge.pdf"]
   },
   {
     "slug": "gma-taylor-swift-1989",
@@ -298,30 +291,26 @@
       "/assets/work/gma-taylor-swift-1989/3.jpg"
     ],
     "description": "Good Morning America taking over Broadway for a special Taylor Swift show.",
-    "draftings": [
-      "/assets/work/gma-taylor-swift-1989/taylor-groundplan3.pdf"
-    ]
+    "draftings": ["/assets/work/gma-taylor-swift-1989/taylor-groundplan3.pdf"]
   },
   {
-  "slug": "gma-alicia-keys-drive-in",
-  "title": "Alicia Keys performs for essential workers!",
-  "client": "ABC",
-  "year": "2020",
-  "role": "Production Designer",
-  "cover": "/assets/work/gma-alicia-keys-drive-in/cover.png",
-  "gallery": [
-    "/assets/work/gma-alicia-keys-drive-in/cover.png",
-    "/assets/work/gma-alicia-keys-drive-in/1.png",
-    "/assets/work/gma-alicia-keys-drive-in/2.png"
-  ],
-  "media": [
-    { "type": "video", "src": "/assets/work/gma-alicia-keys-drive-in/video.mp4" },
-    { "type": "image", "src": "/assets/work/gma-alicia-keys-drive-in/1.png" },
-    { "type": "image", "src": "/assets/work/gma-alicia-keys-drive-in/2.png" }
-  ],
-  "description": "I designed a drive-in style concert during COVID for Good Morning America featuring Alicia Keys performing with the Empire State Building directly behind her.",
-  "draftings": [
-    "/assets/work/gma-alicia-keys-drive-in/drive-in-plan.pdf"
-  ]
-}
+    "slug": "gma-alicia-keys-drive-in",
+    "title": "Alicia Keys performs for essential workers!",
+    "client": "ABC",
+    "year": "2020",
+    "role": "Production Designer",
+    "cover": "/assets/work/gma-alicia-keys-drive-in/cover.png",
+    "gallery": [
+      "/assets/work/gma-alicia-keys-drive-in/cover.png",
+      "/assets/work/gma-alicia-keys-drive-in/1.png",
+      "/assets/work/gma-alicia-keys-drive-in/2.png"
+    ],
+    "media": [
+      { "type": "video", "src": "/assets/work/gma-alicia-keys-drive-in/video.mp4" },
+      { "type": "image", "src": "/assets/work/gma-alicia-keys-drive-in/1.png" },
+      { "type": "image", "src": "/assets/work/gma-alicia-keys-drive-in/2.png" }
+    ],
+    "description": "I designed a drive-in style concert during COVID for Good Morning America featuring Alicia Keys performing with the Empire State Building directly behind her.",
+    "draftings": ["/assets/work/gma-alicia-keys-drive-in/drive-in-plan.pdf"]
+  }
 ]
