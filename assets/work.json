@@ -164,7 +164,9 @@
       "/assets/work/on-patrol-live/3.jpg"
     ],
     "description": "Multi-desk live control zone with high telemetry visibility.",
-    "draftings": []
+    "draftings": [
+		"/assests/work/on-patrol-live/1.0_STUDIO PLAN_6-30.pdf
+	]
   },
   {
     "slug": "oscars-red-carpet-abc",
