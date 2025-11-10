@@ -57,15 +57,25 @@
     "/assets/work/abc-debate-stage/3.jpg"
   ],
   "description": "Debate lecterns, audience layout, and network-level scenic package.",
-  "draftings": [
-    "/assets/work/abc-debate-stage/2024-Debate_1.0-EVENT-PLAN-20240905.pdf",
-    "/assets/work/abc-debate-stage/2024-Debate_1.1-LOBBY-BOH-PLAN-20240905.pdf",
-    "/assets/work/abc-debate-stage/2024-Debate_1.5-UPPER-LOBBY-20240905.pdf",
-    "/assets/work/abc-debate-stage/2024-Debate_1.6-LOWER-LOBBY-20240905.pdf",
-    "/assets/work/abc-debate-stage/2024-Debate_7.0-LED-ONE-SHEET-20240905.pdf",
-    "/assets/work/abc-debate-stage/ANCHOR-ROW_1.1-SITE-PLAN_NCC-PLAZA_20240906.pdf",
-    "/assets/work/abc-debate-stage/ANCHOR-ROW_1.2-STREET-PLAN_INDEPENDENCE-MALL_20240906.pdf",
-    "/assets/work/abc-debate-stage/ANCHOR-ROW_A1.1-NEWS-PLATFORM-PLAN-STAND-UP_20240907.pdf"
+  "tabs": [
+    {
+      "type": "media",
+      "label": "Renderings"
+    },
+    {
+      "type": "files",
+      "label": "Draftings",
+      "files": [
+        { "label": "Event Plan", "href": "/assets/work/abc-debate-stage/2024-Debate_1.0-EVENT-PLAN-20240905.pdf" },
+        { "label": "Lobby BOH Plan", "href": "/assets/work/abc-debate-stage/2024-Debate_1.1-LOBBY-BOH-PLAN-20240905.pdf" },
+        { "label": "Upper Lobby", "href": "/assets/work/abc-debate-stage/2024-Debate_1.5-UPPER-LOBBY-20240905.pdf" },
+        { "label": "Lower Lobby", "href": "/assets/work/abc-debate-stage/2024-Debate_1.6-LOWER-LOBBY-20240905.pdf" },
+        { "label": "LED One Sheet", "href": "/assets/work/abc-debate-stage/2024-Debate_7.0-LED-ONE-SHEET-20240905.pdf" },
+        { "label": "Site Plan", "href": "/assets/work/abc-debate-stage/ANCHOR-ROW_1.1-SITE-PLAN_NCC-PLAZA_20240906.pdf" },
+        { "label": "Street Plan", "href": "/assets/work/abc-debate-stage/ANCHOR-ROW_1.2-STREET-PLAN_INDEPENDENCE-MALL_20240906.pdf" },
+        { "label": "News Platform", "href": "/assets/work/abc-debate-stage/ANCHOR-ROW_A1.1-NEWS-PLATFORM-PLAN-STAND-UP_20240907.pdf" }
+      ]
+    }
   ]
 }
   },
