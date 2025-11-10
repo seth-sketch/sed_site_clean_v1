@@ -1,22 +1,23 @@
 (function(){
   'use strict';
-  if (window.__PROJ_TABS__) return; window.__PROJ_TABS__=true;
+  if (window.__PROJ_TABS__) return; 
+  window.__PROJ_TABS__ = true;
 
   const qp = new URLSearchParams(location.search);
-  const slug = (qp.get('slug')||'').trim();
+  const slug = (qp.get('slug') || '').trim();
 
   const el = sel => document.querySelector(sel);
-  const fix = p => !p ? p : (/^https?:\/\//i.test(p) || p.startsWith('/')) ? p : '/'+p.replace(/^\/+/,'');
+  const fix = p => !p ? p : (/^https?:\/\//i.test(p) || p.startsWith('/')) ? p : '/' + p.replace(/^\/+/, '');
   const getJSON = async (u) => {
-    const r = await fetch(u+(u.includes('?')?'&':'?')+'v='+Date.now(), {cache:'no-store'});
-    if(!r.ok) throw new Error('HTTP '+r.status);
+    const r = await fetch(u + (u.includes('?') ? '&' : '?') + 'v=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
     return r.json();
   };
 
   const t = el('#projTitle'), m = el('#projMeta'), d = el('#projDesc');
   const viewer = el('#projViewer'), strip = el('#projStrip');
-  const tabsBar = document.createElement('nav'); tabsBar.id='projTabs';
-  const panelHost = document.createElement('section'); panelHost.id='projPanel';
+  const tabsBar = document.createElement('nav'); tabsBar.id = 'projTabs';
+  const panelHost = document.createElement('section'); panelHost.id = 'projPanel';
   const shell = el('#project-shell');
   shell.insertBefore(tabsBar, viewer);
   shell.insertBefore(panelHost, d);
@@ -46,32 +47,6 @@
       strip.appendChild(im);
     });
     open(0);
-
-    function openLightbox(start){
-      let idx=start;
-      const wrap=document.createElement('div'); wrap.id='lbV3'; wrap.className='open';
-      wrap.innerHTML='<div class="main"><button class="prev">‹</button><div id="lbV3c"></div><button class="next">›</button><button class="x">✕</button></div><div class="strip" id="lbV3s"></div>';
-      document.body.appendChild(wrap);
-      const lbc=wrap.querySelector('#lbV3c'), lbs=wrap.querySelector('#lbV3s');
-      const render=(i)=>{
-        const mm=media[i]; lbc.innerHTML='';
-        lbc.appendChild(mm.type==='video'
-          ? Object.assign(document.createElement('video'),{src:mm.src,controls:true,playsinline:true})
-          : Object.assign(document.createElement('img'),{src:mm.src,alt:item.title||''})
-        );
-        lbs.innerHTML='';
-        media.forEach((mm2,j)=>{
-          const ts=mm2.type==='image'?mm2.src:
-          'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80"><rect width="120" height="80" fill="%23000"/><polygon points="45,25 45,55 75,40" fill="%23fff"/></svg>';
-          const im=Object.assign(document.createElement('img'),{src:ts}); if(j===i) im.classList.add('active'); im.onclick=()=>render(j); lbs.appendChild(im);
-        });
-      };
-      render(idx);
-      wrap.querySelector('.x').onclick=()=>wrap.remove();
-      wrap.querySelector('.prev').onclick=()=>{ idx=(idx-1+media.length)%media.length; render(idx); };
-      wrap.querySelector('.next').onclick=()=>{ idx=(idx+1)%media.length; render(idx); };
-      wrap.onclick=e=>{ if(e.target===wrap) wrap.remove(); };
-    }
   }
 
   function clearPanels(){ panelHost.innerHTML=''; tabsBar.innerHTML=''; }
@@ -90,11 +65,41 @@
     return {btn, panel};
   }
 
+  function openAssetOverlay(href) {
+    const overlay = document.getElementById('assetOverlay');
+    const pdfFrame = document.getElementById('pdfFrame');
+    const modelViewer = document.getElementById('modelViewer');
+    const msg = document.getElementById('assetMessage');
+
+    overlay.classList.add('visible');
+    pdfFrame.hidden = modelViewer.hidden = msg.hidden = true;
+
+    if (href.match(/\.(pdf)$/i)) {
+      pdfFrame.src = href;
+      pdfFrame.hidden = false;
+    } else if (href.match(/\.(glb|gltf|obj|usdz)$/i)) {
+      modelViewer.src = href;
+      modelViewer.hidden = false;
+    } else {
+      msg.textContent = "Unsupported format";
+      msg.hidden = false;
+    }
+  }
+
+  document.getElementById('assetCloseBtn').onclick = () => {
+    const overlay = document.getElementById('assetOverlay');
+    const pdfFrame = document.getElementById('pdfFrame');
+    const modelViewer = document.getElementById('modelViewer');
+    pdfFrame.src = "";
+    modelViewer.src = "";
+    overlay.classList.remove('visible');
+  };
+
   (async function(){
-    let list=[]; try{ list = await getJSON('/assets/work.json'); }catch(e){ console.error(e); return; }
+    let list=[]; 
+    try{ list = await getJSON('/assets/work.json'); }catch(e){ console.error(e); return; }
     if(!Array.isArray(list)) return;
 
-    // normalize
     const items = list.map((raw,i)=>{
       const gallery = Array.isArray(raw.gallery)? raw.gallery.map(fix) : [];
       const media = Array.isArray(raw.media)&&raw.media.length
@@ -103,7 +108,10 @@
       return {
         id: raw.id || raw.slug || `item-${i+1}`,
         slug: (raw.slug||raw.id||'').trim(),
-        title: raw.title || '', client: raw.client || '', role: raw.role || '', year: raw.year || '',
+        title: raw.title || '', 
+        client: raw.client || '', 
+        role: raw.role || '', 
+        year: raw.year || '',
         description: raw.description || '',
         media,
         tabs: Array.isArray(raw.tabs) ? raw.tabs : null
@@ -121,7 +129,6 @@
     clearPanels();
 
     if (item.tabs && item.tabs.length){
-      // Build tabs from config
       item.tabs.forEach(tab=>{
         const type=(tab.type||'media').toLowerCase();
         if (type==='media'){
@@ -135,70 +142,24 @@
             panel.innerHTML='';
             const list=document.createElement('div'); list.className='files-list';
             files.forEach(f=>{
-  const a=document.createElement('a');
-  const href = fix(f.href || '');
-  a.href = "#";
-  a.innerHTML = `<strong>${f.label || 'View File'}</strong> <small>${(f.note || '')}</small>`;
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    openAssetOverlay(href);
-  });
-  list.appendChild(a);
-});
+              const a=document.createElement('a');
+              const href = fix(f.href || '');
+              a.href = "#";
+              a.innerHTML = `<strong>${f.label || 'View File'}</strong> <small>${(f.note || '')}</small>`;
+              a.addEventListener('click', e => {
+                e.preventDefault();
+                openAssetOverlay(href);
+              });
+              list.appendChild(a);
+            });
             panel.appendChild(list);
           });
-       } else if (type==='files'){
-  const files = Array.isArray(tab.files)? tab.files : [];
-  addTab(tab.label||'Files', (panel)=>{
-    viewer.style.display='none'; strip.style.display='none';
-    panel.innerHTML='';
-    const list=document.createElement('div'); list.className='files-list';
-    files.forEach(f=>{
-      const a=document.createElement('a');
-      const href = fix(f.href || '');
-      a.href = "#";
-      a.innerHTML = `<strong>${f.label || 'View File'}</strong> <small>${(f.note || '')}</small>`;
-      a.addEventListener('click', e => {
-        e.preventDefault();
-        openAssetOverlay(href);
+        }
       });
-      list.appendChild(a);
-    });
-    panel.appendChild(list);
-  });
     } else {
-      // No tabs provided → classic single "Renderings" view
-      viewer.style.display=''; strip.style.display='';
+      viewer.style.display=''; 
+      strip.style.display='';
       mountMedia(item, item.media);
     }
-		  function openAssetOverlay(href) {
-  const overlay = document.getElementById('assetOverlay');
-  const pdfFrame = document.getElementById('pdfFrame');
-  const modelViewer = document.getElementById('modelViewer');
-  const msg = document.getElementById('assetMessage');
-
-  overlay.classList.add('visible');
-  pdfFrame.hidden = modelViewer.hidden = msg.hidden = true;
-
-  if (href.match(/\.(pdf)$/i)) {
-    pdfFrame.src = href;
-    pdfFrame.hidden = false;
-  } else if (href.match(/\.(glb|gltf|obj|usdz)$/i)) {
-    modelViewer.src = href;
-    modelViewer.hidden = false;
-  } else {
-    msg.textContent = "Unsupported format";
-    msg.hidden = false;
-  }
-}
-
-document.getElementById('assetCloseBtn').onclick = () => {
-  const overlay = document.getElementById('assetOverlay');
-  const pdfFrame = document.getElementById('pdfFrame');
-  const modelViewer = document.getElementById('modelViewer');
-  pdfFrame.src = "";
-  modelViewer.src = "";
-  overlay.classList.remove('visible');
-};
   })();
-})();// JavaScript Document
+})();
