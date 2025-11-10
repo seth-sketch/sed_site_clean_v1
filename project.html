@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1, viewport-fit=cover"/>
+  <title>Project — Seth Easter Design</title>
+
+  <!-- Your existing styles -->
+  <link rel="stylesheet" href="/assets/styles.css?v=v3"/>
+  <link rel="stylesheet" href="/assets/fix.v3.css?v=4"/>
+
+  <!-- Minimal hardening -->
+  <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+</head>
+<body id="project-page">
+  <header class="header">
+    <div class="container nav">
+      <a href="/" class="brand"><img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="SED"></a>
+      <ul class="nav-links" id="topNav">
+        <li><a href="/work/">Work</a></li>
+        <li><a href="/press/">Press &amp; Awards</a></li>
+        <li><a href="/cv.html">CV</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="container proj-wrap">
+    <section class="section" id="project-shell">
+      <h2 id="projTitle">Project</h2>
+      <div id="projMeta" class="subtle"></div>
+
+      <div id="projViewer" class="viewer"></div>
+      <div id="projStrip" class="strip" aria-label="Thumbnails"></div>
+
+      <div id="projDesc" class="meta" style="margin-top:8px"></div>
+      <!-- tab bar & panels are injected by JS -->
+    </section>
+  </main>
+
+  <!-- Asset Overlay (PDFs & 3D models) -->
+  <div id="assetOverlay" class="asset-overlay" aria-hidden="true">
+    <div class="asset-inner" role="dialog" aria-modal="true" aria-label="Document viewer">
+      <button class="asset-close" id="assetCloseBtn" aria-label="Close viewer">×</button>
+      <iframe id="pdfFrame" src="" frameborder="0" hidden></iframe>
+      <model-viewer id="modelViewer" hidden></model-viewer>
+      <div id="assetMessage" hidden></div>
+    </div>
+  </div>
+
+  <!-- 3D viewer (safe to include; idle until used) -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <!-- Project tabs logic -->
+  <script src="/js/project.tabs.js?v=5" defer></script>
+</body>
+</html>
