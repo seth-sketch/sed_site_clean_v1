@@ -72,7 +72,6 @@
         { "label": "Lower Lobby", "href": "/assets/work/abc-debate-stage/2024-Debate_1.6-LOWER-LOBBY-20240905.pdf" },
         { "label": "LED One Sheet", "href": "/assets/work/abc-debate-stage/2024-Debate_7.0-LED-ONE-SHEET-20240905.pdf" },
         { "label": "Site Plan", "href": "/assets/work/abc-debate-stage/ANCHOR-ROW_1.1-SITE-PLAN_NCC-PLAZA_20240906-compressed.pdf" },
-        { "label": "Street Plan", "href": "/assets/work/abc-debate-stage/ANCHOR-ROW_1.2-STREET-PLAN_INDEPENDENCE-MALL_20240906.pdf" },
         { "label": "News Platform", "href": "/assets/work/abc-debate-stage/ANCHOR-ROW_A1.1-NEWS-PLATFORM-PLAN-STAND-UP_20240907.pdf" }
       ]
     }
@@ -97,20 +96,40 @@
 	]
   },
   {
-    "slug": "world-news-tonight",
-    "title": "World News Tonight Studio",
-    "client": "ABC News",
-    "year": "2024",
-    "role": "Production Designer",
-    "cover": "/assets/work/world-news-tonight/cover.jpg",
-    "gallery": [
-      "/assets/work/world-news-tonight/1.jpg",
-      "/assets/work/world-news-tonight/2.jpg",
-      "/assets/work/world-news-tonight/3.jpg"
-    ],
-    "description": "Primary news environment with deep video integration.",
-    "draftings": []
-  },
+  "slug": "world-news-tonight",
+  "title": "World News Tonight Studio",
+  "client": "ABC News",
+  "year": "2024",
+  "role": "Production Designer",
+  "cover": "/assets/work/world-news-tonight/cover.jpg",
+  "gallery": [
+    "/assets/work/world-news-tonight/1.jpg",
+    "/assets/work/world-news-tonight/2.jpg",
+    "/assets/work/world-news-tonight/3.jpg"
+  ],
+  "description": "Primary news environment with deep video integration.",
+  "tabs": [
+    {
+      "type": "media",
+      "label": "Renderings"
+    },
+    {
+      "type": "files",
+      "label": "Draftings",
+      "files": [
+        { "label": "Studio Plan", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_100-STUDIO-PLAN_WNT_20250404.pdf" },
+        { "label": "Camera Plan", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_111-CAMERA-PLAN_WNT_20250327.pdf" },
+        { "label": "North & South Sections", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_200-N+S-SECTION_4E_20250204.pdf" },
+        { "label": "East & West Sections", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_201-E+W-SECTION_4E_20250204.pdf" },
+        { "label": "Bottom Perspective", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_202-BOTTOM-PERSPECTIVE_20250204.pdf" },
+        { "label": "Bottom Perspective (No Venue)", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_203-BOTTOM-PERSPECTIVE-NO-VENUE_20250204.pdf" },
+        { "label": "Video One Sheet 1 of 3", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_701-VIDEO-ONE-SHEET-1-OF-3_20250220.pdf" },
+        { "label": "Video One Sheet 2 of 3", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_702-VIDEO-ONE-SHEET-2-OF-3_20250204.pdf" },
+        { "label": "Video One Sheet 3 of 3", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_703-VIDEO-ONE-SHEET-3-OF-3_20250204.pdf" }
+      ]
+    }
+  ]
+}
   {
     "slug": "the-view-refresh",
     "title": "The View Studio Refresh",
