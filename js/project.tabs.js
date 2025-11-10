@@ -144,12 +144,14 @@
             files.forEach(f=>{
               const a=document.createElement('a');
               const href = fix(f.href || '');
-              a.href = "#";
-              a.innerHTML = `<strong>${f.label || 'View File'}</strong> <small>${(f.note || '')}</small>`;
-              a.addEventListener('click', e => {
-                e.preventDefault();
-                openAssetOverlay(href);
-              });
+             a.href = "javascript:void(0)";
+a.className = "file-link";
+a.innerHTML = `<strong>${f.label || 'View File'}</strong> <small>${(f.note || '')}</small>`;
+a.onclick = e => {
+  e.stopPropagation();
+  e.preventDefault();
+  openAssetOverlay(href);
+};
               list.appendChild(a);
             });
             panel.appendChild(list);

@@ -248,4 +248,7 @@
 .pdf-link:hover {
   background: #f6f8fa;
   text-decoration: underline;
+	<div id="assetOverlay" class="asset-overlay" aria-hidden="true">
+  <div class="asset-inner" role="dialog" aria-modal="true" aria-label="Document viewer">
+    <button class="asset-close" id="assetCloseBtn" aria-label="Close viewer">×</button>
 }
