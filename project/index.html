@@ -8,9 +8,8 @@
     <!-- Base styles -->
     <link rel="stylesheet" href="/assets/styles.css?v=v3" />
     <link rel="stylesheet" href="/assets/fix.v3.css?v=4" />
-    <!-- Patch styles for project page -->
-    <link rel="stylesheet" href="/assets/patch.project.css?v=1" />
-	  <link rel="stylesheet" href="/assets/patched_project.css?v=1">
+    <!-- Patch styles -->
+    <link rel="stylesheet" href="/assets/final_patch.project.css?v=1" />
 
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
   </head>
@@ -31,16 +30,7 @@
         <h2 id="projTitle">Project</h2>
         <div id="projMeta" class="subtle"></div>
 
-       #projViewer img,
-#projViewer video,
-.viewer img,
-.viewer video {
-  width: 100%;
-  height: auto;
-  max-height: 70vh;  /* adjust this value as needed */
-  object-fit: contain;
-  display: block;
-} <!-- Tabs bar and panels are injected by JS -->
+        <!-- Tabs bar and panels will be injected here by JS -->
         <div id="projViewer" class="viewer"></div>
         <div id="projStrip" class="strip" aria-label="Thumbnails"></div>
         <div id="projDesc" class="meta" style="margin-top:8px"></div>
