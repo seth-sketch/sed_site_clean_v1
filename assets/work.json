@@ -12,6 +12,7 @@
       "/assets/work/gma-2025/3.jpg"
     ],
     "description": "Studio revamp with broadcast and audience flows.",
+<<<<<<< HEAD
     "tabs": [
       {
         "type": "media",
@@ -113,6 +114,13 @@
   {
     "slug": "this-week-4e",
     "title": "This Week \u2014 NYC Studio (4E)",
+=======
+    "draftings": []
+  },
+  {
+    "slug": "this-week-4e",
+    "title": "This Week — NYC Studio (4E)",
+>>>>>>> 982d40b6755f0934c52cdeefc98cd632f4c5b430
     "client": "ABC News",
     "year": "2025",
     "role": "Production Designer",
@@ -122,6 +130,7 @@
       "/assets/work/this-week-4e/2.jpg",
       "/assets/work/this-week-4e/3.jpg"
     ],
+<<<<<<< HEAD
     "description": "Political format with dynamic on\u2011air zones and LED features.",
     "tabs": [
       {
@@ -147,6 +156,14 @@
   {
     "slug": "election-2024",
     "title": "Election Night 2024 Set & On\u2011Set UX",
+=======
+    "description": "Political format with dynamic on-air zones and LED features.",
+    "draftings": []
+  },
+  {
+    "slug": "election-2024",
+    "title": "Election Night 2024 Set & On-Set UX",
+>>>>>>> 982d40b6755f0934c52cdeefc98cd632f4c5b430
     "client": "ABC News",
     "year": "2024",
     "role": "Production Designer",
@@ -156,6 +173,7 @@
       "/assets/work/election-2024/2.jpg",
       "/assets/work/election-2024/3.jpg"
     ],
+<<<<<<< HEAD
     "description": "High\u2011clarity graphics and spatial UX for live returns.",
     "tabs": [
       {
@@ -181,6 +199,10 @@
         ]
       }
     ]
+=======
+    "description": "High-clarity graphics and spatial UX for live returns.",
+    "draftings": []
+>>>>>>> 982d40b6755f0934c52cdeefc98cd632f4c5b430
   },
   {
     "slug": "abc-debate-stage",
@@ -194,7 +216,11 @@
       "/assets/work/abc-debate-stage/2.jpg",
       "/assets/work/abc-debate-stage/3.jpg"
     ],
+<<<<<<< HEAD
     "description": "Debate lecterns, audience layout, and network\u2011level scenic package.",
+=======
+    "description": "Debate lecterns, audience layout, and network-level scenic package.",
+>>>>>>> 982d40b6755f0934c52cdeefc98cd632f4c5b430
     "tabs": [
       {
         "type": "media",
@@ -204,6 +230,7 @@
         "type": "files",
         "label": "Draftings",
         "files": [
+<<<<<<< HEAD
           {
             "label": "Event Plan",
             "href": "/assets/work/abc-debate-stage/2024-Debate_1.0-EVENT-PLAN-20240905.pdf"
@@ -224,6 +251,19 @@
       }
     ]
   },
+=======
+          { "label": "Event Plan", "href": "/assets/work/abc-debate-stage/2024-Debate_1.0-EVENT-PLAN-20240905.pdf" },
+          { "label": "Lobby BOH Plan", "href": "/assets/work/abc-debate-stage/2024-Debate_1.1-LOBBY-BOH-PLAN-20240905.pdf" },
+          { "label": "Upper Lobby", "href": "/assets/work/abc-debate-stage/2024-Debate_1.5-UPPER-LOBBY-20240905.pdf" },
+          { "label": "Lower Lobby", "href": "/assets/work/abc-debate-stage/2024-Debate_1.6-LOWER-LOBBY-20240905.pdf" },
+          { "label": "LED One Sheet", "href": "/assets/work/abc-debate-stage/2024-Debate_7.0-LED-ONE-SHEET-20240905.pdf" },
+          { "label": "Site Plan", "href": "/assets/work/abc-debate-stage/ANCHOR-ROW_1.1-SITE-PLAN_NCC-PLAZA_20240906-compressed.pdf" },
+          { "label": "News Platform", "href": "/assets/work/abc-debate-stage/ANCHOR-ROW_A1.1-NEWS-PLATFORM-PLAN-STAND-UP_20240907.pdf" }
+        ]
+      }
+    ]
+  }
+>>>>>>> 982d40b6755f0934c52cdeefc98cd632f4c5b430
   {
     "slug": "election-roadset",
     "title": "Election Coverage Roadset",
@@ -236,6 +276,7 @@
       "/assets/work/election-roadset/2.jpg",
       "/assets/work/election-roadset/3.jpg"
     ],
+<<<<<<< HEAD
     "description": "Portable set with fast load\u2011in for remote election coverage.",
     "tabs": [
       {
@@ -297,6 +338,10 @@
         ]
       }
     ]
+=======
+    "description": "Portable set with fast load-in for remote election coverage.",
+    "draftings": ["/assets/work/election-roadset/1.0-plan.pdf"]
+>>>>>>> 982d40b6755f0934c52cdeefc98cd632f4c5b430
   },
   {
     "slug": "world-news-tonight",
@@ -320,6 +365,7 @@
         "type": "files",
         "label": "Draftings",
         "files": [
+<<<<<<< HEAD
           {
             "label": "Studio Plan",
             "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_100-STUDIO-PLAN_WNT_20250404.pdf"
@@ -344,6 +390,17 @@
             "label": "Video One Sheet 1 of 3",
             "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_701-VIDEO-ONE-SHEET-1-OF-3_20250220.pdf"
           }
+=======
+          { "label": "Studio Plan", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_100-STUDIO-PLAN_WNT_20250404.pdf" },
+          { "label": "Camera Plan", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_111-CAMERA-PLAN_WNT_20250327.pdf" },
+          { "label": "North & South Sections", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_200-N+S-SECTION_4E_20250204.pdf" },
+          { "label": "East & West Sections", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_201-E+W-SECTION_4E_20250204.pdf" },
+          { "label": "Bottom Perspective", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_202-BOTTOM-PERSPECTIVE_20250204.pdf" },
+          { "label": "Bottom Perspective (No Venue)", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_203-BOTTOM-PERSPECTIVE-NO-VENUE_20250204.pdf" },
+          { "label": "Video One Sheet 1 of 3", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_701-VIDEO-ONE-SHEET-1-OF-3_20250220.pdf" },
+          { "label": "Video One Sheet 2 of 3", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_702-VIDEO-ONE-SHEET-2-OF-3_20250204.pdf" },
+          { "label": "Video One Sheet 3 of 3", "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_703-VIDEO-ONE-SHEET-3-OF-3_20250204.pdf" }
+>>>>>>> 982d40b6755f0934c52cdeefc98cd632f4c5b430
         ]
       }
     ]
@@ -360,6 +417,7 @@
       "/assets/work/the-view-refresh/2.jpg",
       "/assets/work/the-view-refresh/3.jpg"
     ],
+<<<<<<< HEAD
     "description": "Audience\u2011forward refresh with updated finishes and LED.",
     "tabs": [
       {
@@ -393,6 +451,10 @@
         ]
       }
     ]
+=======
+    "description": "Audience-forward refresh with updated finishes and LED.",
+    "draftings": []
+>>>>>>> 982d40b6755f0934c52cdeefc98cd632f4c5b430
   },
   {
     "slug": "abc-news-live",
@@ -407,6 +469,7 @@
       "/assets/work/abc-news-live/3.jpg"
     ],
     "description": "ABC News Live studios.",
+<<<<<<< HEAD
     "tabs": [
       {
         "type": "media",
@@ -435,6 +498,9 @@
         ]
       }
     ]
+=======
+    "draftings": []
+>>>>>>> 982d40b6755f0934c52cdeefc98cd632f4c5b430
   },
   {
     "slug": "dan-abrams-live-newsnation",
@@ -448,6 +514,7 @@
       "/assets/work/dan-abrams-live-newsnation/2.jpg",
       "/assets/work/dan-abrams-live-newsnation/3.jpg"
     ],
+<<<<<<< HEAD
     "description": "Immersive storytelling positions with flexible stand\u2011ups.",
     "tabs": [
       {
@@ -489,6 +556,10 @@
         ]
       }
     ]
+=======
+    "description": "Immersive storytelling positions with flexible stand-ups.",
+    "draftings": []
+>>>>>>> 982d40b6755f0934c52cdeefc98cd632f4c5b430
   },
   {
     "slug": "fight-game-lampley",
@@ -502,6 +573,7 @@
       "/assets/work/fight-game-lampley/2.jpg",
       "/assets/work/fight-game-lampley/3.jpg"
     ],
+<<<<<<< HEAD
     "description": "Boxing analysis set with intimate on\u2011camera positions.",
     "tabs": [
       {
@@ -509,6 +581,10 @@
         "label": "Renderings"
       }
     ]
+=======
+    "description": "Boxing analysis set with intimate on-camera positions.",
+    "draftings": []
+>>>>>>> 982d40b6755f0934c52cdeefc98cd632f4c5b430
   },
   {
     "slug": "on-patrol-live",
@@ -522,6 +598,7 @@
       "/assets/work/on-patrol-live/2.jpg",
       "/assets/work/on-patrol-live/3.jpg"
     ],
+<<<<<<< HEAD
     "description": "Multi\u2011desk live control zone with high telemetry visibility.",
     "tabs": [
       {
@@ -543,6 +620,14 @@
   {
     "slug": "oscars-red-carpet-abc",
     "title": "Oscars Red Carpet \u2014 ABC",
+=======
+    "description": "Multi-desk live control zone with high telemetry visibility.",
+    "draftings": ["/assets/work/on-patrol-live/1.0-studio-plan.pdf"]
+  },
+  {
+    "slug": "oscars-red-carpet-abc",
+    "title": "Oscars Red Carpet — ABC",
+>>>>>>> 982d40b6755f0934c52cdeefc98cd632f4c5b430
     "client": "ABC",
     "year": "2019",
     "role": "Production Designer",
@@ -552,6 +637,7 @@
       "/assets/work/oscars-red-carpet-abc/2.jpg",
       "/assets/work/oscars-red-carpet-abc/3.jpg"
     ],
+<<<<<<< HEAD
     "description": "Lively red\u2011carpet broadcast positions and elegant scenic.",
     "tabs": [
       {
@@ -569,6 +655,10 @@
         ]
       }
     ]
+=======
+    "description": "Lively red-carpet broadcast positions and elegant scenic.",
+    "draftings": ["/assets/work/oscars-red-carpet-abc/oscars-groundplan.pdf"]
+>>>>>>> 982d40b6755f0934c52cdeefc98cd632f4c5b430
   },
   {
     "slug": "tamron-hall",
@@ -583,6 +673,7 @@
       "/assets/work/tamron-hall/3.jpg"
     ],
     "description": "Daytime talk show environment with warm textures.",
+<<<<<<< HEAD
     "tabs": [
       {
         "type": "media",
@@ -607,6 +698,13 @@
   {
     "slug": "ted-ed-bam",
     "title": "TED-Ed \u2013 BAM",
+=======
+    "draftings": []
+  },
+  {
+    "slug": "ted-ed-bam",
+    "title": "TED-Ed - BAM",
+>>>>>>> 982d40b6755f0934c52cdeefc98cd632f4c5b430
     "client": "TED",
     "year": "2016",
     "role": "Production Designer",
@@ -617,6 +715,7 @@
       "/assets/work/ted-ed-bam/3.jpg"
     ],
     "description": "Educational live show design at BAM.",
+<<<<<<< HEAD
     "tabs": [
       {
         "type": "media",
@@ -627,6 +726,13 @@
   {
     "slug": "ted-live-town-hall",
     "title": "TED Live \u2013 Town Hall",
+=======
+    "draftings": []
+  },
+  {
+    "slug": "ted-live-town-hall",
+    "title": "TED Live - Town Hall",
+>>>>>>> 982d40b6755f0934c52cdeefc98cd632f4c5b430
     "client": "TED",
     "year": "2016",
     "role": "Production Designer",
@@ -637,6 +743,7 @@
       "/assets/work/ted-live-town-hall/3.jpg"
     ],
     "description": "Live TED discussion format with audience participation.",
+<<<<<<< HEAD
     "tabs": [
       {
         "type": "media",
@@ -648,6 +755,40 @@
         "files": []
       }
     ]
+=======
+    "draftings": []
+  },
+  {
+    "slug": "beyonce-4th-of-july-statue-of-liberty-2011",
+    "title": "Beyonce 4th of July at the Statue of Liberty",
+    "client": "NBC",
+    "year": "2011",
+    "role": "Production Designer",
+    "cover": "/assets/work/beyonce-4th-of-july-statue-of-liberty-2011/cover.jpg",
+    "gallery": [
+      "/assets/work/beyonce-4th-of-july-statue-of-liberty-2011/1.jpg",
+      "/assets/work/beyonce-4th-of-july-statue-of-liberty-2011/2.jpg",
+      "/assets/work/beyonce-4th-of-july-statue-of-liberty-2011/3.jpg",
+      "/assets/work/beyonce-4th-of-july-statue-of-liberty-2011/4.jpg"
+    ],
+    "description": "Taped performance on a barge in front of the Statue of Liberty.",
+    "draftings": ["/assets/work/beyonce-4th-of-july-statue-of-liberty-2011/beyonce-stage-and-barge.pdf"]
+  },
+  {
+    "slug": "gma-taylor-swift-1989",
+    "title": "Taylor Swift concert for GMA on Broadway",
+    "client": "ABC",
+    "year": "2014",
+    "role": "Production Designer",
+    "cover": "/assets/work/gma-taylor-swift-1989/cover.jpg",
+    "gallery": [
+      "/assets/work/gma-taylor-swift-1989/1.jpg",
+      "/assets/work/gma-taylor-swift-1989/2.jpg",
+      "/assets/work/gma-taylor-swift-1989/3.jpg"
+    ],
+    "description": "Good Morning America taking over Broadway for a special Taylor Swift show.",
+    "draftings": ["/assets/work/gma-taylor-swift-1989/taylor-groundplan3.pdf"]
+>>>>>>> 982d40b6755f0934c52cdeefc98cd632f4c5b430
   },
   {
     "slug": "gma-alicia-keys-drive-in",
@@ -662,6 +803,7 @@
       "/assets/work/gma-alicia-keys-drive-in/2.png"
     ],
     "media": [
+<<<<<<< HEAD
       {
         "type": "video",
         "src": "/assets/work/gma-alicia-keys-drive-in/video.mp4"
@@ -692,5 +834,13 @@
         ]
       }
     ]
+=======
+      { "type": "video", "src": "/assets/work/gma-alicia-keys-drive-in/video.mp4" },
+      { "type": "image", "src": "/assets/work/gma-alicia-keys-drive-in/1.png" },
+      { "type": "image", "src": "/assets/work/gma-alicia-keys-drive-in/2.png" }
+    ],
+    "description": "I designed a drive-in style concert during COVID for Good Morning America featuring Alicia Keys performing with the Empire State Building directly behind her.",
+    "draftings": ["/assets/work/gma-alicia-keys-drive-in/drive-in-plan.pdf"]
+>>>>>>> 982d40b6755f0934c52cdeefc98cd632f4c5b430
   }
 ]
