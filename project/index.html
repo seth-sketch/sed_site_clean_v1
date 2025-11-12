@@ -30,7 +30,16 @@
         <h2 id="projTitle">Project</h2>
         <div id="projMeta" class="subtle"></div>
 
-        <!-- Tabs bar and panels are injected by JS -->
+       #projViewer img,
+#projViewer video,
+.viewer img,
+.viewer video {
+  width: 100%;
+  height: auto;
+  max-height: 70vh;  /* adjust this value as needed */
+  object-fit: contain;
+  display: block;
+} <!-- Tabs bar and panels are injected by JS -->
         <div id="projViewer" class="viewer"></div>
         <div id="projStrip" class="strip" aria-label="Thumbnails"></div>
         <div id="projDesc" class="meta" style="margin-top:8px"></div>
