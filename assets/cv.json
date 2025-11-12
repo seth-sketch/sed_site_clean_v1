@@ -24,6 +24,7 @@
         "Designed 2024 election-night environment with embedded touchscreens and re-envisioned desks.",
         "Debate-stage scenic for ABC U.S. presidential coverage (candidate-first, integrated LED, typographic lighting).",
         "Developed modular scenic language applied across smaller Hudson Square studios (e.g., WNN, GMA First Look).",
+
         "Ongoing collaboration with lighting/AV/graphics teams to deliver broadcast-ready spaces on fixed dates ."
       ]
     },
@@ -78,42 +79,41 @@
     "AutoCAD"
   ],
   "awards": [
-  {
-    "name": "Primetime Emmy Award — Outstanding Art Direction for Variety or Nonfiction Programming",
-    "organization": "Television Academy",
-    "year": 2012,
-    "work": "65th Tony Awards",
-    "role": "Art Director"
-  },
-  {
-    "name": "Primetime Emmy nomination — Outstanding Art Direction for Variety, Music or Nonfiction Programming",
-    "organization": "Television Academy",
-    "year": 2010,
-    "work": "63rd Tony Awards",
-    "role": "Art Director"
-  },
-  {
-    "name": "News & Documentary Emmy Award — Senior Producer, Outstanding News Special",
-    "organization": "Television Academy",
-    "year": 2017,
-    "work": "The President and the People",
-    "role": "Senior Producer"
-  },
-  {
-    "name": "Art Directors Guild — Excellence in Production Design Award",
-    "organization": "Art Directors Guild",
-    "year": 2014,
-    "work": "The 67th Annual Tony Awards",
-    "role": "Art Director"
-  },
-  {
-    "name": "Art Directors Guild — Nominee, Excellence in Production Design Award",
-    "organization": "Television Academy",
-    "year": 2014,
-    "work": "Super Bowl XLVII Halftime Show",
-    "role": "Art Director"
-  }
-],
+    {
+      "name": "Primetime Emmy Award \u2014 Outstanding Art Direction for Variety or Nonfiction Programming",
+      "organization": "Television Academy",
+      "year": 2012,
+      "work": "65th Tony Awards",
+      "role": "Art Director"
+    },
+    {
+      "name": "Primetime Emmy nomination \u2014 Outstanding Art Direction for Variety, Music or Nonfiction Programming",
+      "organization": "Television Academy",
+      "year": 2010,
+      "work": "63rd Tony Awards",
+      "role": "Art Director"
+     },
+    {
+      "name": "News & Documentary Emmy Award\u2017 Senior Producer, Outstanding News Special",
+      "organization": "Television Academy",
+      "year": 2017,
+      "work": "The President and the People",
+      "role": "Senior Producer"
+	 },
+    {
+      "name": "Art Directors Guild\u2014 Excellence in Production Design Award",
+      "organization": "Art Directors Guild",
+      "year": 2014,
+      "work": "The 67 annual Tony Awards",
+      "role": "Art Director"
+	 },
+    {
+      "name": "Art Directors Guild\u2014 Nominee Excellence in Production Design Award",
+      "organization": "Television Academy",
+      "year": 2014,
+      "work": "Super Bowl XLVII Halftime Show",
+      "role": "Art Director"
+  ],
   "imdb_production_designer_credits": [
     {
       "title": "As It Happened (\"Diddy on Trial: As It Happened\")",
