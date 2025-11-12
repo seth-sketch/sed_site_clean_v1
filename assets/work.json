@@ -22,12 +22,7 @@
         "label": "Draftings",
         "files": [
           {
-    
-            "label": "Glass One-Sheet (20250922)",
-            "href": "/assets/work/gma-2025/GMA_Studio C_705-GLASS ONE-SHEET-20250922.pdf"
-          },
-          {
-            "label": "Video One-Sheet 1 of 4 (20250922)",
+                "label": "Video One-Sheet 1 of 4 (20250922)",
             "href": "/assets/work/gma-2025/GMA_Studio C_701-VIDEO ONE-SHEET 1 OF 4-20250922.pdf"
           },
           {
@@ -244,36 +239,19 @@
         "label": "Draftings",
         "files": [
           {
-            "label": "Egress Plan",
-            "href": "/assets/work/election-roadset/1.6-EGRESS PLAN.pdf"
-          },
-          {
-            "label": "Seating Plan",
-            "href": "/assets/work/election-roadset/1.4-SEATING PLAN.pdf"
-          },
-          {
+     
             "label": "Debate Layout 1",
             "href": "/assets/work/election-roadset/8.0-DEBATE LAYOUT 1.pdf"
           },
           {
             "label": "Debate Layout 2",
             "href": "/assets/work/election-roadset/8.1-DEBATE LAYOUT 2.pdf"
-          },
-          {
-            "label": "Campus Layout 2",
-            "href": "/assets/work/election-roadset/8.2-CAMPUS LAYOUT 2.pdf"
-          },
-          {
-            "label": "Site Floor Plan",
-            "href": "/assets/work/election-roadset/1.3-SITE FLOOR PLAN.pdf"
-          },
+         
+           },
           {
             "label": "CL Sections",
             "href": "/assets/work/election-roadset/2.2-CL SECTIONS.pdf"
-          },
-          {
-            "label": "Site Plan",
-            "href": "/assets/work/election-roadset/1.0-SITE PLAN.pdf"
+
           },
           {
             "label": "Cam R Section",
@@ -282,10 +260,7 @@
           {
             "label": "Site Plan No Overhead",
             "href": "/assets/work/election-roadset/1.1-SITE PLAN NO OVERHEAD.pdf"
-          },
-          {
-            "label": "Carr Center Dimensions for School",
-            "href": "/assets/work/election-roadset/Carr Center_Dimensions for School.pdf"
+        
           },
           {
             "label": "Revised Carr Center Spin Room",
@@ -320,18 +295,7 @@
           {
             "label": "Studio Plan",
             "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_100-STUDIO-PLAN_WNT_20250404.pdf"
-          },
-          {
-            "label": "Camera Plan",
-            "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_111-CAMERA-PLAN_WNT_20250327.pdf"
-          },
-          {
-            "label": "North & South Sections",
-            "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_200-N+S-SECTION_4E_20250204.pdf"
-          },
-          {
-            "label": "Bottom Perspective",
-            "href": "/assets/work/world-news-tonight/7HSQ_Studio-4E_202-BOTTOM-PERSPECTIVE_20250204.pdf"
+        
           },
           {
             "label": "Bottom Perspective (No Venue)",
@@ -420,10 +384,7 @@
           {
             "label": "H2.1 Studio Section (20241218)",
             "href": "/assets/work/abc-news-live/News Live_Studio 4H_H2.1-STUDIO SECTION_ 4H_20241218.pdf"
-          },
-          {
-            "label": "Drafting Packet 12-18",
-            "href": "/assets/work/abc-news-live/04H Studio drafting packet 12-18.pdf"
+      
           },
           {
             "label": "LED Video One Sheet (H7.0)",
@@ -456,23 +417,8 @@
         "label": "Draftings",
         "files": [
           {
-            "label": "Front Elevation",
-            "href": "/assets/work/dan-abrams-live-newsnation/2.0-FRONT ELEVATION-2021-10-30.pdf"
-          },
-          {
-            "label": "Section Cam Left & Right",
-            "href": "/assets/work/dan-abrams-live-newsnation/2.1-SECTION CAM LEFT & RIGHT-2021-10-30.pdf"
-          },
-          {
-            "label": "Section Cam Far Right",
-            "href": "/assets/work/dan-abrams-live-newsnation/2.2-SECTION CAM FAR RIGHT-2021-10-30.pdf"
-          },
-          {
-            "label": "Isometric",
-            "href": "/assets/work/dan-abrams-live-newsnation/2.4-ISOMETRIC -2021-10-30.pdf"
-          },
-          {
-            "label": "Studio Plan \u2013 10th Floor",
+                   
+           "label": "Studio Plan \u2013 10th Floor",
             "href": "/assets/work/dan-abrams-live-newsnation/1.0-STUDIO PLAN__10TH FLOOR-2021-10-30.pdf"
           },
           {
