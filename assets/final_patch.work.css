@@ -1,0 +1,26 @@
+/* Ensure images inside work cards maintain aspect ratio and are cropped to fit */
+.work-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Primary thumbnails in work cards */
+.work-card .thumbs img {
+  height: 220px; /* adjust height for desired card size */
+  object-fit: cover;
+}
+
+/* Additional thumbnails (if present) */
+.work-card .extra-thumbs img {
+  height: 120px;
+  object-fit: cover;
+}
+
+/* Optional: spacing adjustments */
+.work-card .body {
+  margin-top: 8px;
+}/* CSS Document */
+
