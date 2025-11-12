@@ -1,145 +1,110 @@
-/* Project page patch: fix hero media size and thumbnails */
+/* Original patch styles for project page */
 
-/* Hero container */
-#projViewer {
-  width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
-  background: #000;
-  border: none;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* Prevent the container from stretching too tall */
-  min-height: 40vh;
-  overflow: hidden;
-}
-
-/* Constrain images and videos in hero to the viewport */
-#projViewer img,
-#projViewer video,
-.viewer img,
-.viewer video {
-  width: 100%;
-  height: auto;
-  max-height: 75vh;
-  object-fit: contain;
-  display: block;
-}
-
-/* Thumbnail strip images */
-#projStrip img {
-  width: auto;
-  height: 80px;
-  object-fit: contain;
-  border-radius: 8px;
-  cursor: pointer;
-  opacity: 0.85;
-  margin-right: 8px;
-}
-#projStrip img.active {
-  outline: 2px solid #3abff8;
-  opacity: 1;
-}
-
-/* File link styling for draftings */
-.pdf-container {
-  margin-top: 12px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-.pdf-link {
-  display: inline-block;
-  padding: 6px 10px;
-  border: 1px solid #d0d7de;
-  border-radius: 8px;
-  text-decoration: none;
-  font-size: 14px;
-  line-height: 1.2;
-  background: #fff;
-  color: #333;
-}
-.pdf-link:hover {
-  text-decoration: underline;
-  background: #f6f8fa;
-}
-
-/* Overlay for PDFs and 3D models */
+/* overlay */
 .asset-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.85);
-  z-index: 9999;
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  z-index:9999;
 }
 .asset-overlay.visible {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 .asset-inner {
-  position: relative;
-  width: 92vw;
-  max-width: 1280px;
-  height: 88vh;
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  position:relative;
+  width:92vw;
+  max-width:1280px;
+  height:88vh;
+  background:#fff;
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 10px 40px rgba(0,0,0,.5);
 }
 .asset-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 40px;
-  height: 40px;
-  border: none;
-  border-radius: 50%;
-  background: #000;
-  color: #fff;
-  font-size: 24px;
-  cursor: pointer;
+  position:absolute;
+  top:10px;
+  right:10px;
+  width:40px;
+  height:40px;
+  border:none;
+  border-radius:50%;
+  background:#000;
+  color:#fff;
+  font-size:24px;
+  cursor:pointer;
 }
 #pdfFrame,
 #modelViewer,
 #assetMessage {
-  width: 100%;
-  height: 100%;
-  border: 0;
+  width:100%;
+  height:100%;
+  border:0;
 }
 #assetMessage {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font: 16px/1.4 system-ui, sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font:16px/1.4 system-ui, sans-serif;
 }
 
-/* Tab bar styling */
+/* tabs */
 #projTabs {
-  display: flex;
-  gap: 8px;
-  margin: 16px 0;
-  flex-wrap: wrap;
+  display:flex;
+  gap:8px;
+  margin:16px 0;
+  flex-wrap:wrap;
 }
 #projTabs .tab {
-  background: #eee;
-  border: 0;
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 600;
+  background:#eee;
+  border:0;
+  padding:8px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:600;
 }
 #projTabs .tab.active {
-  background: #3a51a3;
-  color: #fff;
+  background:#3a51a3;
+  color:#fff;
 }
 
-/* Panels inside the tab host */
+/* panels */
 #projPanel .panel {
-  display: none;
+  display:none;
 }
 #projPanel .panel.active {
-  display: block;
+  display:block;
+}
+
+/* file links (buttons) */
+.file-link {
+  display:inline-block;
+  background:#3a51a3;
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  padding:8px 14px;
+  margin:6px 8px 6px 0;
+  cursor:pointer;
+  font-weight:600;
+}
+.file-link:hover {
+  background:#2e3e85;
+}
+
+/* thumbnails strip */
+.strip img {
+  width:120px;
+  height:auto;
+  object-fit:cover;
+  margin-right:8px;
+  border-radius:4px;
+  opacity:.8;
+  cursor:pointer;
+}
+.strip img.active,
+.strip img:hover {
+  opacity:1;
 }
