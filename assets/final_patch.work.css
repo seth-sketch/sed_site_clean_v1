@@ -24,3 +24,12 @@
   margin-top: 8px;
 }/* CSS Document */
 
+/* Hover effect for work-grid cards */
+.work-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.work-card:hover {
+  transform: translateY(-6px);      /* raise the tile by ~6px (adjust between 4–8) */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* optional: add a shadow for depth */
+}
