@@ -1,0 +1,29 @@
+/* Keep thumbnails in the work grid contained within their aspect ratio */
+.work-card img.thumb,
+#work .grid img.thumb,
+#work #workGrid img,
+.work-card img.thumb {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  object-fit: contain !important;
+  object-position: center center;
+  display: block;
+  background: #000; /* letterbox bars for tall/wide images */
+}
+
+/* Extra thumbnails (if present) */
+.work-card .extra-thumbs img {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+  background: #000;
+  border-radius: 8px;
+}
+
+/* Optional: hover effect for thumbnails */
+.work-card .thumbs img:hover,
+.work-card .extra-thumbs img:hover {
+  opacity: 1;
+}/* CSS Document */
+
