@@ -1,0 +1,18 @@
+/* Hover-lift effect for home-page cards */
+#homeGrid .card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+#homeGrid .card:hover {
+  transform: translateY(-6px);  /* lift by ~6px; adjust between 4–8 */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Hover-lift effect for Selected Work page cards */
+#work .work-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+#work .work-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}/* CSS Document */
+
