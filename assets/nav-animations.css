@@ -13,8 +13,8 @@
 
 /* Stagger the timing for each link */
 .nav-links li:nth-child(1) a { animation-delay: 0s; }
-.nav-links li:nth-child(2) a { animation-delay: 0.1s; }
-.nav-links li:nth-child(3) a { animation-delay: 0.2s; }
+.nav-links li:nth-child(2) a { animation-delay: 0.5s; }
+.nav-links li:nth-child(3) a { animation-delay: 0.10s; }
 /* add or adjust delays if you have more links */
 
 @keyframes nav-slide-in {
