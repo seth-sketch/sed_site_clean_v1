@@ -1,0 +1,31 @@
+/* Patch styles for work grid page (optional) */
+
+/* Thumbnails in work grid should use object-fit: cover and show clear edges */
+.work-card .thumbs img,
+.work-card .extra-thumbs img {
+  border-radius: 4px;
+  object-fit: cover;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+.work-card .thumbs img:hover,
+.work-card .extra-thumbs img:hover {
+  opacity: 1;
+}
+
+/* PDF link buttons inside cards (if present) */
+.work-card .pdf-links a {
+  display: inline-block;
+  padding: 4px 8px;
+  margin-top: 4px;
+  margin-right: 4px;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: #111;
+}
+.work-card .pdf-links a:hover {
+  background: #f6f8fa;
+  text-decoration: underline;
+}

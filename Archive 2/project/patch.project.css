@@ -1,0 +1,110 @@
+/* Original patch styles for project page */
+
+/* overlay */
+.asset-overlay {
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  z-index:9999;
+}
+.asset-overlay.visible {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.asset-inner {
+  position:relative;
+  width:92vw;
+  max-width:1280px;
+  height:88vh;
+  background:#fff;
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 10px 40px rgba(0,0,0,.5);
+}
+.asset-close {
+  position:absolute;
+  top:10px;
+  right:10px;
+  width:40px;
+  height:40px;
+  border:none;
+  border-radius:50%;
+  background:#000;
+  color:#fff;
+  font-size:24px;
+  cursor:pointer;
+}
+#pdfFrame,
+#modelViewer,
+#assetMessage {
+  width:100%;
+  height:100%;
+  border:0;
+}
+#assetMessage {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font:16px/1.4 system-ui, sans-serif;
+}
+
+/* tabs */
+#projTabs {
+  display:flex;
+  gap:8px;
+  margin:16px 0;
+  flex-wrap:wrap;
+}
+#projTabs .tab {
+  background:#eee;
+  border:0;
+  padding:8px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:600;
+}
+#projTabs .tab.active {
+  background:#3a51a3;
+  color:#fff;
+}
+
+/* panels */
+#projPanel .panel {
+  display:none;
+}
+#projPanel .panel.active {
+  display:block;
+}
+
+/* file links (buttons) */
+.file-link {
+  display:inline-block;
+  background:#3a51a3;
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  padding:8px 14px;
+  margin:6px 8px 6px 0;
+  cursor:pointer;
+  font-weight:600;
+}
+.file-link:hover {
+  background:#2e3e85;
+}
+
+/* thumbnails strip */
+.strip img {
+  width:120px;
+  height:auto;
+  object-fit:cover;
+  margin-right:8px;
+  border-radius:4px;
+  opacity:.8;
+  cursor:pointer;
+}
+.strip img.active,
+.strip img:hover {
+  opacity:1;
+}

@@ -1,0 +1,24 @@
+/* Constrain hero media on project pages and keep aspect ratio */
+#projViewer img,
+#projViewer video,
+#project-page .viewer img,
+#project-page .viewer video,
+#project-shell .viewer img,
+#project-shell .viewer video {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;      /* never exceed 80% of viewport height */
+  object-fit: contain;   /* show the whole image/video without cropping */
+  display: block;
+  background: #000;       /* optional: black letterbox for tall/wide media */
+}
+
+/* Ensure thumbnails below the hero never crop */
+#projStrip img {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+  background: #000;
+  border-radius: 0;
+}/* CSS Document */
+

@@ -1,0 +1,77 @@
+/* CSS Document *//* ============================================================
+   VERSION C — DARK MODE OVERLAY (Cinematic Strong Overlay)
+   Target: clean-v1 site
+   Author: ChatGPT (for Seth Easter)
+   Notes:
+     - Does NOT modify layout logic or JS
+     - Sits on top of existing clean-v1 CSS
+     - High contrast, filmic, modern dark theme
+   ============================================================ */
+
+/* -------- GLOBAL -------- */
+html, body {
+  background: #0a0c10 !important;
+  color: #f2f2f5 !important;
+  font-smoothing: antialiased;
+}
+
+/* Softer body text */
+p, .meta, .subtle, li, .cv-meta, .press-links li {
+  color: #d1d5db !important;
+}
+
+/* Ultra-muted */
+.subtle,
+.footer-site,
+#awardsList li,
+#pressLinks .meta {
+  color: #9ca3af !important;
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+  color: #f9fafb !important;
+  letter-spacing: -0.02em;
+}
+
+/* --------------- LINKS --------------- */
+a {
+  color: #3C7BFF !important;
+  transition: 0.25s ease;
+}
+a:hover {
+  color: #73a2ff !important;
+}
+
+/* --------------- HEADER / NAV --------------- */
+.header {
+  background: rgba(5, 7, 12, 0.85) !important;
+  backdrop-filter: blur(14px) !important;
+  border-bottom: 1px solid #1a1e27 !important;
+}
+
+.nav-links a {
+  color: #f8fafc !important;
+  font-weight: 600 !important;
+  padding-bottom: 4px !important;
+  border-bottom: 2px solid transparent !important;
+}
+.nav-links a:hover {
+  border-color: #3C7BFF !important;
+}
+.nav-links a.active {
+  border-color: #3C7BFF !important;
+}
+
+/* Logo */
+.brand-logo {
+  filter: invert(1) brightness(1.35) !important;
+  height: 52px !important;
+}
+
+/* --------------- SECTIONS --------------- */
+.section {
+  padding: 56px 0 !important;
+  border-top: 1px solid #1a1e27 !important;
+}
+
