@@ -20,14 +20,14 @@
   <link rel="stylesheet" href="/assets/styles.css?v=v2">
   <link rel="stylesheet" href="/assets/hover-cards.css?v=1">
   <link rel="stylesheet" href="/assets/nav-animations.css?v=1">
-  <link rel="stylesheet" href="/assets/fix.v3.css?v=4"> <!-- MUST BE HERE -->
+  <link rel="stylesheet" href="/assets/fix.v3.css?v=4">
 
   <!-- Version C Dark Mode -->
   <link rel="stylesheet" href="/assets/theme-versionc-dark.css?v=2">
   <link rel="stylesheet" href="/assets/theme-versionc-dark-patch.css?v=1">
 </head>
 
-<body>
+<body id="home-page">
 
 <!-- Splash -->
 <div id="splash" class="splash">
@@ -51,7 +51,7 @@
 <!-- MAIN -->
 <main class="container">
 
-  <!-- HERO -->
+  <!-- HERO VIDEO -->
   <section class="section" id="hero">
     <div class="ratio-169">
       <video id="heroVideo"
@@ -62,23 +62,24 @@
     </div>
   </section>
 
-  <!-- HERO COPY -->
-<!-- HERO COPY (FIXED, CLEAN, CORRECT LAYOUT) -->
-<section class="section hero-copy-card hero-with-photo">
+  <!-- HERO TEXT + PORTRAIT -->
+  <section class="section hero-with-photo-grid">
 
-  <div class="hero-text">
-    <h1>Broadcast &amp; Live Event Production</h1>
-    <!-- description paragraphs will be injected by home-copy.js -->
-  </div>
+    <div class="hero-text-box">
+      <h1>Broadcast &amp; Live Event Production</h1>
+      <div id="heroCopy"></div>
+    </div>
 
-  <div class="hero-photo-wrap">
-    <img src="/assets/hero/seth-portrait.jpg" alt="Seth Easter portrait" class="hero-photo">
-  </div>
+    <div class="hero-image-box">
+      <img src="/assets/hero/seth-portrait.jpg" alt="Seth Easter portrait" class="hero-photo">
+    </div>
 
-</section>
+  </section>
 
-<!-- Home Copy Script (MUST be outside the hero section) -->
-<script src="/js/home-copy.js?v=hero1" defer></script>
+  <!-- Inject hero copy AFTER the hero block -->
+  <script src="/js/home-copy.js?v=hero1" defer></script>
+
+
   <!-- WORK -->
   <section id="work" class="section">
     <h2>Selected Work</h2>
@@ -108,7 +109,6 @@
 <footer class="footer-site">
   © Seth Easter · <a href="mailto:seth@setheasterdesign.com">seth@setheasterdesign.com</a>
 </footer>
-
 
 <!-- JS -->
 <script src="/js/splash.js?v=fix16" defer></script>
