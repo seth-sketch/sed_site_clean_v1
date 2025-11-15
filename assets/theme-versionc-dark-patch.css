@@ -350,3 +350,55 @@ a:hover {
     margin: 0 auto;
   }
 }
+/* ===================================================================
+   FINAL HERO MICRO-TUNING
+   =================================================================== */
+
+/* Reduce spacing between video and text box */
+#hero.section {
+  padding-top: 12px !important;
+  padding-bottom: 0 !important;
+}
+
+/* Pull hero block up + tighten horizontal gap */
+.hero-with-photo-grid {
+  padding-top: 6px !important;
+  padding-bottom: 12px !important;
+  gap: 20px !important;         /* narrower space between text and portrait */
+  align-items: flex-start !important;
+}
+
+/* Pull title section upward */
+.hero-text-box h1 {
+  margin-top: 0 !important;
+  margin-bottom: 4px !important;
+}
+
+/* Tighten spacing between paragraphs */
+.hero-text-box #heroCopy p {
+  margin-top: 8px !important;
+}
+
+/* Align portrait even more with top of text */
+.hero-image-box {
+  margin-top: -6px !important;     /* subtle lift */
+}
+
+/* Slightly brighten portrait to match text tone */
+.hero-photo {
+  filter: brightness(0.94) contrast(1.05) saturate(0.85) !important;
+}
+
+/* MOBILE adjustments */
+@media (max-width: 900px) {
+  #hero.section {
+    padding-top: 8px !important;
+  }
+  .hero-with-photo-grid {
+    padding-top: 8px !important;
+    gap: 16px !important;
+  }
+  .hero-image-box {
+    margin-top: 0 !important;
+  }
+}
