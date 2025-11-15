@@ -267,3 +267,86 @@ a:hover {
   background-color: #4a5563;
   border-radius: 6px;
 }
+/* ============================================================
+   HERO — MATCHING hero-with-photo-grid LAYOUT
+   ============================================================ */
+
+/* wrapper grid */
+.hero-with-photo-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 320px !important;
+  gap: 28px !important;
+  align-items: start !important;
+  padding: 24px 0 16px 0 !important;
+}
+
+/* text column */
+.hero-text-box {
+  max-width: 600px !important;
+  padding-right: 8px !important;
+}
+
+.hero-text-box h1 {
+  margin: 0 0 6px 0 !important;
+  font-size: clamp(2.5rem, 4.6vw, 3.6rem) !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.035em !important;
+  color: #f5f7fa !important;
+  text-shadow:
+    0 2px 6px rgba(0,0,0,0.25),
+    0 0 14px rgba(0,0,0,0.40);
+}
+
+/* paragraphs injected by JS */
+.hero-text-box #heroCopy p {
+  font-size: 1.08rem !important;
+  line-height: 1.58 !important;
+  margin-top: 12px !important;
+  color: #d7d9de !important;
+  max-width: 68ch !important;
+}
+
+.hero-text-box #heroCopy p.lead {
+  font-weight: 500 !important;
+  color: #e6e9f3 !important;
+}
+
+/* portrait column */
+.hero-image-box {
+  max-width: 320px !important;
+}
+
+.hero-photo {
+  width: 100% !important;
+  height: auto !important;
+
+  filter: brightness(0.88) contrast(1.08) saturate(0.8) !important;
+
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.20) 0%,
+    rgba(0,0,0,1.0) 10%,
+    rgba(0,0,0,1.0) 85%,
+    rgba(0,0,0,0.0) 100%
+  ) !important;
+
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.20) 0%,
+    rgba(0,0,0,1.0) 10%,
+    rgba(0,0,0,1.0) 85%,
+    rgba(0,0,0,0.0) 100%
+  ) !important;
+}
+
+/* mobile */
+@media (max-width: 900px) {
+  .hero-with-photo-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+  .hero-image-box {
+    max-width: 240px !important;
+    margin: 0 auto;
+  }
+}
