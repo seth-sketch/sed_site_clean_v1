@@ -402,3 +402,45 @@ a:hover {
     margin-top: 0 !important;
   }
 }
+/* ============================================================
+   HERO FINAL MICRO-TUNE (copy visible + alignment)
+   ============================================================ */
+
+/* Lift portrait to align with title */
+.hero-image-box {
+  margin-top: -8px !important;
+}
+
+/* Narrow the gap between text & portrait */
+.hero-with-photo-grid {
+  gap: 16px !important;
+}
+
+/* Reduce vertical padding for hero text block */
+.hero-with-photo-grid {
+  padding-top: 18px !important;
+  padding-bottom: 12px !important;
+}
+
+/* Reduce paragraph top margin slightly */
+.hero-text-box #heroCopy p {
+  margin-top: 8px !important;
+}
+
+/* On mobile: ensure portrait stacks and width is comfortable */
+@media (max-width: 900px) {
+  .hero-with-photo-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+  }
+  .hero-image-box {
+    max-width: 220px !important;
+    margin: 0 auto -4px auto !important;
+  }
+  .hero-text-box {
+    max-width: 100% !important;
+    padding-right: 0 !important;
+  }
+}
