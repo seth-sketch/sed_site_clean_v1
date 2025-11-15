@@ -446,5 +446,5 @@ a:hover {
 }
 /* Lower portrait so top of white meets bottom of 'B' */
 .hero-image-box {
-  margin-top: 16px !important;  /* adjust 12–20px to taste */
+  margin-top: 20px !important;  /* adjust 12–20px to taste */
 }
