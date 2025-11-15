@@ -735,3 +735,19 @@ h4,
   font-family: inherit !important;
   line-height: inherit !important;
 }
+/* HERO TEXT + PHOTO SPACING TWEAK */
+.hero-with-photo {
+  /* keep grid, but tighten the space between text and portrait */
+  gap: 20px !important;                 /* was bigger (28–48px), now snug */
+  align-items: center !important;       /* vertically align both in the middle */
+}
+
+/* make sure the photo isn't pushed down or floating */
+.hero-photo-wrap {
+  margin-top: 0 !important;
+}
+
+/* tiny tuning on text side so it doesn't feel too far away */
+.hero-text {
+  padding-right: 4px !important;
+}
