@@ -185,3 +185,54 @@ a:hover {
 .footer-site a {
   color:#b8bfd4 !important;
 }
+/* ============================================================
+   FINAL HERO POSITION + SPACING FIX (HOME PAGE ONLY)
+   ============================================================ */
+
+/* Completely override default .section padding for the TOP TWO SECTIONS */
+#hero.section {
+  padding-top: 8px !important;   /* minimal space above video */
+  padding-bottom: 0 !important;
+}
+
+/* HERO TEXT + PHOTO SECTION — pull it up tight under video */
+.hero-with-photo {
+  padding-top: 8px !important;
+  padding-bottom: 16px !important;
+  gap: 20px !important;
+  align-items: flex-start !important;  /* align portrait to top of text */
+}
+
+/* H1 spacing – tighter */
+.hero-copy-card h1 {
+  margin-top: 0 !important;
+  margin-bottom: 6px !important;
+}
+
+/* BODY COPY SPACING — pull paragraphs closer to heading */
+.hero-copy-card p {
+  margin-top: 6px !important;
+}
+
+/* PORTRAIT ALIGNMENT — lift image upward slightly */
+.hero-photo-wrap {
+  margin-top: -4px !important;    /* subtle lift */
+}
+
+/* TINY FADE ONLY AT TOP (more elegant) */
+.hero-photo {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.20) 0%,
+    rgba(0,0,0,1.0) 12%,
+    rgba(0,0,0,1.0) 85%,
+    rgba(0,0,0,0.0) 100%
+  ) !important;
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.20) 0%,
+    rgba(0,0,0,1.0) 12%,
+    rgba(0,0,0,1.0) 85%,
+    rgba(0,0,0,0.0) 100%
+  ) !important;
+}
