@@ -751,3 +751,28 @@ h4,
 .hero-text {
   padding-right: 4px !important;
 }
+/* ==========================================
+   HERO VERTICAL POSITIONING TWEAK
+   ========================================== */
+
+/* 1) Reduce space below the video section */
+#hero.section {
+  padding-top: 24px !important;     /* a little breathing room */
+  padding-bottom: 12px !important;  /* smaller than other sections */
+}
+
+/* 2) Pull the text+photo section up */
+.hero-with-photo {
+  padding-top: 12px !important;     /* was larger; this pulls it up */
+  padding-bottom: 24px !important;  /* less extra space below */
+  gap: 20px !important;             /* keep the tighter gap between text & photo */
+}
+
+/* 3) Tighten copy block spacing just a bit */
+.hero-copy-card h1 {
+  margin-bottom: 4px !important;    /* small gap */
+}
+
+.hero-copy-card p {
+  margin-top: 4px !important;       /* keep paragraphs closer to the heading */
+}
