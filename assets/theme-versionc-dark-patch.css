@@ -651,3 +651,59 @@ a:hover {
 .footer-site a:hover {
   color: #d7def2 !important;
 }
+/* ============================================================
+   CLEAN AWARDS + PRESS SECTIONS (NO LINES, NO WHITE BOXES)
+   ============================================================ */
+
+/* REMOVE BORDERS AROUND AWARDS ITEMS */
+#awardsList li {
+  background: transparent !important;
+  border: none !important;
+  padding: 6px 0 !important;
+}
+
+/* REMOVE LINES FROM PRESS ITEMS */
+.press-links li,
+#pressList li,
+.press-item {
+  background: transparent !important;
+  border: none !important;
+  padding: 6px 0 !important;
+}
+
+/* REMOVE BLUE ACCENT LINES ON PRESS LINKS */
+.press-links a,
+#pressList a {
+  text-decoration: none !important;
+  border: none !important;
+}
+
+/* STYLISH SUBTLE LINK COLOR FOR PRESS + AWARDS */
+.press-links a,
+#pressList a,
+#awardsList a {
+  color: #cdd1d7 !important;
+}
+.press-links a:hover,
+#pressList a:hover,
+#awardsList a:hover {
+  color: #e6e7eb !important;
+}
+
+/* FIX THE “SEE ALL PRESS & AWARDS” BUTTON */
+.btn.btn-secondary {
+  background: rgba(255,255,255,0.06) !important; /* soft grey film layer */
+  color: #d1d5db !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  padding: 10px 16px !important;
+  border-radius: 6px !important;
+  font-size: 0.92rem !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* hover: barely brighter, subtle */
+.btn.btn-secondary:hover {
+  background: rgba(255,255,255,0.12) !important;
+  color: #f5f7fa !important;
+  border-color: rgba(255,255,255,0.18) !important;
+}
