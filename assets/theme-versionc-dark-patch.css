@@ -554,3 +554,100 @@ a:hover { color:#d7def2 !important; }
   background: #000 !important;
   margin: auto !important;
 }
+/* =======================================================================
+   UNIVERSAL COLOR PALETTE FIX — REMOVE ALL OLD BLUE / BLACK BARS
+   ======================================================================= */
+
+/* --- GLOBAL LINK COLORS (override remaining defaults) --- */
+a,
+a:visited,
+.nav-links a,
+.press-links a,
+#pressList a,
+#projMeta a,
+#projDesc a,
+.cv-list a,
+.footer-site a {
+  color: #b8bfd4 !important;          /* soft grey-blue */
+}
+
+a:hover {
+  color: #d7def2 !important;           /* lighter accent */
+}
+
+/* --- SECTION TITLES (force correct grey everywhere) --- */
+.section h1,
+.section h2,
+.section h3,
+#projTitle,
+#work h2,
+#awards h2,
+#press h2 {
+  color: #e4e6eb !important;          /* homepage title grey */
+  letter-spacing: -0.03em !important;
+  font-weight: 500 !important;
+}
+
+/* --- REMOVE BLACK BAR BEHIND AWARDS + PRESS --- */
+.section-panel {
+  background: rgba(32, 35, 42, 0.65) !important;  /* same grey as header */
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
+/* --- FIX PRESS/WORK/CARDS BLUE TEXT --- */
+.meta, .subtle, .press-item .meta, .work-card .kicker {
+  color: #9da4b0 !important;
+}
+
+/* --- PROJECT PAGE DESCRIPTION + META COLOR FIX --- */
+#projMeta,
+#projDesc,
+#projDesc * {
+  color: #cdd2dd !important;      /* softer grey, no blue tint */
+}
+
+/* --- PROJECT PAGE CARD ALIGNMENT + TITLE COLOR --- */
+#projTitle {
+  color: #f3f4f6 !important;
+}
+
+/* --- WORK PAGE TITLES --- */
+.work-card h3 {
+  color: #e5e7eb !important;
+}
+
+/* --- REMOVE ANY OLD BLUE HOVER STATES --- */
+.work-card a:hover,
+.press-item a:hover,
+#pressList a:hover,
+#workGrid a:hover {
+  color: #d7def2 !important;
+}
+
+/* --- SCROLLBAR FIX (keeps dark grey tone) --- */
+::-webkit-scrollbar-thumb {
+  background: #4b5463 !important;
+}
+::-webkit-scrollbar-track {
+  background: #121418 !important;
+}
+
+/* --- CV PAGE LINK + SECTION FIX --- */
+#cv-page a {
+  color: #b8bfd4 !important;
+}
+#cv-page a:hover {
+  color: #d7def2 !important;
+}
+#cv-page h2 {
+  color: #e4e6eb !important;
+}
+
+/* --- FOOTER COLOR FIX (removes blue hue) --- */
+.footer-site a {
+  color: #b8bfd4 !important;
+}
+.footer-site a:hover {
+  color: #d7def2 !important;
+}
