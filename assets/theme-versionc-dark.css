@@ -74,4 +74,50 @@ a:hover {
   padding: 56px 0 !important;
   border-top: 1px solid #1a1e27 !important;
 }
+/* ===================================================
+   HERO PORTRAIT — CINEMATIC FADE + TONE
+   =================================================== */
+
+.hero-with-photo {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  padding-top: 32px !important;
+}
+
+.hero-with-photo .hero-text {
+  flex: 1;
+  min-width: 50%;
+}
+
+.hero-with-photo .hero-photo-wrap {
+  flex: 0 0 330px;
+  max-width: 330px;
+  position: relative;
+}
+
+.hero-photo {
+  width: 100%;
+  height: auto;
+  border-radius: 0;
+  filter:
+    brightness(0.82)
+    contrast(1.06)
+    saturate(0.7)
+    drop-shadow(0 12px 30px rgba(0,0,0,0.55));
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0.0));
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0.0));
+}
+
+/* Mobile stacking */
+@media (max-width: 900px) {
+  .hero-with-photo {
+    flex-direction: column;
+    gap: 24px;
+    text-align: left;
+  }
+  .hero-with-photo .hero-photo-wrap {
+    max-width: 220px;
+  }
+}
 

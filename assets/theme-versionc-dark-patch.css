@@ -510,3 +510,34 @@ a:hover {
   margin: 0 auto 16px;
   border-radius: 999px;
 }
+/* ==========================================
+   CONSISTENT HEADER / TITLE COLOR (ATLAS GREY)
+   ========================================== */
+h1, h2, h3, h4,
+.card h3,
+.work-card h3,
+.press-item .title,
+#projTitle {
+  color: #e4e6eb !important;   /* soft grey-white */
+  letter-spacing: -0.03em !important;
+  font-weight: 500 !important;
+}
+/* ===================================================
+   HEADER COLOR — LIGHTER SLATE GREY (ATLAS STYLE)
+   =================================================== */
+.header {
+  background: rgba(32, 35, 42, 0.88) !important;  /* lighter grey */
+  backdrop-filter: blur(22px) saturate(160%) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+}
+
+.nav-links a {
+  color: #d3d6dc !important;
+}
+.nav-links a:hover {
+  color: #e8eaed !important;
+}
+
+.brand-logo {
+  filter: invert(1) brightness(1.25) !important;
+}
