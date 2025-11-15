@@ -36,7 +36,7 @@ html, body {
 
 /* -------- HERO VIDEO -------- */
 #heroVideo {
-  filter: brightness(0.92) contrast(1.05) saturate(1.12) !important;
+  filter: brightness(1.05) contrast(1.03) saturate(1.08) !important;
 }
 
 #hero .ratio-169::after {
