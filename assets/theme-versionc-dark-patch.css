@@ -666,3 +666,72 @@ h4,
   padding: 36px 0 28px !important;
   gap: 32px !important;
 }
+/* ======================================================
+   HOME HERO SPACING + PORTRAIT ALIGNMENT FIXES
+   ====================================================== */
+
+/* tighten the hero vertical spacing */
+.hero-with-photo {
+  padding: 28px 0 12px !important;  /* tighter top + bottom */
+  gap: 28px !important;             /* reduced spacing between text + image */
+  align-items: center !important;
+}
+
+/* tighten hero title spacing */
+.hero-copy-card h1 {
+  margin-top: 0 !important;
+  margin-bottom: 4px !important;
+}
+
+/* portrait alignment fix */
+.hero-photo-wrap {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-start !important; /* lift photo upward */
+  margin-top: 0 !important;
+}
+
+.hero-photo {
+  /* soften fade & brighten image slightly */
+  filter: brightness(0.88) contrast(1.08) saturate(0.8) !important;
+
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.12) 0%,   /* subtle fade at very top */
+    rgba(0,0,0,1.0) 14%,
+    rgba(0,0,0,1.0) 85%,
+    rgba(0,0,0,0.0) 100%
+  ) !important;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.12) 0%,
+    rgba(0,0,0,1.0) 14%,
+    rgba(0,0,0,1.0) 85%,
+    rgba(0,0,0,0.0) 100%
+  ) !important;
+}
+
+/* ======================================================
+   PRESS & AWARDS — MAKE ONE SHARED PANEL SECTION
+   ====================================================== */
+
+/* apply unified grey panel */
+.section-panel {
+  background: rgba(32, 35, 42, 0.85) !important; /* same grey as header */
+  border-top: 1px solid rgba(255,255,255,0.05) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+  padding-top: 48px !important;
+  padding-bottom: 48px !important;
+}
+
+/* fix title color inside these panels */
+.section-panel h2 {
+  color: #e4e6eb !important;
+}
+
+/* remove weird “&mp” corruption */
+.section-panel h2 span,
+.section h2 span {
+  font-family: inherit !important;
+  line-height: inherit !important;
+}
