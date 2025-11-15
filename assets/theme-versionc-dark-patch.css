@@ -509,3 +509,48 @@ a:hover { color:#d7def2 !important; }
   border-radius:999px;
   background: rgba(120,150,255,0.35) !important;
 }
+/* ============================================================
+   PROJECT PAGE MEDIA FIX — KEEP IMAGES PROPERLY SIZED
+   ============================================================ */
+
+/* Limit width of viewer content */
+#projViewer {
+  max-width: 1100px !important;
+  margin: 0 auto !important;
+  padding: 0 0 24px 0 !important;
+}
+
+/* STYLE FOR IMAGES INSIDE VIEWER */
+#projViewer img,
+#projViewer video {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 78vh !important;   /* prevents giant images */
+  object-fit: contain !important;
+  background: #0f1013 !important; /* subtle neutral dark background */
+  border-radius: 0 !important;
+  display: block !important;
+  margin: 0 auto !important;
+}
+
+/* Thumbnail strip size fix */
+#projStrip img {
+  max-height: 80px !important;
+  width: auto !important;
+  object-fit: cover !important;
+  border-radius: 0 !important;
+  background: #1a1d23 !important;
+  border: 1px solid #2b303a !important;
+}
+
+/* Lightbox viewer sizing */
+#proj-lb-content img,
+#proj-lb-content video {
+  max-width: 90vw !important;
+  max-height: 85vh !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+  background: #000 !important;
+  margin: auto !important;
+}
