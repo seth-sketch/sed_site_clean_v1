@@ -589,16 +589,21 @@ h1, h2, h3, h4,
   /* cinematic fade */
   filter: brightness(0.82) contrast(1.05) saturate(0.7) !important;
 
-  mask-image: linear-gradient(
+    mask-image: linear-gradient(
     to bottom,
-    rgba(0,0,0,1),
-    rgba(0,0,0,0)
+    rgba(0,0,0,0.0) 0%,   /* gentle fade at the very top */
+    rgba(0,0,0,1.0) 18%,  /* fully visible through the middle */
+    rgba(0,0,0,1.0) 82%,
+    rgba(0,0,0,0.0) 100%  /* tiny fade at the bottom edge */
   ) !important;
   -webkit-mask-image: linear-gradient(
     to bottom,
-    rgba(0,0,0,1),
-    rgba(0,0,0,0)
+    rgba(0,0,0,0.0) 0%,
+    rgba(0,0,0,1.0) 18%,
+    rgba(0,0,0,1.0) 82%,
+    rgba(0,0,0,0.0) 100%
   ) !important;
+}
 
   border-radius: 0 !important;
 }
@@ -650,4 +655,14 @@ h4,
 .section {
   padding-top: 64px !important;
   padding-bottom: 64px !important;
+}
+/* HERO TITLE SPACING – tighten the gap */
+.hero-copy-card h1 {
+  margin-bottom: 6px !important;   /* was ~10–18, this pulls things up */
+}
+
+/* pull the hero block a bit tighter overall */
+.hero-with-photo {
+  padding: 36px 0 28px !important;
+  gap: 32px !important;
 }
