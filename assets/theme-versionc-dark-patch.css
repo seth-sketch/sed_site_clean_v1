@@ -448,3 +448,64 @@ a:hover {
 .hero-image-box {
   margin-top: 20px !important;  /* adjust 12–20px to taste */
 }
+/* ============================================================
+   UNIVERSAL PAGE COLOR + HEADER + FOOTER FIX PACK
+   ============================================================ */
+
+/* BACKGROUND (all pages) */
+body, html {
+  background: #131418 !important;
+  color: #e5e7eb !important;
+}
+
+/* UNIVERSAL TITLES */
+h1, h2, h3, h4 {
+  color: #e4e6eb !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.03em !important;
+}
+
+/* HEADER (matches homepage) */
+.header {
+  background: rgba(32,35,42,0.88) !important;
+  backdrop-filter: blur(22px) saturate(165%) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+}
+.nav-links a { color:#d3d6dc !important; }
+.nav-links a:hover { color:#f0f2f4 !important; }
+.nav-links a.active {
+  border-color: rgba(120,150,255,0.35) !important;
+}
+
+/* UNIVERSAL CARD SURFACES */
+.work-card,
+#homeGrid .card,
+#pressList li,
+.press-item,
+#awardsList li,
+.press-links li {
+  background:#1a1d23 !important;
+  border:1px solid #2b303a !important;
+  border-radius:0 !important;
+  color:#d1d5db !important;
+}
+
+/* UNIVERSAL LINKS */
+a { color:#b8bfd4 !important; }
+a:hover { color:#d7def2 !important; }
+
+/* FOOTER (matches homepage) */
+.footer-site {
+  background: rgba(23,25,32,0.6) !important;
+  padding: 48px 0 !important;
+  color: #9da3b4 !important;
+  border-top: 1px solid rgba(255,255,255,0.04) !important;
+}
+.footer-site::before {
+  content:"";
+  width:80px; height:2px;
+  margin:0 auto 16px;
+  display:block;
+  border-radius:999px;
+  background: rgba(120,150,255,0.35) !important;
+}
