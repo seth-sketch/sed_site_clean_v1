@@ -236,3 +236,34 @@ a:hover {
     rgba(0,0,0,0.0) 100%
   ) !important;
 }
+/* HERO DESCRIPTION TEXT (FROM home-copy.js) */
+.hero-copy-card #heroCopy p {
+  color: #d7d9de !important;
+  max-width: 68ch;
+  font-size: 1.02rem;
+  line-height: 1.55;
+  margin-top: 6px;
+}
+
+.hero-copy-card #heroCopy p.lead {
+  font-weight: 500;
+  color: #e6e9f3 !important;
+}
+/* WORK & HOME SCROLLER SCROLLBAR (ATLAS GREY) */
+.scroller {
+  scrollbar-width: auto;
+  scrollbar-color: #4a5563 #111318;
+}
+
+.scroller::-webkit-scrollbar {
+  width: 10px;
+}
+
+.scroller::-webkit-scrollbar-track {
+  background: #111318;
+}
+
+.scroller::-webkit-scrollbar-thumb {
+  background-color: #4a5563;
+  border-radius: 6px;
+}
