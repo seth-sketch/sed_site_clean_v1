@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1, viewport-fit=cover"/>
+
+  <title>CV — Seth Easter Design</title>
+
+  <!-- Base CSS -->
+  <link rel="stylesheet" href="/assets/styles.css?v=v2">
+  <link rel="stylesheet" href="/assets/hover-cards.css?v=1">
+  <link rel="stylesheet" href="/assets/nav-animations.css?v=1">
+  <link rel="stylesheet" href="/assets/fix.v3.css?v=4">
+
+  <!-- Version C Dark Mode -->
+  <link rel="stylesheet" href="/assets/theme-versionc-dark.css?v=2">
+  <link rel="stylesheet" href="/assets/theme-versionc-dark-patch.css?v=1">
+</head>
+
+<body id="cv-page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container nav">
+      <a href="/" class="brand">
+        <img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="SED">
+      </a>
+      <ul class="nav-links" id="topNav">
+        <li><a href="/work/">Work</a></li>
+        <li><a href="/press/">Press &amp; Awards</a></li>
+        <li><a href="/cv.html" class="active">CV</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="container">
+
+    <!-- CV RENDER TARGET -->
+    <section class="section">
+      <h1 style="margin-bottom: 18px;">Curriculum Vitae</h1>
+      <div id="cv-root">
+        <p class="subtle">Loading CV…</p>
+      </div>
+    </section>
+
+    <!-- DOWNLOAD SECTION -->
+    <section class="section">
+      <h2>Download</h2>
+      <p>
+        <a class="btn btn-secondary" href="/assets/cv.pdf" download>
+          Download CV (PDF)
+        </a>
+      </p>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer-site">
+    © Seth Easter.
+  </footer>
+
+  <!-- JS – CV Renderer -->
+  <script src="/js/cv.js?v=1" defer></script>
+
+</body>
+</html>

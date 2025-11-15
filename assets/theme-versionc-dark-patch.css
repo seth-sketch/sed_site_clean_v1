@@ -294,4 +294,92 @@ body#home-page .nav-links li:first-child a::after {
 .footer-site a:hover {
   color: #a9c5ff !important;
 }
+/* LIGHTER, CLEANER HERO OVERLAY */
+#heroVideo {
+  filter: brightness(0.92) contrast(1.05) saturate(1.08) !important;
+}
 
+#hero .ratio-169::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.02),
+      rgba(0,0,0,0.40) 55%,
+      rgba(0,0,0,0.65) 90%
+    );
+  z-index: 2;
+}
+/* ============================================================
+   HERO COPY — CLEAN, FULL-WIDTH, PREMIUM
+   ============================================================ */
+
+/* Full-width layout (no card box) */
+.hero-copy-card {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  max-width: 100% !important;
+  padding: 48px 0 !important;
+  margin: 0 !important;
+  text-align: left !important;
+}
+
+/* H1 styling—modern, cinematic, readable */
+.hero-copy-card h1 {
+  color: #f5f7fa !important;
+  font-size: clamp(2.4rem, 4.6vw, 3.6rem) !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.035em !important;
+  margin: 0 0 12px 0 !important;
+
+  /* subtle glow but NOT cheap */
+  text-shadow:
+    0 0 12px rgba(0,0,0,0.45),
+    0 2px 4px rgba(0,0,0,0.35);
+}
+
+/* Hero paragraph styles (if you add more lines) */
+.hero-copy-card p {
+  color: #d7d9de !important;
+  max-width: 68ch !important;
+  font-size: 1.05rem !important;
+  line-height: 1.55 !important;
+}
+
+/* Mobile cleanup */
+@media (max-width: 800px) {
+  .hero-copy-card {
+    padding: 28px 0 !important;
+  }
+  .hero-copy-card h1 {
+    font-size: 2rem !important;
+  }
+}
+/* PROFESSIONAL GREY ACCENT PALETTE */
+a {
+  color: #b8bfd4 !important;
+}
+
+a:hover {
+  color: #d7def2 !important;
+}
+
+.nav-links a.active {
+  border-color: rgba(80,140,255,0.45) !important;
+}
+
+.footer-site::before {
+  background: rgba(80,140,255,0.45) !important;
+}
+/* SHARP CORNERS ON GRID CARDS */
+.work-card,
+#homeGrid .card,
+.press-item,
+#awardsList li {
+  border-radius: 0 !important;
+}
