@@ -444,3 +444,7 @@ a:hover {
     padding-right: 0 !important;
   }
 }
+/* Lower portrait so top of white meets bottom of 'B' */
+.hero-image-box {
+  margin-top: 16px !important;  /* adjust 12–20px to taste */
+}
