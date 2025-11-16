@@ -944,3 +944,54 @@ a:hover {
   padding-top: 40px !important;
   padding-bottom: 40px !important;
 }
+/* WORK PAGE — hero + cards upgrade */
+
+/* Tighten section and add breathing room */
+#work-page #work.section {
+  padding-top: 56px !important;
+  padding-bottom: 56px !important;
+}
+
+/* Subhead style under "Selected Work" */
+#work-page .work-subhead {
+  margin-top: -4px !important;
+  margin-bottom: 20px !important;
+  color: #9aa0a9 !important;
+  font-size: 0.92rem !important;
+  letter-spacing: 0.01em;
+}
+
+/* Work cards — more cinematic */
+#work-page .work-card {
+  background: rgba(26,29,35,0.96) !important;
+  border: 1px solid rgba(255,255,255,0.06) !important;
+  border-radius: 0 !important;
+  overflow: hidden !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+/* Image hover */
+#work-page .work-card img.thumb {
+  transition: transform 0.4s ease, filter 0.4s ease !important;
+}
+#work-page .work-card:hover img.thumb {
+  transform: scale(1.03) !important;
+  filter: brightness(1.06) contrast(1.03) !important;
+}
+
+/* Title + meta cleanup */
+#work-page .work-card h3 {
+  font-size: 1.05rem !important;
+  color: #eceff3 !important;
+  margin-bottom: 4px !important;
+}
+#work-page .work-card .kicker {
+  font-size: 0.8rem !important;
+  color: #a3a9b3 !important;
+  margin-bottom: 4px !important;
+}
+
+/* Row/panel spacing inside the scroller */
+#work-page .work-grid {
+  row-gap: 22px !important;
+}
