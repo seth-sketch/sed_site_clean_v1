@@ -624,4 +624,39 @@
     }
   ]
 }
+	{
+  "slug": "newsnation-new-york",
+  "title": "NEWS NATION NEWSROOM AND MAIN STUDIO",
+  "client": "NEXSTAR",
+  "year": "2023",
+  "role": "Production Designer",
+  "cover": "/assets/work/project-folder-name/cover.jpg",
+
+  "gallery": [
+    "/assets/work/project-folder-name/1.jpg",
+    "/assets/work/project-folder-name/2.jpg",
+    "/assets/work/project-folder-name/3.jpg"
+  ],
+
+  "tabs": [
+    {
+      "type": "media",
+      "label": "Renderings"
+    },
+    {
+      "type": "files",
+      "label": "Draftings",
+      "files": [
+        {
+          "label": "Ground Plan",
+          "href": "/assets/work/project-folder-name/groundplan.pdf"
+        },
+        {
+          "label": "Elevation",
+          "href": "/assets/work/project-folder-name/elevation.pdf"
+        }
+      ]
+    }
+  ]
+}
 ]
