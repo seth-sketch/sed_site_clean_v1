@@ -1147,3 +1147,71 @@ body#cv-page h2:not(:first-of-type) {
   border-top: 1px solid rgba(255,255,255,0.08) !important;
   padding-top: 24px !important;
 }
+/* PROJECT PAGE — final polish */
+body#project-page #projTitle {
+  margin-bottom: 6px !important;
+  font-size: 1.7rem !important;
+}
+
+body#project-page #projMeta {
+  margin-bottom: 16px !important;
+  color: #a6acb5 !important;
+  font-size: 0.92rem !important;
+}
+
+body#project-page #projViewer {
+  background: #1a1d23 !important;
+  border: 1px solid rgba(255,255,255,0.05) !important;
+  padding: 22px !important;
+  margin-bottom: 28px !important;
+}
+
+body#project-page #projDesc {
+  font-size: 1rem !important;
+  line-height: 1.55 !important;
+  color: #cfd3d8 !important;
+}
+/* PRESS PAGE — final tone and spacing */
+body#press-page h2 {
+  margin-bottom: 20px !important;
+}
+
+body#press-page #pressList li,
+body#press-page #awardsList li {
+  margin-bottom: 10px !important;
+  line-height: 1.45 !important;
+  font-size: 0.95rem !important;
+}
+
+body#press-page #pressList a {
+  color: #d2d6dd !important;
+}
+/* CV PAGE — final cleanup */
+body#cv-page h1 {
+  margin-bottom: 8px !important;
+}
+
+body#cv-page h2 {
+  margin: 32px 0 12px !important;
+  font-size: 1.3rem !important;
+}
+
+body#cv-page p,
+body#cv-page li {
+  font-size: 0.95rem !important;
+  line-height: 1.48 !important;
+  color: #d5d9e0 !important;
+}
+
+#cv-page .cv-grid {
+  row-gap: 14px !important;
+}
+
+#cv-page .cv-list li {
+  margin-bottom: 4px !important;
+}
+
+/* soften the divider */
+body#cv-page h2:not(:first-of-type) {
+  border-top: 1px solid rgba(255,255,255,0.06) !important;
+}
