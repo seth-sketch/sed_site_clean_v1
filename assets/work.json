@@ -653,5 +653,107 @@
         ]
       }
     ]
-  }
+  },
+{
+  "slug": "bloomberg-screentime",
+  "title": "BLOOMBERG SCREENTIME MULTI STAGE EVENT AND ACTIVATION",
+  "client": "BLOOMBERG - AGENCY",
+  "year": "",
+  "role": "Production Designer",
+  "cover": "/assets/work/bloomberg-screentime/cover.jpg",
+  "gallery": [
+    "/assets/work/bloomberg-screentime/1.jpg",
+    "/assets/work/bloomberg-screentime/2.jpg",
+    "/assets/work/bloomberg-screentime/3.jpg"
+  ],
+  "description": "",
+  "tabs": [
+    {
+      "type": "media",
+      "label": "Renderings"
+    },
+    {
+      "type": "files",
+      "label": "Draftings",
+      "files": [
+        {
+          "label": "Ground Plan",
+          "href": "/assets/work/project-01/groundplan.pdf"
+        },
+        {
+          "label": "Elevation",
+          "href": "/assets/work/project-01/elevation.pdf"
+        }
+      ]
+    }
+  ]
+},
+{
+  "slug": "paramount-4d-ride",
+  "title": "4D CREATIVE RIDE BUILT INSIDE OF A GONDOLLA FOR THE SUPER BOWL",
+  "client": "PARAMOUNT - AGENCY",
+  "year": "",
+  "role": "Production Designer",
+  "cover": "/assets/work/paramount-4d-ride/cover.jpg",
+  "gallery": [
+    "/assets/work/paramount-4d-ride/1.jpg",
+    "/assets/work/paramount-4d-ride/2.jpg",
+    "/assets/work/paramount-4d-ride/3.jpg"
+  ],
+  "description": "",
+  "tabs": [
+    {
+      "type": "media",
+      "label": "Renderings"
+    },
+    {
+      "type": "files",
+      "label": "Draftings",
+      "files": [
+        {
+          "label": "Ground Plan",
+          "href": "/assets/work/project-02/groundplan.pdf"
+        },
+        {
+          "label": "Elevation",
+          "href": "/assets/work/project-02/elevation.pdf"
+        }
+      ]
+    }
+  ]
+},
+{
+  "slug": "led-newsroom-display",
+  "title": "led art piece to serve as screen monitoring for newsroom",
+  "client": "",
+  "year": "",
+  "role": "Production Designer",
+  "cover": "/assets/work/led-newsroom-display/cover.jpg",
+  "gallery": [
+    "/assets/work/led-newsroom-display/1.jpg",
+    "/assets/work/led-newsroom-display/2.jpg",
+    "/assets/work/led-newsroom-display/3.jpg"
+  ],
+  "description": "",
+  "tabs": [
+    {
+      "type": "media",
+      "label": "Renderings"
+    },
+    {
+      "type": "files",
+      "label": "Draftings",
+      "files": [
+        {
+          "label": "Ground Plan",
+          "href": "/assets/work/project-03/groundplan.pdf"
+        },
+        {
+          "label": "Elevation",
+          "href": "/assets/work/project-03/elevation.pdf"
+        }
+      ]
+    }
+  ]
+}
 ]
