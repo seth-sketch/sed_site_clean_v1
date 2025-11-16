@@ -1058,3 +1058,92 @@ a:hover {
 #cv-page a:hover {
   color: #d7def2 !important;
 }
+/* PROJECT PAGE — force cinematic palette */
+body#project-page {
+  background: #131418 !important;
+}
+
+body#project-page #projTitle {
+  color: #f3f4f6 !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.03em !important;
+}
+
+body#project-page #projMeta,
+body#project-page #projDesc,
+body#project-page #projDesc * {
+  color: #cdd2dd !important;
+}
+
+/* Viewer frame */
+body#project-page #projViewer {
+  background: #181b22 !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  padding: 20px !important;
+}
+
+/* Thumbnails */
+body#project-page #projStrip img {
+  background: #1a1d23 !important;
+  border: 1px solid #2b303a !important;
+  border-radius: 0 !important;
+}
+/* PRESS PAGE — stronger override */
+body#press-page {
+  background: #131418 !important;
+}
+
+body#press-page h2 {
+  color: #e4e6eb !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.03em !important;
+}
+
+/* No borders or boxes */
+body#press-page #pressList li,
+body#press-page #awardsList li {
+  border: none !important;
+  background: transparent !important;
+  padding: 10px 0 !important;
+}
+
+/* Press links */
+body#press-page #pressList a {
+  color: #cdd1d7 !important;
+  text-decoration: none !important;
+}
+body#press-page #pressList a:hover {
+  color: #f0f2f5 !important;
+}
+/* CV PAGE — force theme */
+body#cv-page {
+  background: #131418 !important;
+}
+
+/* Headers */
+body#cv-page h2 {
+  color: #e4e6eb !important;
+  margin: 28px 0 10px !important;
+  font-weight: 500 !important;
+}
+
+/* Text */
+body#cv-page,
+body#cv-page p,
+body#cv-page li {
+  color: #d3d6dc !important;
+}
+
+/* Links */
+body#cv-page a {
+  color: #b8bfd4 !important;
+}
+body#cv-page a:hover {
+  color: #d7def2 !important;
+}
+
+/* Section dividers */
+body#cv-page h2:not(:first-of-type) {
+  border-top: 1px solid rgba(255,255,255,0.08) !important;
+  padding-top: 24px !important;
+}
