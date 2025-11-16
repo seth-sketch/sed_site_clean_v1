@@ -592,71 +592,66 @@
       }
     ]
   },
+    {
+    "slug": "gma-alicia-keys-drive-in",
+    "title": "Alicia Keys performs for essential workers!",
+    "client": "ABC",
+    "year": "2020",
+    "role": "Production Designer",
+    "cover": "/assets/work/gma-alicia-keys-drive-in/cover.jpg",
+    "gallery": [
+      "/assets/work/gma-alicia-keys-drive-in/cover.jpg",
+      "/assets/work/gma-alicia-keys-drive-in/1.jpg",
+      "/assets/work/gma-alicia-keys-drive-in/2.jpg"
+    ],
+    "media": [
+      { "type": "video", "src": "/assets/work/gma-alicia-keys-drive-in/video.mp4" },
+      { "type": "image", "src": "/assets/work/gma-alicia-keys-drive-in/1.jpg" },
+      { "type": "image", "src": "/assets/work/gma-alicia-keys-drive-in/2.jpg" }
+    ],
+    "description": "I designed a drive-in style concert during COVID for Good Morning America featuring Alicia Keys performing with the Empire State Building directly behind her.",
+    "tabs": [
+      { "type": "media", "label": "Renderings" },
+      {
+        "type": "files",
+        "label": "Draftings",
+        "files": [
+          {
+            "label": "Drive In Plan",
+            "href": "/assets/work/gma-alicia-keys-drive-in/drive-in-plan.pdf"
+          }
+        ]
+      }
+    ]
+  },
   {
-  "slug": "gma-alicia-keys-drive-in",
-  "title": "Alicia Keys performs for essential workers!",
-  "client": "ABC",
-  "year": "2020",
-  "role": "Production Designer",
-  "cover": "/assets/work/gma-alicia-keys-drive-in/cover.jpg",
-  "gallery": [
-    "/assets/work/gma-alicia-keys-drive-in/cover.jpg",
-    "/assets/work/gma-alicia-keys-drive-in/1.jpg",
-    "/assets/work/gma-alicia-keys-drive-in/2.jpg"
-  ],
-  "media": [
-    { "type": "video", "src": "/assets/work/gma-alicia-keys-drive-in/video.mp4" },
-    { "type": "image", "src": "/assets/work/gma-alicia-keys-drive-in/1.jpg" },
-    { "type": "image", "src": "/assets/work/gma-alicia-keys-drive-in/2.jpg" }
-  ],
-  "description": "I designed a drive‑in style concert during COVID for Good Morning America featuring Alicia Keys performing with the Empire State Building directly behind her.",
-  "tabs": [
-    { "type": "media", "label": "Renderings" },
-    {
-      "type": "files",
-      "label": "Draftings",
-      "files": [
-        {
-          "label": "Drive In Plan",
-          "href": "/assets/work/gma-alicia-keys-drive-in/drive-in-plan.pdf"
-        }
-      ]
-    }
-  ]
-}
-	{
-  "slug": "newsnation-new-york",
-  "title": "NEWS NATION NEWSROOM AND MAIN STUDIO",
-  "client": "NEXSTAR",
-  "year": "2023",
-  "role": "Production Designer",
-  "cover": "/assets/work/project-folder-name/cover.jpg",
-
-  "gallery": [
-    "/assets/work/project-folder-name/1.jpg",
-    "/assets/work/project-folder-name/2.jpg",
-    "/assets/work/project-folder-name/3.jpg"
-  ],
-
-  "tabs": [
-    {
-      "type": "media",
-      "label": "Renderings"
-    },
-    {
-      "type": "files",
-      "label": "Draftings",
-      "files": [
-        {
-          "label": "Ground Plan",
-          "href": "/assets/work/project-folder-name/groundplan.pdf"
-        },
-        {
-          "label": "Elevation",
-          "href": "/assets/work/project-folder-name/elevation.pdf"
-        }
-      ]
-    }
-  ]
-}
+    "slug": "newsnation-new-york",
+    "title": "NEWS NATION NEWSROOM AND MAIN STUDIO",
+    "client": "NEXSTAR",
+    "year": "2023",
+    "role": "Production Designer",
+    "cover": "/assets/work/newsnation-new-york/cover.jpg",
+    "gallery": [
+      "/assets/work/newsnation-new-york/1.jpg",
+      "/assets/work/newsnation-new-york/2.jpg",
+      "/assets/work/newsnation-new-york/3.jpg"
+    ],
+    "tabs": [
+      { "type": "media", "label": "Renderings" },
+      {
+        "type": "files",
+        "label": "Draftings",
+        "files": [
+          {
+            "label": "Ground Plan",
+            "href": "/assets/work/newsnation-new-york/groundplan.pdf"
+          },
+          {
+            "label": "Elevation",
+            "href": "/assets/work/newsnation-new-york/elevation.pdf"
+          }
+        ]
+      }
+    ]
+  }
 ]
