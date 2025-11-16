@@ -707,3 +707,240 @@ a:hover {
   color: #f5f7fa !important;
   border-color: rgba(255,255,255,0.18) !important;
 }
+/* ============================================================
+   WORK PAGE UPGRADE — clean hero intro, better cards, spacing
+   ============================================================ */
+
+/* Work section header spacing */
+#work.section h2 {
+  margin-bottom: 6px !important;
+}
+
+/* Add subtle subtitle under "Selected Work" */
+#work.section::after {
+  content: "Broadcast studios, debates, live events, and special productions.";
+  display: block;
+  color: #9aa0a9;
+  font-size: 0.92rem;
+  margin-top: 6px;
+  margin-bottom: 18px;
+}
+
+/* Work cards — cinematic upgrade */
+.work-card {
+  background: rgba(28,31,39,0.95) !important;
+  border: 1px solid rgba(255,255,255,0.06) !important;
+  padding-bottom: 10px !important;
+  transition: 0.25s ease !important;
+}
+
+/* Larger, cleaner titles */
+.work-card h3 {
+  font-size: 1.05rem !important;
+  color: #eceff3 !important;
+  margin-bottom: 4px !important;
+}
+
+/* Meta line */
+.work-card .kicker {
+  font-size: 0.82rem !important;
+  color: #a3a9b3 !important;
+  margin-bottom: 4px !important;
+}
+
+/* Image hover */
+.work-card img.thumb {
+  transition: 0.4s ease !important;
+}
+.work-card:hover img.thumb {
+  filter: brightness(1.06) contrast(1.03) !important;
+  transform: scale(1.015) !important;
+}
+/* ============================================================
+   PRESS & AWARDS — remove lines, add editorial spacing
+   ============================================================ */
+
+/* Remove lines + borders */
+#awardsList li,
+.press-links li,
+#pressList li {
+  border: none !important;
+  background: transparent !important;
+  padding: 8px 0 !important;
+}
+
+/* Award entries — improved readability */
+#awardsList li {
+  font-size: 0.95rem !important;
+  color: #d4d7dd !important;
+  line-height: 1.45 !important;
+}
+
+/* Press links — multi-line editorial style */
+.press-links a,
+#pressList a {
+  font-size: 0.95rem !important;
+  line-height: 1.45 !important;
+  color: #cdd1d7 !important;
+  text-decoration: none !important;
+}
+
+.press-links a:hover,
+#pressList a:hover {
+  color: #f0f2f5 !important;
+}
+
+/* Remove thick white box on "See all Press & Awards" */
+.btn.btn-secondary {
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  color: #d4d7dd !important;
+  padding: 10px 18px !important;
+  border-radius: 6px !important;
+  transition: 0.25s ease !important;
+}
+
+.btn.btn-secondary:hover {
+  background: rgba(255,255,255,0.12) !important;
+  border-color: rgba(255,255,255,0.18) !important;
+}
+
+/* Section spacing refinement */
+.section.section-panel {
+  padding-top: 42px !important;
+  padding-bottom: 42px !important;
+}
+/* ============================================================
+   CV PAGE — spacing, headers, readability, premium look
+   ============================================================ */
+
+/* CV Heading style */
+#cv-page h2 {
+  font-size: 1.25rem !important;
+  font-weight: 500 !important;
+  color: #e4e6eb !important;
+  margin-top: 32px !important;
+  margin-bottom: 10px !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* Improve bullet readability */
+.cv-list li {
+  padding: 3px 0 !important;
+  color: #d3d6dc !important;
+  font-size: 0.95rem !important;
+}
+
+/* Add subtle dividers between major sections */
+#cv-page h2:not(:first-of-type) {
+  border-top: 1px solid rgba(255,255,255,0.08) !important;
+  padding-top: 24px !important;
+}
+
+/* Links inside CV */
+#cv-page a {
+  color: #b8bfd4 !important;
+}
+#cv-page a:hover {
+  color: #d7def2 !important;
+}
+
+/* Optional footer logo tinting */
+.footer-site img {
+  filter: brightness(1.3) !important;
+}
+/* ============================================================
+   PRESS PAGE — PREMIUM EDITORIAL UPGRADE
+   ============================================================ */
+
+/* Remove all borders, bars, boxes */
+#pressList li,
+#awardsList li {
+  background: transparent !important;
+  border: none !important;
+  padding: 10px 0 !important;
+  margin: 0 !important;
+}
+
+/* Press item titles */
+#pressList li a {
+  color: #e6e7eb !important;
+  font-size: 1.02rem !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  letter-spacing: -0.01em !important;
+}
+
+#pressList li a:hover {
+  color: #ffffff !important;
+}
+
+/* Press item meta line */
+#pressList li .meta,
+#pressList li span,
+#pressList li .subtle {
+  color: #9ba1a9 !important;
+  font-size: 0.88rem !important;
+}
+
+/* Awards formatting (editorial style) */
+#awardsList li {
+  color: #d4d7dd !important;
+  font-size: 0.95rem !important;
+  line-height: 1.45 !important;
+}
+
+/* Awards headings inside entries */
+#awardsList li strong {
+  color: #eceff2 !important;
+  font-weight: 600 !important;
+}
+
+/* Section titles spacing */
+#press-page .section h2 {
+  margin-bottom: 18px !important;
+  color: #e4e6eb !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.03em !important;
+}
+
+/* Section spacing refinement */
+#press-page .section {
+  padding-top: 48px !important;
+  padding-bottom: 48px !important;
+}
+/* Remove lines and boxes */
+#pressList li,
+#awardsList li {
+  border: none !important;
+  background: transparent !important;
+  padding: 10px 0 !important;
+}
+
+/* Clean title styling */
+#press-page h2 {
+  margin-bottom: 16px !important;
+  color: #e4e6eb !important;
+  font-weight: 500 !important;
+}
+
+/* Press links */
+#pressList a {
+  color: #cdd1d7 !important;
+  text-decoration: none !important;
+}
+#pressList a:hover {
+  color: #f0f2f5 !important;
+}
+
+/* Awards text */
+#awardsList li {
+  color: #d4d7dd !important;
+  font-size: 0.95rem !important;
+}
+
+/* Section spacing */
+#press-page .section {
+  padding-top: 40px !important;
+  padding-bottom: 40px !important;
+}
