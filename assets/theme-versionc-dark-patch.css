@@ -995,3 +995,66 @@ a:hover {
 #work-page .work-grid {
   row-gap: 22px !important;
 }
+/* PROJECT PAGE — palette + readability */
+#project-page {
+  background: #131418 !important;
+}
+
+#projTitle {
+  color: #f3f4f6 !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.03em !important;
+}
+
+#projMeta,
+#projDesc,
+#projDesc * {
+  color: #cdd2dd !important;
+}
+
+#projViewer {
+  background: #181b22 !important;
+  padding: 16px 16px 24px !important;
+  border-radius: 0 !important;
+  border: 1px solid rgba(255,255,255,0.06) !important;
+}
+
+#projStrip img {
+  background: #1a1d23 !important;
+  border: 1px solid #2b303a !important;
+}
+/* CV PAGE — headers, text, links, dividers */
+#cv-page {
+  background: #131418 !important;
+}
+
+/* Section headers */
+#cv-page h2 {
+  font-size: 1.25rem !important;
+  color: #e4e6eb !important;
+  margin-top: 32px !important;
+  margin-bottom: 10px !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* List items */
+#cv-page .cv-list li {
+  padding: 3px 0 !important;
+  color: #d3d6dc !important;
+  font-size: 0.95rem !important;
+}
+
+/* Divider between major sections */
+#cv-page h2:not(:first-of-type) {
+  border-top: 1px solid rgba(255,255,255,0.08) !important;
+  padding-top: 22px !important;
+}
+
+/* Links */
+#cv-page a {
+  color: #b8bfd4 !important;
+}
+#cv-page a:hover {
+  color: #d7def2 !important;
+}
