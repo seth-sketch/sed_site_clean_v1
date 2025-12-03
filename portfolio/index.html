@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Favicon + Social (reuse) -->
+  <link rel="icon" href="/assets/icons/favicon-32.png" sizes="32x32">
+  <link rel="icon" href="/assets/icons/favicon-192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" sizes="180x180">
+  <meta property="og:image" content="https://setheasterdesign.com/assets/icons/social-card.png">
+  <meta property="og:title" content="Seth Easter Design — Portfolio Book">
+  <meta property="og:site_name" content="Seth Easter Design">
+
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1, viewport-fit=cover"/>
+
+  <title>Seth Easter Design — Portfolio Book</title>
+
+  <!-- Existing styles -->
+  <link rel="stylesheet" href="/assets/styles.css?v=v2">
+  <link rel="stylesheet" href="/assets/hover-cards.css?v=1">
+  <link rel="stylesheet" href="/assets/nav-animations.css?v=1">
+  <link rel="stylesheet" href="/assets/fix.v3.css?v=4">
+  <link rel="stylesheet" href="/assets/theme-versionc-dark.css?v=2">
+  <link rel="stylesheet" href="/assets/theme-versionc-dark-patch.css?v=1">
+
+  <!-- jQuery (required for turn.js) -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- Turn.js (put a local copy at /assets/js/turn.min.js) -->
+  <script src="/assets/js/turn.min.js"></script>
+
+  <style>
+    /* Flipbook wrapper styling */
+    #portfolio-page main {
+      padding-top: 72px;
+      padding-bottom: 48px;
+    }
+
+    .portfolio-hero {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .portfolio-hero h1 {
+      font-size: 2rem;
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+
+    .portfolio-hero p {
+      color: #9da3b4;
+      font-size: 0.95rem;
+      margin-top: 0;
+    }
+
+    #flipbook-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    #flipbook {
+      width: 1000px;
+      height: 650px;
+      margin: 0 auto;
+      background: #111318;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.65);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    #flipbook div {
+      background: #111318;
+    }
+
+    #flipbook img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .portfolio-download {
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .portfolio-download a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.05);
+      color: #d4d7dd !important;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .portfolio-download a:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.24);
+      color: #f5f7fa !important;
+    }
+
+    @media (max-width: 1100px) {
+      #flipbook {
+        width: 100%;
+        height: auto;
+        max-width: 1000px;
+      }
+    }
+  </style>
+</head>
+
+<body id="portfolio-page">
+<!-- Header (copied from index) -->
+<header class="header">
+  <div class="container nav">
+    <a href="/" class="brand">
+      <img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="SED">
+    </a>
+    <ul class="nav-links" id="topNav">
+      <li><a href="/work/">Work</a></li>
+      <li><a href="/press/">Press &amp; Awards</a></li>
+      <li><a href="/cv.html">CV</a></li>
+      <li><a href="/portfolio/" class="active">Portfolio Book</a></li>
+    </ul>
+  </div>
+</header>
+
+<main class="container">
+  <section class="section">
+    <div class="portfolio-hero">
+      <h1>Portfolio Book</h1>
+      <p>Broadcast studios, debates, live events, and large-scale scenic design.</p>
+    </div>
+
+    <div id="flipbook-wrapper">
+      <div id="flipbook">
+        <div><img src="/assets/portfolio-pages/page1.jpg" alt="Portfolio page 1"></div>
+        <div><img src="/assets/portfolio-pages/page2.jpg" alt="Portfolio page 2"></div>
+        <div><img src="/assets/portfolio-pages/page3.jpg" alt="Portfolio page 3"></div>
+        <!-- Add more pages as needed -->
+      </div>
+
+      <div class="portfolio-download">
+        <a href="/assets/portfolio/SETH_PORTFOLIO.pdf" download>
+          Download PDF
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer-site">
+  © Seth Easter · <a href="mailto:seth@setheasterdesign.com">seth@setheasterdesign.com</a>
+</footer>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    if (typeof jQuery === "undefined" || !$("#flipbook").turn) {
+      console.warn("turn.js not loaded yet");
+      return;
+    }
+    $("#flipbook").turn({
+      width: 1000,
+      height: 650,
+      autoCenter: true,
+      gradients: true,
+      elevation: 50
+    });
+  });
+</script>
+
+</body>
+</html>

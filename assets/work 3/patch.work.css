@@ -1,0 +1,51 @@
+
+#work-page { --work-accent:#3abff8; }
+
+.work-card{ border:1px solid #2a2a2a; border-radius:16px; overflow:hidden; background:#111216; }
+.thumbs{ display:grid; gap:2px; grid-template-columns:repeat(3,1fr); }
+
+/* Show the whole image inside the 16:9 tile (no crop) */
+.extra-thumbs img{
+  height: 64px;
+  width: auto;
+  object-fit: contain;
+  background:#000;
+  border-radius:8px;
+}
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  height: auto;
+  display: block;
+  background: #000;               /* clean letterbox */
+  object-fit: contain;            /* no crop */
+  object-position: center center;
+  cursor: pointer;
+}
+.body{padding:14px}
+.meta{color:#9aa0a6;font-size:13px;margin-top:4px}
+.extra-thumbs{display:flex;gap:6px;overflow:auto;padding:8px;border-top:1px dashed #2a2a2a}
+.extra-thumbs img{height:64px;width:auto;border-radius:8px;cursor:pointer;opacity:.9}
+.extra-thumbs img:hover{opacity:1;transform:translateY(-1px)}
+
+/* Lightbox */
+#work-lightbox.lb{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;z-index:1000}
+#work-lightbox.lb.open{display:grid;grid-template-rows:1fr auto}
+#work-lightbox .lb-main{position:relative;display:flex;align-items:center;justify-content:center;padding:20px}
+#work-lightbox .lb-main img,#work-lightbox .lb-main video{max-width:100%;max-height:100%;border-radius:12px;box-shadow:0 0 0 1px rgba(255,255,255,.08)}
+#work-lightbox .lb-strip{display:flex;gap:8px;overflow:auto;padding:10px 16px 16px;border-top:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.4)}
+#work-lightbox .lb-strip img{height:64px;border-radius:8px;cursor:pointer;opacity:.7}
+#work-lightbox .lb-strip img.active{opacity:1;outline:2px solid var(--work-accent)}
+
+#work-lightbox .lb-close,#work-lightbox .lb-prev,#work-lightbox .lb-next{
+  position:absolute;top:16px;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.2);color:#eaeaea;border-radius:999px;padding:10px 12px;cursor:pointer
+}
+#work-lightbox .lb-close{right:16px}
+#work-lightbox .lb-prev,#work-lightbox .lb-next{top:50%;transform:translateY(-50%)}
+#work-lightbox .lb-prev{left:16px}
+#work-lightbox .lb-next{right:16px}
+
+/* Blue scrollbar on strips (desktop browsers that support it) */
+.extra-thumbs,#work-lightbox .lb-strip{scrollbar-width:auto;scrollbar-color:var(--work-accent)#111216}
+.extra-thumbs::-webkit-scrollbar,#work-lightbox .lb-strip::-webkit-scrollbar{height:12px}
+.extra-thumbs::-webkit-scrollbar-track,#work-lightbox .lb-strip::-webkit-scrollbar-track{background:#111216}
+.extra-thumbs::-webkit-scrollbar-thumb,#work-lightbox .lb-strip::-webkit-scrollbar-thumb{background-color:var(--work-accent);border-radius:10px;border:2px solid #0f1012}
