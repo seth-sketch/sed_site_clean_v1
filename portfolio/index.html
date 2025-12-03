@@ -189,37 +189,53 @@
 </footer>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    var $flip = $("#flipbook");
+document.addEventListener("DOMContentLoaded", function () {
+  var $flip = $("#flipbook");
 
-    if (typeof jQuery === "undefined" || !$flip.turn) {
-      console.warn("turn.js not loaded yet");
-      return;
-    }
+  // Make sure jQuery + turn.js are loaded
+  if (typeof jQuery === "undefined") {
+    console.warn("jQuery not loaded");
+    return;
+  }
+  if (typeof $flip.turn !== "function") {
+    console.warn("turn.js not loaded");
+    return;
+  }
 
-    // Init flipbook
-    $flip.turn({
-      width: 1200,          // wider – feels more landscape
-      height: 600,          // shorter – less “portrait” feeling
-      autoCenter: true,
-      display: "double",    // open-book view
-      gradients: true,
-      elevation: 50
-    });
-
-    // Click-to-turn: right side = next, left side = previous
-    $flip.on("click", function (e) {
-      var offset = $flip.offset();
-      var x = e.pageX - offset.left;
-      var width = $flip.width();
-
-      if (x < width / 2) {
-        $flip.turn("previous");
-      } else {
-        $flip.turn("next");
-      }
-    });
+  // ==== INIT FLIPBOOK ====
+  $flip.turn({
+    width: 1400,          // wider book for true landscape
+    height: 600,          // shorter, cinematic ratio
+    autoCenter: true,
+    display: "double",    // open book layout
+    acceleration: true,
+    gradients: true,
+    elevation: 50
   });
+
+  // ==== CLICK-TO-TURN (MUCH BETTER UX) ====
+  $flip.on("click", function (e) {
+    var offset = $flip.offset();
+    var x = e.pageX - offset.left;
+    var w = $flip.width();
+
+    if (x < w / 2) {
+      $flip.turn("previous");
+    } else {
+      $flip.turn("next");
+    }
+  });
+
+  // ==== ALLOW LEFT/RIGHT ARROW KEYS TOO ====
+  $(document).keydown(function (e) {
+    if (e.key === "ArrowLeft") {
+      $flip.turn("previous");
+    }
+    if (e.key === "ArrowRight") {
+      $flip.turn("next");
+    }
+  });
+});
 </script>
 
 </body>
