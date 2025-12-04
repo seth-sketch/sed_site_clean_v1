@@ -24,324 +24,331 @@
 
   <!-- jQuery (required for turn.js) -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <!-- Turn.js (put a local copy at /assets/js/turn.min.js) -->
+  <!-- Turn.js -->
   <script src="/assets/js/turn.min.js"></script>
 
-<style>
-/* ====================================================================
-   PORTFOLIO PAGE — CINEMATIC LANDSCAPE FLIPBOOK LAYOUT
-   ==================================================================== */
+  <style>
+  /* ====================================================================
+     PORTFOLIO PAGE — CINEMATIC LANDSCAPE FLIPBOOK LAYOUT
+     ==================================================================== */
 
-/* Make portfolio container wider than default pages */
-#portfolio-page .container {
-  max-width: 1500px;
-  padding-top: 80px;
-  padding-bottom: 40px;
-}
-
-/* Hero text area */
-.portfolio-hero {
-  text-align: center;
-  margin-bottom: 30px;
-}
-.portfolio-hero h1 {
-  font-size: 2.4rem;
-  letter-spacing: -0.03em;
-  margin-bottom: 6px;
-  color: #e4e6eb !important;
-}
-.portfolio-hero p {
-  color: #9da3b4 !important;
-  font-size: 1rem;
-  margin-top: 0;
-}
-
-/* Wrapper that holds flipbook + controls + download button */
-#flipbook-wrapper {
-  position: relative;      /* for arrows */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 18px;
-}
-
-/* ====================================================================
-   FLIPBOOK CONTAINER
-   ==================================================================== */
-
-#flipbook {
-  width: 100%;
-  max-width: 1400px;
-  height: 650px;
-  margin: 0 auto;
-  background: #111318;
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 22px 60px rgba(0,0,0,0.75);
-  overflow: hidden;
-}
-
-/* PAGE BACKGROUND */
-#flipbook div {
-  background: #111318;
-}
-
-/* IMAGES INSIDE PAGES */
-#flipbook img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-  background: #000;
-}
-
-/* ====================================================================
-   ARROW BUTTONS (LEFT / RIGHT)
-   ==================================================================== */
-
-.flipbook-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 46px;
-  height: 46px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.32);
-  background: rgba(20,22,26,0.85);
-  color: #f5f7fa;
-  font-size: 26px;
-  font-weight: 300;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 20;
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease,
-    opacity 0.25s ease;
-}
-
-.flipbook-arrow.left {
-  left: -28px;
-}
-.flipbook-arrow.right {
-  right: -28px;
-}
-
-.flipbook-arrow:hover {
-  background: rgba(255,255,255,0.14);
-  border-color: rgba(255,255,255,0.55);
-  transform: translateY(-50%) scale(1.07);
-}
-
-/* Mobile arrow tweaks */
-@media (max-width: 900px) {
-  .flipbook-arrow {
-    width: 38px;
-    height: 38px;
-    font-size: 22px;
+  /* Make portfolio container wider than default pages */
+  #portfolio-page .container {
+    max-width: 1500px;
+    padding-top: 80px;
+    padding-bottom: 40px;
   }
-  .flipbook-arrow.left {
-    left: 4px;
-  }
-  .flipbook-arrow.right {
-    right: 4px;
-  }
-}
 
-/* ====================================================================
-   TOOLBAR (TOP CONTROLS)
-   ==================================================================== */
-
-.flip-toolbar {
-  width: 100%;
-  max-width: 1400px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 4px;
-}
-
-.flip-toolbar button {
-  padding: 6px 12px;
-  border-radius: 4px;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: rgba(20,22,28,0.93);
-  color: #e5e7eb;
-  font-size: 0.85rem;
-  cursor: pointer;
-  letter-spacing: -0.01em;
-  transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
-}
-
-.flip-toolbar button:hover {
-  background: rgba(255,255,255,0.12);
-  border-color: rgba(255,255,255,0.4);
-  transform: translateY(-1px);
-}
-
-.flip-toolbar-sep {
-  color: #6b7280;
-  font-size: 0.9rem;
-}
-
-/* ====================================================================
-   HELP TEXT
-   ==================================================================== */
-
-.portfolio-help {
-  margin-top: 4px;
-  font-size: 0.92rem;
-  color: #9aa3b4;
-  text-align: center;
-}
-
-/* ====================================================================
-   DOWNLOAD BUTTON
-   ==================================================================== */
-
-.portfolio-download {
-  text-align: center;
-  margin-top: 10px;
-}
-.portfolio-download a {
-  display: inline-block;
-  padding: 12px 20px;
-  border-radius: 6px;
-  border: 1px solid rgba(255,255,255,0.18);
-  background: rgba(255,255,255,0.06);
-  color: #d7d9de !important;
-  text-decoration: none;
-  font-size: 0.98rem;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-}
-.portfolio-download a:hover {
-  background: rgba(255,255,255,0.14);
-  border-color: rgba(255,255,255,0.28);
-  color: #fff !important;
-}
-
-/* ====================================================================
-   FULLSCREEN MODE
-   ==================================================================== */
-
-body.flip-fullscreen {
-  overflow: hidden;
-}
-
-body.flip-fullscreen #portfolio-page .container {
-  max-width: 100vw;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-body.flip-fullscreen #flipbook-wrapper {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.9);
-  justify-content: center;
-}
-
-body.flip-fullscreen #flipbook {
-  max-width: 90vw;
-  height: 90vh;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.9);
-}
-
-body.flip-fullscreen .portfolio-hero,
-body.flip-fullscreen .portfolio-help,
-body.flip-fullscreen .portfolio-download {
-  display: none;
-}
-
-/* Arrow positions in fullscreen */
-body.flip-fullscreen .flipbook-arrow.left {
-  left: 20px;
-}
-body.flip-fullscreen .flipbook-arrow.right {
-  right: 20px;
-}
-
-/* ====================================================================
-   RESPONSIVENESS
-   ==================================================================== */
-
-@media (max-width: 1280px) {
-  #flipbook {
-    max-width: 1150px;
-    height: 540px;
-  }
-}
-
-@media (max-width: 1000px) {
-  #flipbook {
-    max-width: 900px;
-    height: 480px;
-  }
-}
-
-@media (max-width: 760px) {
-  #flipbook {
-    max-width: 100%;
-    height: 380px;
+  /* Hero text area */
+  .portfolio-hero {
+    text-align: center;
+    margin-bottom: 30px;
   }
   .portfolio-hero h1 {
-    font-size: 1.9rem;
+    font-size: 2.4rem;
+    letter-spacing: -0.03em;
+    margin-bottom: 6px;
+    color: #e4e6eb !important;
   }
-}
-
-@media (max-width: 520px) {
-  #flipbook {
-    height: 300px;
+  .portfolio-hero p {
+    color: #9da3b4 !important;
+    font-size: 1rem;
+    margin-top: 0;
   }
-/* ====================================================================
-   MOBILE ORIENTATION HANDLING
-   ==================================================================== */
 
-/* Hidden by default on desktop */
-.mobile-orientation-hint {
-  display: none;
-  text-align: center;
-  margin: 40px 0 10px;
-  font-size: 0.95rem;
-  color: #d1d5dd;
-}
-
-/* Portrait phone: show hint, hide flipbook wrapper */
-@media (max-width: 900px) and (orientation: portrait) {
-  .mobile-orientation-hint {
-    display: block;
-  }
+  /* Wrapper that holds flipbook + controls + download button */
   #flipbook-wrapper {
-    display: none;
-  }
-}
-
-/* Landscape phone: hide hint, show book and make it fill */
-@media (max-width: 900px) and (orientation: landscape) {
-  .mobile-orientation-hint {
-    display: none;
-  }
-
-  #portfolio-page .container {
-    max-width: 100vw;
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
-
-  #flipbook-wrapper {
+    position: relative;      /* for arrows */
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
   }
 
+  /* ====================================================================
+     FLIPBOOK CONTAINER
+     ==================================================================== */
+
   #flipbook {
-    max-width: 100vw;
-    height: calc(100vh - 120px); /* roughly full height minus header + toolbar */
+    width: 100%;
+    max-width: 1400px;
+    height: 650px;
+    margin: 0 auto;
+    background: #111318;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 22px 60px rgba(0,0,0,0.75);
+    overflow: hidden;
   }
-}
-</style>
+
+  /* PAGE BACKGROUND */
+  #flipbook div {
+    background: #111318;
+  }
+
+  /* IMAGES INSIDE PAGES */
+  #flipbook img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    background: #000;
+  }
+
+  /* ====================================================================
+     ARROW BUTTONS (LEFT / RIGHT)
+     ==================================================================== */
+
+  .flipbook-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 46px;
+    height: 46px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.32);
+    background: rgba(20,22,26,0.85);
+    color: #f5f7fa;
+    font-size: 26px;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 20;
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.2s ease,
+      opacity 0.25s ease;
+  }
+
+  .flipbook-arrow.left {
+    left: -28px;
+  }
+  .flipbook-arrow.right {
+    right: -28px;
+  }
+
+  .flipbook-arrow:hover {
+    background: rgba(255,255,255,0.14);
+    border-color: rgba(255,255,255,0.55);
+    transform: translateY(-50%) scale(1.07);
+  }
+
+  /* Mobile arrow tweaks */
+  @media (max-width: 900px) {
+    .flipbook-arrow {
+      width: 38px;
+      height: 38px;
+      font-size: 22px;
+    }
+    .flipbook-arrow.left {
+      left: 4px;
+    }
+    .flipbook-arrow.right {
+      right: 4px;
+    }
+  }
+
+  /* ====================================================================
+     TOOLBAR (TOP CONTROLS)
+     ==================================================================== */
+
+  .flip-toolbar {
+    width: 100%;
+    max-width: 1400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+
+  .flip-toolbar button {
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(20,22,28,0.93);
+    color: #e5e7eb;
+    font-size: 0.85rem;
+    cursor: pointer;
+    letter-spacing: -0.01em;
+    transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+  }
+
+  .flip-toolbar button:hover {
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.4);
+    transform: translateY(-1px);
+  }
+
+  .flip-toolbar-sep {
+    color: #6b7280;
+    font-size: 0.9rem;
+  }
+
+  /* ====================================================================
+     HELP TEXT
+     ==================================================================== */
+
+  .portfolio-help {
+    margin-top: 4px;
+    font-size: 0.92rem;
+    color: #9aa3b4;
+    text-align: center;
+  }
+
+  /* ====================================================================
+     DOWNLOAD BUTTON
+     ==================================================================== */
+
+  .portfolio-download {
+    text-align: center;
+    margin-top: 10px;
+  }
+  .portfolio-download a {
+    display: inline-block;
+    padding: 12px 20px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.06);
+    color: #d7d9de !important;
+    text-decoration: none;
+    font-size: 0.98rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .portfolio-download a:hover {
+    background: rgba(255,255,255,0.14);
+    border-color: rgba(255,255,255,0.28);
+    color: #fff !important;
+  }
+
+  /* ====================================================================
+     FULLSCREEN MODE
+     ==================================================================== */
+
+  body.flip-fullscreen {
+    overflow: hidden;
+  }
+
+  body.flip-fullscreen .header,
+  body.flip-fullscreen .footer-site {
+    display: none !important;
+  }
+
+  body.flip-fullscreen #portfolio-page .container {
+    max-width: 100vw;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  body.flip-fullscreen #flipbook-wrapper {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+  }
+
+  body.flip-fullscreen #flipbook {
+    max-width: 90vw;
+    height: 90vh;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+  }
+
+  body.flip-fullscreen .portfolio-hero,
+  body.flip-fullscreen .portfolio-help,
+  body.flip-fullscreen .portfolio-download {
+    display: none;
+  }
+
+  /* Arrow positions in fullscreen */
+  body.flip-fullscreen .flipbook-arrow.left {
+    left: 20px;
+  }
+  body.flip-fullscreen .flipbook-arrow.right {
+    right: 20px;
+  }
+
+  /* ====================================================================
+     RESPONSIVENESS
+     ==================================================================== */
+
+  @media (max-width: 1280px) {
+    #flipbook {
+      max-width: 1150px;
+      height: 540px;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    #flipbook {
+      max-width: 900px;
+      height: 480px;
+    }
+  }
+
+  @media (max-width: 760px) {
+    #flipbook {
+      max-width: 100%;
+      height: 380px;
+    }
+    .portfolio-hero h1 {
+      font-size: 1.9rem;
+    }
+  }
+
+  @media (max-width: 520px) {
+    #flipbook {
+      height: 300px;
+    }
+  }
+
+  /* ====================================================================
+     MOBILE ORIENTATION HANDLING
+     ==================================================================== */
+
+  /* Hidden by default on desktop */
+  .mobile-orientation-hint {
+    display: none;
+    text-align: center;
+    margin: 40px 0 10px;
+    font-size: 0.95rem;
+    color: #d1d5dd;
+  }
+
+  /* Portrait phone: show hint, hide flipbook wrapper */
+  @media (max-width: 900px) and (orientation: portrait) {
+    .mobile-orientation-hint {
+      display: block;
+    }
+    #flipbook-wrapper {
+      display: none;
+    }
+  }
+
+  /* Landscape phone: hide hint, show book and make it fill */
+  @media (max-width: 900px) and (orientation: landscape) {
+    .mobile-orientation-hint {
+      display: none;
+    }
+
+    #portfolio-page .container {
+      max-width: 100vw;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    #flipbook-wrapper {
+      display: flex;
+    }
+
+    #flipbook {
+      max-width: 100vw;
+      height: calc(100vh - 120px); /* roughly full height minus header + toolbar */
+    }
+  }
+  </style>
 </head>
 
 <body id="portfolio-page">
@@ -366,80 +373,82 @@ body.flip-fullscreen .flipbook-arrow.right {
       <h1>Portfolio Book</h1>
       <p>Broadcast studios, debates, live events, and large-scale scenic design.</p>
     </div>
-<p class="mobile-orientation-hint">
-  For the best experience, rotate your phone to landscape to view the portfolio book.
-</p>
+
+    <p class="mobile-orientation-hint">
+      For the best experience, rotate your phone to landscape to view the portfolio book.
+    </p>
+
     <div id="flipbook-wrapper">
 
-  <!-- TOOLBAR -->
-  <div class="flip-toolbar">
-    <button type="button" id="tbPrev">‹ Prev</button>
-    <button type="button" id="tbNext">Next ›</button>
-    <span class="flip-toolbar-sep">|</span>
-    <button type="button" id="tbLayout">Single Page</button>
-    <button type="button" id="tbFullscreen">Fullscreen</button>
-  </div>
+      <!-- TOOLBAR -->
+      <div class="flip-toolbar">
+        <button type="button" id="tbPrev">‹ Prev</button>
+        <button type="button" id="tbNext">Next ›</button>
+        <span class="flip-toolbar-sep">|</span>
+        <button type="button" id="tbLayout">Single Page</button>
+        <button type="button" id="tbFullscreen">Fullscreen</button>
+      </div>
 
-  <!-- ARROWS + BOOK -->
-  <button class="flipbook-arrow left" id="flipPrev" aria-label="Previous page">‹</button>
-  <button class="flipbook-arrow right" id="flipNext" aria-label="Next page">›</button>
+      <!-- ARROWS + BOOK -->
+      <button class="flipbook-arrow left" id="flipPrev" aria-label="Previous page">‹</button>
+      <button class="flipbook-arrow right" id="flipNext" aria-label="Next page">›</button>
 
-  <div id="flipbook">
-  <div><img src="/assets/portfolio-pages/page_01.jpg" alt="Portfolio page 1"></div>
-  <div><img src="/assets/portfolio-pages/page_02.jpg" alt="Portfolio page 2"></div>
-  <div><img src="/assets/portfolio-pages/page_03.jpg" alt="Portfolio page 3"></div>
-  <div><img src="/assets/portfolio-pages/page_04.jpg" alt="Portfolio page 4"></div>
-  <div><img src="/assets/portfolio-pages/page_05.jpg" alt="Portfolio page 5"></div>
-  <div><img src="/assets/portfolio-pages/page_06.jpg" alt="Portfolio page 6"></div>
-  <div><img src="/assets/portfolio-pages/page_07.jpg" alt="Portfolio page 7"></div>
-  <div><img src="/assets/portfolio-pages/page_08.jpg" alt="Portfolio page 8"></div>
-  <div><img src="/assets/portfolio-pages/page_09.jpg" alt="Portfolio page 9"></div>
-  <div><img src="/assets/portfolio-pages/page_10.jpg" alt="Portfolio page 10"></div>
-  <div><img src="/assets/portfolio-pages/page_11.jpg" alt="Portfolio page 11"></div>
-  <div><img src="/assets/portfolio-pages/page_12.jpg" alt="Portfolio page 12"></div>
-  <div><img src="/assets/portfolio-pages/page_13.jpg" alt="Portfolio page 13"></div>
-  <div><img src="/assets/portfolio-pages/page_14.jpg" alt="Portfolio page 14"></div>
-  <div><img src="/assets/portfolio-pages/page_15.jpg" alt="Portfolio page 15"></div>
-  <div><img src="/assets/portfolio-pages/page_16.jpg" alt="Portfolio page 16"></div>
-  <div><img src="/assets/portfolio-pages/page_17.jpg" alt="Portfolio page 17"></div>
-  <div><img src="/assets/portfolio-pages/page_18.jpg" alt="Portfolio page 18"></div>
-  <div><img src="/assets/portfolio-pages/page_19.jpg" alt="Portfolio page 19"></div>
-  <div><img src="/assets/portfolio-pages/page_20.jpg" alt="Portfolio page 20"></div>
-  <div><img src="/assets/portfolio-pages/page_21.jpg" alt="Portfolio page 21"></div>
-  <div><img src="/assets/portfolio-pages/page_22.jpg" alt="Portfolio page 22"></div>
-  <div><img src="/assets/portfolio-pages/page_23.jpg" alt="Portfolio page 23"></div>
-  <div><img src="/assets/portfolio-pages/page_24.jpg" alt="Portfolio page 24"></div>
-  <div><img src="/assets/portfolio-pages/page_25.jpg" alt="Portfolio page 25"></div>
-  <div><img src="/assets/portfolio-pages/page_26.jpg" alt="Portfolio page 26"></div>
-  <div><img src="/assets/portfolio-pages/page_27.jpg" alt="Portfolio page 27"></div>
-  <div><img src="/assets/portfolio-pages/page_28.jpg" alt="Portfolio page 28"></div>
-  <div><img src="/assets/portfolio-pages/page_29.jpg" alt="Portfolio page 29"></div>
-  <div><img src="/assets/portfolio-pages/page_30.jpg" alt="Portfolio page 30"></div>
-  <div><img src="/assets/portfolio-pages/page_31.jpg" alt="Portfolio page 31"></div>
-  <div><img src="/assets/portfolio-pages/page_32.jpg" alt="Portfolio page 32"></div>
-  <div><img src="/assets/portfolio-pages/page_33.jpg" alt="Portfolio page 33"></div>
-  <div><img src="/assets/portfolio-pages/page_34.jpg" alt="Portfolio page 34"></div>
-  <div><img src="/assets/portfolio-pages/page_35.jpg" alt="Portfolio page 35"></div>
-  <div><img src="/assets/portfolio-pages/page_36.jpg" alt="Portfolio page 36"></div>
-  <div><img src="/assets/portfolio-pages/page_37.jpg" alt="Portfolio page 37"></div>
-  <div><img src="/assets/portfolio-pages/page_38.jpg" alt="Portfolio page 38"></div>
-</div>
+      <div id="flipbook">
+        <!-- PAGE IMAGES -->
+        <div><img src="/assets/portfolio-pages/page_01.jpg" alt="Portfolio page 1"></div>
+        <div><img src="/assets/portfolio-pages/page_02.jpg" alt="Portfolio page 2"></div>
+        <div><img src="/assets/portfolio-pages/page_03.jpg" alt="Portfolio page 3"></div>
+        <div><img src="/assets/portfolio-pages/page_04.jpg" alt="Portfolio page 4"></div>
+        <div><img src="/assets/portfolio-pages/page_05.jpg" alt="Portfolio page 5"></div>
+        <div><img src="/assets/portfolio-pages/page_06.jpg" alt="Portfolio page 6"></div>
+        <div><img src="/assets/portfolio-pages/page_07.jpg" alt="Portfolio page 7"></div>
+        <div><img src="/assets/portfolio-pages/page_08.jpg" alt="Portfolio page 8"></div>
+        <div><img src="/assets/portfolio-pages/page_09.jpg" alt="Portfolio page 9"></div>
+        <div><img src="/assets/portfolio-pages/page_10.jpg" alt="Portfolio page 10"></div>
+        <div><img src="/assets/portfolio-pages/page_11.jpg" alt="Portfolio page 11"></div>
+        <div><img src="/assets/portfolio-pages/page_12.jpg" alt="Portfolio page 12"></div>
+        <div><img src="/assets/portfolio-pages/page_13.jpg" alt="Portfolio page 13"></div>
+        <div><img src="/assets/portfolio-pages/page_14.jpg" alt="Portfolio page 14"></div>
+        <div><img src="/assets/portfolio-pages/page_15.jpg" alt="Portfolio page 15"></div>
+        <div><img src="/assets/portfolio-pages/page_16.jpg" alt="Portfolio page 16"></div>
+        <div><img src="/assets/portfolio-pages/page_17.jpg" alt="Portfolio page 17"></div>
+        <div><img src="/assets/portfolio-pages/page_18.jpg" alt="Portfolio page 18"></div>
+        <div><img src="/assets/portfolio-pages/page_19.jpg" alt="Portfolio page 19"></div>
+        <div><img src="/assets/portfolio-pages/page_20.jpg" alt="Portfolio page 20"></div>
+        <div><img src="/assets/portfolio-pages/page_21.jpg" alt="Portfolio page 21"></div>
+        <div><img src="/assets/portfolio-pages/page_22.jpg" alt="Portfolio page 22"></div>
+        <div><img src="/assets/portfolio-pages/page_23.jpg" alt="Portfolio page 23"></div>
+        <div><img src="/assets/portfolio-pages/page_24.jpg" alt="Portfolio page 24"></div>
+        <div><img src="/assets/portfolio-pages/page_25.jpg" alt="Portfolio page 25"></div>
+        <div><img src="/assets/portfolio-pages/page_26.jpg" alt="Portfolio page 26"></div>
+        <div><img src="/assets/portfolio-pages/page_27.jpg" alt="Portfolio page 27"></div>
+        <div><img src="/assets/portfolio-pages/page_28.jpg" alt="Portfolio page 28"></div>
+        <div><img src="/assets/portfolio-pages/page_29.jpg" alt="Portfolio page 29"></div>
+        <div><img src="/assets/portfolio-pages/page_30.jpg" alt="Portfolio page 30"></div>
+        <div><img src="/assets/portfolio-pages/page_31.jpg" alt="Portfolio page 31"></div>
+        <div><img src="/assets/portfolio-pages/page_32.jpg" alt="Portfolio page 32"></div>
+        <div><img src="/assets/portfolio-pages/page_33.jpg" alt="Portfolio page 33"></div>
+        <div><img src="/assets/portfolio-pages/page_34.jpg" alt="Portfolio page 34"></div>
+        <div><img src="/assets/portfolio-pages/page_35.jpg" alt="Portfolio page 35"></div>
+        <div><img src="/assets/portfolio-pages/page_36.jpg" alt="Portfolio page 36"></div>
+        <div><img src="/assets/portfolio-pages/page_37.jpg" alt="Portfolio page 37"></div>
+        <div><img src="/assets/portfolio-pages/page_38.jpg" alt="Portfolio page 38"></div>
+      </div>
 
-      <button class="flip-arrow flip-prev" aria-label="Previous page">‹</button>
-    <button class="flip-arrow flip-next" aria-label="Next page">›</button>
-  </div>
+    </div>
 
-  <!-- HINT TEXT -->
+    <!-- helper text -->
     <p class="portfolio-help">
-    Click left or right side of the book, use the arrows or toolbar, or press ← / → to turn pages.
-  </p>
+      Click left or right side of the book, use the arrows or toolbar, or press ← / → to turn pages.
+    </p>
 
-  <!-- download link -->
-  <div class="portfolio-download">
-    <a href="/assets/portfolio/SETH_PORTFLIO-1.pdf" download>
-      Download PDF
-    </a>
-  </div>
+    <!-- download link -->
+    <div class="portfolio-download">
+      <a href="/assets/portfolio/SETH_PORTFLIO-1.pdf" download>
+        Download PDF
+      </a>
+    </div>
+
   </section>
 </main>
 
@@ -577,27 +586,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
   checkMobileLandscape();
   window.addEventListener("resize", checkMobileLandscape);
-	// === SAFARI FIX: force flipbook redraw on rotation ===
-window.addEventListener("orientationchange", function () {
 
-  // Force container repaint
-  function forceRepaint(el) {
-    el.style.display = 'none';
-    el.offsetHeight; // flush
-    el.style.display = '';
-  }
+  // === SAFARI / iOS FIX: force flipbook redraw on rotation + auto-flip ===
+  window.addEventListener("orientationchange", function () {
 
-  setTimeout(function () {
-
-    // Repaint flipbook container
-    forceRepaint(document.getElementById('flipbook'));
-
-    // Resize flipbook pages
-    if ($flip && $flip.turn) {
-      $flip.turn("resize");
+    function forceRepaint(el) {
+      if (!el) return;
+      el.style.display = 'none';
+      el.offsetHeight; // flush layout
+      el.style.display = '';
     }
 
-  }, 350); // Safari stabilization delay
+    setTimeout(function () {
+      var el = document.getElementById('flipbook');
+      forceRepaint(el);
+
+      if ($flip && $flip.turn) {
+        $flip.turn("resize");
+
+        // Auto-flip from cover to first spread if we're on page 1
+        var current = $flip.turn("page");
+        if (current === 1) {
+          $flip.turn("page", 2);
+        }
+      }
+    }, 350); // Safari stabilization delay
+  });
+
 });
 </script>
 
