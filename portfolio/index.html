@@ -281,6 +281,15 @@
       max-width: 1500px;
       height: 700px;
     }
+	  /* On the portfolio page, remove all section top borders */
+#portfolio-page .section {
+  border-top: none !important;
+}
+
+/* And tighten the first section a bit further */
+#portfolio-page .section:first-of-type {
+  padding-top: 24px;
+}
   }
   </style>
 </head>
@@ -406,6 +415,22 @@ document.addEventListener("DOMContentLoaded", function () {
     gradients: true,
     elevation: 50
   });
+	  // Force single-page mode on small screens, double-page on larger screens
+  function updateLayoutForSize() {
+    var w = window.innerWidth;
+    if (w < 900) {
+      if ($flip.turn("display") !== "single") {
+        $flip.turn("display", "single");
+      }
+    } else {
+      if ($flip.turn("display") !== "double") {
+        $flip.turn("display", "double");
+      }
+    }
+  }
+
+  updateLayoutForSize();
+  window.addEventListener("resize", updateLayoutForSize);
 
   // Click on book surface: left = prev, right = next
   $flip.on("click", function (e) {
