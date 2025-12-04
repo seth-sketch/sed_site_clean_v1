@@ -35,7 +35,7 @@
 
   #portfolio-page .container {
     max-width: 1500px;
-    padding-top: 56px;
+    padding-top: 32px;
     padding-bottom: 40px;
   }
 #portfolio-page .section {
@@ -263,6 +263,17 @@
   #flipbook-wrapper {
     display: flex;
   }
+	  /* Glossy-ish shadow when pages are turning */
+#flipbook {
+  transition: box-shadow 0.25s ease-out;
+}
+
+/* When turning, boost shadow and add a subtle inner glow */
+#flipbook.is-turning {
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.85),
+    0 0 40px rgba(255, 255, 255, 0.10) inset;
+}
 
   /* let the book fill the phone */
   #flipbook {
@@ -289,6 +300,12 @@
 /* And tighten the first section a bit further */
 #portfolio-page .section:first-of-type {
   padding-top: 24px;
+}
+	  /* Hard override: no top border and tighter top padding on the first section */
+#portfolio-page .section:first-of-type {
+  border-top: none !important;
+  padding-top: 16px !important;
+  margin-top: 0 !important;
 }
   }
   </style>
@@ -414,6 +431,17 @@ document.addEventListener("DOMContentLoaded", function () {
     acceleration: true,
     gradients: true,
     elevation: 50
+  });
+	  // Add glossy shadow effect during page turns
+  $flip.bind("turning", function (e, page) {
+    $("#flipbook").addClass("is-turning");
+  });
+
+  $flip.bind("turned", function (e, page) {
+    // slight delay so the shadow doesn't snap off too quickly
+    setTimeout(function () {
+      $("#flipbook").removeClass("is-turning");
+    }, 150);
   });
 	  // Force single-page mode on small screens, double-page on larger screens
   function updateLayoutForSize() {
