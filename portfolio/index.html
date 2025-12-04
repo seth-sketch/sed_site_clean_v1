@@ -34,7 +34,7 @@
 
 /* Make portfolio container wider than default pages */
 #portfolio-page .container {
-  max-width: 1500px;       /* wider layout for landscape book */
+  max-width: 1500px;
   padding-top: 80px;
   padding-bottom: 40px;
 }
@@ -56,9 +56,9 @@
   margin-top: 0;
 }
 
-/* Wrapper that holds flipbook + arrows + download button */
+/* Wrapper that holds flipbook + controls + download button */
 #flipbook-wrapper {
-  position: relative;      /* required for arrows */
+  position: relative;      /* for arrows */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -71,12 +71,12 @@
 
 #flipbook {
   width: 100%;
-  max-width: 1400px;       /* more landscape width */
-  height: 650px;           /* cinematic aspect ratio */
+  max-width: 1400px;
+  height: 650px;
   margin: 0 auto;
   background: #111318;
   border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 22px 50px rgba(0,0,0,0.65);
+  box-shadow: 0 22px 60px rgba(0,0,0,0.75);
   overflow: hidden;
 }
 
@@ -91,11 +91,11 @@
   height: 100%;
   object-fit: contain;
   display: block;
-  background: #000;      /* clean letterbox for odd ratios */
+  background: #000;
 }
 
 /* ====================================================================
-   ARROW BUTTONS
+   ARROW BUTTONS (LEFT / RIGHT)
    ==================================================================== */
 
 .flipbook-arrow {
@@ -115,14 +115,13 @@
   justify-content: center;
   cursor: pointer;
   z-index: 20;
-  transition: 
+  transition:
     background 0.2s ease,
     border-color 0.2s ease,
     transform 0.2s ease,
     opacity 0.25s ease;
 }
 
-/* Position arrows left & right */
 .flipbook-arrow.left {
   left: -28px;
 }
@@ -130,26 +129,66 @@
   right: -28px;
 }
 
-/* Hover effect */
 .flipbook-arrow:hover {
   background: rgba(255,255,255,0.14);
   border-color: rgba(255,255,255,0.55);
   transform: translateY(-50%) scale(1.07);
 }
 
-/* Fade arrows on very small displays */
-@media (max-width: 760px) {
+/* Mobile arrow tweaks */
+@media (max-width: 900px) {
   .flipbook-arrow {
     width: 38px;
     height: 38px;
     font-size: 22px;
   }
-  .flipbook-arrow.left { left: 4px; }
-  .flipbook-arrow.right { right: 4px; }
+  .flipbook-arrow.left {
+    left: 4px;
+  }
+  .flipbook-arrow.right {
+    right: 4px;
+  }
 }
 
 /* ====================================================================
-   HELP TEXT UNDER BOOK
+   TOOLBAR (TOP CONTROLS)
+   ==================================================================== */
+
+.flip-toolbar {
+  width: 100%;
+  max-width: 1400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.flip-toolbar button {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(20,22,28,0.93);
+  color: #e5e7eb;
+  font-size: 0.85rem;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+
+.flip-toolbar button:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.4);
+  transform: translateY(-1px);
+}
+
+.flip-toolbar-sep {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+/* ====================================================================
+   HELP TEXT
    ==================================================================== */
 
 .portfolio-help {
@@ -186,6 +225,47 @@
 }
 
 /* ====================================================================
+   FULLSCREEN MODE
+   ==================================================================== */
+
+body.flip-fullscreen {
+  overflow: hidden;
+}
+
+body.flip-fullscreen #portfolio-page .container {
+  max-width: 100vw;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+body.flip-fullscreen #flipbook-wrapper {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  justify-content: center;
+}
+
+body.flip-fullscreen #flipbook {
+  max-width: 90vw;
+  height: 90vh;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+}
+
+body.flip-fullscreen .portfolio-hero,
+body.flip-fullscreen .portfolio-help,
+body.flip-fullscreen .portfolio-download {
+  display: none;
+}
+
+/* Arrow positions in fullscreen */
+body.flip-fullscreen .flipbook-arrow.left {
+  left: 20px;
+}
+body.flip-fullscreen .flipbook-arrow.right {
+  right: 20px;
+}
+
+/* ====================================================================
    RESPONSIVENESS
    ==================================================================== */
 
@@ -217,6 +297,49 @@
   #flipbook {
     height: 300px;
   }
+/* ====================================================================
+   MOBILE ORIENTATION HANDLING
+   ==================================================================== */
+
+/* Hidden by default on desktop */
+.mobile-orientation-hint {
+  display: none;
+  text-align: center;
+  margin: 40px 0 10px;
+  font-size: 0.95rem;
+  color: #d1d5dd;
+}
+
+/* Portrait phone: show hint, hide flipbook wrapper */
+@media (max-width: 900px) and (orientation: portrait) {
+  .mobile-orientation-hint {
+    display: block;
+  }
+  #flipbook-wrapper {
+    display: none;
+  }
+}
+
+/* Landscape phone: hide hint, show book and make it fill */
+@media (max-width: 900px) and (orientation: landscape) {
+  .mobile-orientation-hint {
+    display: none;
+  }
+
+  #portfolio-page .container {
+    max-width: 100vw;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  #flipbook-wrapper {
+    display: flex;
+  }
+
+  #flipbook {
+    max-width: 100vw;
+    height: calc(100vh - 120px); /* roughly full height minus header + toolbar */
+  }
 }
 </style>
 </head>
@@ -243,10 +366,25 @@
       <h1>Portfolio Book</h1>
       <p>Broadcast studios, debates, live events, and large-scale scenic design.</p>
     </div>
-
+<p class="mobile-orientation-hint">
+  For the best experience, rotate your phone to landscape to view the portfolio book.
+</p>
     <div id="flipbook-wrapper">
-      <div class="flip-shell">
-    <div id="flipbook">
+
+  <!-- TOOLBAR -->
+  <div class="flip-toolbar">
+    <button type="button" id="tbPrev">‹ Prev</button>
+    <button type="button" id="tbNext">Next ›</button>
+    <span class="flip-toolbar-sep">|</span>
+    <button type="button" id="tbLayout">Single Page</button>
+    <button type="button" id="tbFullscreen">Fullscreen</button>
+  </div>
+
+  <!-- ARROWS + BOOK -->
+  <button class="flipbook-arrow left" id="flipPrev" aria-label="Previous page">‹</button>
+  <button class="flipbook-arrow right" id="flipNext" aria-label="Next page">›</button>
+
+  <div id="flipbook">
   <div><img src="/assets/portfolio-pages/page_01.jpg" alt="Portfolio page 1"></div>
   <div><img src="/assets/portfolio-pages/page_02.jpg" alt="Portfolio page 2"></div>
   <div><img src="/assets/portfolio-pages/page_03.jpg" alt="Portfolio page 3"></div>
@@ -292,16 +430,16 @@
   </div>
 
   <!-- HINT TEXT -->
-  <div class="flip-hint">
-    Click or tap the sides, use the arrows, or press ← → to turn pages.
-  </div>
+    <p class="portfolio-help">
+    Click left or right side of the book, use the arrows or toolbar, or press ← / → to turn pages.
+  </p>
 
+  <!-- download link -->
   <div class="portfolio-download">
     <a href="/assets/portfolio/SETH_PORTFLIO-1.pdf" download>
       Download PDF
     </a>
   </div>
-</div>
   </section>
 </main>
 
@@ -313,7 +451,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   var $flip = $("#flipbook");
 
-  // Make sure jQuery + turn.js are loaded
   if (typeof jQuery === "undefined") {
     console.warn("jQuery not loaded");
     return;
@@ -325,16 +462,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // ==== INIT FLIPBOOK ====
   $flip.turn({
-    width: 1400,          // wider book for true landscape
-    height: 600,          // shorter, cinematic ratio
+    width: 1400,
+    height: 600,
     autoCenter: true,
-    display: "double",    // open book layout
+    display: "double",
     acceleration: true,
     gradients: true,
     elevation: 50
   });
 
-  // ==== CLICK-TO-TURN (MUCH BETTER UX) ====
+  // ==== CLICK ON BOOK SURFACE: LEFT = PREV, RIGHT = NEXT ====
   $flip.on("click", function (e) {
     var offset = $flip.offset();
     var x = e.pageX - offset.left;
@@ -347,15 +484,99 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // ==== ALLOW LEFT/RIGHT ARROW KEYS TOO ====
-  $(document).keydown(function (e) {
+  // ==== ARROW BUTTONS ====
+  $("#flipPrev").on("click", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $flip.turn("previous");
+  });
+
+  $("#flipNext").on("click", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $flip.turn("next");
+  });
+
+  // ==== TOOLBAR BUTTONS ====
+  $("#tbPrev").on("click", function (e) {
+    e.preventDefault();
+    $flip.turn("previous");
+  });
+  $("#tbNext").on("click", function (e) {
+    e.preventDefault();
+    $flip.turn("next");
+  });
+
+  // Layout toggle: double <-> single
+  var isSingle = false;
+  $("#tbLayout").on("click", function (e) {
+    e.preventDefault();
+    isSingle = !isSingle;
+    if (isSingle) {
+      $flip.turn("display", "single");
+      $(this).text("Spread View");
+    } else {
+      $flip.turn("display", "double");
+      $(this).text("Single Page");
+    }
+  });
+
+  // Fullscreen helpers
+  var isFullscreen = false;
+  function enterFullscreen() {
+    if (!isFullscreen) {
+      isFullscreen = true;
+      document.body.classList.add("flip-fullscreen");
+      $("#tbFullscreen").text("Exit Fullscreen");
+    }
+  }
+  function exitFullscreen() {
+    if (isFullscreen) {
+      isFullscreen = false;
+      document.body.classList.remove("flip-fullscreen");
+      $("#tbFullscreen").text("Fullscreen");
+    }
+  }
+
+  // Toolbar fullscreen toggle
+  $("#tbFullscreen").on("click", function (e) {
+    e.preventDefault();
+    if (isFullscreen) {
+      exitFullscreen();
+    } else {
+      enterFullscreen();
+    }
+  });
+
+  // Allow ESC to exit fullscreen
+  $(document).on("keydown", function (e) {
+    if (e.key === "Escape" && isFullscreen) {
+      exitFullscreen();
+    }
+  });
+
+  // ==== KEYBOARD ARROWS (← / →) ====
+  $(document).on("keydown", function (e) {
     if (e.key === "ArrowLeft") {
       $flip.turn("previous");
-    }
-    if (e.key === "ArrowRight") {
+    } else if (e.key === "ArrowRight") {
       $flip.turn("next");
     }
   });
+
+  // ==== AUTO-FULLSCREEN ON MOBILE LANDSCAPE ====
+  function checkMobileLandscape() {
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+
+    // small screen and in landscape
+    if (w < 900 && w > h) {
+      enterFullscreen();
+    }
+  }
+
+  checkMobileLandscape();
+  window.addEventListener("resize", checkMobileLandscape);
 });
 </script>
 
