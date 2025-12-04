@@ -577,6 +577,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
   checkMobileLandscape();
   window.addEventListener("resize", checkMobileLandscape);
+	// === SAFARI FIX: force flipbook redraw on rotation ===
+window.addEventListener("orientationchange", function () {
+
+  // Force container repaint
+  function forceRepaint(el) {
+    el.style.display = 'none';
+    el.offsetHeight; // flush
+    el.style.display = '';
+  }
+
+  setTimeout(function () {
+
+    // Repaint flipbook container
+    forceRepaint(document.getElementById('flipbook'));
+
+    // Resize flipbook pages
+    if ($flip && $flip.turn) {
+      $flip.turn("resize");
+    }
+
+  }, 350); // Safari stabilization delay
 });
 </script>
 
