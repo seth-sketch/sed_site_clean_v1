@@ -35,10 +35,13 @@
 
   #portfolio-page .container {
     max-width: 1500px;
-    padding-top: 80px;
+    padding-top: 56px;
     padding-bottom: 40px;
   }
-
+#portfolio-page .section {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
   .portfolio-hero {
     text-align: center;
     margin-bottom: 24px;
@@ -226,23 +229,40 @@
 
   /* Landscape phone: show book, fill most of screen */
   @media (max-width: 900px) and (orientation: landscape) {
-    .mobile-orientation-hint {
-      display: none;
-    }
-    #portfolio-page .container {
-      max-width: 100vw;
-      padding-top: 20px;
-      padding-bottom: 20px;
-    }
-    #flipbook-wrapper {
-      display: flex;
-    }
-    #flipbook {
-      max-width: 100vw;
-      height: calc(100vh - 120px); /* header + toolbar allowance */
-    }
+  /* hide the hint in landscape */
+  .mobile-orientation-hint {
+    display: none;
   }
 
+  /* hide the main header to free vertical space */
+  .header {
+    display: none;
+  }
+
+  /* let the container and wrapper go full-bleed */
+  #portfolio-page .container {
+    max-width: 100vw;
+    padding: 0;
+  }
+
+  .portfolio-hero {
+    display: none;          /* no big title block on mobile landscape */
+  }
+
+  .flip-toolbar {
+    margin-bottom: 8px;
+  }
+
+  #flipbook-wrapper {
+    display: flex;
+  }
+
+  /* let the book fill the phone */
+  #flipbook {
+    max-width: 100vw;
+    height: 100vh;          /* use full viewport height */
+  }
+}
   /* Desktop tweaks at wider widths */
   @media (min-width: 1600px) {
     #flipbook {
