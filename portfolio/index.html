@@ -149,9 +149,9 @@
      CLIENTS HERO PANEL
      ========================== */
 
-  .clients-hero {
+    .clients-hero {
     max-width: 1100px;
-    margin: 32px auto 40px;
+    margin: 32px auto 48px;
     padding: 16px 16px 12px;
     background: #050505;
     border-radius: 8px;
@@ -164,10 +164,18 @@
     display: block;
   }
 
+  /* phones / small devices */
   @media (max-width: 900px) {
     .clients-hero {
       margin-inline: 16px;
       padding-inline: 12px;
+    }
+  }
+
+  /* small laptops – gently narrower logo wall */
+  @media (max-width: 1200px) {
+    .clients-hero {
+      max-width: 900px;
     }
   }
 
