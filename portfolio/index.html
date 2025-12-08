@@ -145,6 +145,31 @@
   /* ====================================================================
      TOOLBAR
      ==================================================================== */
+	    /* ==========================
+     CLIENTS HERO PANEL
+     ========================== */
+
+  .clients-hero {
+    max-width: 1100px;
+    margin: 32px auto 40px;
+    padding: 16px 16px 12px;
+    background: #050505;
+    border-radius: 8px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.45);
+  }
+
+  .clients-hero img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  @media (max-width: 900px) {
+    .clients-hero {
+      margin-inline: 16px;
+      padding-inline: 12px;
+    }
+  }
 
   .flip-toolbar {
     width: 100%;
@@ -334,11 +359,18 @@
       <p>Broadcast studios, debates, live events, and large-scale scenic design.</p>
     </div>
 
+    <!-- NEW: Selected Clients logo wall -->
+    <figure class="clients-hero">
+      <img src="/assets/portfolio-pages/clients-selected.jpg"
+           alt="Selected clients and collaborations">
+    </figure>
+
     <p class="mobile-orientation-hint">
       For the best experience, rotate your phone to landscape to view the portfolio book.
     </p>
 
     <div id="flipbook-wrapper">
+      ...
 
       <!-- Toolbar -->
       <div class="flip-toolbar">
