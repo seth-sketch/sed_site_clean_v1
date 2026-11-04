@@ -1,122 +1,214 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <!-- Favicon -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Seth Easter Design — Production Design Studio for Broadcast &amp; Live Events</title>
+  <meta name="description" content="Seth Easter Design is a New York production design studio creating broadcast studios, live-event stages and brand experiences — from Good Morning America to presidential debates.">
+
   <link rel="icon" href="/assets/icons/favicon-32.png" sizes="32x32">
   <link rel="icon" href="/assets/icons/favicon-192.png" sizes="192x192">
   <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" sizes="180x180">
 
-  <!-- Social -->
   <meta property="og:image" content="https://setheasterdesign.com/assets/icons/social-card.png">
-  <meta property="og:title" content="Seth Easter Design">
+  <meta property="og:title" content="Seth Easter Design — Production Design Studio">
+  <meta property="og:description" content="Broadcast studios, live-event stages and brand experiences. New York City.">
   <meta property="og:site_name" content="Seth Easter Design">
 
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1, viewport-fit=cover"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="/assets/studio.css?v=1">
 
-  <title>Seth Easter Design — Broadcast &amp; Live Event Production</title>
-
-  <!-- Clean v1 Base -->
-  <link rel="stylesheet" href="/assets/styles.css?v=v2">
-  <link rel="stylesheet" href="/assets/hover-cards.css?v=1">
-  <link rel="stylesheet" href="/assets/nav-animations.css?v=1">
-  <link rel="stylesheet" href="/assets/fix.v3.css?v=4">
-
-  <!-- Version C Dark Mode -->
-  <link rel="stylesheet" href="/assets/theme-versionc-dark.css?v=2">
-  <link rel="stylesheet" href="/assets/theme-versionc-dark-patch.css?v=1">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"ProfessionalService","name":"Seth Easter Design","url":"https://setheasterdesign.com/","email":"seth@setheasterdesign.com","address":{"@type":"PostalAddress","addressLocality":"Brooklyn","addressRegion":"NY","addressCountry":"US"},"founder":{"@type":"Person","name":"Seth Easter"},"description":"Production design studio for broadcast studios, live events and brand experiences."}
+  </script>
 </head>
+<body class="studio">
 
-<body id="home-page">
+<a class="sr-only" href="#main">Skip to content</a>
 
-<!-- Splash -->
-<div id="splash" class="splash">
-  <img src="/assets/sed-logo-tight.svg" alt="Loading">
-</div>
-
-<!-- Header -->
-<header class="header">
-  <div class="container nav">
-    <a href="/" class="brand">
-      <img class="brand-logo" src="/assets/sed-logo-tight.svg" alt="SED">
+<header class="s-head">
+  <nav class="wrap s-nav" aria-label="Main">
+    <a href="/" class="s-brand" aria-label="Seth Easter Design home">
+      <img src="/assets/sed-logo-light.svg" alt="SED" width="80" height="34">
+      <span>Seth Easter Design</span>
     </a>
-    <ul class="nav-links" id="topNav">
-  <li><a href="/work/">Work</a></li>
-  <li><a href="/press/">Press &amp; Awards</a></li>
-  <li><a href="/cv.html">CV</a></li>
-  <li><a href="/portfolio/">Portfolio Book</a></li>
-</ul>
-  </div>
+    <button class="s-menu" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Menu">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h14M3 14h14"/></svg>
+    </button>
+    <ul class="s-links" id="navLinks">
+      <li><a href="#services">Services</a></li>
+      <li><a href="/work/">Work</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#studio">Studio</a></li>
+      <li><a href="/press/">Press &amp; Awards</a></li>
+      <li><a class="btn btn-accent" href="#contact">Start a project</a></li>
+    </ul>
+  </nav>
 </header>
 
-<!-- MAIN -->
-<main class="container">
+<main id="main">
 
-  <!-- HERO VIDEO -->
-  <section class="section" id="hero">
-    <div class="ratio-169">
-      <video id="heroVideo"
-        muted playsinline autoplay loop preload="auto"
-        poster="/assets/hero/poster.jpg">
-        <source src="/assets/hero/reel.mp4" type="video/mp4">
-      </video>
+  <section class="s-hero" aria-label="Introduction">
+    <img class="poster" src="/assets/hero/poster.jpg" alt="">
+    <video id="heroVideo" muted playsinline autoplay loop preload="metadata" poster="/assets/hero/poster.jpg" aria-hidden="true">
+      <source src="/assets/hero/reel.mp4" type="video/mp4">
+    </video>
+    <div class="wrap">
+      <p class="eyebrow">Production design studio · New York City</p>
+      <h1>Studios, stages and live events — designed, drafted and delivered.</h1>
+      <p class="sub">Seth Easter Design creates broadcast studios and live-event productions worldwide — from Good Morning America and presidential debate stages to concerts, activations and election-night HQs.</p>
+      <div class="s-cta">
+        <a class="btn btn-accent" href="#contact">Start a project</a>
+        <a class="btn" href="#work">See the work</a>
+        <a class="btn" href="/assets/hero/reel.mp4" target="_blank" rel="noopener">
+          <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14"><path d="M3 1.5v11l9-5.5z" fill="currentColor"/></svg>Watch the reel
+        </a>
+      </div>
     </div>
   </section>
 
-  <!-- HERO TEXT + PORTRAIT -->
-  <section class="section hero-copy-card hero-with-photo-grid">
-
-    <div class="hero-text-box">
-      <h1>Broadcast &amp; Live Event Production</h1>
-      <div id="heroCopy"></div>
-    </div>
-
-    <div class="hero-image-box">
-      <img src="/assets/hero/seth-portrait.jpg" alt="Seth Easter portrait" class="hero-photo">
-    </div>
-
-  </section>
-
-  <!-- Inject hero copy AFTER the hero block -->
-  <script src="/js/home-copy.js?v=hero1" defer></script>
-
-
-  <!-- WORK -->
-  <section id="work" class="section">
-    <h2>Selected Work</h2>
-    <div class="scroller" id="homeScroller">
-      <div id="homeGrid" class="grid"></div>
-      <div id="gridSentinel" style="height:1px"></div>
+  <section class="s-clients" aria-label="Clients">
+    <div class="wrap">
+      <span class="lbl">Trusted by</span>
+      <span class="c">ABC News</span><span class="c">ABC Daytime</span><span class="c">NBC</span><span class="c">HBO</span><span class="c">NewsNation</span><span class="c">Bloomberg</span><span class="c">Paramount</span><span class="c">TED</span><span class="c">Reelz</span>
     </div>
   </section>
 
-  <!-- AWARDS -->
-  <section id="awards" class="section section-panel">
-    <h2>Awards</h2>
-    <ul class="list" id="awardsList"></ul>
-    <p><a class="btn btn-secondary" href="/press/">See all Press &amp; Awards →</a></p>
+  <section class="wrap s-nums" aria-label="Studio at a glance">
+    <div><b>20+</b><span>years designing for network news, daytime and live events</span></div>
+    <div><b>3 Emmys</b><span>six nominations, plus Art Directors Guild and DuPont-Columbia awards</span></div>
+    <div><b>6</b><span>Olympic Games, plus presidential debates, royal ceremonies and the Tony Awards</span></div>
+    <div><b>187M</b><span>pixels of LED in the 2025 GMA studio at Disney Hudson Square</span></div>
   </section>
 
-  <!-- PRESS -->
-  <section class="section section-panel">
-    <h2>Press</h2>
-    <ul id="pressLinks" class="press-links"></ul>
-    <p><a class="btn btn-secondary" href="/press/">See all Press &amp; Awards →</a></p>
+  <section id="services" class="wrap s-sec">
+    <div class="s-sechead">
+      <div>
+        <p class="eyebrow">What we do</p>
+        <h2 class="h2" style="max-width:720px">One studio from first sketch to first broadcast.</h2>
+      </div>
+      <p class="lede" style="max-width:420px">Concept, renderings, construction drawings and LED integration under one roof — so the set that's approved is the set that's built.</p>
+    </div>
+    <div class="s-services">
+      <article class="s-card"><span class="n">01</span><h3>Broadcast studios</h3><p>Permanent news and talk sets, multi-show modular studios, LED-forward and AR-ready environments.</p><p class="ex">GMA · World News Tonight · This Week · The View</p></article>
+      <article class="s-card"><span class="n">02</span><h3>Live events &amp; specials</h3><p>Debate stages, election nights, award shows and concert specials — built fast, built to air.</p><p class="ex">Presidential debates · Tony Awards · Election 2024</p></article>
+      <article class="s-card"><span class="n">03</span><h3>Brand experiences</h3><p>Multi-stage activations and immersive builds for brands and their agencies.</p><p class="ex">Bloomberg Screentime · Paramount Super Bowl ride</p></article>
+      <article class="s-card"><span class="n">04</span><h3>LED &amp; video as scenery</h3><p>Screen layouts, pixel maps and video one-sheets that make the walls part of the design, not an add-on.</p><p class="ex">Video one-sheets · pivot walls · newsroom displays</p></article>
+    </div>
+  </section>
+
+  <section id="work" class="wrap s-sec" style="padding-top:40px">
+    <div class="s-sechead">
+      <div>
+        <p class="eyebrow">Selected work</p>
+        <h2 class="h2">Recent projects</h2>
+      </div>
+      <div class="s-filters" role="group" aria-label="Filter projects">
+        <button type="button" data-f="All" aria-pressed="true">All</button>
+        <button type="button" data-f="Broadcast" aria-pressed="false">Broadcast</button>
+        <button type="button" data-f="Live event" aria-pressed="false">Live event</button>
+        <button type="button" data-f="Brand experience" aria-pressed="false">Brand experience</button>
+      </div>
+    </div>
+
+    <a class="s-feature" href="/project/?slug=gma-2025">
+      <img src="/assets/work/gma-2025/cover.jpg" alt="Good Morning America 2025 studio at Disney Hudson Square" loading="lazy">
+      <div class="body">
+        <span class="tag">Featured · Broadcast</span>
+        <h3>Good Morning America — 2025 studio</h3>
+        <p>A loft-style home for GMA at Disney Hudson Square: ~187M pixels of LED, moving multipurpose walls, AR-ready.</p>
+        <span class="s-meta">ABC News · 2025 · Production Designer</span>
+        <span style="margin-top:8px;font-weight:600">View project →</span>
+      </div>
+    </a>
+
+    <div class="s-grid" id="workGrid" aria-live="polite"></div>
+    <div class="s-more"><a class="btn" href="/work/" id="allWork">All projects →</a></div>
+  </section>
+
+  <section id="process" class="s-process">
+    <div class="wrap s-sec">
+      <p class="eyebrow">How we work</p>
+      <h2 class="h2" style="max-width:800px">Built for air dates that don't move.</h2>
+      <div class="s-steps">
+        <div><b>01 — Concept</b><p>Show format, camera plan and audience flow become sketches and full renderings for network sign-off.</p></div>
+        <div><b>02 — Drafting</b><p>Shop-ready plans, elevations and details on a consistent title-block standard that builders can bid from.</p></div>
+        <div><b>03 — Integration</b><p>LED, lighting and video coordinated early, with one-sheets that keep every vendor on the same pixel map.</p></div>
+        <div><b>04 — Build &amp; air</b><p>On site through fabrication, load-in and rehearsals until the first show is on air.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="studio" class="wrap s-sec">
+    <div class="s-studio">
+      <img src="/assets/hero/seth-portrait.jpg" alt="Seth Easter" loading="lazy">
+      <div>
+        <p class="eyebrow">The studio</p>
+        <h2>Led by Emmy-winning production designer Seth Easter.</h2>
+        <p>Seth has spent more than two decades designing for ABC News and ABC Daytime — LED-forward, video-as-scenery studios, the modular multi-show complex at Disney Hudson Square, election-night HQs and presidential debate stages. He was art director on multiple Tony Awards broadcasts and part of the Emmy-winning team for the 65th Tony Awards.</p>
+        <p>The studio brings that network discipline to every client: broadcasters, agencies and brands who need a space that works on camera and in the room.</p>
+        <div class="s-chips">
+          <span>New York City</span><span>IATSE / USA 829</span><span>Working worldwide</span>
+          <a href="/cv.html">Full CV →</a><a href="/portfolio/">Portfolio book →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="recognition" class="s-recog">
+    <div class="wrap s-sec">
+      <div>
+        <p class="eyebrow">Awards</p>
+        <ul class="s-list" id="awardsList"></ul>
+      </div>
+      <div>
+        <p class="eyebrow">Press</p>
+        <ul class="s-list s-press" id="pressList"></ul>
+        <a class="s-link" href="/press/">All press &amp; awards →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="s-contact">
+    <div class="wrap s-sec">
+      <div>
+        <p class="eyebrow">Start a project</p>
+        <h2>Have a show, stage or space coming up?</h2>
+        <p class="lede">Tell us the format, the venue and the air date, and we'll get back to you with next steps.</p>
+        <div class="s-direct">
+          <a href="mailto:seth@setheasterdesign.com">seth@setheasterdesign.com</a>
+          <span>Brooklyn, New York</span>
+        </div>
+      </div>
+      <form class="s-form" id="inquiry" aria-label="Project inquiry" novalidate>
+        <label>Name<input name="name" type="text" autocomplete="name" required></label>
+        <label>Email<input name="email" type="email" autocomplete="email" required></label>
+        <label>Company / network<input name="company" type="text" autocomplete="organization"></label>
+        <label>Project type
+          <select name="type">
+            <option>Broadcast studio</option><option>Live event / special</option><option>Brand experience</option><option>LED / video design</option><option>Other</option>
+          </select>
+        </label>
+        <label class="full">Venue, air date and anything else we should know<textarea name="msg" rows="5" required></textarea></label>
+        <button class="btn btn-accent" type="submit">Send inquiry</button>
+        <p class="note" id="formNote">Opens your email app with the details filled in.</p>
+      </form>
+    </div>
   </section>
 
 </main>
 
-<!-- FOOTER -->
-<footer class="footer-site">
-  © Seth Easter · <a href="mailto:seth@setheasterdesign.com">seth@setheasterdesign.com</a>
+<footer class="s-foot">
+  <div class="wrap">
+    <span>© <span id="yr">2026</span> Seth Easter Design · New York City</span>
+    <nav aria-label="Footer">
+      <a href="/work/">Work</a><a href="/press/">Press &amp; Awards</a><a href="/cv.html">CV</a><a href="/portfolio/">Portfolio Book</a><a href="https://www.imdb.com/name/nm3267837/" target="_blank" rel="noopener">IMDb</a>
+    </nav>
+  </div>
 </footer>
 
-<!-- JS -->
-<script src="/js/splash.js?v=fix16" defer></script>
-<script src="/js/hero-video.js?v=fix16" defer></script>
-<script src="/js/home-grid.js?v=fix16" defer></script>
-<script src="/js/press-home.js?v=fix16" defer></script>
-<script src="/js/awards.js?v=fix16" defer></script>
-
+<script src="/js/studio-home.js?v=1" defer></script>
 </body>
 </html>
