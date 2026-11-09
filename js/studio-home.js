@@ -55,15 +55,6 @@
     });
   }
 
-  /* ---------- hero video: respect reduced motion / save-data ---------- */
-  var v = document.getElementById("heroVideo");
-  if (v) {
-    var conn = navigator.connection || {};
-    var calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (calm || conn.saveData) { v.removeAttribute("autoplay"); v.pause(); v.style.display = "none"; }
-    else { var p = v.play && v.play(); if (p && p.catch) p.catch(function () {}); }
-  }
-
   /* ---------- work grid ---------- */
   var grid = document.getElementById("workGrid");
   var projects = [], filter = "All";
