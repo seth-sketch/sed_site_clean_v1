@@ -132,7 +132,7 @@
       var subject = "Project inquiry — " + f.type.value + (f.company.value ? " — " + f.company.value : "");
       var body = "Name: " + f.name.value + "\nEmail: " + f.email.value + "\nCompany: " + f.company.value +
         "\nProject type: " + f.type.value + "\n\n" + f.msg.value;
-      window.location.href = "mailto:seth@setheasterdesign.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+      window.location.href = "mailto:info@setheasterdesign.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
       note.textContent = "Your email app should open with the message ready to send.";
     });
   }
