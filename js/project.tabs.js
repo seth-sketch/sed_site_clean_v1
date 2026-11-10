@@ -77,14 +77,14 @@
       const m = media[i];
       viewer.innerHTML = '';
       if(m?.type === 'video'){
-        const v = document.createElement('video'); v.src = m.src; v.controls = true; v.playsInline = true; viewer.appendChild(v);
+        const v = document.createElement('video'); v.src = m.src; v.controls = true; v.playsInline = true; v.muted = true; v.autoplay = true; v.loop = true; if(m.poster) v.poster = m.poster; viewer.appendChild(v); v.play && v.play().catch(()=>{});
       }else{
         const img = document.createElement('img'); img.src = m.src; img.alt = item.title || ''; viewer.appendChild(img);
       }
       Array.from(strip.children).forEach((im, idx)=> im.classList.toggle('active', idx === i));
     }
     media.forEach((mm,i)=>{
-      const thumb = (mm?.type === 'image') ? mm.src : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80"><rect width="120" height="80" fill="%23000"/><polygon points="45,25 45,55 75,40" fill="%23fff"/></svg>';
+      const thumb = (mm?.type === 'image') ? mm.src : mm?.poster ? mm.poster : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80"><rect width="120" height="80" fill="%23000"/><polygon points="45,25 45,55 75,40" fill="%23fff"/></svg>';
       const im = document.createElement('img'); im.src = thumb; im.alt = 'thumb'; if(i===0) im.classList.add('active'); im.addEventListener('click', ()=> openAt(i)); strip.appendChild(im);
     });
     openAt(0);
@@ -107,7 +107,7 @@
   // main init
   (async function init(){
     try{
-      const data = await getJSON('/assets/work.json?v=sed1110d');
+      const data = await getJSON('/assets/work.json?v=sed1110e');
       if(!Array.isArray(data)) return;
       // normalise items
       const items = data.map((raw,i)=>{

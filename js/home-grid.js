@@ -30,7 +30,7 @@
 
   function fetchJSON(u){ return fetch(u,{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }); }
   function loadList(cb){
-    var bases=['/assets/work.json?v=sed1110d','./assets/work.json?v=sed1110d','../assets/work.json?v=sed1110d'];
+    var bases=['/assets/work.json?v=sed1110e','./assets/work.json?v=sed1110e','../assets/work.json?v=sed1110e'];
     (function next(i){
       if(i>=bases.length) return cb([]);
       fetchJSON(bases[i]+'?v='+Date.now())
