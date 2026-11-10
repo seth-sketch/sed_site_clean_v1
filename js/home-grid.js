@@ -30,7 +30,7 @@
 
   function fetchJSON(u){ return fetch(u,{cache:'no-store'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }); }
   function loadList(cb){
-    var bases=['/assets/work.json','./assets/work.json','../assets/work.json'];
+    var bases=['/assets/work.json?v=sed1110','./assets/work.json?v=sed1110','../assets/work.json?v=sed1110'];
     (function next(i){
       if(i>=bases.length) return cb([]);
       fetchJSON(bases[i]+'?v='+Date.now())

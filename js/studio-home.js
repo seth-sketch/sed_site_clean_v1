@@ -82,7 +82,7 @@
     });
   });
 
-  getJSON("/assets/work.json").then(function (d) {
+  getJSON("/assets/work.json?v=sed1110").then(function (d) {
     var all = (Array.isArray(d) ? d : (d.items || [])).filter(function (p) { return p.slug && p.cover && p.slug !== FEATURED; });
     all.sort(function (a, b) {
       var ia = ORDER.indexOf(a.slug), ib = ORDER.indexOf(b.slug);
@@ -95,7 +95,7 @@
   }).catch(function () { if (grid) grid.innerHTML = '<p class="lede">See all projects on the <a href="/work/">work page</a>.</p>'; });
 
   /* ---------- awards ---------- */
-  getJSON("/assets/awards.json").then(function (d) {
+  getJSON("/assets/awards.json?v=sed1110").then(function (d) {
     var ul = document.getElementById("awardsList"); if (!ul || !Array.isArray(d)) return;
     d.sort(function (a, b) { return (b.year || 0) - (a.year || 0); });
     ul.innerHTML = d.slice(0, 5).map(function (a) {
@@ -108,7 +108,7 @@
   /* ---------- press ---------- */
   var MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
   function fmt(d) { var m = /^(\d{4})-(\d{2})/.exec(d || ""); return m ? MONTHS[+m[2] - 1] + " " + m[1] : (d || ""); }
-  getJSON("/assets/press.json").then(function (d) {
+  getJSON("/assets/press.json?v=sed1110").then(function (d) {
     var ul = document.getElementById("pressList"); if (!ul || !Array.isArray(d)) return;
     d.sort(function (a, b) { return String(b.date || "").localeCompare(String(a.date || "")); });
     ul.innerHTML = d.slice(0, 4).map(function (p) {
