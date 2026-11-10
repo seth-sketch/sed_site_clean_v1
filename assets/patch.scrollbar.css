@@ -1,5 +1,5 @@
 
-:root { --accent-blue: #3abff8; }
+:root { --accent-blue: #FFB23F; }
 /* Global scrollbar (desktop only; iOS Safari ignores) */
 * { scrollbar-width: auto; scrollbar-color: var(--accent-blue) #111216; }
 ::-webkit-scrollbar { width: 12px; height: 12px; }

@@ -1,5 +1,5 @@
 /* ---- WORK PAGE (scoped) ---- */
-#work { --work-accent:#3abff8; }
+#work { --work-accent:#FFB23F; }
 
 /* Responsive grid host (graceful if your template already defines it) */
 #work #workGrid,

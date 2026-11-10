@@ -66,8 +66,8 @@
   font-weight: 600;
 }
 #projTabs .tab.active {
-  background: #3a51a3;
-  color: #fff;
+  background: #FFB23F;
+  color:#14161F;
 }
 
 /* Panels */
@@ -81,8 +81,8 @@
 /* File links (buttons) */
 .file-link {
   display: inline-block;
-  background: #3a51a3;
-  color: #fff;
+  background: #FFB23F;
+  color:#14161F;
   border: none;
   border-radius: 6px;
   padding: 8px 14px;
@@ -91,7 +91,7 @@
   font-weight: 600;
 }
 .file-link:hover {
-  background: #2e3e85;
+  background: #FFC366;
 }
 
 /* Thumbnails strip */
@@ -106,6 +106,6 @@
   margin-right: 8px;
 }
 #projStrip img.active {
-  outline: 2px solid #3abff8;
+  outline: 2px solid #FFB23F;
   opacity: 1;
 }

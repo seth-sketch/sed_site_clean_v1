@@ -9,7 +9,7 @@
 /* tabs */
 #projTabs { display:flex; gap:8px; margin:16px 0; flex-wrap:wrap; }
 #projTabs .tab { background:#eee; border:0; padding:8px 12px; border-radius:6px; cursor:pointer; font-weight:600; }
-#projTabs .tab.active { background:#3a51a3; color:#fff; }
+#projTabs .tab.active { background:#FFB23F; color:#14161F; }
 
 /* panels */
 #projPanel .panel { display:none; }
@@ -17,10 +17,10 @@
 
 /* file links (buttons) */
 .file-link {
-  display:inline-block; background:#3a51a3; color:#fff; border:none; border-radius:6px;
+  display:inline-block; background:#FFB23F; color:#14161F; border:none; border-radius:6px;
   padding:8px 14px; margin:6px 8px 6px 0; cursor:pointer; font-weight:600;
 }
-.file-link:hover { background:#2e3e85; }
+.file-link:hover { background:#FFC366; }
 
 /* thumbnails strip compatibility */
 .strip img { width:120px; height:auto; object-fit:cover; margin-right:8px; border-radius:4px; opacity:.8; cursor:pointer; }

@@ -22,7 +22,7 @@
         "label": "Draftings",
         "files": [
           {
-                "label": "Video One-Sheet 1 of 4 (20250922)",
+            "label": "Video One-Sheet 1 of 4 (20250922)",
             "href": "/assets/work/gma-2025/GMAStudioC701VIDEOONESHEET1OF420250922.pdf"
           },
           {
@@ -104,7 +104,7 @@
   },
   {
     "slug": "this-week-4e",
-    "title": "This Week \u2014 NYC Studio (4E)",
+    "title": "This Week — NYC Studio (4E)",
     "client": "ABC News",
     "year": "2025",
     "role": "Production Designer",
@@ -114,7 +114,7 @@
       "/assets/work/this-week-4e/2.jpg",
       "/assets/work/this-week-4e/3.jpg"
     ],
-    "description": "Political format with dynamic on\u2011air zones and LED features.",
+    "description": "Political format with dynamic on‑air zones and LED features.",
     "tabs": [
       {
         "type": "media",
@@ -138,7 +138,7 @@
   },
   {
     "slug": "election-2024",
-    "title": "Election Night 2024 Set & On\u2011Set UX",
+    "title": "Election Night 2024 Set & On‑Set UX",
     "client": "ABC News",
     "year": "2024",
     "role": "Production Designer",
@@ -148,7 +148,7 @@
       "/assets/work/election-2024/2.jpg",
       "/assets/work/election-2024/3.jpg"
     ],
-    "description": "High\u2011clarity graphics and spatial UX for live returns.",
+    "description": "High‑clarity graphics and spatial UX for live returns.",
     "tabs": [
       {
         "type": "media",
@@ -186,7 +186,7 @@
       "/assets/work/abc-debate-stage/2.jpg",
       "/assets/work/abc-debate-stage/3.jpg"
     ],
-    "description": "Debate lecterns, audience layout, and network\u2011level scenic package.",
+    "description": "Debate lecterns, audience layout, and network‑level scenic package.",
     "tabs": [
       {
         "type": "media",
@@ -228,7 +228,7 @@
       "/assets/work/election-roadset/2.jpg",
       "/assets/work/election-roadset/3.jpg"
     ],
-    "description": "Portable set with fast load\u2011in for remote election coverage.",
+    "description": "Portable set with fast load‑in for remote election coverage.",
     "tabs": [
       {
         "type": "media",
@@ -239,19 +239,16 @@
         "label": "Draftings",
         "files": [
           {
-     
             "label": "Debate Layout 1",
             "href": "/assets/work/election-roadset/8.0DEBATELAYOUT1.pdf"
           },
           {
             "label": "Debate Layout 2",
             "href": "/assets/work/election-roadset/8.1DEBATELAYOUT2.pdf"
-         
-           },
+          },
           {
             "label": "CL Sections",
             "href": "/assets/work/election-roadset/2.2CLSECTIONS.pdf"
-
           },
           {
             "label": "Cam R Section",
@@ -260,7 +257,6 @@
           {
             "label": "Site Plan No Overhead",
             "href": "/assets/work/election-roadset/1.1SITEPLANNOOVERHEAD.pdf"
-        
           },
           {
             "label": "Revised Carr Center Spin Room",
@@ -293,15 +289,6 @@
         "label": "Draftings",
         "files": [
           {
-            "label": "Studio Plan",
-            "href": "/assets/work/world-news-tonight/7HSQStudio4E100STUDIOPLANWNT20250404.pdf"
-        
-          },
-          {
-            "label": "Bottom Perspective (No Venue)",
-            "href": "/assets/work/world-news-tonight/7HSQStudio4E203BOTTOMPERSPECTIVENOVENUE20250204.pdf"
-          },
-          {
             "label": "Video One Sheet 1 of 3",
             "href": "/assets/work/world-news-tonight/7HSQStudio4E701VIDEOONESHEET1OF320250220.pdf"
           }
@@ -318,10 +305,9 @@
     "cover": "/assets/work/the-view-refresh/cover.jpg",
     "gallery": [
       "/assets/work/the-view-refresh/1.jpg",
-      "/assets/work/the-view-refresh/2.jpg",
-      "/assets/work/the-view-refresh/3.jpg"
+      "/assets/work/the-view-refresh/2.jpg"
     ],
-    "description": "Audience\u2011forward refresh with updated finishes and LED.",
+    "description": "Audience‑forward refresh with updated finishes and LED.",
     "tabs": [
       {
         "type": "media",
@@ -384,7 +370,6 @@
           {
             "label": "H2.1 Studio Section (20241218)",
             "href": "/assets/work/abc-news-live/NewsLiveStudio4HH2.1STUDIOSECTION4H20241218.pdf"
-      
           },
           {
             "label": "LED Video One Sheet (H7.0)",
@@ -406,7 +391,7 @@
       "/assets/work/dan-abrams-live-newsnation/2.jpg",
       "/assets/work/dan-abrams-live-newsnation/3.jpg"
     ],
-    "description": "Immersive storytelling positions with flexible stand\u2011ups.",
+    "description": "Immersive storytelling positions with flexible stand‑ups.",
     "tabs": [
       {
         "type": "media",
@@ -417,16 +402,15 @@
         "label": "Draftings",
         "files": [
           {
-                   
-           "label": "Studio Plan \u2013 10th Floor",
+            "label": "Studio Plan – 10th Floor",
             "href": "/assets/work/dan-abrams-live-newsnation/1.0-STUDIOPLAN10THFLOOR-2021-10-30.pdf"
           },
           {
-            "label": "Studio Plan with Grid \u2013 10th Floor",
+            "label": "Studio Plan with Grid – 10th Floor",
             "href": "/assets/work/dan-abrams-live-newsnation/1.1-STUDIOPLAN10THFLOORWITHGRID-2021-10-30.pdf"
           },
           {
-            "label": "Floor Plan \u2013 10th Floor",
+            "label": "Floor Plan – 10th Floor",
             "href": "/assets/work/dan-abrams-live-newsnation/1.5-FLOORPLAN10THFLOOR-2021-10-30.pdf"
           }
         ]
@@ -445,7 +429,7 @@
       "/assets/work/fight-game-lampley/2.jpg",
       "/assets/work/fight-game-lampley/3.jpg"
     ],
-    "description": "Boxing analysis set with intimate on\u2011camera positions.",
+    "description": "Boxing analysis set with intimate on‑camera positions.",
     "tabs": [
       {
         "type": "media",
@@ -465,7 +449,7 @@
       "/assets/work/on-patrol-live/2.jpg",
       "/assets/work/on-patrol-live/3.jpg"
     ],
-    "description": "Multi\u2011desk live control zone with high telemetry visibility.",
+    "description": "Multi‑desk live control zone with high telemetry visibility.",
     "tabs": [
       {
         "type": "media",
@@ -485,7 +469,7 @@
   },
   {
     "slug": "oscars-red-carpet-abc",
-    "title": "Oscars Red Carpet \u2014 ABC",
+    "title": "Oscars Red Carpet — ABC",
     "client": "ABC",
     "year": "2019",
     "role": "Production Designer",
@@ -495,7 +479,7 @@
       "/assets/work/oscars-red-carpet-abc/2.jpg",
       "/assets/work/oscars-red-carpet-abc/3.jpg"
     ],
-    "description": "Lively red\u2011carpet broadcast positions and elegant scenic.",
+    "description": "Lively red‑carpet broadcast positions and elegant scenic.",
     "tabs": [
       {
         "type": "media",
@@ -549,7 +533,7 @@
   },
   {
     "slug": "ted-ed-bam",
-    "title": "TED-Ed \u2013 BAM",
+    "title": "TED-Ed – BAM",
     "client": "TED",
     "year": "2016",
     "role": "Production Designer",
@@ -569,7 +553,7 @@
   },
   {
     "slug": "ted-live-town-hall",
-    "title": "TED Live \u2013 Town Hall",
+    "title": "TED Live – Town Hall",
     "client": "TED",
     "year": "2016",
     "role": "Production Designer",
@@ -584,15 +568,10 @@
       {
         "type": "media",
         "label": "Renderings"
-      },
-      {
-        "type": "files",
-        "label": "Draftings",
-        "files": []
       }
     ]
   },
-    {
+  {
     "slug": "gma-alicia-keys-drive-in",
     "title": "Alicia Keys performs for essential workers!",
     "client": "ABC",
@@ -605,22 +584,24 @@
       "/assets/work/gma-alicia-keys-drive-in/2.jpg"
     ],
     "media": [
-      { "type": "video", "src": "/assets/work/gma-alicia-keys-drive-in/video.mp4" },
-      { "type": "image", "src": "/assets/work/gma-alicia-keys-drive-in/1.jpg" },
-      { "type": "image", "src": "/assets/work/gma-alicia-keys-drive-in/2.jpg" }
+      {
+        "type": "video",
+        "src": "/assets/work/gma-alicia-keys-drive-in/video.mp4"
+      },
+      {
+        "type": "image",
+        "src": "/assets/work/gma-alicia-keys-drive-in/1.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/assets/work/gma-alicia-keys-drive-in/2.jpg"
+      }
     ],
     "description": "I designed a drive-in style concert during COVID for Good Morning America featuring Alicia Keys performing with the Empire State Building directly behind her.",
     "tabs": [
-      { "type": "media", "label": "Renderings" },
       {
-        "type": "files",
-        "label": "Draftings",
-        "files": [
-          {
-            "label": "Drive In Plan",
-            "href": "/assets/work/gma-alicia-keys-drive-in/drive-in-plan.pdf"
-          }
-        ]
+        "type": "media",
+        "label": "Renderings"
       }
     ]
   },
@@ -637,123 +618,68 @@
       "/assets/work/newsnation-new-york/3.jpg"
     ],
     "tabs": [
-      { "type": "media", "label": "Renderings" },
       {
-        "type": "files",
-        "label": "Draftings",
-        "files": [
-          {
-            "label": "Ground Plan",
-            "href": "/assets/work/newsnation-new-york/groundplan.pdf"
-          },
-          {
-            "label": "Elevation",
-            "href": "/assets/work/newsnation-new-york/elevation.pdf"
-          }
-        ]
+        "type": "media",
+        "label": "Renderings"
       }
     ]
   },
-{
-  "slug": "bloomberg-screentime",
-  "title": "BLOOMBERG SCREENTIME MULTI STAGE EVENT AND ACTIVATION",
-  "client": "BLOOMBERG - AGENCY",
-  "year": "",
-  "role": "Production Designer",
-  "cover": "/assets/work/bloomberg-screentime/cover.jpg",
-  "gallery": [
-    "/assets/work/bloomberg-screentime/1.jpg",
-    "/assets/work/bloomberg-screentime/2.jpg",
-    "/assets/work/bloomberg-screentime/3.jpg"
-  ],
-  "description": "",
-  "tabs": [
-    {
-      "type": "media",
-      "label": "Renderings"
-    },
-    {
-      "type": "files",
-      "label": "Draftings",
-      "files": [
-        {
-          "label": "Ground Plan",
-          "href": "/assets/work/project-01/groundplan.pdf"
-        },
-        {
-          "label": "Elevation",
-          "href": "/assets/work/project-01/elevation.pdf"
-        }
-      ]
-    }
-  ]
-},
-{
-  "slug": "paramount-4d-ride",
-  "title": "4D CREATIVE RIDE BUILT INSIDE OF A GONDOLLA FOR THE SUPER BOWL",
-  "client": "PARAMOUNT - AGENCY",
-  "year": "",
-  "role": "Production Designer",
-  "cover": "/assets/work/paramount-4d-ride/cover.jpg",
-  "gallery": [
-    "/assets/work/paramount-4d-ride/1.jpg",
-    "/assets/work/paramount-4d-ride/2.jpg",
-    "/assets/work/paramount-4d-ride/3.jpg"
-  ],
-  "description": "",
-  "tabs": [
-    {
-      "type": "media",
-      "label": "Renderings"
-    },
-    {
-      "type": "files",
-      "label": "Draftings",
-      "files": [
-        {
-          "label": "Ground Plan",
-          "href": "/assets/work/project-02/groundplan.pdf"
-        },
-        {
-          "label": "Elevation",
-          "href": "/assets/work/project-02/elevation.pdf"
-        }
-      ]
-    }
-  ]
-},
-{
-  "slug": "led-newsroom-display",
-  "title": "led art piece to serve as screen monitoring for newsroom",
-  "client": "",
-  "year": "",
-  "role": "Production Designer",
-  "cover": "/assets/work/led-newsroom-display/cover.jpg",
-  "gallery": [
-    "/assets/work/led-newsroom-display/1.jpg",
-    "/assets/work/led-newsroom-display/2.jpg",
-    "/assets/work/led-newsroom-display/3.jpg"
-  ],
-  "description": "",
-  "tabs": [
-    {
-      "type": "media",
-      "label": "Renderings"
-    },
-    {
-      "type": "files",
-      "label": "Draftings",
-      "files": [
-        {
-          "label": "Ground Plan",
-          "href": "/assets/work/project-03/groundplan.pdf"
-        },
-        {
-          "label": "Elevation",
-          "href": "/assets/work/project-03/elevation.pdf"
-        }
-      ]
-    }
-  ]
-}
+  {
+    "slug": "bloomberg-screentime",
+    "title": "BLOOMBERG SCREENTIME MULTI STAGE EVENT AND ACTIVATION",
+    "client": "BLOOMBERG - AGENCY",
+    "year": "",
+    "role": "Production Designer",
+    "cover": "/assets/work/bloomberg-screentime/cover.jpg",
+    "gallery": [
+      "/assets/work/bloomberg-screentime/1.jpg",
+      "/assets/work/bloomberg-screentime/2.jpg",
+      "/assets/work/bloomberg-screentime/3.jpg"
+    ],
+    "description": "",
+    "tabs": [
+      {
+        "type": "media",
+        "label": "Renderings"
+      }
+    ]
+  },
+  {
+    "slug": "paramount-4d-ride",
+    "title": "4D CREATIVE RIDE BUILT INSIDE OF A GONDOLLA FOR THE SUPER BOWL",
+    "client": "PARAMOUNT - AGENCY",
+    "year": "",
+    "role": "Production Designer",
+    "cover": "/assets/work/paramount-4d-ride/cover.jpg",
+    "gallery": [
+      "/assets/work/paramount-4d-ride/1.jpg",
+      "/assets/work/paramount-4d-ride/2.jpg",
+      "/assets/work/paramount-4d-ride/3.jpg"
+    ],
+    "description": "",
+    "tabs": [
+      {
+        "type": "media",
+        "label": "Renderings"
+      }
+    ]
+  },
+  {
+    "slug": "led-newsroom-display",
+    "title": "led art piece to serve as screen monitoring for newsroom",
+    "client": "",
+    "year": "",
+    "role": "Production Designer",
+    "cover": "/assets/work/led-newsroom-display/cover.jpg",
+    "gallery": [
+      "/assets/work/led-newsroom-display/1.jpg"
+    ],
+    "description": "",
+    "tabs": [
+      {
+        "type": "media",
+        "label": "Renderings"
+      }
+    ]
+  }
 ]

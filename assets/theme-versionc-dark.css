@@ -36,11 +36,11 @@ h1, h2, h3, h4 {
 
 /* --------------- LINKS --------------- */
 a {
-  color: #3C7BFF !important;
+  color: #FFB23F !important;
   transition: 0.25s ease;
 }
 a:hover {
-  color: #73a2ff !important;
+  color: #FFC366 !important;
 }
 
 /* --------------- HEADER / NAV --------------- */
@@ -57,10 +57,10 @@ a:hover {
   border-bottom: 2px solid transparent !important;
 }
 .nav-links a:hover {
-  border-color: #3C7BFF !important;
+  border-color: #FFB23F !important;
 }
 .nav-links a.active {
-  border-color: #3C7BFF !important;
+  border-color: #FFB23F !important;
 }
 
 /* Logo */

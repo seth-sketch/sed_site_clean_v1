@@ -44,16 +44,19 @@ body.studio{margin:0;background:var(--ink);color:var(--text);font-family:'Jost',
 .s-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:40px}
 
 /* clients — slow logo marquee */
-.s-clients{border-top:1px solid rgba(244,242,236,.08);border-bottom:1px solid rgba(244,242,236,.08);padding:30px 0 34px;overflow:hidden}
+.s-clients{border-top:1px solid rgba(244,242,236,.08);border-bottom:1px solid rgba(244,242,236,.08);padding:30px 0 34px;overflow:hidden;position:relative}
 .s-clients-head{margin-bottom:22px}
 .s-clients .lbl{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-4)}
-.s-marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.s-marquee{overflow:hidden;position:relative}
+.s-marquee::before,.s-marquee::after{content:"";position:absolute;top:0;bottom:0;width:8%;z-index:1;pointer-events:none}
+.s-marquee::before{left:0;background:linear-gradient(90deg,var(--ink),rgba(20,22,31,0))}
+.s-marquee::after{right:0;background:linear-gradient(270deg,var(--ink),rgba(20,22,31,0))}
 .s-marquee+.s-marquee{margin-top:22px}
-.s-track{display:flex;width:max-content;animation:s-scroll 150s linear infinite;opacity:.82}
-.s-track.rev{animation-direction:reverse;animation-duration:165s}
+.s-track{display:flex;width:max-content;animation:s-scroll 150s linear infinite;will-change:transform;backface-visibility:hidden;opacity:.82}
+.s-track.rev{animation-name:s-scroll-rev;animation-duration:165s}
 .s-track img{height:46px;width:auto;max-width:none;flex:none;padding-right:120px}
-.s-clients:hover .s-track{animation-play-state:paused}
-@keyframes s-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes s-scroll{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+@keyframes s-scroll-rev{from{transform:translate3d(-50%,0,0)}to{transform:translate3d(0,0,0)}}
 @media (max-width:900px){.s-track img{height:34px;padding-right:88px}.s-track{animation-duration:120s}.s-track.rev{animation-duration:132s}}
 @media (prefers-reduced-motion:reduce){.s-track,.s-track.rev{animation:none}.s-marquee{overflow-x:auto}}
 
