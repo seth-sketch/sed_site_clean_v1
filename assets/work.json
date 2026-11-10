@@ -42,6 +42,27 @@
     ]
   },
   {
+    "slug": "fos-tonight-la",
+    "title": "Front Office Sports Tonight — Los Angeles Studio",
+    "client": "Front Office Sports",
+    "year": "2026",
+    "role": "Production Design",
+    "cover": "/assets/work/fos-tonight-la/cover.jpg",
+    "gallery": [
+      "/assets/work/fos-tonight-la/cover.jpg",
+      "/assets/work/fos-tonight-la/1.jpg",
+      "/assets/work/fos-tonight-la/2.jpg",
+      "/assets/work/fos-tonight-la/3.jpg"
+    ],
+    "description": "A new Los Angeles home for Front Office Sports Tonight, broadcast on FOX and Samsung TV Plus: LED window walls, a backlit FOS logo feature wall, dressed shelving and a glass anchor desk, with lighting designed alongside the set.",
+    "tabs": [
+      {
+        "type": "media",
+        "label": "Photos"
+      }
+    ]
+  },
+  {
     "slug": "beyonce-4th-of-july-statue-of-liberty-2011",
     "title": "Beyonce 4th of July at the Statue of Liberty",
     "client": "NBC",

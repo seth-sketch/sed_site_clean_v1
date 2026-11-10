@@ -20,3 +20,5 @@ body.studio main.container{max-width:1320px;padding-left:40px;padding-right:40px
 @media (max-width:900px){body.studio main.container{padding-left:22px;padding-right:22px}}
 body.studio .s-intro{max-width:720px;font-size:19px;color:#C9CAD3;font-weight:300;margin:0 0 40px}
 body.studio .s-subhead{font-size:13px !important;letter-spacing:.22em;text-transform:uppercase;color:#FFB23F !important;font-weight:500;margin:0 0 16px}
+body.studio #projStrip{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+body.studio #projStrip img{margin-right:0}

@@ -13,8 +13,8 @@
   if (!pressEl && !awardsEl) return;
 
   (async function(){
-    const press  = await loadFirst(['/assets/press.json?v=sed1110','/assets/press-home.json','/assets/data/press.json']);
-    const awards = await loadFirst(['/assets/awards.json?v=sed1110','/assets/data/awards.json']);
+    const press  = await loadFirst(['/assets/press.json?v=sed1110c','/assets/press-home.json','/assets/data/press.json']);
+    const awards = await loadFirst(['/assets/awards.json?v=sed1110c','/assets/data/awards.json']);
 
     if (pressEl){
       pressEl.innerHTML = '';
