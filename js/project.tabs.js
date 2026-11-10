@@ -107,7 +107,7 @@
   // main init
   (async function init(){
     try{
-      const data = await getJSON('/assets/work.json?v=sed1110c');
+      const data = await getJSON('/assets/work.json?v=sed1110d');
       if(!Array.isArray(data)) return;
       // normalise items
       const items = data.map((raw,i)=>{
